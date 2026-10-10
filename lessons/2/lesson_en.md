@@ -1,7 +1,7 @@
-# Week 2 — Boxes with Labels: Variables and Strings
+# Week 2 — Syntax Week: Variables, Quoting, and Substitution
 
-> Part of the [10-week Tcl learning plan](../../PLAN.md).  
-> Goal this week: store values with `set`, read them with `$`, and do simple math with `expr`.
+> Part of the [Tcl-first plan](../../PLAN.md) (**M10** weeks 1–10).  
+> Goal this week: store values with `set`, and learn how Tcl **reads your sentence** — `"..."`, `{...}`, `$`, `[cmd]`, `\`.
 
 ---
 
@@ -11,12 +11,13 @@ By the end of this week, you should be able to:
 
 1. Use `set` to put a value into a named variable (a labeled box).
 2. Use `$variableName` to read a value and print it with `puts`.
-3. Build sentences inside double quotes where `$name` is replaced by the stored value.
-4. Change a variable by calling `set` again with the same name.
-5. Use `expr {$a + $b}` and `expr {$age + 1}` for simple addition and subtraction.
-6. Finish a report-card script that stores three scores and prints a total.
+3. Explain the difference between `"..."` (substitutes) and `{...}` (mostly literal).
+4. Use `[expr ...]` command substitution inside a double-quoted string.
+5. Use `\` when you need a literal `$` or a newline in output.
+6. Use `expr {$a + $b}` for simple addition and subtraction.
+7. Finish a report-card script that stores three scores and prints a total.
 
-When you can write a short self-introduction using variables (not copying every word from the examples), Week 2 is done.
+When you can explain quotes vs braces in your own words and write a short self-introduction with variables, Week 2 is done.
 
 ---
 
@@ -28,11 +29,28 @@ Last week you printed **fixed text** — every word was typed directly into `put
 |----------|-------------------|----------------------------|
 | `set name "Amy"` | Put `"Amy"` in a box labeled `name` | Store names, scores, ages |
 | `$name` | Open the box labeled `name` | Use the value in `puts` or `expr` |
-| `"Hello, $name"` | Say a sentence but swap in the box contents | Build messages from parts |
-| `expr {$a + $b}` | Use a calculator for numbers in boxes | Add scores, age + 1 |
-| `{...}` braces | A sealed bag — nothing inside is substituted | Print `$name` literally when teaching |
+| `"..."` double quotes | Semi-clear wrap — `$` and `[ ]` still work | Build messages from parts |
+| `{...}` braces | Sealed bag — keep text almost exactly | Print `$name` or `[ ]` literally |
+| `[cmd ...]` | Run a sticky note first, paste the answer | Nest `expr` inside `puts` |
+| `\` backslash | Next character has a special job | Literal `$`, newlines |
+| `expr {$a + $b}` | Calculator for numbers in boxes | Add scores, age + 1 |
 
-You still use `puts` and `.tcl` files from Week 1. You are adding **memory** to your scripts.
+You still use `puts` and `.tcl` files from Week 1. This week adds **memory** and the **substitution rules** every later week depends on.
+
+### Five substitution rules (copy into your notebook)
+
+```tcl
+set name "Amy"
+set age 10
+
+puts "hello $name"           ;# double quotes → hello Amy
+puts {hello $name}           ;# braces → hello $name
+puts "sum=[expr {$age + 1}]" ;# brackets run expr first
+puts "dollar=\$name"         ;# backslash → literal $name
+puts "line1\nline2"          ;# backslash → newline
+```
+
+Run the lab: `make week2-08`.
 
 ---
 

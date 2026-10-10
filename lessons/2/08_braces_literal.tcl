@@ -1,16 +1,27 @@
-# 08_braces_literal.tcl — Week 2: curly braces stop $ substitution
+# 08_braces_literal.tcl — Week 2 syntax lab: quotes, braces, [], backslash
 # Run: make week2-08
 #      tclsh lessons/2/08_braces_literal.tcl
+#
+# Five substitution rules (copy into your notebook):
+#   "..."  — $ and [cmd] still run inside
+#   {...}  — almost everything kept literal
+#   $name  — read a variable
+#   [cmd]  — run a command, paste its result
+#   \x     — escape the next character
 
 set name "Amy"
+set age 10
 
-# Double quotes: $name is replaced
-puts "Hello, $name!"
+puts "=== 1. double quotes vs braces ==="
+puts "hello $name"
+puts {hello $name}
 
-# Curly braces: print exactly what is inside (no $ substitution)
-puts {Hello, $name!}
+puts "=== 2. command substitution \[expr\] ==="
+puts "next year I will be [expr {$age + 1}]"
 
-# Useful when you want a literal dollar sign in output
-set price 5
-puts "Price is $$price dollars today."
-puts {The variable is called $name in this lesson.}
+puts "=== 3. backslash escapes ==="
+puts "dollar=\$name"
+puts "line1\nline2"
+
+puts "=== 4. when braces help ==="
+puts {Print [brackets] and $dollars safely with braces.}

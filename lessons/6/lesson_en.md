@@ -1,190 +1,106 @@
-# Week 6 — Toys That Do Things: Classes, Objects, Methods (TclOO)
+# Week 6 — String Toolkit: `string`
 
-> Part of the [10-week Tcl learning plan](../../PLAN.md).  
-> Goal this week: use TclOO (`oo::class`) to build **molds → toys → actions**.
+> Part of [PLAN.md](../../PLAN.md) **M10** (weeks 1–10).  
+> Goal: use the full `string` ensemble — length, slice, case, trim, find, map.  
+> Coverage: [docs/COVERAGE.md](../../docs/COVERAGE.md).
+
+**Environment:** plain `tclsh` (`make week6`).
 
 ---
 
 ## Learning goals
 
-By the end of this week, you should be able to:
-
-1. Explain in your own words: **class** (mold), **object** (real toy), **method** (action).
-2. Write `oo::class create Pet { ... }` with `variable`, `constructor`, and `method`.
-3. Create objects with `[Pet new "Mimi" "cat"]` and call `$obj introduce`.
-4. Add a new method (for example `rename {newName}`) and change object state.
-5. Create a second class (`Robot`) with multiple methods.
-6. Finish a **pet shop** script: 1 class, 2+ objects, 3+ methods.
-
-Tcl 8.6+ includes TclOO — use plain `tclsh`, no extra install.
+1. Measure and slice with `length` / `index` / `range`.
+2. Change case and trim whitespace.
+3. Find and compare with `first` / `last` / `match` / `equal` / `compare`.
+4. Transform with `map` / `replace` / `repeat` / `reverse` / `cat`.
+5. Finish **string_toolkit**: clean a messy line → `tmp/week6_toolkit.txt`.
 
 ---
 
-## Big idea (in everyday words)
+## Big idea
 
-| OOP / TclOO | Everyday metaphor | Tcl shape |
-|-------------|-------------------|-----------|
-| Class | Toy **mold** | `oo::class create Pet { ... }` |
-| Object | Real toy from the mold | `set cat [Pet new "Mimi" "cat"]` |
-| `variable name` | Name tag on each toy | Inside class body |
-| `constructor` | What happens when toy is made | `constructor {n k} { set name $n }` |
-| `method speak` | Trick the toy can do | `method speak {} { ... }` |
-| `$cat speak` | "Do your trick!" | Object command + method name |
-
-**From Week 5:** A `proc` is a helper without an owner. A **method** belongs to an **object**.
-
-**Bridge to Calibre (Week 7):** You will not write `oo::class create layout`, but:
-
-```tcl
-set L [layout create]   ;# like Pet new
-$L create cell TOP       ;# like $cat speak
-```
+| Everyday | Tcl |
+|----------|-----|
+| Count letters | `string length` |
+| Cut a piece | `string range` |
+| Uppercase sticker | `string toupper` |
+| Erase edge spaces | `string trim` |
+| Find a letter | `string first` |
+| Swap words | `string map` |
 
 ---
 
-## What you need before you start
+## Prerequisites
 
-### Prerequisites
-
-- Weeks 1–5: variables, lists, `if`, loops, `proc`, files.
-
-### Environment
-
-```bash
-make check
-```
-
-Tcl 8.6 includes TclOO automatically.
+Weeks 1–5 (`puts`, `set`, lists, control, `proc`). Continue deepening Tcl syntax (M10).
 
 ---
 
-## Concept 1 — Class, object, method (Day 1–2)
-
-### Full Pet example (from PLAN)
+## Concept 1 — Length, index, range
 
 ```tcl
-oo::class create Pet {
-    variable name kind
-
-    constructor {n k} {
-        set name $n
-        set kind $k
-    }
-
-    method introduce {} {
-        puts "I am $name, a $kind."
-    }
-
-    method speak {} {
-        if {$kind eq "cat"} {
-            puts "$name: meow!"
-        } else {
-            puts "$name: woof!"
-        }
-    }
-}
-
-set a [Pet new "Mimi" "cat"]
-$a introduce
-$a speak
+string length "Hello"       ;# 5
+string index  "ABC" 0       ;# A
+string range  "ABCDEF" 1 3  ;# BCD
 ```
 
-### Anatomy table
-
-| Piece | Role |
-|-------|------|
-| `oo::class create Pet` | Define class named Pet |
-| `variable name kind` | Instance variables (each object has its own) |
-| `constructor {n k}` | Runs when `Pet new ...` is called |
-| `method introduce {}` | Action with no extra args |
-| `[Pet new "Mimi" "cat"]` | Create object |
-| `$a introduce` | Call method on object `$a` |
-
-### Two objects, one class
-
-```tcl
-set a [Pet new "Mimi" "cat"]
-set b [Pet new "Buddy" "dog"]
-```
-
-Same mold (`Pet`), different toys (`$a` and `$b`). See `02_pet_two_objects.tcl`.
+See `01_string_length.tcl`, `02_index_range.tcl`.
 
 ---
 
-## Concept 2 — Methods can change state (Day 3)
+## Concept 2 — Case and trim
 
 ```tcl
-method rename {newName} {
-    set name $newName
-    puts "(Name changed to $name)"
-}
+string tolower "Hi"
+string toupper "Hi"
+string totitle "hello world"
+string trim "  x  "
 ```
 
-Call: `$cat rename "Snowball"` then `$cat introduce`.
-
-The object's **variable** `name` updates; next method call sees the new value.
+See `03_case.tcl`, `04_trim.tcl`.
 
 ---
 
-## Concept 3 — Robot class (Day 4)
+## Concept 3 — Find and compare
 
 ```tcl
-oo::class create Robot {
-    variable name steps
-
-    constructor {n} {
-        set name $n
-        set steps 0
-    }
-
-    method move {count} {
-        set steps [expr {$steps + $count}]
-        puts "$name moved $count step(s). Total: $steps"
-    }
-}
+string first a banana     ;# 1
+string last  a banana     ;# 5
+string match ban* banana  ;# 1
+string equal a a          ;# 1
+string compare a b        ;# -1
 ```
 
-Methods can take arguments: `move {count}` → `$bot move 3`.
+`-1` from `first`/`last` means “not found”.
 
-See `04_robot_basic.tcl` and `05_robot_move.tcl`.
+See `05_find_match.tcl`.
 
 ---
 
-## Concept 4 — Pet shop project (Day 5)
+## Concept 4 — Map, replace, repeat, reverse, cat
 
-`10_pet_shop.tcl` includes:
+```tcl
+string map {cats dogs} "I like cats"
+string replace $s 2 3 XX
+string repeat "* " 3
+string reverse abc
+string cat Hello { } World
+```
 
-- Class `Pet` with `name`, `kind`, `age`
-- Methods: `introduce`, `speak`, `birthday`
-- Three objects: `$p1`, `$p2`, `$p3`
-
-Optional: copy to `examples/my_oop_pets.tcl` and customize.
+See `06_map_replace.tcl`, `07_repeat_reverse_cat.tcl`.
 
 ---
 
-## Concept 5 — Bonus patterns
-
-### foreach over objects
+## Concept 5 — `string is` and discovery
 
 ```tcl
-set shop [list $a $b $c]
-foreach p $shop {
-    $p speak
-}
+string is integer -strict 42
+# list all subcommands:
+dict keys [namespace ensemble configure string -map]
 ```
 
-See `09_foreach_objects.tcl`.
-
-### Subclass (optional)
-
-```tcl
-oo::class create Cat {
-    superclass Pet
-    method speak {} { puts "$name: meow!" }
-}
-```
-
-See `11_cat_superclass.tcl` — a specialized mold.
+See `08_string_is.tcl`, `09_word_byte.tcl`, `11_discover_subcommands.tcl`.
 
 ---
 
@@ -192,35 +108,29 @@ See `11_cat_superclass.tcl` — a specialized mold.
 
 | Day | Goal | Files |
 |-----|------|-------|
-| Day 1 | Draw mold vs toys vs methods | Paper + read `06_class_and_object_words.tcl` |
-| Day 2 | Run Pet example | `01_pet_basic.tcl`, `02_pet_two_objects.tcl` |
-| Day 3 | Add `rename` | `03_pet_rename.tcl` |
-| Day 4 | Robot class | `04_robot_basic.tcl`, `05_robot_move.tcl` |
-| Day 5 | **Pet shop** | `10_pet_shop.tcl` |
+| 1 | length / index / range | `01`, `02` |
+| 2 | case / trim | `03`, `04` |
+| 3 | find / match | `05` |
+| 4 | map / replace / repeat | `06`, `07` |
+| 5 | **string_toolkit** | `10` |
 
-Bonus: `07`–`09`, `11`, `12`.
+### Checklist
 
-### Week checklist
-
-- [ ] I can explain class / object / method.
-- [ ] I can write `oo::class create` with constructor and methods.
-- [ ] I can create objects with `ClassName new`.
-- [ ] I can call `$obj methodName`.
-- [ ] I added a method to a class.
-- [ ] I finished the pet shop project.
+- [ ] length / index / range  
+- [ ] case + trim  
+- [ ] first / match / equal  
+- [ ] map / replace  
+- [ ] toolkit report written  
 
 ---
 
 ## Common mistakes
 
-| Symptom | Cause | Fix |
-|---------|-------|-----|
-| `unknown method` | Typo in method name | Match `method speak` and `$obj speak` |
-| Wrong name in method | Forgot `variable name` | Declare `variable name` at top of class |
-| `invalid command name "Pet"` | Class not defined yet | Put `oo::class create` before `Pet new` |
-| `$name` empty in method | Constructor did not set it | Check `constructor` body |
-| `Pet new` vs `$a speak` | Confused class vs object | `new` on class; methods on `$object` |
-| Subclass `can't read "name"` | Method did not declare `variable name` | Add `variable name` inside each method that uses it |
+| Symptom | Fix |
+|---------|-----|
+| `first` returns `-1` | Substring missing — check spelling/case |
+| `match` always 0 | Need glob-style `*` / `?`, not regex (regex = Week 22) |
+| Trim did nothing | Characters to trim are not spaces — pass the char set |
 
 ---
 
@@ -229,48 +139,33 @@ Bonus: `07`–`09`, `11`, `12`.
 ```bash
 make week6-01
 make week6
-make list WEEK=6
+make week6-10
 ```
 
-| # | File | Practice |
-|---|------|----------|
-| 01 | `01_pet_basic.tcl` | First Pet class |
-| 02 | `02_pet_two_objects.tcl` | Two objects |
-| 03 | `03_pet_rename.tcl` | rename method |
-| 04 | `04_robot_basic.tcl` | Robot + beep |
-| 05 | `05_robot_move.tcl` | move + state |
-| 06 | `06_class_and_object_words.tcl` | Vocabulary |
-| 07 | `07_constructor_args.tcl` | Multi-arg constructor |
-| 08 | `08_method_with_if.tcl` | method + if |
-| 09 | `09_foreach_objects.tcl` | foreach objects |
-| 10 | `10_pet_shop.tcl` | **Week project** |
-| 11 | `11_cat_superclass.tcl` | superclass bonus |
-| 12 | `12_run_checklist.tcl` | Checklist |
+| # | File | Focus |
+|---|------|-------|
+| 01–02 | length / index / range | Day 1 |
+| 03–04 | case / trim | Day 2 |
+| 05 | find / match | Day 3 |
+| 06–07 | map / transform | Day 4 |
+| 08–09 | `string is` / word / byte | Extra |
+| 10 | **string_toolkit** | Project |
+| 11–12 | discover + checklist | Wrap-up |
 
 ---
 
 ## Challenge
 
-Extend `10_pet_shop.tcl`:
-
-1. Add method `feed {}` that increases energy or age message  
-2. Fourth pet object  
-3. List all pets in `foreach` and call `speak`  
-4. One `#` comment block explaining class vs object  
-5. Copy finished version to `examples/my_oop_pets.tcl`  
+Write a proc `slugify s` that trims, lowercases, and maps spaces to `_`.
 
 ---
 
 ## Looking ahead
 
-**Week 7 — Calibre DESIGNrev:** `set L [layout create]` behaves like making a layout **object**. You will call `$L create cell TOP` — same **object.method** pattern, different API.
-
-Parents run `./scripts/setup_calibredrv.sh`; you write scripts and read results.
+Week 7 — advanced lists (`lsearch` `lsort` `lmap` …). Still M10; Calibre waits until week 21.
 
 ---
 
 ## Parent / teacher note
 
-- OOP vocabulary can stay informal (mold / toy / trick) until it clicks.
-- Each example file redefines classes — that is OK for learning; one file = one complete story.
-- Success: child runs `make week6-10` and explains which part is the mold and which are the toys.
+M10 uses **tclsh**, not calibredrv. Success: `make week6-10` writes `tmp/week6_toolkit.txt`.

@@ -239,7 +239,8 @@ Extend `10_toolbox.tcl`:
 
 ## Looking ahead
 
-**Week 6 — TclOO:** classes, objects, methods.  
+**Week 6 — `string` toolkit:** length, slice, case, trim, find, map (still M10 Tcl syntax).  
+TclOO moves to **Week 15** (after more language weeks).  
 Think: many pets each with their own `speak` — that is OOP. Procs this week are **global helpers**; methods next week belong to **objects**.
 
 ---

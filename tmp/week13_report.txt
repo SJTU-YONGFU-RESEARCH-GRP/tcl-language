@@ -1,0 +1,10 @@
+Week 13 merge kit report
+========================
+filemerge -> /data1/yongfu/proj/tcl-language/tmp/week13_kit.gds
+  cells      = BLOCK_B KIT BLOCK_A
+  children   = BLOCK_A BLOCK_B
+  refs       = {BLOCK_A 0 0 0 0.0 1.0} {BLOCK_B 40 0 0 0.0 1.0}
+import layout demo (memory)
+  L cells    = BLOCK_A
+========================
+Done.

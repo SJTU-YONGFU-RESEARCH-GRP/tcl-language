@@ -73,16 +73,27 @@ Built-in commands like `puts` and `set` are **not** procedures — `info args pu
 
 ---
 
+## Full coverage map
+
+See **[COVERAGE.md](COVERAGE.md)** for every `info commands` name → Core / Catalog week.
+
 ## Week-by-week: which commands to look up
+
+Tcl-first milestones — full map in [COVERAGE.md](COVERAGE.md) / [PLAN.md](../PLAN.md).
 
 | Week | Commands | Manual section |
 |------|----------|----------------|
 | 1 | `puts`, `exit` | puts |
-| 2 | `set`, `expr` | set, expr |
+| 2 | `set`, `$`, `"..."`, `{...}`, `[cmd]`, `\`, `expr` | set, expr (quoting!) |
 | 3 | `list`, `lindex`, `llength`, `lappend` | list, lindex, … |
 | 4 | `if`, `foreach`, `for`, `while`, `incr` | if, foreach, for, while |
 | 5 | `proc`, `return`, `open`, `close`, `gets`, `file` | proc, open, file |
-| 6 | `oo::class`, `oo::define` | oo::class (TclOO) |
+| 6 | `string` (all subcommands) | string |
+| 7–10 | lists+ / `dict` / `eval`/`subst` / `catch` | M10 — see COVERAGE |
+| 11–14 | `info` / I/O / `regexp` / `namespace` | M20 start |
+| 15 | `oo::class`, `oo::define` | oo::class (TclOO) |
+| 16–20 | TclOO+ / workshops / capstone | M20 |
+| 21+ | Calibre (`layout`, `$L`) | see [CALIBRE_HELP.md](CALIBRE_HELP.md) |
 
 ---
 
@@ -105,7 +116,7 @@ In interactive mode, type one command, press Enter, see result. Type `exit` to l
 | `wrong # args: should be "..."` | Too few/many arguments | Compare with lesson example |
 | `syntax error in expression` | Bad `expr` or `if` condition | Use `{ $a + 1 }` inside expr |
 | `extra characters after close-quote` | Unmatched `"` | Count quote pairs |
-| `invalid command name "layout"` | Ran Calibre code in `tclsh` | Use `make week7-01` / calibredrv |
+| `invalid command name "layout"` | Ran Calibre code in `tclsh` | Use `make week21-01` / calibredrv |
 
 ---
 

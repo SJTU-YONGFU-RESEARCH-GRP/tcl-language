@@ -74,9 +74,9 @@ Mirror structure between `lesson_en.md` and `lesson_zh.md`. Required sections:
 | Naming | `NN_short_topic.tcl` (two-digit prefix, snake_case) |
 | Header comment | File purpose, run command (`make week<N>-NN` or `tclsh lessons/<N>/NN_....tcl`) |
 | Progression | 01–04 daily basics → 05–09 practice → 10 week project → 11–12 bonus |
-| Runnable | Plain `tclsh` for weeks 1–6; weeks 7–10 may use `./scripts/run_calibre_tcl.sh` when Calibre API required |
+| Runnable | Plain `tclsh` for weeks **1–20**; weeks **≥21** use `./scripts/run_calibre_tcl.sh` when Calibre API required |
 | Scope | Teach **only** this week's PLAN concepts; no jumping ahead |
-| Special chars | Use `{...}` when printing `[ ]` literally (Week 1 lesson) |
+| Special chars | Use `{...}` when printing `[ ]` literally (Week 1 / Week 2 quoting) |
 
 Each example: open with `#` comments, body demonstrating one idea, output predictable when run.
 
@@ -102,10 +102,10 @@ week2-01: ; @$(MAKE) --no-print-directory run WEEK=2 EX=01
 
 | Weeks | Runtime |
 |-------|---------|
-| 1–6 | `tclsh` only |
-| 7–10 | Calibre DESIGNrev batch Tcl via `./scripts/run_calibre_tcl.sh`; reference `examples/*.tcl` and PLAN Calibre API sections |
+| 1–20 (M10 + M20) | `tclsh` only |
+| ≥21 (M30 + M40) | Calibre DESIGNrev batch via `./scripts/run_calibre_tcl.sh`; reference `examples/*.tcl` and PLAN Calibre API sections |
 
-Week 7+ examples: note in lesson docs that Calibre setup uses `./scripts/setup_calibredrv.sh` (parent/teacher runs).
+Week 21+ examples: note in lesson docs that Calibre setup uses `./scripts/setup_calibredrv.sh` (parent/teacher runs).
 
 ## Workflow detail
 
@@ -118,7 +118,7 @@ For week N, capture from PLAN:
 - 要学的概念 / concept table
 - 每日练习 / Day 1–5 tasks
 - 本周检查 / checklist
-- Any code samples or API lists (weeks 7–10)
+- Any code samples or API lists (Calibre: weeks ≥21)
 
 ### Step B — Plan example files before writing
 
@@ -150,23 +150,41 @@ for f in lessons/<N>/*.tcl; do echo "==> $f"; tclsh "$f" || exit 1; done
 make week<N>
 ```
 
-Fix Tcl errors before finishing. Weeks 7–10: test with `./scripts/run_calibre_tcl.sh` if Calibre available; otherwise document skip in report.
+Fix Tcl errors before finishing. Weeks ≥21: test with `./scripts/run_calibre_tcl.sh` if Calibre available; otherwise document skip in report.
 
-## Week map (PLAN.md)
+## Week map (PLAN.md) — Tcl-first milestones
 
-| N | Topic (short) |
-|---|---------------|
-| 1 | puts, scripts, comments |
-| 2 | set, $, strings, expr |
-| 3 | list, lindex, llength, lappend |
-| 4 | if, for, foreach, while |
-| 5 | proc, return, file I/O |
-| 6 | TclOO: class, object, method |
-| 7 | layout create, handles |
-| 8 | create cell/layer/polygon/wire/text, GDS |
-| 9 | query, peek, inspect |
-| 10 | create ref, multi-API capstone |
-| 11+ | Optional advanced weeks from PLAN appendix (iterator, flatten, filemerge, …). If lessons/1–10 all exist, create the next appendix week: add `## 第 N 周` to PLAN.md first, then generate lessons/N/. |
+| N | Topic (short) | Milestone |
+|---|---------------|-----------|
+| 1 | puts, scripts, comments | M10 |
+| 2 | set, $, **quoting & substitution**, expr | M10 |
+| 3 | list, lindex, llength, lappend | M10 |
+| 4 | if, for, foreach, while | M10 |
+| 5 | proc, return, file I/O | M10 |
+| 6 | `string` ensemble | M10 |
+| 7 | lists advanced | M10 |
+| 8 | dict / array | M10 |
+| 9 | expr / eval / subst / format / scan | M10 |
+| 10 | switch / catch / try + **M10 project** | M10 |
+| 11 | info | M20 |
+| 12 | I/O deep (chan, glob, source, exec) | M20 |
+| 13 | regexp / clock | M20 |
+| 14 | namespace / package / scope | M20 |
+| 15 | TclOO basics | M20 |
+| 16 | TclOO advanced | M20 |
+| 17–19 | scripting patterns / review workshops | M20 |
+| 20 | pure-Tcl capstone | M20 |
+| 21 | layout create, handles | M30 |
+| 22 | create cell/layer/polygon/wire/text, GDS | M30 |
+| 23 | query, peek, inspect | M30 |
+| 24 | create ref + Calibre graduation | M30 |
+| 25–28 | iterator / flatten / filemerge / boolean | M30 |
+| 29–30 | catalog B start + **M30** | M30 |
+| 31–40 | Calibre encyclopedia + **M40 audit** | M40 |
+| Phase C | GUI `cwbWorkBench` / macros — only after 40 | later |
+
+Coverage checklist: [docs/COVERAGE.md](../../../docs/COVERAGE.md).  
+If `lessons/<N>/` missing but PLAN has `## 第 N 周`, generate that week. For brand-new topics beyond PLAN, add the PLAN section first.
 
 Full PLAN excerpts: [reference.md](reference.md)
 

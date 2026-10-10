@@ -1,0 +1,11 @@
+Week 15 string toolkit
+======================
+raw     = <   Hello, Tcl STRING toolkit!!!   >
+trim    = <Hello, Tcl STRING toolkit!!!>
+lower   = hello, tcl string toolkit!!!
+title   = Hello, tcl string toolkit!!!
+mapped  = Hello tcl string toolkit!
+summary = len=28 first=H
+match Hello* ? 1
+======================
+Done.

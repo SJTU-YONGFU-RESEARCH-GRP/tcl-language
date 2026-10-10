@@ -1,0 +1,14 @@
+Week 14 boolean poster
+======================
+GDS: /data1/yongfu/proj/tcl-language/tmp/week14_poster.gds
+  layer 1  (L1_input  ) npoly=1
+  layer 2  (L2_input  ) npoly=1
+  layer 3  (AND       ) npoly=1
+  layer 4  (OR        ) npoly=1
+  layer 5  (NOT       ) npoly=1
+  layer 6  (XOR       ) npoly=2
+  layer 7  (SIZE_grow ) npoly=1
+AND polys = {10 10 20 10 20 20 10 20}
+SIZE L7   = {-1 -1 21 -1 21 21 -1 21}
+======================
+Done.

@@ -48,7 +48,7 @@ Wrong: `$L` alone →
 Wrong: `$L create` alone →  
 `Usage: layout0 create <layer|cell|polygon|wire|ref|text|clip>`
 
-### `$L create` subcommands (Week 7–10)
+### `$L create` subcommands (Weeks 21–24)
 
 | Kind | Usage line |
 |------|------------|
@@ -91,6 +91,10 @@ exit
 
 ---
 
+## Full coverage map
+
+See **[COVERAGE.md](COVERAGE.md)** for every official Layout Object `$L …` TOC entry → week number (M30 weeks 21–30, M40 weeks 31–40).
+
 ## Official manual (authoritative)
 
 Paths in [PLAN.md](../PLAN.md):
@@ -102,10 +106,10 @@ When Usage lines are not enough, open the manual section for the full option lis
 
 ---
 
-## OOP connection (Week 6 → Week 7)
+## OOP connection (Week 15 → Week 21)
 
-| Week 6 TclOO | Week 7 Calibre |
-|--------------|----------------|
+| Week 15 TclOO | Week 21 Calibre |
+|---------------|-----------------|
 | `[Pet new "Mimi"]` | `[layout create]` |
 | `$cat speak` | `$L create cell TOP` |
 | object handle in `$cat` | layout handle in `$L` |
@@ -118,7 +122,7 @@ When Usage lines are not enough, open the manual section for the full option lis
 |-------|-------|-----|
 | `invalid command name "layout"` | Used `tclsh` not calibredrv | `./scripts/run_calibre_tcl.sh` |
 | `couldn't open "...gds"` | File path wrong | Run from project root; check `tmp/` |
-| Wrong layer format | Mixed `1`, `1.0`, `1_0` | Pick one style; see Week 8 lesson |
+| Wrong layer format | Mixed `1`, `1.0`, `1_0` | Pick one style; see Week 22 lesson |
 | Coords as one list | `create polygon` wants flat numbers | Use `eval $L create polygon ... $coords` |
 
 ---
@@ -127,5 +131,5 @@ When Usage lines are not enough, open the manual section for the full option lis
 
 - [examples/create_box.tcl](../examples/create_box.tcl)
 - [examples/script.tcl](../examples/script.tcl) — polygon from argv + eval
-- [lessons/7/](../lessons/7/) — handles week
-- [lessons/STUDY_GUIDE_zh.md](../lessons/STUDY_GUIDE_zh.md) — expanded walkthrough
+- [lessons/21/](../lessons/21/) — handles week (first Calibre week)
+- [lessons/README.md](../lessons/README.md) — milestone map

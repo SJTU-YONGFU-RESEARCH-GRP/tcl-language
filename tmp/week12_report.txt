@@ -1,0 +1,16 @@
+Week 12 flatten report
+======================
+BEFORE
+  cells      = BOX TOP
+  children   = BOX
+  n_refs     = 2
+  n_poly_TOP = 0
+  refs       = {BOX 20 0 0 0.0 1.0} {BOX 0 0 0 0.0 1.0}
+AFTER flatten cell TOP -withDelete
+  cells      = TOP
+  children   = 
+  n_refs     = 0
+  n_poly_TOP = 2
+  polys      = {0 0 10 0 10 10 0 10} {20 0 30 0 30 10 20 10}
+======================
+Done.
