@@ -1,0 +1,10 @@
+SHAPE DUMP
+file: /data1/yongfu/proj/tcl-language/tmp/week11_shapes.gds
+top : TOP
+--------------------------------
+LAYER 1
+  poly 1: 0 0 20 0 20 20 0 20
+  poly 2: 30 0 50 0 50 20 30 20
+  text 1: HI 5 30
+LAYER 2
+  poly 1: 0 38 80 38 80 42 0 42

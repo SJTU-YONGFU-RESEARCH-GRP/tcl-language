@@ -18,6 +18,7 @@ oo::class create Cat {
     superclass Pet
 
     method speak {} {
+        variable name
         puts "$name: meow!"
     }
 }

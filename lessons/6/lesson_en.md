@@ -220,6 +220,7 @@ Bonus: `07`–`09`, `11`, `12`.
 | `invalid command name "Pet"` | Class not defined yet | Put `oo::class create` before `Pet new` |
 | `$name` empty in method | Constructor did not set it | Check `constructor` body |
 | `Pet new` vs `$a speak` | Confused class vs object | `new` on class; methods on `$object` |
+| Subclass `can't read "name"` | Method did not declare `variable name` | Add `variable name` inside each method that uses it |
 
 ---
 

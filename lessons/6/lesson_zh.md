@@ -220,6 +220,7 @@ oo::class create Cat {
 | `invalid command name "Pet"` | 还没定义类就 `Pet new` | 先写 `oo::class create` |
 | 方法里 `$name` 是空的 | constructor 没赋值 | 检查 `constructor` 体 |
 | 混淆 `Pet new` 和 `$a speak` | 类和对象搞混 | `new` 在类上；方法在 `$对象` 上 |
+| 子类里 `can't read "name"` | 方法里未声明 `variable name` | 每个用到实例变量的方法里写 `variable name` |
 
 ---
 

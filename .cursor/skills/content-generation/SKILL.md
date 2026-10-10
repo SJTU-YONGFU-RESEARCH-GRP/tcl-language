@@ -166,6 +166,7 @@ Fix Tcl errors before finishing. Weeks 7–10: test with `./scripts/run_calibre_
 | 8 | create cell/layer/polygon/wire/text, GDS |
 | 9 | query, peek, inspect |
 | 10 | create ref, multi-API capstone |
+| 11+ | Optional advanced weeks from PLAN appendix (iterator, flatten, filemerge, …). If lessons/1–10 all exist, create the next appendix week: add `## 第 N 周` to PLAN.md first, then generate lessons/N/. |
 
 Full PLAN excerpts: [reference.md](reference.md)
 

@@ -29,7 +29,9 @@
 - `examples/hello_calibre.tcl` — 在 calibredrv 里打招呼
 - `examples/create_box.tcl` — 画正方形并写出 GDS
 - `examples/inspect_gds.tcl` — 打开 GDS 查看
-- 运行方式：`./run_calibre_tcl.sh examples/某脚本.tcl`
+- `examples/my_graduation.tcl` — 第 10 周毕业作品模板（可改）
+- 完整周课：`lessons/1` … `lessons/10`（双语讲义 + 例题）；导读见 `lessons/README.md`
+- 运行方式：`./scripts/run_calibre_tcl.sh examples/某脚本.tcl` 或 `make weekN`
 
 ### 官方手册在哪里（大人先收藏）
 
@@ -53,6 +55,20 @@
 产品介绍（非完整 API）：[Siemens Calibre DESIGNrev](https://www.siemens.com/en-us/products/ic/calibre-design/interfaces/designrev/)
 
 > 小学生：每周只要学会表里的「本周必会 API」。大人：卡壳时在 HTML TOC 里搜命令名（如 `create polygon`）。
+
+### 怎样查帮助（本仓库补充）
+
+`tclsh` **没有**内建 `help` 命令；`calibredrv` 主要靠 **少写参数时打印的 Usage:** 行来教语法。本仓库整理了：
+
+| 资源 | 用途 | 怎么用 |
+|------|------|--------|
+| [docs/TCL_HELP.md](docs/TCL_HELP.md) | Tcl / tclsh 怎么自学命令 | 读文档；或 `make help-tcl` |
+| [docs/CALIBRE_HELP.md](docs/CALIBRE_HELP.md) | Calibre `layout` / `$L` Usage 速查 | 读文档；或 `make help-calibre` |
+| `tools/show_tcl_help.tcl` | 打印本周相关 Tcl 命令名 | `tclsh tools/show_tcl_help.tcl` |
+| `tools/show_calibre_help.tcl` | 向 calibredrv 追问 Usage | `./scripts/run_calibre_tcl.sh tools/show_calibre_help.tcl` |
+| `lessons/N/lesson_en.md` + `lesson_zh.md` | 每周详细双语讲义 + ≥10 个例题 | `make weekN` / `make weekN-01` |
+
+卡壳时顺序建议：**先跑例题 → 看 Usage / 报错 → 查本周 lesson → 再查手册 HTML TOC**。
 
 ---
 
@@ -676,10 +692,44 @@ exit
 
 ---
 
-# 10 周后可以继续学什么？（手册下一站）
+# 进阶周（第 10 周之后，可选）
 
-1. `$L iterator` 遍历全部 polygon/wire/text  
-2. `$L create ref` 阵列参数；`$L flatten cell` / `expand ref`  
+> 下面几周不是小学生必学；学会第 1–10 周即可毕业。  
+> 想继续挖手册时，按顺序选修。
+
+## 第 11 周 — 遍历图形：`$L iterator`（poly / wire / text）
+
+**本周目标**  
+用 `$L iterator` 把某个 cell、某层上的 polygon / wire / text **一个个列出来**（不只问有没有，还问「长什么样」）。
+
+**本周必会 API**
+
+| API | 语法要点（本机实测） | 小学生说法 |
+|-----|----------------------|------------|
+| `$L iterator poly cell layers range lo hi` | 例：`$L iterator poly TOP 1 range 0 end` | 把这一层的每个多边形坐标列出来 |
+| `$L iterator wire cell layers range lo hi` | 例：`$L iterator wire TOP 2 range 0 end` | 列出每条导线 |
+| `$L iterator text cell layers range lo hi` | 例：`$L iterator text TOP 1 range 0 end` | 列出每个文字 |
+| `foreach` + iterator 结果 | 遍历返回的 list | 一行行打印 |
+
+**每日练习建议**
+
+| 天 | 任务 |
+|----|------|
+| Day 1 | 打开第 8/10 周 GDS；对 TOP、layer 1 跑 `iterator poly` |
+| Day 2 | 同样方式 `iterator wire` / `iterator text` |
+| Day 3 | `foreach` 打印每个图形；数一数有几个 polygon |
+| Day 4 | 对比：`$L layers`（清单）vs `iterator`（细节） |
+| Day 5 | **小作品**：`dump_shapes.tcl` — 打开 GDS，打印 poly/wire/text 摘要 |
+
+**本周检查**  
+能对一份自己的 GDS 跑通三种 iterator，并用 `foreach` 打印。
+
+---
+
+# 10 周后还可以继续学什么？（手册下一站）
+
+1. ~~`$L iterator`~~ → 见 **第 11 周**  
+2. `$L flatten cell` / `expand ref`（层次展开）  
 3. `layout filemerge`、`$L import layout` 做小规模拼接  
 4. `$L AND` / `OR` / `NOT` / `SIZE` 等批处理几何运算  
 5. RDB：`layout create xxx.rdb`、`$L rdbout`、`$L create clip`  
