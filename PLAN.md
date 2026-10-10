@@ -22,7 +22,7 @@
 |------|------|------|--------------|
 | 基础 Tcl | 第 1–5 周 | 打印、变量、列表、条件、循环、过程、文件 | 能独立写小 Tcl 脚本 |
 | OOP | 第 6 周 | 类、对象、方法（TclOO） | 会做「会做事的小玩具」 |
-| CalibreDRV | 第 7–10 周 | 启动工具、layout 对象 API、画多边形、读写 GDS | 能用面向对象的方式操作版图 |
+| CalibreDRV | 第 7–10 周 | 手册导向：创建 / 几何 / 查询 / 层次 API | 会查手册、会组合多种 `$L` API 写脚本 |
 
 本仓库已有示例（后面几周会用到）：
 
@@ -30,6 +30,29 @@
 - `examples/create_box.tcl` — 画正方形并写出 GDS
 - `examples/inspect_gds.tcl` — 打开 GDS 查看
 - 运行方式：`./run_calibre_tcl.sh examples/某脚本.tcl`
+
+### 官方手册在哪里（大人先收藏）
+
+本机 Mentor/Siemens 安装里已有 **Calibre DESIGNrev Reference Manual**（批处理 Tcl API 权威来源）：
+
+| 文档 | 本机路径 |
+|------|----------|
+| Reference（API 大全）PDF | `/data1/eda/eda/mentor/aoi_cal_2017.2_37.29/docs_cal_2017.2_16.14/docs/pdfdocs/calbr_drv_ref.pdf` |
+| Reference HTML 目录 | `/data1/eda/eda/mentor/aoi_cal_2017.2_37.29/docs_cal_2017.2_16.14/docs/htmldocs/calbr_drv_ref/calbr_drv_ref_toc.html` |
+| User’s Manual PDF | `/data1/eda/eda/mentor/aoi_cal_2017.2_37.29/docs_cal_2017.2_16.14/docs/pdfdocs/calbr_drv_user.pdf` |
+| 当前工具版本（setup） | `CALIBRE_HOME=/data1/eda/eda/mentor/aoi_cal_2019.2_26.18`（API 用法与手册一致；查命令以 ref 手册为准） |
+
+手册里和本计划最相关的章节：
+
+1. **Introduction to Using Tcl With the Calibre Layout Viewers** — handle、Tcl 对象 vs 数据库对象  
+2. **Getting Started** — Interactive Shell / Batch / GUI 模式  
+3. **Writing Layout Viewer Scripts** — 官方「生成新 layout」示例（Script 1）  
+4. **Batch Commands for Layout Manipulation** — `layout create` / `layout peek` / `layout filemerge`  
+5. **Layout Object（`$L ...`）** — 本计划第 7–10 周的核心 API  
+
+产品介绍（非完整 API）：[Siemens Calibre DESIGNrev](https://www.siemens.com/en-us/products/ic/calibre-design/interfaces/designrev/)
+
+> 小学生：每周只要学会表里的「本周必会 API」。大人：卡壳时在 HTML TOC 里搜命令名（如 `create polygon`）。
 
 ---
 
@@ -289,172 +312,350 @@ $L create cell TOP      ;# 很像 $cat speak
 
 > 提醒：本阶段需要已配置好的 calibredrv 环境（见 `setup_calibredrv.sh`）。  
 > 小学生主要学「写脚本 + 看结果」；GUI / VNC 由大人协助打开。  
-> **带着第 6 周的 OOP 眼镜看每一行 `$L ...`。**
+> **带着第 6 周的 OOP 眼镜看每一行 `$L ...`。**  
+> API 说明对齐官方 *Calibre DESIGNrev Reference Manual*（`calbr_drv_ref`）。完整语法以手册为准；下表是学习用「必会子集」。
 
-## 第 7 周 — 认识新教室：calibredrv，以及「layout 对象」
+### 手册里的三类 API（先建立地图）
 
-**本周目标**  
-知道 calibredrv 是什么；会用本仓库脚本跑 Tcl；认出 layout 就是一种对象。
+| 类别 | 长什么样 | 干什么 | 本计划周次 |
+|------|----------|--------|------------|
+| **A. layout 命令**（全局） | `layout create` / `layout peek` / `layout filemerge` | 造图纸、偷看文件、合并文件 | 第 7、9 周 |
+| **B. Layout 对象方法** | `$L create polygon ...` / `$L cells` | 对某一张图纸读写、画画、提问 | 第 7–10 周 |
+| **C. GUI / Workbench**（选学） | `cwbWorkBench`、`$cwb cget -_layout` | 控制已经打开的桌面窗口 | 第 10 周可选 |
 
-**要懂的大图**
-
-```
-你写的 .tcl  →  ./run_calibre_tcl.sh  →  calibredrv -shell  →  屏幕打印结果
-                                      →  （可选）GUI 看版图
-```
-
-**类比**
-
-| 东西 | 比喻 |
-|------|------|
-| 普通 `tclsh` | 普通教室（可练 TclOO） |
-| `calibredrv -shell` | 带「画芯片」专用对象的特殊教室 |
-| `layout` 对象 | 一张会听话的图纸玩具 |
-| GDS 文件 | 画好的图纸文件（给工厂看的） |
-
-**OOP 对照练习**
-
-| 第 6 周 TclOO | 第 7 周 Calibre |
-|---------------|-----------------|
-| `set cat [Pet new ...]` | `set L [layout create]` |
-| `$cat speak` | `$L create cell TOP` |
-| 对象句柄存在变量里 | `$L` 就是 layout 的句柄 |
-
-**每日练习建议**
-
-| 天 | 任务 |
-|----|------|
-| Day 1 | 大人协助：`source setup_calibredrv.sh`，确认能找到 `calibredrv` |
-| Day 2 | 运行 `./run_calibre_tcl.sh examples/hello_calibre.tcl` |
-| Day 3 | 复制 hello 脚本，改成打印自己的名字 + `tcl_version` |
-| Day 4 | 在笔记本写对照表：Pet 对象 vs layout 对象（至少 3 行） |
-| Day 5 | **小作品**：`examples/my_hello.tcl` — 自我介绍 + 用注释标出「哪里像 OOP」 |
-
-**本周检查**  
-能独立用 `./run_calibre_tcl.sh` 跑脚本，并能指出「哪个变量像对象句柄」。
+手册要点（Introduction）：**Tcl Objects Have Handles** — `layout create` 返回的句柄存进 `$L`，之后都写 `$L 方法名 ...`。  
+多数几何图形本身不是独立 Tcl 对象，而是通过 `$L` 的方法创建/查询。
 
 ---
 
-## 第 8 周 — 空白画布到第一个方块：cell / layer / polygon / GDS
+## 第 7 周 — 启动方式 + API-A：`layout create` 与句柄
 
 **本周目标**  
-对 layout **对象** 调用方法：建 cell、建 layer、画多边形、写出 GDS。
+会跑脚本；理解 **handle（句柄）**；会用空 layout 和从文件打开 layout。
 
-**要学的概念**
+**运行方式（手册 Getting Started）**
 
-| 概念 | 小学生说法 | OOP 说法 |
-|------|------------|----------|
-| layout | 一整张芯片图纸 | 对象 |
-| cell | 图纸上的「房间」（如 `TOP`） | 对象管理的一部分数据 |
-| layer | 彩色透明纸 | 对象管理的另一部分数据 |
-| polygon | 用点连起来的形状 | 通过方法画上去 |
-| `gdsout` | 把图纸存成文件 | 对象的「保存」动作 |
+| 模式 | 怎么跑 | 小学生怎么用 |
+|------|--------|--------------|
+| Batch / shell 脚本 | `./run_calibre_tcl.sh script.tcl`（内部 `calibredrv -shell -s ...`） | **主战场** |
+| 打开 GDS 看图 | `calibredrv tmp/xxx.gds`（需 DISPLAY/VNC） | 大人协助「验收」 |
+| 交互 shell | `calibredrv -shell` 后手动敲命令 | 可选试玩 |
 
-**对照示例**（参考 `examples/create_box.tcl`）
+**本周必会 API**
+
+| API | 手册含义 | 小学生说法 | 最小例子 |
+|-----|----------|------------|----------|
+| `layout create` | 新建空 layout，返回 handle | 拿出空白图纸 | `set L [layout create]` |
+| `layout create $file` | 从 GDS/OASIS 等加载 | 打开已有图纸 | `set L [layout create $gds]` |
+| （常用选项）`-dt_expand` | 保留 layer/datatype 区分 | 别把不同颜色层糊成一层 | `layout create $gds -dt_expand` |
+| （常用选项）`-preserveProperties` | 保留 property | 保住图纸上的小纸条 | 大人需要时再加 |
+
+手册还支持从 RDB、LEF/DEF、OA、Milkyway 等创建 layout——第 7 周**不必学**，知道「同一条 `layout create` 很能干」即可。
+
+**官方 Script 1 骨架**（Writing Layout Viewer Scripts）
 
 ```tcl
-set L [layout create]          ;# new 一个 layout 对象
-$L create cell TOP             ;# 方法：建 cell
-$L create layer 1              ;# 方法：建 layer
-$L create polygon TOP 1_0 \
-  0 0 \
-  100 0 \
-  100 100 \
-  0 100                        ;# 方法：画多边形
-$L gdsout $gds TOP             ;# 方法：导出 GDS
+set L [layout create]      ;# 空容器：还没有 cell / layer
+$L create cell TOP
+$L create layer 1
+$L create layer 2.7        ;# layer.datatype 写法
+$L create polygon TOP 1 0 0 100 100
+$L gdsout temp.gds
+```
+
+本仓库对照：`examples/hello_calibre.tcl`、`examples/create_box.tcl`。
+
+**每日练习建议**
+
+| 天 | 任务 |
+|----|------|
+| Day 1 | `source setup_calibredrv.sh`；确认 `calibredrv`；打开 HTML TOC 找 `layout create` 那一页（大人带） |
+| Day 2 | 跑 `examples/hello_calibre.tcl`；抄写「句柄」三个字到笔记本 |
+| Day 3 | 写脚本：空 `layout create` → 打印 `$L` → `exit` |
+| Day 4 | OOP 对照表：`Pet new` vs `layout create`；`$cat speak` vs `$L create cell` |
+| Day 5 | **小作品**：`my_hello.tcl` — 自我介绍 + 创建空 layout 并 `puts` 句柄 |
+
+**本周检查**  
+能解释句柄；能独立用 `./run_calibre_tcl.sh` 跑脚本。
+
+---
+
+## 第 8 周 — API-B 创建几何：cell / layer / polygon / wire / text + 写出文件
+
+**本周目标**  
+按手册 **Layout Object → create\*** 系列，画出多种图形并导出 GDS（或 OASIS）。
+
+**本周必会 API（创建 + 导出）**
+
+| API | 语法要点（手册） | 小学生说法 |
+|-----|------------------|------------|
+| `$L units microns ?n?` | 设置数据库单位与微米关系 | 定尺子刻度（新建 layout 时常设，如 `1000`） |
+| `$L create cell name` | 建 cell | 建一个房间 |
+| `$L create layer L` 或 `L.D` | 层号或 `layer.datatype` | 选一张透明彩纸 |
+| `$L create polygon cell layer x1 y1 ... xn yn` | **坐标必须是一个个数字**，不是一层 list | 用点连形状 |
+| `$L create wire cell layer width x1 y1 ...` | path/导线 | 画有宽度的小路 |
+| `$L create text cell layer x y text` | 文字标注 | 在图上写名字 |
+| `$L gdsout file ?cell?` | 写出 GDS；可只写某个 cell 层次 | 存成 GDS |
+| `$L oasisout file ...` | 写出 OASIS | 另一种图纸格式（知道即可） |
+
+**层号两种写法（都会遇到）**
+
+| 写法 | 例子 | 说明 |
+|------|------|------|
+| 整数层 | `1` | 手册 Script 1 用法 |
+| `layer.datatype` | `1.0` / `2.7` | 手册推荐区分 datatype |
+| `layer_datatype` | `1_0` | 本仓库 `create_box.tcl` 用法；以你环境实测为准 |
+
+**坐标 list 小陷阱（很重要）**
+
+手册要求：`create polygon` 的坐标是展开的数字。若变量是 list，要用 `eval`：
+
+```tcl
+set coords {0 0 100 0 100 100 0 100}
+eval $L create polygon TOP 1.0 $coords
+# 等价于：$L create polygon TOP 1.0 0 0 100 0 100 100 0 100
+```
+
+**矩形两种写法**
+
+```tcl
+# 手册：对角两点即可表示矩形 polygon
+$L create polygon TOP 1 0 0 100 100
+
+# 或完整四角（本仓库 create_box.tcl）
+$L create polygon TOP 1_0 0 0 100 0 100 100 0 100
+```
+
+**综合小例子（多 API）**
+
+```tcl
+set L [layout create]
+$L units microns 1000
+$L create cell TOP
+$L create layer 1.0
+$L create layer 2.0
+$L create polygon TOP 1.0 0 0 100 100
+$L create wire TOP 2.0 10 0 50  50 50  100 50
+$L create text TOP 1.0 10 110 "HELLO"
+$L gdsout tmp/week8_multi.gds TOP
 ```
 
 **每日练习建议**
 
 | 天 | 任务 |
 |----|------|
-| Day 1 | 读 `create_box.tcl`，给每一行标：创建对象 / 调方法 / 普通 Tcl |
-| Day 2 | 运行示例；再改尺寸 50×50、200×200 |
-| Day 3 | 画长方形 100×50；输出到 `tmp/` |
-| Day 4 | （可选 OOP 封装）用 TclOO 写小类 `BoxDrawer`，方法 `draw {L cell layer x1 y1 x2 y2}` 内部调用 `$L create polygon ...`——大人可协助骨架 |
-| Day 5 | **小作品**：`my_box.tcl` — 自定义大小；注释里写出「谁是对象、哪些是方法」 |
+| Day 1 | 跑通 `examples/create_box.tcl`；对照手册 Script 1 |
+| Day 2 | 改尺寸；试 `1` / `1.0` / `1_0` 哪种在你环境可用，记下来 |
+| Day 3 | 加 `$L create text` 写自己名字缩写 |
+| Day 4 | 加 `$L create wire` 画一条「小路」；坐标 list + `eval` 练一次 |
+| Day 5 | **小作品**：`my_shapes.tcl` — 至少用 **polygon + text**（加分：wire）；写出 `tmp/` |
 
 **本周检查**  
-能改坐标画出不同矩形并写出 GDS；能指出脚本里的对象与方法。
+能创建 cell/layer，画 ≥2 种几何，成功 `gdsout`。
 
-**可选（大人协助）**  
-用 VNC/GUI 打开 `tmp/demo_box.gds`，亲眼看到方块。
+**可选**  
+GUI 打开 GDS 验收；试 `$L oasisout tmp/week8.oas`。
 
 ---
 
-## 第 9 周 — 打开图纸：读 GDS、检查、再用对象说话
+## 第 9 周 — API-A/B 查询：打开、提问、peek（不瞎改）
 
 **本周目标**  
-打开已有 GDS（得到 layout 对象）；用方法检查 cell 是否存在。
+读回 GDS；用查询 API「问图纸问题」；认识 `layout peek`（不完整加载也能偷看）。
 
-**对照示例**：`examples/inspect_gds.tcl`
+**本周必会 API（查询）**
+
+| API | 手册含义 | 小学生说法 |
+|-----|----------|------------|
+| `layout create $gds` | 加载文件得到 `$L` | 打开图纸 |
+| `$L topcell` | 返回 topcell 名 | 最大的房间叫什么 |
+| `$L cells` | 列出 cells | 有哪些房间 |
+| `$L layers` | 列出 layers | 有哪些彩纸 |
+| `$L exists cell name` | cell 是否存在 | 有没有叫 TOP 的房间 |
+| `$L exists layer ...` | layer 是否存在 | 有没有这层 |
+| `$L bbox cell` | cell 包围盒 | 房间有多大一圈 |
+| `$L file` | 关联文件名等信息 | 这张图从哪来 |
+| `layout peek $gds -cells` | 不完整加载就列 cell | 隔着窗户数房间 |
+| `layout peek $gds -layers` | 偷看有哪些层 | 隔着窗户看彩纸 |
+| `layout peek $gds -topcell` | 偷看 topcell | 隔着窗户看大门牌 |
+| `layout peek $gds -precision` / `-units` | 精度与单位 | 尺子多细 |
+
+进阶（知道名字即可）：`$L children`、`$L iterator poly|wire|text|ref`、`$L report`。
+
+**报告脚本模板**
+
+```tcl
+set gds [lindex $argv 0]
+if {$gds eq ""} {
+  set gds [file normalize [file join [file dirname [info script]] .. tmp demo_box.gds]]
+}
+puts "peek cells:  [layout peek $gds -cells]"
+puts "peek layers: [layout peek $gds -layers]"
+puts "peek top:    [layout peek $gds -topcell]"
+
+set L [layout create $gds -dt_expand]
+puts "topcell=[$L topcell]"
+puts "cells=[$L cells]"
+puts "layers=[$L layers]"
+if {[$L exists cell TOP]} {
+  puts "bbox TOP = [$L bbox TOP]"
+} else {
+  puts "no cell TOP"
+}
+exit
+```
+
+对照：`examples/inspect_gds.tcl`。
 
 **每日练习建议**
 
 | 天 | 任务 |
 |----|------|
-| Day 1 | 先用第 8 周脚本生成 GDS，再运行 inspect 示例 |
-| Day 2 | 读懂 `layout create $gds`：用文件「唤醒」一个 layout 对象 |
-| Day 3 | 练习 `$L exists cell TOP`，打印「找到了 / 没找到」 |
-| Day 4 | 故意打开错误路径，学会看报错；想一想：对象还没造出来时能不能调方法？ |
-| Day 5 | **小作品**：`check_my_gds.tcl` — 打开自己的 GDS 并报告状态（可用 `if`） |
+| Day 1 | 用第 8 周 GDS；跑 inspect；再写 `layout peek ... -cells/-layers` |
+| Day 2 | 打印 `$L topcell`、`$L cells`、`$L layers` |
+| Day 3 | `$L exists cell` + `$L bbox`；用 `if` 友好提示 |
+| Day 4 | 对比：peek（不加载）vs `layout create`（加载）各打印一次，写一句差别 |
+| Day 5 | **小作品**：`report_gds.tcl` — 接受可选路径参数，打印报告 |
 
 **本周检查**  
-能「创建对象 → 写出 → 再打开对象检查」走通一整条小路。
+能打开自己的 GDS，并用 ≥4 个查询 API 打出报告。
 
 ---
 
-## 第 10 周 — 毕业项目：我的小小芯片图纸（含 OOP）
+## 第 10 周 — API 层次：`create ref` + 多 API 毕业作品
 
 **本周目标**  
-综合运用 Tcl + OOP 思维 + calibredrv，完成一个有故事的小项目。
+学会 **cell 引用（placement）**；毕业作品至少组合 **创建 + 几何 + 查询** 三类 API。
 
-**毕业项目要求（选一或组合）**
+**本周必会 API（层次）**
 
-1. **双层小房子**  
-   - layer 1：地基（大矩形）  
-   - layer 2：屋顶（另一个矩形或多边形）  
-   - 写出 GDS，再用脚本检查 `TOP` 存在  
+| API | 语法要点（手册） | 小学生说法 |
+|-----|------------------|------------|
+| `$L create ref incell refcell x y mirror angle mag` | 在 `incell` 里放置 `refcell` | 把零件盒摆进大厅 |
+| 可选 `cols rows xspace yspace` | 阵列摆放 | 像橡皮图章盖很多个 |
+| `$L children` / `$L refcount` | 看引用关系 | 谁装了谁、用了几次 |
 
-2. **名字首字母**（简化版）  
-   - 用几个矩形拼出字母（如 `L`、`T`、`H`）  
-   - 全部放在 layer 1  
+最小层次例子：
 
-3. **OOP 小工厂（推荐加分）**  
-   - 用 TclOO 定义类，例如 `Rect` 或 `ChipSketch`  
-   - 方法示例：`addRect`、`save`、`info`  
-   - 类的方法内部调用 `$L create polygon` / `$L gdsout`  
-   - 主程序只负责：`set sketch [ChipSketch new ...]` → `$sketch addRect ...` → `$sketch save`
+```tcl
+set L [layout create]
+$L units microns 1000
+$L create cell BOX
+$L create layer 1.0
+$L create polygon BOX 1.0 0 0 20 20
 
-4. **命令行参数小升级**  
-   - 用 `lindex $argv 0` 让用户指定输出文件名（参考 inspect 示例）
+$L create cell TOP
+# 在 TOP 里放两个 BOX：位置 (0,0) 与 (40,0)；不镜像；角度 0；放大 1
+$L create ref TOP BOX 0 0 0 0 1
+$L create ref TOP BOX 40 0 0 0 1
+
+$L create text TOP 1.0 0 30 "TWO BOXES"
+$L gdsout tmp/week10_refs.gds TOP
+
+puts "top=[$L topcell] cells=[$L cells]"
+exit
+```
+
+**毕业项目（选一，鼓励组合 API）**
+
+1. **双层小房子** — polygon 两层 + text 门牌 + `gdsout` + report  
+2. **积木阵列** — 一个小 cell + `$L create ref` 排成 2×2 或一排  
+3. **首字母积木** — 多个 polygon（或多个小 cell + ref）拼字母  
+4. **OOP 小工厂（加分）** — TclOO 类封装 `addRect` / `place` / `save` / `report`，内部调用 `$L ...`  
+5. **GUI 选学（大人）** — 打开 DESIGNrev 后：`set wb [find objects -class cwbWorkBench]`；`set L [$wb cget -_layout]`；`puts [$L cells]`（手册 cwbWorkBench）
 
 **本周日程**
 
 | 天 | 任务 |
 |----|------|
-| Day 1 | 在纸上设计：图纸故事 +（可选）类有哪些方法 |
-| Day 2–3 | 写 Tcl：layout 对象方法 和/或 自己的 TclOO 类 |
-| Day 4 | 写检查脚本；修复报错 |
-| Day 5 | **展示日**：给家人演示；说明「哪里是类/对象/方法」；脚本放进 `examples/` |
+| Day 1 | 纸上设计：用到哪些 API（对照下方速查表打勾） |
+| Day 2–3 | 实现创建 + 几何 +（推荐）`create ref` |
+| Day 4 | 写 report（peek / topcell / cells / bbox）；修 bug |
+| Day 5 | **展示日**：演示脚本；口述 3 个用过的 API；放入 `examples/` |
 
 **毕业检查清单**
 
-- [ ] 脚本能用 `./run_calibre_tcl.sh` 跑通  
-- [ ] 生成了 GDS 文件  
-- [ ] 有检查脚本或检查步骤  
-- [ ] 能解释：变量、列表/`proc`、**类/对象/方法**、layout、cell、layer、polygon、GDS  
-- [ ] （加分）用 TclOO 封装过至少一步画图或保存逻辑  
+- [ ] `./run_calibre_tcl.sh` 跑通  
+- [ ] 生成 GDS（或 OASIS）  
+- [ ] 使用 ≥1 个 **创建** API、≥2 个 **几何** API、≥2 个 **查询** API  
+- [ ] （推荐）使用 `$L create ref` 或阵列参数  
+- [ ] 能解释：句柄、`$L 方法`、layer/datatype、GDS  
+- [ ] （加分）TclOO 封装；或 GUI `cwbWorkBench` 取当前 layout  
+
+---
+
+# 附录 A — CalibreDRV Tcl API 学习速查（手册子集）
+
+> 完整列表见 `calbr_drv_ref` 目录：**Layout Commands** + **Layout Object**。此处只列学习路线上的高频命令。
+
+### A1. layout 命令（全局）
+
+| 命令 | 用途 |
+|------|------|
+| `layout create` | 空库 / 打开 GDS·OASIS·RDB 等 |
+| `layout peek file options...` | 不完整加载，查询 cells/layers/topcell/bbox/precision… |
+| `layout filemerge -in a -in b ...` | 合并多个版图（进阶） |
+| `layout delete` / `layout copy` | 删除、复制 layout 句柄（进阶） |
+
+### A2. `$L` 创建 / 修改
+
+| 命令 | 用途 |
+|------|------|
+| `$L units microns` | 单位 |
+| `$L create cell` / `layer` | 结构 |
+| `$L create polygon` / `wire` / `text` / `ref` | 几何与层次 |
+| `$L create clip` | 按区域/RDB 裁剪（进阶） |
+| `$L delete cell\|layer\|polygon\|text\|wire\|ref` | 删除（进阶，先会查再学删） |
+| `$L modify origin` / `modify text` / `modify layer` | 修改（进阶） |
+| `$L import layout` | 导入另一 layout（进阶） |
+
+### A3. `$L` 导出
+
+| 命令 | 用途 |
+|------|------|
+| `$L gdsout` | 写 GDS（可 `.gz`） |
+| `$L oasisout` | 写 OASIS |
+| `$L rdbout` / `$L asciiout` | RDB / ASCII（进阶） |
+
+### A4. `$L` 查询 / 遍历
+
+| 命令 | 用途 |
+|------|------|
+| `$L topcell` / `$L cells` / `$L layers` / `$L layernames` | 结构总览 |
+| `$L exists cell\|layer` | 存在性 |
+| `$L bbox` / `$L children` / `$L ancestors` | 范围与层次 |
+| `$L iterator poly\|wire\|text\|ref ...` | 逐个遍历图形（进阶） |
+| `$L report` / `$L query` | 报告与查询（进阶） |
+| `$L scale` / `$L SIZE` / `$L SNAP` | 变换（进阶） |
+
+### A5. GUI（选学）
+
+| 命令 | 用途 |
+|------|------|
+| `find objects -class cwbWorkBench` | 找到桌面主对象 |
+| `$cwb cget -_layout` | 当前打开的 layout 句柄 |
+| `$cwb zoomAllClbk` / `setLayerVisibility` … | 视图控制（大人演示即可） |
+
+---
+
+# 附录 B — 每周 API 打卡表（可打印）
+
+| 周 | 我练过的命令（自己打勾） |
+|----|--------------------------|
+| 7 | □ `layout create` □ 打印句柄 `$L` □ `./run_calibre_tcl.sh` |
+| 8 | □ `units microns` □ `create cell` □ `create layer` □ `create polygon` □ `create text` □ `create wire` □ `gdsout` □（选）`oasisout` □（选）`eval`+坐标 list |
+| 9 | □ `layout create $gds` □ `topcell` □ `cells` □ `layers` □ `exists cell` □ `bbox` □ `layout peek -cells/-layers/-topcell` |
+| 10 | □ `create ref` □ 组合报告 □（选）TclOO 封装 □（选）`cwbWorkBench` |
 
 ---
 
 # 每周固定节奏（建议）
 
 ```
-周一：学一个新概念（看示例 + 笔记）
-周二：照着改数字/文字
-周三：自己写一小段
-周四：修 bug / 问问题
+周一：学一个新 API（手册标题 + 最小例子）
+周二：照着改数字 / 层号 / 坐标
+周三：自己组合 2～3 个 API
+周四：修 bug / 查手册 HTML TOC
 周五：完成本周小作品
 周末：可选复习 15 分钟，或休息
 ```
@@ -465,28 +666,31 @@ $L gdsout $gds TOP             ;# 方法：导出 GDS
 
 | 事项 | 说明 |
 |------|------|
-| 环境 | `source setup_calibredrv.sh`；GUI 可用 VNC/X11（见仓库脚本） |
-| 运行 | 优先用 `./run_calibre_tcl.sh examples/xxx.tcl` |
-| 第 1–6 周 | 只需 `tclsh`（第 6 周练 TclOO）；不必上 calibredrv |
-| 第 6 周 OOP | 确认 `tclsh` 为 8.6+：`puts $tcl_version`；卡壳时先保证最小 `Pet` 例子能跑 |
-| 第 7–10 周 | 协助打开 GUI；反复提醒 `$L ...` 就是「对对象喊方法」；不代替孩子改全部代码 |
+| 环境 | `source setup_calibredrv.sh`；GUI 用 VNC/X11（见仓库脚本） |
+| 运行 | 优先 `./run_calibre_tcl.sh examples/xxx.tcl` |
+| 手册 | 卡壳时打开 `calbr_drv_ref_toc.html`，搜索命令名；PDF 亦可 |
+| 第 1–6 周 | 只需 `tclsh`（第 6 周 TclOO） |
+| 第 7–10 周 | 强调「先查手册再猜」；层号写法以本机实测为准；不代替孩子改完全部代码 |
 | 安全 | 只在本项目目录写文件；不要改 license / EDA 安装目录 |
+| 进阶边界 | `filemerge`、布尔 `$L AND/OR/NOT`、RDB/OPC 流程放到 10 周后 |
 
 ---
 
-# 10 周后可以继续学什么？
+# 10 周后可以继续学什么？（手册下一站）
 
-1. TclOO 进阶：`superclass`（继承）、更多方法、把数据藏在对象里  
-2. 更多 polygon / path / text 图形  
-3. 多个 cell、层级引用（instance）——「大对象里装着小对象」  
-4. 用循环 + 对象方法批量画很多小方块  
-5. 阅读 Mentor/Siemens Calibre DESIGNrev Tcl 文档（大人带着翻）  
-6. 把小项目整理成「作品集」：`examples/student_*.tcl`
+1. `$L iterator` 遍历全部 polygon/wire/text  
+2. `$L create ref` 阵列参数；`$L flatten cell` / `expand ref`  
+3. `layout filemerge`、`$L import layout` 做小规模拼接  
+4. `$L AND` / `OR` / `NOT` / `SIZE` 等批处理几何运算  
+5. RDB：`layout create xxx.rdb`、`$L rdbout`、`$L create clip`  
+6. GUI 宏与 `cwbWorkBench` 回调（Writing Macros 章）  
+7. TclOO 把常用流程封成自己的「小工具库」  
+8. 作品集：`examples/student_*.tcl`
 
 ---
 
 # 鼓励语
 
-> 芯片图纸很复杂，但你现在学的是：**一步一步给电脑下清楚的命令**，还能让「小玩具对象」自己会做事。  
-> 第 1 周只会打印一句话，第 6 周会做面向对象的宠物，第 10 周能画出自己的版图——这已经很了不起了。  
+> 芯片图纸很复杂，但你现在学的是：**查手册 → 选对 API → 给 `$L` 下清楚的命令**。  
+> 第 1 周只会打印一句话，第 6 周会做面向对象的宠物，第 10 周能组合多种 Calibre API 画出自己的版图——这已经很了不起了。  
 > 报错不是失败，是电脑在跟你玩「找不同」。继续加油！
