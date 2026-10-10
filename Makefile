@@ -16,14 +16,19 @@ EX        ?= 01
 
 .DEFAULT_GOAL := help
 
-.PHONY: help check list run week1 week1-01 week1-02 week1-03 week1-04 \
-	week1-05 week1-06 week1-07 week1-08 week1-09 week1-10 week1-11 week1-12
+.PHONY: help check list run \
+	week1 week1-01 week1-02 week1-03 week1-04 week1-05 week1-06 \
+	week1-07 week1-08 week1-09 week1-10 week1-11 week1-12 \
+	week2 week2-01 week2-02 week2-03 week2-04 week2-05 week2-06 \
+	week2-07 week2-08 week2-09 week2-10 week2-11 week2-12
 
 help:
 	@echo "Tcl lesson runner"
 	@echo ""
 	@echo "  make week1           Run all Week 1 examples"
-	@echo "  make week1-01        Run one example (01..12)"
+	@echo "  make week2           Run all Week 2 examples"
+	@echo "  make week1-01        Run one Week 1 example (01..12)"
+	@echo "  make week2-01        Run one Week 2 example (01..12)"
 	@echo "  make run WEEK=1 EX=10"
 	@echo "  make list WEEK=1"
 	@echo "  make check"
@@ -85,3 +90,19 @@ week1-09: ; @$(MAKE) --no-print-directory run WEEK=1 EX=09
 week1-10: ; @$(MAKE) --no-print-directory run WEEK=1 EX=10
 week1-11: ; @$(MAKE) --no-print-directory run WEEK=1 EX=11
 week1-12: ; @$(MAKE) --no-print-directory run WEEK=1 EX=12
+
+week2: check
+	$(call RUN_WEEK,2)
+
+week2-01: ; @$(MAKE) --no-print-directory run WEEK=2 EX=01
+week2-02: ; @$(MAKE) --no-print-directory run WEEK=2 EX=02
+week2-03: ; @$(MAKE) --no-print-directory run WEEK=2 EX=03
+week2-04: ; @$(MAKE) --no-print-directory run WEEK=2 EX=04
+week2-05: ; @$(MAKE) --no-print-directory run WEEK=2 EX=05
+week2-06: ; @$(MAKE) --no-print-directory run WEEK=2 EX=06
+week2-07: ; @$(MAKE) --no-print-directory run WEEK=2 EX=07
+week2-08: ; @$(MAKE) --no-print-directory run WEEK=2 EX=08
+week2-09: ; @$(MAKE) --no-print-directory run WEEK=2 EX=09
+week2-10: ; @$(MAKE) --no-print-directory run WEEK=2 EX=10
+week2-11: ; @$(MAKE) --no-print-directory run WEEK=2 EX=11
+week2-12: ; @$(MAKE) --no-print-directory run WEEK=2 EX=12
