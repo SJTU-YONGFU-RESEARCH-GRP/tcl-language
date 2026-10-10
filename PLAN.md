@@ -1,6 +1,6 @@
 # 小学生 Tcl 学习计划（10 周）
 
-> 目标：先学会用 Tcl「跟电脑说话」，再学会用 Tcl 控制 Calibre DESIGNrev（calibredrv）画芯片版图、读写 GDS。
+> 目标：先学会用 Tcl「跟电脑说话」，再学会 **面向对象（OOP）** 的想法，最后用 Tcl 控制 Calibre DESIGNrev（calibredrv）画芯片版图、读写 GDS。
 >
 > 每周大约 **3～5 次练习**，每次 **30～45 分钟**。不怕慢，怕不练。
 
@@ -21,7 +21,8 @@
 | 阶段 | 周次 | 主题 | 你会得到什么 |
 |------|------|------|--------------|
 | 基础 Tcl | 第 1–5 周 | 打印、变量、列表、条件、循环、过程、文件 | 能独立写小 Tcl 脚本 |
-| CalibreDRV | 第 6–10 周 | 启动工具、layout API、画多边形、读写 GDS | 能用 Tcl 生成并检查版图 |
+| OOP | 第 6 周 | 类、对象、方法（TclOO） | 会做「会做事的小玩具」 |
+| CalibreDRV | 第 7–10 周 | 启动工具、layout 对象 API、画多边形、读写 GDS | 能用面向对象的方式操作版图 |
 
 本仓库已有示例（后面几周会用到）：
 
@@ -29,6 +30,28 @@
 - `examples/create_box.tcl` — 画正方形并写出 GDS
 - `examples/inspect_gds.tcl` — 打开 GDS 查看
 - 运行方式：`./run_calibre_tcl.sh examples/某脚本.tcl`
+
+---
+
+## OOP 一句话地图（第 6 周起常看）
+
+| OOP 词 | 小学生说法 | Tcl / Calibre 里长什么样 |
+|--------|------------|--------------------------|
+| **类（class）** | 玩具的「模具图纸」 | `oo::class create Pet { ... }` |
+| **对象（object）** | 按模具做出的真实玩具 | `set cat [Pet new "Mimi"]` |
+| **方法（method）** | 玩具会做的动作 | `$cat speak` |
+| **属性 / 变量** | 玩具身上贴的标签（名字、颜色） | `variable name` |
+| **构造** | 「刚做出来时」发生的事 | `constructor {n} { ... }` |
+
+Calibre 里几乎一样：
+
+```tcl
+set L [layout create]    ;# 做出一个 layout「对象」
+$L create cell TOP       ;# 让这个对象去做一件事（方法）
+$L create layer 1
+```
+
+> 窍门：看到 `$某东西 动词 ...`，多半就是在跟一个对象说话。
 
 ---
 
@@ -150,7 +173,8 @@
 ## 第 5 周 — 小帮手：过程（proc）与文件
 
 **本周目标**  
-把重复动作做成「小帮手」；能读写简单文本文件。
+把重复动作做成「小帮手」；能读写简单文本文件。  
+（为第 6 周 OOP 打基础：`proc` ≈ 还没有「主人」的动作）
 
 **要学的概念**
 
@@ -171,23 +195,106 @@
 | Day 4 | 读回 `tmp/diary.txt` 并打印 |
 | Day 5 | **小作品**：「工具箱」— 至少 3 个 proc（问好、加法、打印列表） |
 
-**本周检查（第一阶段结业）**  
+**本周检查**  
 独立完成一个小脚本：含变量、列表、`if`、循环、至少一个 `proc`、读写一个文件。
 
-**可选休息日**  
-复习第 1–5 周笔记，整理「我最常用的 10 条 Tcl 命令」卡片。
+**通往 OOP 的小问题（思考即可）**  
+如果有很多宠物，每只都要 `greet`、`speak`，是不是希望「每只宠物自己会说话」？→ 这就是下周要学的对象。
 
 ---
 
-# 第二阶段：Tcl + CalibreDRV（第 6–10 周）
+# 第二阶段：面向对象 OOP（第 6 周）
 
-> 提醒：本阶段需要已配置好的 calibredrv 环境（见 `setup_calibredrv.sh`）。  
-> 小学生主要学「写脚本 + 看结果」；GUI / VNC 由大人协助打开。
-
-## 第 6 周 — 认识新教室：calibredrv 与运行方式
+## 第 6 周 — 会做事的小玩具：类、对象、方法（TclOO）
 
 **本周目标**  
-知道 calibredrv 是什么；会用本仓库脚本跑 Tcl。
+用 Tcl 自带的 **TclOO**（`oo::class`）做出「模具 → 玩具 → 让玩具做事」。  
+不要求一次学会所有 OOP 术语；先会写、会改、会讲故事。
+
+**环境**  
+继续用 `tclsh`（Tcl 8.6+ 自带 TclOO，一般不必额外安装）。
+
+**要学的概念**
+
+| OOP / TclOO | 生活比喻 |
+|-------------|----------|
+| `oo::class create ...` | 画出玩具模具 |
+| `variable name` | 每个玩具自己的名字标签 |
+| `constructor` | 玩具刚做好时要做的事（贴好名字） |
+| `method` | 玩具会的动作 |
+| `ClassName new ...` | 用模具做出一个真玩具 |
+| `$obj methodName` | 对这个玩具喊：「去做某某事！」 |
+
+**最小可运行例子（照抄 → 再改）**
+
+```tcl
+oo::class create Pet {
+    variable name kind
+
+    constructor {n k} {
+        set name $n
+        set kind $k
+    }
+
+    method introduce {} {
+        puts "I am $name, a $kind."
+    }
+
+    method speak {} {
+        if {$kind eq "cat"} {
+            puts "$name: meow!"
+        } else {
+            puts "$name: woof!"
+        }
+    }
+}
+
+set a [Pet new "Mimi" "cat"]
+set b [Pet new "Buddy" "dog"]
+$a introduce
+$a speak
+$b introduce
+$b speak
+```
+
+**每日练习建议**
+
+| 天 | 任务 |
+|----|------|
+| Day 1 | 画图：模具（类）vs 两只真宠物（对象）；标出「方法」气泡 |
+| Day 2 | 在 `tclsh` 里跑通上面的 `Pet` 例子 |
+| Day 3 | 给 `Pet` 加方法 `rename {newName}`，能改名字再 `introduce` |
+| Day 4 | 新建类 `Robot`：属性 `name`，方法 `beep`、`move {steps}` |
+| Day 5 | **小作品**：「宠物店」— 至少 1 个类、2 个对象、3 个方法；写进 `examples/my_oop_pets.tcl` |
+
+**可选加分（大人带着试，不强制）**
+
+- 再做一个子类感觉：`oo::class create Cat { superclass Pet ... }`（知道「更专用的模具」即可）
+- 用列表装着多个对象：`foreach p [list $a $b] { $p speak }`
+
+**本周检查（基础 + OOP 结业）**  
+能用自己的话解释：类 / 对象 / 方法；能独立写出并运行一个小 TclOO 脚本。
+
+**和下周的桥梁**  
+Calibre 不会让你写 `oo::class create layout`，但它给你的 `layout` **用起来就像对象**：
+
+```tcl
+set L [layout create]   ;# 很像 Pet new
+$L create cell TOP      ;# 很像 $cat speak
+```
+
+---
+
+# 第三阶段：Tcl + CalibreDRV（第 7–10 周）
+
+> 提醒：本阶段需要已配置好的 calibredrv 环境（见 `setup_calibredrv.sh`）。  
+> 小学生主要学「写脚本 + 看结果」；GUI / VNC 由大人协助打开。  
+> **带着第 6 周的 OOP 眼镜看每一行 `$L ...`。**
+
+## 第 7 周 — 认识新教室：calibredrv，以及「layout 对象」
+
+**本周目标**  
+知道 calibredrv 是什么；会用本仓库脚本跑 Tcl；认出 layout 就是一种对象。
 
 **要懂的大图**
 
@@ -200,9 +307,18 @@
 
 | 东西 | 比喻 |
 |------|------|
-| 普通 `tclsh` | 普通教室 |
-| `calibredrv -shell` | 带「画芯片」专用画笔的特殊教室 |
+| 普通 `tclsh` | 普通教室（可练 TclOO） |
+| `calibredrv -shell` | 带「画芯片」专用对象的特殊教室 |
+| `layout` 对象 | 一张会听话的图纸玩具 |
 | GDS 文件 | 画好的图纸文件（给工厂看的） |
+
+**OOP 对照练习**
+
+| 第 6 周 TclOO | 第 7 周 Calibre |
+|---------------|-----------------|
+| `set cat [Pet new ...]` | `set L [layout create]` |
+| `$cat speak` | `$L create cell TOP` |
+| 对象句柄存在变量里 | `$L` 就是 layout 的句柄 |
 
 **每日练习建议**
 
@@ -211,98 +327,65 @@
 | Day 1 | 大人协助：`source setup_calibredrv.sh`，确认能找到 `calibredrv` |
 | Day 2 | 运行 `./run_calibre_tcl.sh examples/hello_calibre.tcl` |
 | Day 3 | 复制 hello 脚本，改成打印自己的名字 + `tcl_version` |
-| Day 4 | 对比：同一脚本在 `tclsh` 与 calibredrv 里有什么不同（大人讲解即可） |
-| Day 5 | **小作品**：`examples/my_hello.tcl` — 自我介绍三行 + `exit` |
+| Day 4 | 在笔记本写对照表：Pet 对象 vs layout 对象（至少 3 行） |
+| Day 5 | **小作品**：`examples/my_hello.tcl` — 自我介绍 + 用注释标出「哪里像 OOP」 |
 
 **本周检查**  
-能独立用 `./run_calibre_tcl.sh` 跑自己的脚本并看到输出。
+能独立用 `./run_calibre_tcl.sh` 跑脚本，并能指出「哪个变量像对象句柄」。
 
 ---
 
-## 第 7 周 — 空白画布：`layout create` 与 cell / layer
+## 第 8 周 — 空白画布到第一个方块：cell / layer / polygon / GDS
 
 **本周目标**  
-理解「版图 = 很多层上的图形」；创建空 layout、cell、layer。
+对 layout **对象** 调用方法：建 cell、建 layer、画多边形、写出 GDS。
 
 **要学的概念**
 
-| 概念 | 小学生说法 |
-|------|------------|
-| layout | 一整张芯片图纸 |
-| cell | 图纸上的一个「房间」或「零件盒」（如 `TOP`） |
-| layer | 彩色透明纸叠在一起（第 1 层、第 2 层……） |
-| `layout create` | 拿出一张空白图纸 |
+| 概念 | 小学生说法 | OOP 说法 |
+|------|------------|----------|
+| layout | 一整张芯片图纸 | 对象 |
+| cell | 图纸上的「房间」（如 `TOP`） | 对象管理的一部分数据 |
+| layer | 彩色透明纸 | 对象管理的另一部分数据 |
+| polygon | 用点连起来的形状 | 通过方法画上去 |
+| `gdsout` | 把图纸存成文件 | 对象的「保存」动作 |
 
-**对照示例思路**（参考 `examples/create_box.tcl` 前半段）
-
-```tcl
-set L [layout create]
-$L create cell TOP
-$L create layer 1
-```
-
-**每日练习建议**
-
-| 天 | 任务 |
-|----|------|
-| Day 1 | 读懂 `create_box.tcl` 前 15 行，用自己的话写注释 |
-| Day 2 | 写脚本：创建 layout + cell `TOP` + layer `1`，打印成功信息 |
-| Day 3 | 再加一个 cell 名字（如 `BOX`），打印你创建了什么 |
-| Day 4 | 创建 layer 1 和 layer 2，记录「层」像什么 |
-| Day 5 | **小作品**：`make_blank.tcl` — 建空白图纸结构并说明每一步 |
-
-**本周检查**  
-能解释 layout / cell / layer，并能用 Tcl 创建它们。
-
----
-
-## 第 8 周 — 画第一个形状：polygon 与正方形
-
-**本周目标**  
-在指定 layer 上画多边形；写出一个正方形 GDS。
-
-**要学的概念**
-
-| 概念 | 小学生说法 |
-|------|------------|
-| polygon | 用一串点连起来的形状 |
-| 坐标 `(x, y)` | 地图上的格子位置 |
-| `1_0` | 第 1 层、datatype 0（先记住写法） |
-| `gdsout` | 「把图纸存成 GDS 文件」 |
-
-**核心练习**（与仓库示例一致）
+**对照示例**（参考 `examples/create_box.tcl`）
 
 ```tcl
+set L [layout create]          ;# new 一个 layout 对象
+$L create cell TOP             ;# 方法：建 cell
+$L create layer 1              ;# 方法：建 layer
 $L create polygon TOP 1_0 \
   0 0 \
   100 0 \
   100 100 \
-  0 100
-$L gdsout $gds TOP
+  0 100                        ;# 方法：画多边形
+$L gdsout $gds TOP             ;# 方法：导出 GDS
 ```
 
 **每日练习建议**
 
 | 天 | 任务 |
 |----|------|
-| Day 1 | 在纸上画出正方形四个角的坐标 |
-| Day 2 | 运行 `./run_calibre_tcl.sh examples/create_box.tcl` |
-| Day 3 | 改尺寸：试 50×50、200×200，看文件是否生成 |
-| Day 4 | 画长方形（不是正方形）：例如 100×50 |
-| Day 5 | **小作品**：`my_box.tcl` — 自定义大小，输出到 `tmp/` |
+| Day 1 | 读 `create_box.tcl`，给每一行标：创建对象 / 调方法 / 普通 Tcl |
+| Day 2 | 运行示例；再改尺寸 50×50、200×200 |
+| Day 3 | 画长方形 100×50；输出到 `tmp/` |
+| Day 4 | （可选 OOP 封装）用 TclOO 写小类 `BoxDrawer`，方法 `draw {L cell layer x1 y1 x2 y2}` 内部调用 `$L create polygon ...`——大人可协助骨架 |
+| Day 5 | **小作品**：`my_box.tcl` — 自定义大小；注释里写出「谁是对象、哪些是方法」 |
 
 **本周检查**  
-能改坐标画出不同矩形，并成功写出 GDS。
+能改坐标画出不同矩形并写出 GDS；能指出脚本里的对象与方法。
 
 **可选（大人协助）**  
 用 VNC/GUI 打开 `tmp/demo_box.gds`，亲眼看到方块。
 
 ---
 
-## 第 9 周 — 打开图纸：读 GDS 与简单检查
+## 第 9 周 — 打开图纸：读 GDS、检查、再用对象说话
 
 **本周目标**  
-会打开已有 GDS；用脚本确认 cell 是否存在。
+打开已有 GDS（得到 layout 对象）；用方法检查 cell 是否存在。
 
 **对照示例**：`examples/inspect_gds.tcl`
 
@@ -311,20 +394,20 @@ $L gdsout $gds TOP
 | 天 | 任务 |
 |----|------|
 | Day 1 | 先用第 8 周脚本生成 GDS，再运行 inspect 示例 |
-| Day 2 | 读懂 `layout create $gds`：打开已有文件 |
-| Day 3 | 练习 `exists cell TOP`，打印「找到了 / 没找到」 |
-| Day 4 | 故意打开错误路径，学会看报错（不怕错） |
-| Day 5 | **小作品**：`check_my_gds.tcl` — 打开自己的 GDS 并报告状态 |
+| Day 2 | 读懂 `layout create $gds`：用文件「唤醒」一个 layout 对象 |
+| Day 3 | 练习 `$L exists cell TOP`，打印「找到了 / 没找到」 |
+| Day 4 | 故意打开错误路径，学会看报错；想一想：对象还没造出来时能不能调方法？ |
+| Day 5 | **小作品**：`check_my_gds.tcl` — 打开自己的 GDS 并报告状态（可用 `if`） |
 
 **本周检查**  
-能「创建 → 写出 → 再打开检查」走通一整条小路。
+能「创建对象 → 写出 → 再打开对象检查」走通一整条小路。
 
 ---
 
-## 第 10 周 — 毕业项目：我的小小芯片图纸
+## 第 10 周 — 毕业项目：我的小小芯片图纸（含 OOP）
 
 **本周目标**  
-综合运用 Tcl + calibredrv，完成一个有故事的小项目。
+综合运用 Tcl + OOP 思维 + calibredrv，完成一个有故事的小项目。
 
 **毕业项目要求（选一或组合）**
 
@@ -337,24 +420,31 @@ $L gdsout $gds TOP
    - 用几个矩形拼出字母（如 `L`、`T`、`H`）  
    - 全部放在 layer 1  
 
-3. **命令行参数小升级**  
+3. **OOP 小工厂（推荐加分）**  
+   - 用 TclOO 定义类，例如 `Rect` 或 `ChipSketch`  
+   - 方法示例：`addRect`、`save`、`info`  
+   - 类的方法内部调用 `$L create polygon` / `$L gdsout`  
+   - 主程序只负责：`set sketch [ChipSketch new ...]` → `$sketch addRect ...` → `$sketch save`
+
+4. **命令行参数小升级**  
    - 用 `lindex $argv 0` 让用户指定输出文件名（参考 inspect 示例）
 
 **本周日程**
 
 | 天 | 任务 |
 |----|------|
-| Day 1 | 在纸上设计图纸（层、坐标、故事） |
-| Day 2–3 | 写 Tcl：创建 layout / cell / layer / polygon / gdsout |
+| Day 1 | 在纸上设计：图纸故事 +（可选）类有哪些方法 |
+| Day 2–3 | 写 Tcl：layout 对象方法 和/或 自己的 TclOO 类 |
 | Day 4 | 写检查脚本；修复报错 |
-| Day 5 | **展示日**：给家人演示；把脚本放进 `examples/` 并写 5 行说明 |
+| Day 5 | **展示日**：给家人演示；说明「哪里是类/对象/方法」；脚本放进 `examples/` |
 
 **毕业检查清单**
 
 - [ ] 脚本能用 `./run_calibre_tcl.sh` 跑通  
 - [ ] 生成了 GDS 文件  
 - [ ] 有检查脚本或检查步骤  
-- [ ] 能用自己的话解释：变量、列表/`proc`（至少用过一种）、layout、cell、layer、polygon、GDS  
+- [ ] 能解释：变量、列表/`proc`、**类/对象/方法**、layout、cell、layer、polygon、GDS  
+- [ ] （加分）用 TclOO 封装过至少一步画图或保存逻辑  
 
 ---
 
@@ -377,24 +467,26 @@ $L gdsout $gds TOP
 |------|------|
 | 环境 | `source setup_calibredrv.sh`；GUI 可用 VNC/X11（见仓库脚本） |
 | 运行 | 优先用 `./run_calibre_tcl.sh examples/xxx.tcl` |
-| 第 1–5 周 | 只需 `tclsh`，不必上 calibredrv |
-| 第 6–10 周 | 协助打开 GUI；解释报错，不代替孩子改全部代码 |
+| 第 1–6 周 | 只需 `tclsh`（第 6 周练 TclOO）；不必上 calibredrv |
+| 第 6 周 OOP | 确认 `tclsh` 为 8.6+：`puts $tcl_version`；卡壳时先保证最小 `Pet` 例子能跑 |
+| 第 7–10 周 | 协助打开 GUI；反复提醒 `$L ...` 就是「对对象喊方法」；不代替孩子改全部代码 |
 | 安全 | 只在本项目目录写文件；不要改 license / EDA 安装目录 |
 
 ---
 
 # 10 周后可以继续学什么？
 
-1. 更多 polygon / path / text 图形  
-2. 多个 cell、层级引用（instance）  
-3. 用循环批量画很多小方块  
-4. 阅读 Mentor/Siemens Calibre DESIGNrev Tcl 文档（大人带着翻）  
-5. 把小项目整理成「作品集」：`examples/student_*.tcl`
+1. TclOO 进阶：`superclass`（继承）、更多方法、把数据藏在对象里  
+2. 更多 polygon / path / text 图形  
+3. 多个 cell、层级引用（instance）——「大对象里装着小对象」  
+4. 用循环 + 对象方法批量画很多小方块  
+5. 阅读 Mentor/Siemens Calibre DESIGNrev Tcl 文档（大人带着翻）  
+6. 把小项目整理成「作品集」：`examples/student_*.tcl`
 
 ---
 
 # 鼓励语
 
-> 芯片图纸很复杂，但你现在学的是：**一步一步给电脑下清楚的命令**。  
-> 第 1 周只会打印一句话，第 10 周就能画出自己的版图——这已经很了不起了。  
+> 芯片图纸很复杂，但你现在学的是：**一步一步给电脑下清楚的命令**，还能让「小玩具对象」自己会做事。  
+> 第 1 周只会打印一句话，第 6 周会做面向对象的宠物，第 10 周能画出自己的版图——这已经很了不起了。  
 > 报错不是失败，是电脑在跟你玩「找不同」。继续加油！
