@@ -7,6 +7,7 @@ on:
       - "lessons/**"
       - "docs/**"
       - "website/**"
+      - "CONTRIBUTORS.md"
       - "scripts/build_website.py"
       - ".github/workflows/pages.yml"
   workflow_dispatch:

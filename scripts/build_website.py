@@ -191,6 +191,29 @@ def copy_help_docs() -> None:
             (help_dir / dst_name).write_text(text, encoding="utf-8")
 
 
+def write_contributors() -> None:
+    """Publish CONTRIBUTORS.md on the GitHub Pages site."""
+    src = ROOT / "CONTRIBUTORS.md"
+    if not src.is_file():
+        return
+    text = src.read_text(encoding="utf-8")
+    # Drop the top H1 so MkDocs page title stays clean in the theme chrome.
+    lines = text.splitlines()
+    if lines and lines[0].startswith("# "):
+        lines = lines[1:]
+        while lines and not lines[0].strip():
+            lines.pop(0)
+    body = "\n".join(lines).rstrip() + "\n"
+    page = (
+        "# Contributors\n\n"
+        f"Course collaborators. Source: "
+        f"[`CONTRIBUTORS.md`]({GITHUB}/blob/main/CONTRIBUTORS.md) "
+        f"on GitHub.\n\n"
+        f"{body}"
+    )
+    (DOCS / "contributors.md").write_text(page, encoding="utf-8")
+
+
 def write_home() -> None:
     weeks = week_dirs()
     en_rows = []
@@ -226,6 +249,7 @@ Bilingual Tcl / Calibre layout scripting course from
 - [How Tcl help works](help/tcl.md)
 - [Calibre Usage tips](help/calibre.md)
 - [API coverage checklist](help/coverage.md)
+- [Contributors](contributors.md)
 - [Full study plan on GitHub]({GITHUB}/blob/main/PLAN.md)
 
 ## Run examples locally
@@ -356,6 +380,7 @@ nav:
       - Tcl help: help/tcl.md
       - Calibre help: help/calibre.md
       - Coverage: help/coverage.md
+  - Contributors: contributors.md
 """
     (WEBSITE / "mkdocs.yml").write_text(yml, encoding="utf-8")
 
@@ -373,6 +398,7 @@ def main() -> None:
         raise SystemExit("No lesson weeks found under lessons/")
     write_home()
     copy_help_docs()
+    write_contributors()
     write_mkdocs_yml(meta)
     print(f"Generated website for {len(meta)} weeks → {WEBSITE}")
 
