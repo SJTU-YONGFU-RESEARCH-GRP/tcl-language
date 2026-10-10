@@ -1,0 +1,4 @@
+=== My Tcl Diary ===
+Today I learned proc and files.
+I can write text to tmp/week5_diary.txt
+Tomorrow I will read it back.
