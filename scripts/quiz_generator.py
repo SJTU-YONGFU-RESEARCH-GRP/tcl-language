@@ -193,7 +193,7 @@ def _build_quiz_page(lang: str) -> str:
     <div style="background:var(--md-default-bg-color); border:1px solid var(--tcl-border); border-radius:8px; padding:12px 16px; margin-bottom:18px;">
       <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:6px; font-size:12px; font-weight:700;">
         <span style="color:var(--tcl-heading);">⏱️ {t["timer_label"]}: <span id="timerSecondsText" style="color:var(--tcl-blue-600); font-size:14px;">30s</span></span>
-        <span id="thinkingAllowanceTag" style="color:#d97706; font-size:11.5px; display:none;">⚠️ {t["thinking_bonus"]}: +15s</span>
+        <span id="thinkingAllowanceTag" data-bonus-label="⚠️ {t['thinking_bonus']}" style="color:#d97706; font-size:11.5px; display:none;">⚠️ {t["thinking_bonus"]}: +15s</span>
       </div>
       <div style="width:100%; height:8px; background:rgba(0,0,0,0.08); border-radius:4px; overflow:hidden;">
         <div id="timerBar" style="width:100%; height:100%; background:#10b981; transition:width 0.2s linear, background-color 0.3s ease;"></div>
@@ -831,7 +831,8 @@ let currentQuest = {
   currentQuestion: null,
   selectedChoice: null,
   autoSubmitTimer: null,
-  isSubmitting: false
+  isSubmitting: false,
+  broughtForwardBonus: 0
 };
 
 const AUTO_ACCEPT_DELAY_MS = 300; // 0.3s grace period before accepting answer
@@ -860,6 +861,7 @@ function startChallenge() {
   currentQuest.modIdx = 0;
   currentQuest.tierIdx = 0;
   currentQuest.mistakesAtTier = 0;
+  currentQuest.broughtForwardBonus = 0;
   currentQuest.totalAttempts = 0;
   currentQuest.correctAttempts = 0;
   currentQuest.score = 0;
@@ -949,16 +951,21 @@ function loadNextQuestion() {
     grid.appendChild(btn);
   });
 
-  // Calculate Dynamic Time: Base + (Mistakes * 15s)
+  // Dynamic Time: Base + non-accumulative brought-forward bonus (next question only)
   const baseTime = BASE_LIMITS[diffKey];
-  const dynamicTime = baseTime + (currentQuest.mistakesAtTier * 15);
+  const bonus = currentQuest.broughtForwardBonus || 0;
+  const dynamicTime = baseTime + bonus;
   currentQuest.maxTime = dynamicTime;
   currentQuest.timeLeft = dynamicTime;
 
+  // Once consumed for this immediate next question, reset so it doesn't carry forward indefinitely
+  currentQuest.broughtForwardBonus = 0;
+
   const allowanceTag = document.getElementById('thinkingAllowanceTag');
-  if (currentQuest.mistakesAtTier > 0) {
+  if (bonus > 0) {
     allowanceTag.style.display = 'inline';
-    allowanceTag.innerText = `⚠️ Thinking Allowance: +${currentQuest.mistakesAtTier * 15}s (Extra Time Granted)`;
+    const lbl = allowanceTag.getAttribute('data-bonus-label') || '⚠️ Thinking Allowance';
+    allowanceTag.innerText = `${lbl}: +${bonus}s (Next Question Only)`;
   } else {
     allowanceTag.style.display = 'none';
   }
@@ -1078,6 +1085,7 @@ function submitCurrentAnswer() {
     currentQuest.score += points;
     currentQuest.tierCleared[modKey][diffKey] = true;
     currentQuest.mistakesAtTier = 0; // reset mistakes for cleared tier
+    currentQuest.broughtForwardBonus = 0; // cleared tier, no bonus carried forward
 
     toast.style.background = 'rgba(16, 185, 129, 0.15)';
     toast.style.color = '#10b981';
@@ -1104,11 +1112,13 @@ function submitCurrentAnswer() {
     // Mistake made: dynamic branching!
     currentQuest.mistakesAtTier++;
     currentQuest.score = Math.max(0, currentQuest.score - 20);
+    // Non-accumulative: allowance is brought forward to the immediate next question only
+    currentQuest.broughtForwardBonus = 15;
 
     toast.style.background = 'rgba(239, 68, 68, 0.12)';
     toast.style.color = '#ef4444';
     toast.style.border = '1px solid #ef4444';
-    toast.innerText = `✗ Misconception detected! Tier not cleared. Additional reinforcement question queued (+15s thinking time granted).`;
+    toast.innerText = `✗ Misconception detected! Tier not cleared. Additional reinforcement question queued (+15s thinking time brought forward).`;
 
     setTimeout(() => {
       loadNextQuestion();
@@ -1131,12 +1141,15 @@ function handleTimeout() {
 
   currentQuest.totalAttempts++;
   currentQuest.mistakesAtTier++;
+  // Non-accumulative: allowance is brought forward to the immediate next question only
+  currentQuest.broughtForwardBonus = 15;
+
   const toast = document.getElementById('feedbackToast');
   toast.style.display = 'block';
   toast.style.background = 'rgba(239, 68, 68, 0.12)';
   toast.style.color = '#ef4444';
   toast.style.border = '1px solid #ef4444';
-  toast.innerText = `⏱️ Time Expired! Tier not cleared. Queuing replacement question with +15s thinking time...`;
+  toast.innerText = `⏱️ Time Expired! Tier not cleared. Queuing replacement question (+15s thinking time brought forward)...`;
 
   setTimeout(() => {
     loadNextQuestion();
