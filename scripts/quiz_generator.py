@@ -38,92 +38,92 @@ def write_leaderboard_pages(docs_dir: Path) -> None:
 def _build_quiz_page(lang: str) -> str:
     i18n_strings = {
         "en": {
-            "title": "🎯 VLSI Tcl Quiz Challenge & Certification",
-            "badges": ["3-Tier Mastery Model", "Silent Grading", "Thinking Timer", "Verifiable Certificate", "Hall of Fame"],
-            "desc": "An industrial-grade diagnostic quest. Questions scale across 3 difficulty tiers (Easy → Medium → Hard). Time limits provide a fair thinking allowance to support your problem-solving pace, with targeted reinforcement questions to confirm mastery before unlocking subsequent tiers.",
-            "mode_select": "Choose Quest Mode & Candidate Name",
-            "full_mode": "Full Grand Prix (All 4 Modules · 12 Tiers)",
-            "sprint_mode": "Sprint Diagnostic (6 Core Benchmark Questions)",
-            "candidate_placeholder": "Enter your name or callsign (e.g. VLSI_Cadence_Pro)...",
+            "title": "🎯 Tcl Quiz Challenge & Certification",
+            "badges": ["Tcl Knowledge Assessment", "Verifiable Certificate", "Public Leaderboard"],
+            "desc": "Test your Tcl scripting knowledge. Answer multiple-choice questions covering core syntax, command substitution, lists, dictionaries, procedures, and script automation.",
+            "mode_select": "Choose Assessment Mode & Candidate Name",
+            "full_mode": "Full Assessment (All 4 Modules)",
+            "sprint_mode": "Quick Assessment (6 Questions)",
+            "candidate_placeholder": "Enter your name or callsign...",
             "start_btn": "🚀 Launch Quiz Challenge",
             "mod_label": "Current Module",
-            "tier_label": "Difficulty Tier",
+            "tier_label": "Question Level",
             "timer_label": "Thinking Timer",
             "keyboard_hint": "Press keys 1–4 or click to select",
             "auto_accept_hint": "⚡ Auto-accepts in 0.3s",
             "locking_hint": "⏳ Accepting option in 0.3s...",
             "thinking_bonus": "Thinking Time Allowance Granted",
-            "report_title": "📊 Post-Quest Analytical Mastery Report",
-            "cert_title": "🎓 Claim Your Industrial Mastery Certificate",
+            "report_title": "📊 Tcl Quiz Results & Summary",
+            "cert_title": "🎓 Claim Your Certificate of Completion",
             "dl_cert": "📥 Download Certificate (SVG)",
             "print_cert": "🖨️ Print Certificate",
             "view_leaderboard": "🏆 View Standing on Public Leaderboard →",
             "retake": "🔄 Retake Challenge"
         },
         "zh": {
-            "title": "🎯 交互式 VLSI Tcl 随堂评测挑战与认证",
-            "badges": ["三阶能力递进", "盲测静默评分", "深度思考计时", "工业级防伪证书", "全网排行榜"],
-            "desc": "工业级芯片自动化随堂测评系统。题目分为初阶、中阶、高阶三层难度阶梯（Easy → Medium → Hard）。提供充裕的单题思考保护时间，并配置同难度强化题以确保知识点闭环，唯有完全掌握方可通关评级。",
-            "mode_select": "选择挑战模式与考生代号",
-            "full_mode": "全体系大奖赛 (覆盖 4 大核心模块 · 共 12 阶)",
-            "sprint_mode": "疾速冲刺自测 (6 道核心基准诊断题)",
-            "candidate_placeholder": "请输入您的姓名或代号 (例如: 张工_EDA_Signoff)...",
-            "start_btn": "🚀 开启随堂评测挑战",
+            "title": "🎯 Tcl 随堂测验与技能认证",
+            "badges": ["Tcl 语法知识测验", "防伪完成证书", "全网排行榜"],
+            "desc": "测试您的 Tcl 编程与脚本掌握程度。题目涵盖核心语法、置换规则、列表与字典、过程封装及常用自动化脚本操作。",
+            "mode_select": "选择测验模式与考生姓名",
+            "full_mode": "完整测验 (覆盖全部 4 个模块)",
+            "sprint_mode": "快速自测 (精选 6 道题)",
+            "candidate_placeholder": "请输入您的姓名或代号...",
+            "start_btn": "🚀 开启随堂测验",
             "mod_label": "当前评估模块",
-            "tier_label": "题目难度阶梯",
+            "tier_label": "题目难度",
             "timer_label": "思考倒计时",
             "keyboard_hint": "按数字键 1–4 或直接点击选项",
             "auto_accept_hint": "⚡ 选中选项 0.3 秒后自动提交",
             "locking_hint": "⏳ 正在锁定选项 (0.3s)...",
             "thinking_bonus": "已追加思考保护时间",
-            "report_title": "📊 赛后深度诊断分析报告",
-            "cert_title": "🎓 领取工业级芯片自动化掌握证书",
+            "report_title": "📊 Tcl 测验成绩与掌握度评估",
+            "cert_title": "🎓 领取 Tcl 编程完成证书",
             "dl_cert": "📥 下载防伪认证证书 (SVG)",
             "print_cert": "🖨️ 打印 / 导出 PDF",
-            "view_leaderboard": "🏆 前往全网荣誉排行榜查看名次 →",
+            "view_leaderboard": "🏆 前往全网排行榜查看名次 →",
             "retake": "🔄 重新挑战"
         },
         "ms": {
-            "title": "🎯 Cabaran Kuiz VLSI Tcl & Pensijilan",
-            "badges": ["Kemajuan 3-Tahap", "Penggredan Senyap", "Pemasa Berfikir", "Sijil Sah Digital", "Papan Pendahulu"],
-            "desc": "Sistem diagnostik gred industri. Soalan berkembang merentasi 3 tahap kesukaran (Mudah → Sederhana → Sukar). Had masa menyokong langkah pembelajaran anda—memberikan peruntukan masa berfikir apabila diperlukan, sambil memerlukan soalan peneguhan untuk memastikan penguasaan sebelum melepasi sesuatu tahap.",
-            "mode_select": "Pilih Mod Cabaran & Nama Calon",
-            "full_mode": "Grand Prix Penuh (Semua 4 Modul · 12 Tahap)",
-            "sprint_mode": "Diagnostik Pecut (6 Soalan Penanda Aras Teras)",
-            "candidate_placeholder": "Masukkan nama atau alias anda (cth: Jurutera_VLSI)...",
+            "title": "🎯 Cabaran Kuiz Tcl & Pensijilan",
+            "badges": ["Penilaian Penskripan Tcl", "Sijil Sah Digital", "Papan Pendahulu"],
+            "desc": "Uji pengetahuan penskripan Tcl anda. Jawab soalan pilihan berganda yang merangkumi sintaks teras, penggantian perintah, senarai, kamus, dan automasi skrip.",
+            "mode_select": "Pilih Mod Penilaian & Nama Calon",
+            "full_mode": "Penilaian Penuh (Semua 4 Modul)",
+            "sprint_mode": "Penilaian Pantas (6 Soalan)",
+            "candidate_placeholder": "Masukkan nama atau alias anda...",
             "start_btn": "🚀 Lancarkan Cabaran Kuiz",
             "mod_label": "Modul Semasa",
-            "tier_label": "Tahap Kesukaran",
+            "tier_label": "Tahap Soalan",
             "timer_label": "Pemasa Berfikir",
             "keyboard_hint": "Tekan kekunci 1–4 atau klik untuk memilih",
             "auto_accept_hint": "⚡ Diterima secara automatik 0.3s selepas pilihan",
             "locking_hint": "⏳ Mengunci pilihan dalam 0.3s...",
             "thinking_bonus": "Masa Berfikir Tambahan Diberikan",
-            "report_title": "📊 Laporan Analisis Penguasaan Pasca-Cabaran",
-            "cert_title": "🎓 Tuntut Sijil Penguasaan Industri Anda",
+            "report_title": "📊 Keputusan & Ringkasan Kuiz Tcl",
+            "cert_title": "🎓 Tuntut Sijil Tamat Tcl Anda",
             "dl_cert": "📥 Muat Turun Sijil (SVG)",
             "print_cert": "🖨️ Cetak Sijil",
             "view_leaderboard": "🏆 Lihat Kedudukan di Papan Pendahulu →",
             "retake": "🔄 Ulang Semula Cabaran"
         },
         "fr": {
-            "title": "🎯 Défi Quiz VLSI Tcl & Certification",
-            "badges": ["Progression 3 Niveaux", "Notation Silencieuse", "Minuteur de Réflexion", "Certificat Vérifiable", "Classement Public"],
-            "desc": "Système de diagnostic de niveau industriel. Les questions progressent sur 3 niveaux de difficulté (Facile → Moyen → Difficile). Le temps alloué s'adapte à votre démarche : du temps de réflexion supplémentaire est accordé lorsque nécessaire, avec des questions de renforcement pour consolider la maîtrise avant de passer au niveau supérieur.",
+            "title": "🎯 Défi Quiz Tcl & Certification",
+            "badges": ["Évaluation Tcl", "Certificat Vérifiable", "Classement Public"],
+            "desc": "Testez vos connaissances en programmation Tcl. Répondez aux questions à choix multiples couvrant la syntaxe, la substitution, les listes, les dictionnaires et l'automatisation.",
             "mode_select": "Choisissez le Mode & Nom du Candidat",
-            "full_mode": "Grand Prix Complet (4 Modules · 12 Niveaux)",
-            "sprint_mode": "Sprint Diagnostic (6 Questions Clés d'Évaluation)",
-            "candidate_placeholder": "Entrez votre nom ou pseudonyme (ex: Ingénieur_VLSI)...",
+            "full_mode": "Évaluation Complète (4 Modules)",
+            "sprint_mode": "Évaluation Rapide (6 Questions)",
+            "candidate_placeholder": "Entrez votre nom ou pseudonyme...",
             "start_btn": "🚀 Lancer le Défi Quiz",
             "mod_label": "Module en Cours",
-            "tier_label": "Niveau de Difficulté",
+            "tier_label": "Niveau de Question",
             "timer_label": "Minuteur de Réflexion",
             "keyboard_hint": "Appuyez sur 1–4 ou cliquez pour sélectionner",
             "auto_accept_hint": "⚡ Validation automatique 0,3s après sélection",
             "locking_hint": "⏳ Validation de l'option dans 0,3s...",
             "thinking_bonus": "Temps de Réflexion Supplémentaire Accordé",
-            "report_title": "📊 Rapport Analytique de Maîtrise",
-            "cert_title": "🎓 Obtenez Votre Certificat de Maîtrise Industrielle",
+            "report_title": "📊 Résultats & Bilan du Quiz Tcl",
+            "cert_title": "🎓 Obtenez Votre Certificat Tcl",
             "dl_cert": "📥 Télécharger le Certificat (SVG)",
             "print_cert": "🖨️ Imprimer le Certificat",
             "view_leaderboard": "🏆 Voir Votre Rang au Classement Public →",
@@ -180,12 +180,12 @@ def _build_quiz_page(lang: str) -> str:
     <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px; padding-bottom:14px; border-bottom:1px solid var(--tcl-border); margin-bottom:18px;">
       <div>
         <div style="font-size:11px; text-transform:uppercase; letter-spacing:1px; font-weight:700; color:var(--tcl-blue-600); margin-bottom:2px;" id="hudModuleCategory">MODULE 1 / 4</div>
-        <div style="font-size:15px; font-weight:800; color:var(--tcl-heading);" id="hudModuleName">Syntax & Brent Welch Model</div>
+        <div style="font-size:15px; font-weight:800; color:var(--tcl-heading);" id="hudModuleName">Syntax & Substitution Model</div>
       </div>
       
       <div style="display:flex; gap:10px; align-items:center;">
-        <span id="hudDifficultyBadge" style="display:inline-block; padding:4px 10px; border-radius:6px; font-size:12px; font-weight:700; background:rgba(16, 185, 129, 0.15); color:#10b981;">🟢 Tier 0 (Easy)</span>
-        <span id="hudTierClearMeter" style="font-size:12.5px; font-weight:600; font-family:monospace; color:var(--md-default-fg-color--lighter);">[Easy: ⏳] [Med: 🔒] [Hard: 🔒]</span>
+        <span id="hudDifficultyBadge" style="display:inline-block; padding:4px 10px; border-radius:6px; font-size:12px; font-weight:700; background:rgba(16, 185, 129, 0.15); color:#10b981;">🟢 Part 1 (Basic)</span>
+        <span id="hudTierClearMeter" style="font-size:12.5px; font-weight:600; font-family:monospace; color:var(--md-default-fg-color--lighter);">[Q1: ⏳] [Q2: 🔒] [Q3: 🔒]</span>
       </div>
     </div>
 
@@ -234,7 +234,7 @@ def _build_quiz_page(lang: str) -> str:
     <div style="text-align:center; margin-bottom:28px;">
       <div style="display:inline-block; font-size:3rem; margin-bottom:8px;">🏆</div>
       <h2 style="font-size:1.6rem; font-weight:800; color:var(--tcl-heading); margin:4px 0 8px;">{t["report_title"]}</h2>
-      <div style="color:var(--md-default-fg-color--light); font-size:14px;">Official competency diagnostic completed under 3-tier rules.</div>
+      <div style="color:var(--md-default-fg-color--light); font-size:14px;">Tcl knowledge assessment completed.</div>
     </div>
 
     <!-- Summary Metrics Cards -->
@@ -253,13 +253,13 @@ def _build_quiz_page(lang: str) -> str:
       </div>
       <div style="background:var(--md-default-bg-color); border:1px solid var(--tcl-border); border-radius:10px; padding:16px; text-align:center;">
         <div style="font-size:1.6rem; font-weight:800; color:#f59e0b;" id="reportClearedVal">0/12</div>
-        <div style="font-size:11.5px; text-transform:uppercase; letter-spacing:0.5px; font-weight:700; color:var(--md-default-fg-color--lighter); margin-top:4px;">Tiers Cleared</div>
+        <div style="font-size:11.5px; text-transform:uppercase; letter-spacing:0.5px; font-weight:700; color:var(--md-default-fg-color--lighter); margin-top:4px;">Questions Completed</div>
       </div>
     </div>
 
     <!-- Module Mastery Breakdown -->
     <div style="background:var(--md-default-bg-color); border:1px solid var(--tcl-border); border-radius:10px; padding:20px; margin-bottom:28px;">
-      <h3 style="margin-top:0; font-size:1.1rem; color:var(--tcl-heading); margin-bottom:16px;">Core Module Mastery Radar</h3>
+      <h3 style="margin-top:0; font-size:1.1rem; color:var(--tcl-heading); margin-bottom:16px;">Topic Competency Breakdown</h3>
       <div id="moduleCompetencyBars" style="display:flex; flex-direction:column; gap:12px;"></div>
     </div>
 
@@ -268,15 +268,15 @@ def _build_quiz_page(lang: str) -> str:
       <h3 style="text-align:center; font-size:1.25rem; font-weight:800; color:var(--tcl-heading); margin-bottom:16px;">{t["cert_title"]}</h3>
 
       <div id="certificateContainer" style="background:#ffffff; color:#0f172a; border:4px double #d4af37; border-radius:12px; padding:28px; max-width:680px; margin:0 auto 20px; box-shadow:0 8px 30px rgba(0,0,0,0.12); position:relative; font-family:'Inter', sans-serif; text-align:center;">
-        <div style="font-size:11px; text-transform:uppercase; letter-spacing:2px; color:#b45309; font-weight:800; margin-bottom:6px;">SJTU-YONGFU-RESEARCH-GRP · VLSI AUTOMATION LAB</div>
-        <h2 style="font-size:1.5rem; font-weight:900; margin:6px 0; color:#1e293b; letter-spacing:0.5px;">CERTIFICATE OF INDUSTRIAL MASTERY</h2>
-        <div style="font-size:12.5px; color:#64748b; margin-bottom:16px;">IN RECOGNITION OF OUTSTANDING DEMONSTRATED PROFICIENCY IN TCL SCRIPTING FOR VLSI DESIGN</div>
+        <div style="font-size:11px; text-transform:uppercase; letter-spacing:2px; color:#b45309; font-weight:800; margin-bottom:6px;">SJTU-YONGFU-RESEARCH-GRP · TCL LANGUAGE LAB</div>
+        <h2 style="font-size:1.5rem; font-weight:900; margin:6px 0; color:#1e293b; letter-spacing:0.5px;">CERTIFICATE OF COMPLETION</h2>
+        <div style="font-size:12.5px; color:#64748b; margin-bottom:16px;">IN RECOGNITION OF DEMONSTRATED PROFICIENCY IN TCL SCRIPTING</div>
         
-        <div style="font-size:13px; color:#475569;">This official certificate is proudly presented to:</div>
+        <div style="font-size:13px; color:#475569;">This certificate is proudly presented to:</div>
         <div id="certStudentName" style="font-size:1.85rem; font-weight:800; color:#0f172a; margin:10px 0; border-bottom:2px solid #e2e8f0; display:inline-block; padding:0 30px 4px;">Candidate Name</div>
         
         <div style="font-size:12.5px; color:#475569; max-width:520px; margin:10px auto; line-height:1.6;">
-          Has successfully passed all 3 tiers of the VLSI Tcl Challenge, demonstrating full mastery across the Brent Welch 3-step evaluation model, advanced data structures, DRV-Lite physical layout objects, and STA timing sign-off gatekeeping.
+          Has successfully completed the Tcl Quiz Challenge, demonstrating practical proficiency in Tcl programming syntax, data structures, and script automation fundamentals.
         </div>
 
         <div style="display:flex; justify-content:space-around; align-items:center; margin-top:20px; padding-top:16px; border-top:1px solid #f1f5f9; font-size:12px; color:#475569;">
@@ -286,10 +286,10 @@ def _build_quiz_page(lang: str) -> str:
           </div>
           <div>
             <div style="display:inline-block; width:44px; height:44px; line-height:44px; border-radius:50%; background:#fef3c7; color:#b45309; font-size:22px; font-weight:900;">★</div>
-            <div style="font-size:10.5px; font-weight:700; color:#b45309; margin-top:2px;">GOLD VERIFIED</div>
+            <div style="font-size:10.5px; font-weight:700; color:#b45309; margin-top:2px;">VERIFIED</div>
           </div>
           <div>
-            <div style="font-weight:700; color:#0f172a; font-family:monospace;" id="certHashVal">TCL-VLSI-XXXX</div>
+            <div style="font-weight:700; color:#0f172a; font-family:monospace;" id="certHashVal">TCL-CERT-XXXX</div>
             <div style="font-size:10.5px; color:#94a3b8;">Credential Hash</div>
           </div>
         </div>
@@ -314,20 +314,20 @@ def _build_quiz_page(lang: str) -> str:
 def _build_leaderboard_page(lang: str) -> str:
     i18n_strings = {
         "en": {
-            "title": "🏆 Public Leaderboard & Certified Hall of Fame",
-            "badges": ["Live Cohort Rankings", "Verified Certificates", "E/M/H Difficulty Metrics"],
-            "desc": "Real-time ranking table of certified engineers and students who cleared the VLSI Tcl Quiz Challenge. Sorted by total weighted score, accuracy, and elapsed time.",
+            "title": "🏆 Tcl Quiz Leaderboard & Verified Certificates",
+            "badges": ["Live Rankings", "Verified Certificates", "Score & Accuracy"],
+            "desc": "Real-time ranking table of students and engineers who completed the Tcl Quiz Challenge. Sorted by score, accuracy, and elapsed time.",
             "search_ph": "Search candidate name or callsign...",
             "all_mode": "All Modes",
-            "full_mode": "Full Grand Prix",
-            "sprint_mode": "Sprint Diagnostic",
+            "full_mode": "Full Assessment",
+            "sprint_mode": "Quick Assessment",
             "col_rank": "Rank",
             "col_name": "Candidate / Handle",
-            "col_mode": "Quest Mode",
+            "col_mode": "Assessment Mode",
             "col_score": "Score",
             "col_acc": "Accuracy",
             "col_time": "Time",
-            "col_emh": "Cleared (E/M/H)",
+            "col_emh": "Completed",
             "col_date": "Date",
             "verify_title": "🔍 Instant Certificate Verification",
             "verify_ph": "Enter Certificate Hash (e.g. TCL-VLSI-2026-X89F)...",
@@ -335,41 +335,41 @@ def _build_leaderboard_page(lang: str) -> str:
             "take_quiz_btn": "🎯 Take the Quiz Challenge →"
         },
         "zh": {
-            "title": "🏆 荣誉排行榜与认证证书中心",
-            "badges": ["全网实时排名", "工业认证核验", "易/中/难三阶通关指标"],
-            "desc": "汇聚通过 VLSI Tcl 随堂评测挑战的工程师与学生成绩榜单。按加权总分、答题正确率与耗时进行综合排位，记录通过初阶/中阶/高阶题目分布。",
+            "title": "🏆 Tcl 测验排行榜与证书核验中心",
+            "badges": ["实时排名", "防伪证书", "得分与正确率"],
+            "desc": "汇聚完成 Tcl 随堂测验的成绩榜单。按得分、答题正确率与耗时进行综合排位。",
             "search_ph": "搜索考生姓名或代号...",
             "all_mode": "全部模式",
-            "full_mode": "全体系大奖赛",
-            "sprint_mode": "疾速冲刺自测",
+            "full_mode": "完整测验",
+            "sprint_mode": "快速自测",
             "col_rank": "名次",
             "col_name": "考生姓名 / 代号",
-            "col_mode": "挑战模式",
-            "col_score": "加权得分",
+            "col_mode": "测验模式",
+            "col_score": "得分",
             "col_acc": "正确率",
             "col_time": "耗时",
-            "col_emh": "通关阶梯 (易/中/难)",
+            "col_emh": "完成进度",
             "col_date": "完成日期",
             "verify_title": "🔍 认证证书真伪即时核验",
             "verify_ph": "输入证书凭证编号 (例如: TCL-VLSI-2026-X89F)...",
             "verify_btn": "立即核验凭证",
-            "take_quiz_btn": "🎯 参与随堂评测挑战 →"
+            "take_quiz_btn": "🎯 参与随堂测验 →"
         },
         "ms": {
-            "title": "🏆 Papan Pendahulu Awam & Dewan Kemasyhuran",
-            "badges": ["Kedudukan Kohort Langsung", "Sijil Sah Digital", "Metrik Kesukaran E/M/H"],
-            "desc": "Jadual kedudukan masa nyata jurutera dan pelajar yang berjaya melepasi Cabaran Kuiz VLSI Tcl. Disusun mengikut skor wajaran, ketepatan, dan masa diambil.",
+            "title": "🏆 Papan Pendahulu Kuiz Tcl & Pengesahan Sijil",
+            "badges": ["Kedudukan Langsung", "Sijil Sah Digital", "Skor & Ketepatan"],
+            "desc": "Jadual kedudukan masa nyata pelajar dan jurutera yang menyelesaikan Cabaran Kuiz Tcl. Disusun mengikut skor, ketepatan, dan masa diambil.",
             "search_ph": "Cari nama calon atau alias...",
             "all_mode": "Semua Mod",
-            "full_mode": "Grand Prix Penuh",
-            "sprint_mode": "Diagnostik Pecut",
+            "full_mode": "Penilaian Penuh",
+            "sprint_mode": "Penilaian Pantas",
             "col_rank": "Kedudukan",
             "col_name": "Calon / Alias",
-            "col_mode": "Mod Cabaran",
+            "col_mode": "Mod Penilaian",
             "col_score": "Skor",
             "col_acc": "Ketepatan",
             "col_time": "Masa",
-            "col_emh": "Pelepasan (E/M/H)",
+            "col_emh": "Kemajuan",
             "col_date": "Tarikh",
             "verify_title": "🔍 Pengesahan Sijil Segera",
             "verify_ph": "Masukkan Kod Sijil (cth: TCL-VLSI-2026-X89F)...",
@@ -377,20 +377,20 @@ def _build_leaderboard_page(lang: str) -> str:
             "take_quiz_btn": "🎯 Ambil Cabaran Kuiz →"
         },
         "fr": {
-            "title": "🏆 Tableau des Scores Public & Salle des Notabilités",
-            "badges": ["Classement en Direct", "Certificats Vérifiés", "Mesures de Difficulté E/M/H"],
-            "desc": "Classement en temps réel des ingénieurs et étudiants ayant validé le Défi Quiz VLSI Tcl. Trié par score pondéré, précision et temps écoulé.",
+            "title": "🏆 Classement du Quiz Tcl & Vérification de Certificat",
+            "badges": ["Classement en Direct", "Certificats Vérifiés", "Score & Précision"],
+            "desc": "Classement en temps réel des candidats ayant complété le Défi Quiz Tcl. Trié par score, précision et temps écoulé.",
             "search_ph": "Rechercher un candidat ou pseudo...",
             "all_mode": "Tous les Modes",
-            "full_mode": "Grand Prix Complet",
-            "sprint_mode": "Sprint Diagnostic",
+            "full_mode": "Évaluation Complète",
+            "sprint_mode": "Évaluation Rapide",
             "col_rank": "Rang",
             "col_name": "Candidat / Pseudo",
-            "col_mode": "Mode de Quête",
+            "col_mode": "Mode d'Évaluation",
             "col_score": "Score",
             "col_acc": "Précision",
             "col_time": "Temps",
-            "col_emh": "Niveaux Validés (E/M/H)",
+            "col_emh": "Complété",
             "col_date": "Date",
             "verify_title": "🔍 Vérification Instantanée de Certificat",
             "verify_ph": "Entrez le Hash du Certificat (ex: TCL-VLSI-2026-X89F)...",
@@ -467,11 +467,11 @@ def _build_leaderboard_page(lang: str) -> str:
 QUIZ_JS = r"""<script>
 const QUESTION_BANK = {
   m10: {
-    name: "M10: Syntax & Brent Welch Model",
+    name: "M10: Syntax & Substitution Model",
     easy: [
       {
         id: "m10_e1",
-        prompt: "Under the Brent Welch 3-step evaluation model, in which exact order does the Tcl interpreter evaluate every command line?",
+        prompt: "Under standard Tcl command evaluation rules, in which exact order does the interpreter evaluate each command line?",
         code: null,
         choices: [
           "Grouping -> Substitution -> Invocation",
@@ -906,15 +906,15 @@ function loadNextQuestion() {
   document.getElementById('hudModuleName').innerText = QUESTION_BANK[modKey].name;
 
   const diffBadges = {
-    easy: "🟢 Tier 0 (Easy · Foundational)",
-    medium: "🟡 Tier 1 (Medium · Engineering)",
-    hard: "🔴 Tier 2 (Hard · Sign-Off Expert)"
+    easy: "🟢 Part 1 (Basic)",
+    medium: "🟡 Part 2 (Intermediate)",
+    hard: "🔴 Part 3 (Advanced)"
   };
   document.getElementById('hudDifficultyBadge').innerText = diffBadges[diffKey];
 
   const tc = currentQuest.tierCleared[modKey];
   document.getElementById('hudTierClearMeter').innerText = 
-    `[Easy: ${tc.easy ? '✓' : (diffKey==='easy'?'⏳':'🔒')}] [Med: ${tc.medium ? '✓' : (diffKey==='medium'?'⏳':'🔒')}] [Hard: ${tc.hard ? '✓' : (diffKey==='hard'?'⏳':'🔒')}]`;
+    `[Q1: ${tc.easy ? '✓' : (diffKey==='easy'?'⏳':'·')}] [Q2: ${tc.medium ? '✓' : (diffKey==='medium'?'⏳':'·')}] [Q3: ${tc.hard ? '✓' : (diffKey==='hard'?'⏳':'·')}]`;
 
   // Pick question from bank (tier question queue)
   const pool = QUESTION_BANK[modKey][diffKey];
@@ -1090,7 +1090,7 @@ function submitCurrentAnswer() {
     toast.style.background = 'rgba(16, 185, 129, 0.15)';
     toast.style.color = '#10b981';
     toast.style.border = '1px solid #10b981';
-    toast.innerText = `✓ Correct! Tier cleared (+${points} pts). Advancing...`;
+    toast.innerText = `✓ Correct! (+${points} pts). Advancing...`;
 
     setTimeout(() => {
       // Advance to next tier or module
@@ -1118,7 +1118,7 @@ function submitCurrentAnswer() {
     toast.style.background = 'rgba(239, 68, 68, 0.12)';
     toast.style.color = '#ef4444';
     toast.style.border = '1px solid #ef4444';
-    toast.innerText = `✗ Misconception detected! Tier not cleared. Additional reinforcement question queued (+15s thinking time brought forward).`;
+    toast.innerText = `✗ Incorrect. Reinforcement question queued (+15s thinking time brought forward).`;
 
     setTimeout(() => {
       loadNextQuestion();
@@ -1149,7 +1149,7 @@ function handleTimeout() {
   toast.style.background = 'rgba(239, 68, 68, 0.12)';
   toast.style.color = '#ef4444';
   toast.style.border = '1px solid #ef4444';
-  toast.innerText = `⏱️ Time Expired! Tier not cleared. Queuing replacement question (+15s thinking time brought forward)...`;
+  toast.innerText = `⏱️ Time Expired! Queuing replacement question (+15s thinking time brought forward)...`;
 
   setTimeout(() => {
     loadNextQuestion();
@@ -1199,7 +1199,7 @@ function finishQuest() {
       <div>
         <div style="display:flex; justify-content:space-between; font-size:12.5px; font-weight:700; margin-bottom:4px; color:var(--tcl-heading);">
           <span>${QUESTION_BANK[m].name}</span>
-          <span style="color:var(--tcl-blue-600);">${modScore}/3 Tiers (${modPct}%)</span>
+          <span style="color:var(--tcl-blue-600);">${modScore}/3 (${modPct}%)</span>
         </div>
         <div style="width:100%; height:8px; background:rgba(0,0,0,0.08); border-radius:4px; overflow:hidden;">
           <div style="width:${modPct}%; height:100%; background:${modPct === 100 ? '#10b981' : (modPct > 50 ? '#f59e0b' : '#38bdf8')};"></div>
@@ -1210,7 +1210,7 @@ function finishQuest() {
 
   // Setup Certificate
   const dateStr = new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
-  const certId = 'TCL-VLSI-' + Date.now().toString(36).toUpperCase() + '-' + Math.floor(Math.random()*1000).toString(16).toUpperCase();
+  const certId = 'TCL-CERT-' + Date.now().toString(36).toUpperCase() + '-' + Math.floor(Math.random()*1000).toString(16).toUpperCase();
   
   document.getElementById('certStudentName').innerText = currentQuest.candidate;
   document.getElementById('certDateVal').innerText = dateStr;
@@ -1222,11 +1222,11 @@ function finishQuest() {
     const board = raw ? JSON.parse(raw) : [];
     board.push({
       candidate: currentQuest.candidate,
-      mode: currentQuest.mode === 'full' ? 'Full Grand Prix' : 'Sprint Diagnostic',
+      mode: currentQuest.mode === 'full' ? 'Full Assessment' : 'Quick Assessment',
       score: currentQuest.score,
       accuracy: accuracy,
       time: timeFormatted,
-      cleared: `${easyCount}/${medCount}/${hardCount}`,
+      cleared: `${easyCount + medCount + hardCount}/${currentQuest.modules.length * 3}`,
       date: new Date().toISOString().slice(0, 10),
       certId: certId
     });
@@ -1244,19 +1244,19 @@ function downloadCertificateSVG() {
     <rect x="20" y="20" width="760" height="520" fill="none" stroke="#d4af37" stroke-width="4" stroke-dasharray="8 4" />
     <rect x="30" y="30" width="740" height="500" fill="none" stroke="#1e293b" stroke-width="1.5" />
     
-    <text x="400" y="80" text-anchor="middle" font-family="'Inter', sans-serif" font-size="14" font-weight="800" fill="#b45309" letter-spacing="3">SJTU-YONGFU-RESEARCH-GRP · VLSI AUTOMATION LAB</text>
-    <text x="400" y="130" text-anchor="middle" font-family="'Inter', sans-serif" font-size="28" font-weight="900" fill="#0f172a">CERTIFICATE OF INDUSTRIAL MASTERY</text>
-    <text x="400" y="160" text-anchor="middle" font-family="'Inter', sans-serif" font-size="13" fill="#64748b">IN RECOGNITION OF DEMONSTRATED PROFICIENCY IN TCL SCRIPTING FOR VLSI DESIGN</text>
+    <text x="400" y="80" text-anchor="middle" font-family="'Inter', sans-serif" font-size="14" font-weight="800" fill="#b45309" letter-spacing="3">SJTU-YONGFU-RESEARCH-GRP · TCL LANGUAGE LAB</text>
+    <text x="400" y="130" text-anchor="middle" font-family="'Inter', sans-serif" font-size="28" font-weight="900" fill="#0f172a">CERTIFICATE OF COMPLETION</text>
+    <text x="400" y="160" text-anchor="middle" font-family="'Inter', sans-serif" font-size="13" fill="#64748b">IN RECOGNITION OF DEMONSTRATED PROFICIENCY IN TCL SCRIPTING</text>
     
     <line x1="250" y1="185" x2="550" y2="185" stroke="#e2e8f0" stroke-width="2" />
     
-    <text x="400" y="225" text-anchor="middle" font-family="'Inter', sans-serif" font-size="14" fill="#475569">This official certificate is proudly conferred upon:</text>
+    <text x="400" y="225" text-anchor="middle" font-family="'Inter', sans-serif" font-size="14" fill="#475569">This certificate is proudly conferred upon:</text>
     <text x="400" y="280" text-anchor="middle" font-family="'Inter', sans-serif" font-size="36" font-weight="900" fill="#0f172a">${name}</text>
     
-    <text x="400" y="340" text-anchor="middle" font-family="'Inter', sans-serif" font-size="13" fill="#334155">Has successfully cleared the VLSI Tcl Challenge across all 3 difficulty tiers,</text>
-    <text x="400" y="360" text-anchor="middle" font-family="'Inter', sans-serif" font-size="13" fill="#334155">demonstrating full mastery of Brent Welch Substitution Rules, Physical Layout &amp; STA Sign-Off.</text>
+    <text x="400" y="340" text-anchor="middle" font-family="'Inter', sans-serif" font-size="13" fill="#334155">Has successfully completed the Tcl Quiz Challenge,</text>
+    <text x="400" y="360" text-anchor="middle" font-family="'Inter', sans-serif" font-size="13" fill="#334155">demonstrating practical proficiency in Tcl programming syntax, data structures, and script automation.</text>
     
-    <!-- Gold Rosette Seal -->
+    <!-- Rosette Seal -->
     <circle cx="400" cy="440" r="32" fill="#fef3c7" stroke="#b45309" stroke-width="2" />
     <text x="400" y="448" text-anchor="middle" font-family="'Inter', sans-serif" font-size="24" fill="#b45309">★</text>
     
@@ -1272,7 +1272,7 @@ function downloadCertificateSVG() {
   const url = URL.createObjectURL(blob);
   const a = document.createElement('a');
   a.href = url;
-  a.download = `Certificate_${name.replace(/\s+/g, '_')}_TCL_VLSI.svg`;
+  a.download = `Certificate_${name.replace(/\s+/g, '_')}_Tcl.svg`;
   document.body.appendChild(a);
   a.click();
   document.body.removeChild(a);
@@ -1306,13 +1306,13 @@ window.addEventListener('keydown', e => {
 
 LEADERBOARD_JS = r"""<script>
 const SEED_BENCHMARKS = [
-  { candidate: "Dr. Yongfu Li (Research Lead)", mode: "Full Grand Prix", score: 3600, accuracy: 100, time: "3m 42s", cleared: "4/4/4", date: "2026-10-18", certId: "TCL-VLSI-SJTU-YFL001" },
-  { candidate: "FanqinZeng (WASM Architect)", mode: "Full Grand Prix", score: 3450, accuracy: 98, time: "4m 15s", cleared: "4/4/4", date: "2026-10-17", certId: "TCL-VLSI-SJTU-FQZ002" },
-  { candidate: "Su3037 (Tcl Quest Creator)", mode: "Full Grand Prix", score: 3380, accuracy: 95, time: "4m 38s", cleared: "4/4/4", date: "2026-10-16", certId: "TCL-VLSI-SJTU-SU003" },
-  { candidate: "GateUltra (Homework Lead)", mode: "Full Grand Prix", score: 3210, accuracy: 92, time: "5m 02s", cleared: "4/4/4", date: "2026-10-15", certId: "TCL-VLSI-SJTU-GU004" },
-  { candidate: "Capeur (DRV-Lite Core)", mode: "Full Grand Prix", score: 3150, accuracy: 90, time: "5m 24s", cleared: "4/4/4", date: "2026-10-14", certId: "TCL-VLSI-SJTU-CAP005" },
-  { candidate: "thy031 (Quiz Module)", mode: "Sprint Diagnostic", score: 1840, accuracy: 100, time: "1m 30s", cleared: "2/2/2", date: "2026-10-19", certId: "TCL-VLSI-SJTU-THY006" },
-  { candidate: "VLSI_Signoff_Ninja", mode: "Sprint Diagnostic", score: 1720, accuracy: 94, time: "1m 48s", cleared: "2/2/2", date: "2026-10-19", certId: "TCL-VLSI-SJTU-NIN007" }
+  { candidate: "Dr. Yongfu Li (Research Lead)", mode: "Full Assessment", score: 3600, accuracy: 100, time: "3m 42s", cleared: "12/12", date: "2026-10-18", certId: "TCL-CERT-SJTU-YFL001" },
+  { candidate: "FanqinZeng (WASM Architect)", mode: "Full Assessment", score: 3450, accuracy: 98, time: "4m 15s", cleared: "12/12", date: "2026-10-17", certId: "TCL-CERT-SJTU-FQZ002" },
+  { candidate: "Su3037 (Tcl Quest Creator)", mode: "Full Assessment", score: 3380, accuracy: 95, time: "4m 38s", cleared: "12/12", date: "2026-10-16", certId: "TCL-CERT-SJTU-SU003" },
+  { candidate: "GateUltra (Homework Lead)", mode: "Full Assessment", score: 3210, accuracy: 92, time: "5m 02s", cleared: "12/12", date: "2026-10-15", certId: "TCL-CERT-SJTU-GU004" },
+  { candidate: "Capeur (DRV-Lite Core)", mode: "Full Assessment", score: 3150, accuracy: 90, time: "5m 24s", cleared: "12/12", date: "2026-10-14", certId: "TCL-CERT-SJTU-CAP005" },
+  { candidate: "thy031 (Quiz Module)", mode: "Quick Assessment", score: 1840, accuracy: 100, time: "1m 30s", cleared: "6/6", date: "2026-10-19", certId: "TCL-CERT-SJTU-THY006" },
+  { candidate: "VLSI_Tcl_Student", mode: "Quick Assessment", score: 1720, accuracy: 94, time: "1m 48s", cleared: "6/6", date: "2026-10-19", certId: "TCL-CERT-SJTU-STU007" }
 ];
 
 let activeMode = 'all';
@@ -1354,8 +1354,8 @@ function filterLeaderboard() {
   let filtered = allRows.filter(r => {
     const matchesSearch = r.candidate.toLowerCase().includes(query) || (r.certId && r.certId.toLowerCase().includes(query));
     if (activeMode === 'all') return matchesSearch;
-    if (activeMode === 'full') return matchesSearch && r.mode.includes('Full');
-    if (activeMode === 'sprint') return matchesSearch && r.mode.includes('Sprint');
+    if (activeMode === 'full') return matchesSearch && (r.mode.includes('Full') || r.mode.includes('完整') || r.mode.includes('Penuh') || r.mode.includes('Complète'));
+    if (activeMode === 'sprint') return matchesSearch && (r.mode.includes('Quick') || r.mode.includes('Sprint') || r.mode.includes('快速') || r.mode.includes('Pantas') || r.mode.includes('Rapide'));
     return matchesSearch;
   });
   renderLeaderboard(filtered);

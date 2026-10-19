@@ -1019,12 +1019,12 @@ def write_quiz_pages() -> None:
 <div class="tcl-badge-cluster">
   <span class="tcl-badge">Chapter Quizzes</span>
   <span class="tcl-badge amber">Knowledge Checks</span>
-  <span class="tcl-badge blue">3-Tier Mastery Model</span>
+  <span class="tcl-badge blue">Tcl Knowledge Assessment</span>
   <span class="tcl-badge purple">Verifiable Certificates</span>
   <span class="tcl-badge green">Public Leaderboard</span>
 </div>
 
-Curated from thy031's student project and expanded into an industrial diagnostic engine, this module provides rapid knowledge checks across foundational Tcl topics.
+Curated from thy031's student project, this module provides rapid knowledge checks across core Tcl syntax, lists, dictionaries, and procedure scripting.
 
 <div style="margin: 20px 0; display:flex; gap:12px; flex-wrap:wrap;">
   <a href="../quiz.md" class="tcl-btn tcl-btn-primary">🎯 Launch Quiz Challenge →</a>
@@ -1034,7 +1034,7 @@ Curated from thy031's student project and expanded into an industrial diagnostic
 - **Mental Model Checks**: Substitution timing comparison between `set x $a` and `set x {{a}}`.
 - **Evaluation Safety**: Anti-injection checks on braced `expr {{$a + $b}}` vs unquoted variants.
 - **Data Structures**: List boundaries, dictionary value extraction, and nested loops.
-- **Physical Design Basics**: Polygon vertex ordering, pin declarations, and Slack sign rules.
+- **Scripting Automation**: Procedures, return values, control flow, and error handling.
 """
     (DOCS / "help" / "quiz.md").write_text(en_page, encoding="utf-8")
 
@@ -1043,12 +1043,12 @@ Curated from thy031's student project and expanded into an industrial diagnostic
 <div class="tcl-badge-cluster">
   <span class="tcl-badge">章节自测题库</span>
   <span class="tcl-badge amber">快速检验</span>
-  <span class="tcl-badge blue">三阶能力测评</span>
+  <span class="tcl-badge blue">Tcl 核心语法检验</span>
   <span class="tcl-badge purple">防伪认证证书</span>
   <span class="tcl-badge green">荣誉排行榜</span>
 </div>
 
-本测验模块由 thy031 同学设计与开发，并升级为具备三阶难度阶梯、动态思考计时与防伪认证的完整专业测评系统。
+本测验模块源自 thy031 同学的学习项目，提供涵盖 Tcl 基础语法、列表字典、控制流与过程函数等核心主题的交互式知识自测与结课证书。
 
 <div style="margin: 20px 0; display:flex; gap:12px; flex-wrap:wrap;">
   <a href="../quiz.md" class="tcl-btn tcl-btn-primary">🎯 开启随堂评测挑战 (Quiz Challenge) →</a>
@@ -1058,14 +1058,14 @@ Curated from thy031's student project and expanded into an industrial diagnostic
 - **语法心智自测**：辨析 `set x $a` 与 `set x {{a}}` 的置换时机差异。
 - **求值规则测试**：严格花括号 `expr {{$a + $b}}` 与无保护 `expr $a + $b` 的安全评测。
 - **数据结构实战**：列表索引边界、字典键值提取与嵌套遍历。
-- **版图与时序基础**：多边形坐标表达、引脚定义与 Slack 正负判据。
+- **脚本自动化**：过程封装、返回值传递与条件循环控制。
 """
     (DOCS / "help" / "quiz.zh.md").write_text(zh_page, encoding="utf-8")
 
     ms_page = (en_page
         .replace("# Chapter Quizzes & Knowledge Checks", "# Kuiz Bab & Semakan Pengetahuan (Interactive Quizzes)")
-        .replace("Curated from thy031's student project and expanded into an industrial diagnostic engine, this module provides rapid knowledge checks across foundational Tcl topics.",
-                 "Disusun daripada projek pelajar thy031 dan dipertingkatkan menjadi enjin diagnostik industri dengan model kemajuan 3-tahap, pemasa berfikir dinamik, dan sijil pengesahan digital.")
+        .replace("Curated from thy031's student project, this module provides rapid knowledge checks across core Tcl syntax, lists, dictionaries, and procedure scripting.",
+                 "Disusun daripada projek pelajar thy031, modul ini menyediakan semakan pantas pengetahuan merangkumi sintaks teras Tcl, senarai, kamus, dan skrip prosedur dengan sijil digital.")
         .replace("🎯 Launch Quiz Challenge →", "🎯 Lancarkan Cabaran Kuiz →")
         .replace("🏆 View Public Leaderboard & Certificates →", "🏆 Lihat Papan Pendahulu & Sijil →")
     )
@@ -1073,8 +1073,8 @@ Curated from thy031's student project and expanded into an industrial diagnostic
 
     fr_page = (en_page
         .replace("# Chapter Quizzes & Knowledge Checks", "# Quiz de Chapitre & Vérification des Connaissances (Interactive Quizzes)")
-        .replace("Curated from thy031's student project and expanded into an industrial diagnostic engine, this module provides rapid knowledge checks across foundational Tcl topics.",
-                 "Issu du projet étudiant de thy031 et développé en un moteur de diagnostic industriel à 3 niveaux de difficulté avec minuteur de réflexion et certificats vérifiables.")
+        .replace("Curated from thy031's student project, this module provides rapid knowledge checks across core Tcl syntax, lists, dictionaries, and procedure scripting.",
+                 "Issu du projet étudiant de thy031, ce module propose des contrôles de connaissances rapides sur la syntaxe Tcl, les listes, les dictionnaires et les procédures avec certificats numériques vérifiables.")
         .replace("🎯 Launch Quiz Challenge →", "🎯 Lancer le Défi Quiz →")
         .replace("🏆 View Public Leaderboard & Certificates →", "🏆 Voir le Classement & Certificats →")
     )
@@ -2784,11 +2784,11 @@ def write_home_pages(meta: list[tuple[int, str, str]]) -> None:
 
   <div class="tcl-hero-subtitle">
     From foundational scripting commands to a production-grade IC physical design automation suite.<br>
-    Bridging the <strong>Brent Welch 3-step evaluation mental model</strong>, <strong>3-tier quiz challenge & verifiable certification</strong>, <strong>in-browser WebAssembly workshop</strong>, <strong>execution-driven RPG quest</strong>, <strong>zero-license DRV-Lite layout simulator</strong>, and <strong>closed-loop STA timing sign-off</strong>.
+    Bridging the <strong>Brent Welch 3-step evaluation mental model</strong>, <strong>interactive quiz challenge & verifiable completion certificate</strong>, <strong>in-browser WebAssembly workshop</strong>, <strong>execution-driven RPG quest</strong>, <strong>zero-license DRV-Lite layout simulator</strong>, and <strong>closed-loop STA timing sign-off</strong>.
   </div>
 
   <div class="tcl-cta-group">
-    <a href="quiz/" class="tcl-btn tcl-btn-primary" style="background: linear-gradient(135deg, #4f46e5, #7c3aed); border: none;">🎯 Quiz Challenge & Cert</a>
+    <a href="quiz/" class="tcl-btn tcl-btn-primary" style="background: linear-gradient(135deg, #4f46e5, #7c3aed); border: none;">🎯 Tcl Quiz & Cert</a>
     <a href="leaderboard/" class="tcl-btn tcl-btn-accent" style="background: linear-gradient(135deg, #059669, #0d9488); border: none;">🏆 Hall of Fame</a>
     <a href="wasm-lab/" target="_blank" class="tcl-btn tcl-btn-secondary">🚀 Launch WASM Workshop ↗</a>
     <a href="quest/" class="tcl-btn tcl-btn-secondary">🎮 Tcl Quest (RPG)</a>
@@ -2802,8 +2802,8 @@ def write_home_pages(meta: list[tuple[int, str, str]]) -> None:
     <span class="tcl-fact-lbl">Complete Curriculum Plan</span>
   </div>
   <div class="tcl-fact-item">
-    <span class="tcl-fact-val">3 Tiers</span>
-    <span class="tcl-fact-lbl">VLSI Quiz & Cert</span>
+    <span class="tcl-fact-val">4 Modules</span>
+    <span class="tcl-fact-lbl">Tcl Quiz & Cert</span>
   </div>
   <div class="tcl-fact-item">
     <span class="tcl-fact-val">18 Labs</span>
@@ -2833,8 +2833,8 @@ def write_home_pages(meta: list[tuple[int, str, str]]) -> None:
   <a href="quiz/" class="tcl-tool-card" style="border-left: 4px solid #6366f1;">
     <div class="tcl-tool-icon">🎯</div>
     <div class="tcl-tool-body">
-      <div class="tcl-tool-title">VLSI Quiz Challenge</div>
-      <div class="tcl-tool-desc">Comprehensive 3-tier difficulty progression (Easy/Medium/Hard), thinking time allowances, and verifiable completion certificate.</div>
+      <div class="tcl-tool-title">Tcl Quiz Challenge</div>
+      <div class="tcl-tool-desc">Test your Tcl scripting knowledge across core syntax, procedures, and data structures with a verifiable completion certificate.</div>
     </div>
     <div class="tcl-tool-arrow">→</div>
   </a>
@@ -2996,7 +2996,7 @@ make week21-01        # Run Week 21 layout script (DRV-Lite simulation)
 
   <div class="tcl-hero-subtitle">
     从一张控制台打印卡片，到一套完整的工业级芯片版图自动化脚本与静态时序分析流水线。<br>
-    结合 <strong>Brent Welch 三步置换心智模型</strong>、<strong>三阶梯测试与防伪结课证书</strong>、<strong>浏览器纯客户端 WebAssembly 交互工作坊</strong>、<strong>真实代码驱动芯片岛 RPG 冒险</strong>、<strong>免商业许可 DRV-Lite 版图仿真器</strong> 与 <strong>STA 时序违规闭环门禁</strong>。
+    结合 <strong>Brent Welch 三步置换心智模型</strong>、<strong>随堂测验挑战与防伪结课证书</strong>、<strong>浏览器纯客户端 WebAssembly 交互工作坊</strong>、<strong>真实代码驱动芯片岛 RPG 冒险</strong>、<strong>免商业许可 DRV-Lite 版图仿真器</strong> 与 <strong>STA 时序违规闭环门禁</strong>。
   </div>
 
   <div class="tcl-cta-group">
@@ -3014,8 +3014,8 @@ make week21-01        # Run Week 21 layout script (DRV-Lite simulation)
     <span class="tcl-fact-lbl">系统进阶双语课程</span>
   </div>
   <div class="tcl-fact-item">
-    <span class="tcl-fact-val">3 阶递进</span>
-    <span class="tcl-fact-lbl">随堂测验与证书认证</span>
+    <span class="tcl-fact-val">4 大模块</span>
+    <span class="tcl-fact-lbl">随堂测验与证书</span>
   </div>
   <div class="tcl-fact-item">
     <span class="tcl-fact-val">18 项</span>
@@ -3045,8 +3045,8 @@ make week21-01        # Run Week 21 layout script (DRV-Lite simulation)
   <a href="quiz/" class="tcl-tool-card" style="border-left: 4px solid #6366f1;">
     <div class="tcl-tool-icon">🎯</div>
     <div class="tcl-tool-body">
-      <div class="tcl-tool-title">随堂测验挑战赛</div>
-      <div class="tcl-tool-desc">三级难度动态进阶 (简单/中等/进阶)、错题容错加时 (+15s) 与带防伪哈希的专属结课证书。</div>
+      <div class="tcl-tool-title">Tcl 随堂测验挑战</div>
+      <div class="tcl-tool-desc">检验 Tcl 核心语法、过程封装与数据结构掌握情况，错题加时强化，并可获得专属防伪结课证书。</div>
     </div>
     <div class="tcl-tool-arrow">→</div>
   </a>
@@ -3209,11 +3209,11 @@ make week21-01        # Run Week 21 layout script (DRV-Lite simulation)
 
   <div class="tcl-hero-subtitle">
     Daripada perintah skrip asas hingga suite automasi reka bentuk fizikal litar bersepadu gred industri.<br>
-    Menggabungkan <strong>model mental penilaian 3-langkah Brent Welch</strong>, <strong>kuiz 3-peringkat & pensijilan digital</strong>, <strong>bengkel WebAssembly dalam pelayar</strong>, <strong>pengembaraan RPG pacuan kod sebenar</strong>, <strong>simulator susun atur DRV-Lite sifar lesen</strong>, dan <strong>pengesahan sign-off pemasaan STA gelung tertutup</strong>.
+    Menggabungkan <strong>model mental penilaian 3-langkah Brent Welch</strong>, <strong>cabaran kuiz interaktif & pensijilan digital</strong>, <strong>bengkel WebAssembly dalam pelayar</strong>, <strong>pengembaraan RPG pacuan kod sebenar</strong>, <strong>simulator susun atur DRV-Lite sifar lesen</strong>, dan <strong>pengesahan sign-off pemasaan STA gelung tertutup</strong>.
   </div>
 
   <div class="tcl-cta-group">
-    <a href="quiz/" class="tcl-btn tcl-btn-primary" style="background: linear-gradient(135deg, #4f46e5, #7c3aed); border: none;">🎯 Cabaran Kuiz & Sijil</a>
+    <a href="quiz/" class="tcl-btn tcl-btn-primary" style="background: linear-gradient(135deg, #4f46e5, #7c3aed); border: none;">🎯 Kuiz Tcl & Sijil</a>
     <a href="leaderboard/" class="tcl-btn tcl-btn-accent" style="background: linear-gradient(135deg, #059669, #0d9488); border: none;">🏆 Papan Juara & Pengesahan</a>
     <a href="wasm-lab/" target="_blank" class="tcl-btn tcl-btn-secondary">🚀 Lancarkan Bengkel WASM ↗</a>
     <a href="quest/" class="tcl-btn tcl-btn-secondary">🎮 Tcl Quest (Pulau Cip)</a>
@@ -3227,8 +3227,8 @@ make week21-01        # Run Week 21 layout script (DRV-Lite simulation)
     <span class="tcl-fact-lbl">Pelan Kurikulum Lengkap</span>
   </div>
   <div class="tcl-fact-item">
-    <span class="tcl-fact-val">3 Peringkat</span>
-    <span class="tcl-fact-lbl">Kuiz VLSI & Sijil</span>
+    <span class="tcl-fact-val">4 Modul</span>
+    <span class="tcl-fact-lbl">Kuiz Tcl & Sijil</span>
   </div>
   <div class="tcl-fact-item">
     <span class="tcl-fact-val">18 Makmal</span>
@@ -3258,8 +3258,8 @@ make week21-01        # Run Week 21 layout script (DRV-Lite simulation)
   <a href="quiz/" class="tcl-tool-card" style="border-left: 4px solid #6366f1;">
     <div class="tcl-tool-icon">🎯</div>
     <div class="tcl-tool-body">
-      <div class="tcl-tool-title">Cabaran Kuiz VLSI</div>
-      <div class="tcl-tool-desc">Kemajuan berperingkat 3-tahap (Mudah/Sederhana/Sukar), peruntukan masa berfikir, dan sijil pengesahan digital.</div>
+      <div class="tcl-tool-title">Cabaran Kuiz Tcl</div>
+      <div class="tcl-tool-desc">Uji pengetahuan penskripan Tcl anda merangkumi sintaks teras, prosedur, dan struktur data dengan sijil pengesahan digital.</div>
     </div>
     <div class="tcl-tool-arrow">→</div>
   </a>
@@ -3421,11 +3421,11 @@ make week21-01        # Jalankan skrip susun atur Minggu 21 (simulasi DRV-Lite)
 
   <div class="tcl-hero-subtitle">
     Des commandes fondamentales de script à une suite complète d'automatisation de conception physique de circuits intégrés.<br>
-    Alliant le <strong>modèle mental d'évaluation en 3 étapes de Brent Welch</strong>, le <strong>quiz à 3 niveaux de difficulté & certification numérique</strong>, l'<strong>atelier WebAssembly dans le navigateur</strong>, la <strong>quête RPG pilotée par code réel</strong>, le <strong>simulateur de layout DRV-Lite sans licence</strong> et la <strong>porte de clôture temporelle STA</strong>.
+    Alliant le <strong>modèle mental d'évaluation en 3 étapes de Brent Welch</strong>, le <strong>défi quiz interactif & certificat de réussite vérifiable</strong>, l'<strong>atelier WebAssembly dans le navigateur</strong>, la <strong>quête RPG pilotée par code réel</strong>, le <strong>simulateur de layout DRV-Lite sans licence</strong> et la <strong>porte de clôture temporelle STA</strong>.
   </div>
 
   <div class="tcl-cta-group">
-    <a href="quiz/" class="tcl-btn tcl-btn-primary" style="background: linear-gradient(135deg, #4f46e5, #7c3aed); border: none;">🎯 Défi Quiz & Certificat</a>
+    <a href="quiz/" class="tcl-btn tcl-btn-primary" style="background: linear-gradient(135deg, #4f46e5, #7c3aed); border: none;">🎯 Quiz Tcl & Certificat</a>
     <a href="leaderboard/" class="tcl-btn tcl-btn-accent" style="background: linear-gradient(135deg, #059669, #0d9488); border: none;">🏆 Tableau des Scores & Vérification</a>
     <a href="wasm-lab/" target="_blank" class="tcl-btn tcl-btn-secondary">🚀 Lancer l'Atelier WASM ↗</a>
     <a href="quest/" class="tcl-btn tcl-btn-secondary">🎮 Tcl Quest (Île RPG)</a>
@@ -3439,8 +3439,8 @@ make week21-01        # Jalankan skrip susun atur Minggu 21 (simulasi DRV-Lite)
     <span class="tcl-fact-lbl">Programme Complet & Progressif</span>
   </div>
   <div class="tcl-fact-item">
-    <span class="tcl-fact-val">3 Niveaux</span>
-    <span class="tcl-fact-lbl">Quiz VLSI & Certificat</span>
+    <span class="tcl-fact-val">4 Modules</span>
+    <span class="tcl-fact-lbl">Quiz Tcl & Certificat</span>
   </div>
   <div class="tcl-fact-item">
     <span class="tcl-fact-val">18 Labos</span>
@@ -3470,8 +3470,8 @@ make week21-01        # Jalankan skrip susun atur Minggu 21 (simulasi DRV-Lite)
   <a href="quiz/" class="tcl-tool-card" style="border-left: 4px solid #6366f1;">
     <div class="tcl-tool-icon">🎯</div>
     <div class="tcl-tool-body">
-      <div class="tcl-tool-title">Défi Quiz VLSI</div>
-      <div class="tcl-tool-desc">Modèle de difficulté à 3 niveaux (Facile/Moyen/Difficile), temps de réflexion additionnel et certificat numérique vérifiable.</div>
+      <div class="tcl-tool-title">Défi Quiz Tcl</div>
+      <div class="tcl-tool-desc">Testez vos connaissances en script Tcl sur la syntaxe de base, les procédures et les structures de données avec un certificat numérique vérifiable.</div>
     </div>
     <div class="tcl-tool-arrow">→</div>
   </a>
