@@ -235,9 +235,9 @@ def copy_help_docs() -> None:
         if src.is_file():
             text = rewrite_help_links(src.read_text(encoding="utf-8"), src_name)
             (help_dir / dst_name).write_text(text, encoding="utf-8")
-            # Create Chinese sibling file (.zh.md)
-            zh_name = dst_name.replace(".md", ".zh.md")
-            (help_dir / zh_name).write_text(text, encoding="utf-8")
+            (help_dir / dst_name.replace(".md", ".zh.md")).write_text(text, encoding="utf-8")
+            (help_dir / dst_name.replace(".md", ".ms.md")).write_text(text, encoding="utf-8")
+            (help_dir / dst_name.replace(".md", ".fr.md")).write_text(text, encoding="utf-8")
 
 
 def write_contributors_pages() -> None:
@@ -268,6 +268,24 @@ def write_contributors_pages() -> None:
         f"{body}"
     )
     (DOCS / "contributors.zh.md").write_text(zh_page, encoding="utf-8")
+
+    ms_page = (
+        "# Penyumbang & Penghargaan\n\n"
+        f"Kolaborator kursus dan penyumbang projek pelajar cemerlang. Sumber: "
+        f"[`CONTRIBUTORS.md`]({GITHUB}/blob/main/CONTRIBUTORS.md) "
+        f"di GitHub.\n\n"
+        f"{body}"
+    )
+    (DOCS / "contributors.ms.md").write_text(ms_page, encoding="utf-8")
+
+    fr_page = (
+        "# Contributeurs & Attribution\n\n"
+        f"Collaborateurs du cours et contributeurs aux projets étudiants. Source : "
+        f"[`CONTRIBUTORS.md`]({GITHUB}/blob/main/CONTRIBUTORS.md) "
+        f"sur GitHub.\n\n"
+        f"{body}"
+    )
+    (DOCS / "contributors.fr.md").write_text(fr_page, encoding="utf-8")
 
 
 def write_workshop_pages() -> None:
@@ -425,6 +443,48 @@ Interact directly with the embedded runner below, or launch fullscreen in a new 
 """
     (DOCS / "workshop.zh.md").write_text(zh_content, encoding="utf-8")
 
+    ms_content = (en_content
+        .replace("# 🚀 Interactive Tcl Workshop (WASM)", "# 🚀 Bengkel Interaktif Tcl (WASM Lab)")
+        .replace("A native Tcl 8.6.6 execution environment compiled to WebAssembly, featuring 18 guided exercises (54 hands-on tasks), 6 industrial data projects, and visual memory/variable inspector panels.",
+                 "Persekitaran pelaksanaan Tcl 8.6.6 asli yang dikompilasi ke WebAssembly, menampilkan 18 latihan berpandu (54 tugasan amali), 6 projek data industri, dan panel visual pemeriksa pembolehubah/memori.")
+        .replace("🚀 Launch Fullscreen Workshop ↗", "🚀 Buka Bengkel Skrin Penuh ↗")
+        .replace("🎯 Explore 18 Exercises & Solutions →", "🎯 Terokai 18 Latihan & Penyelesaian →")
+        .replace("🏆 Explore 6 Capstone Projects →", "🏆 Terokai 6 Projek Capstone →")
+        .replace("## 🛠️ Key Architectural Highlights", "## 🛠️ Sorotan Seni Bina Utama")
+        .replace("Client-Side WebAssembly Runtime", "Enjin WebAssembly Bahagian Pelanggan")
+        .replace("Powered by WACL (WebAssembly Tcl 8.6.6). Code executes locally inside browser memory sandbox with zero server latency or network roundtrips.",
+                 "Dikuasakan oleh WACL (WebAssembly Tcl 8.6.6). Kod dilaksanakan secara setempat dalam kotak pasir memori pelayar tanpa latensi pelayan.")
+        .replace("18 Graded Labs & Auto-Testing", "18 Makmal Amali & Ujian Automatik")
+        .replace("Visual Variable & Data Inspector", "Pemeriksa Visual Pembolehubah & Data")
+        .replace("Industrial Datasets", "Set Data Industri Tulen")
+        .replace("## 💻 Live In-Browser Laboratory", "## 💻 Makmal Langsung Dalam Pelayar")
+        .replace("Interact directly with the embedded runner below, or launch fullscreen in a new tab:",
+                 "Berinteraksi secara langsung dengan pelari terbenam di bawah, atau lancarkan skrin penuh dalam tab baharu:")
+        .replace("Launch Fullscreen ↗", "Buka Skrin Penuh ↗")
+    )
+    (DOCS / "workshop.ms.md").write_text(ms_content, encoding="utf-8")
+
+    fr_content = (en_content
+        .replace("# 🚀 Interactive Tcl Workshop (WASM)", "# 🚀 Atelier Interactif Tcl (WASM Lab)")
+        .replace("A native Tcl 8.6.6 execution environment compiled to WebAssembly, featuring 18 guided exercises (54 hands-on tasks), 6 industrial data projects, and visual memory/variable inspector panels.",
+                 "Un environnement d'exécution natif Tcl 8.6.6 compilé en WebAssembly, comprenant 18 exercices guidés (54 tâches pratiques), 6 projets de données industrielles et des panneaux d'inspection visuelle de la mémoire et des variables.")
+        .replace("🚀 Launch Fullscreen Workshop ↗", "🚀 Lancer l'Atelier Plein Écran ↗")
+        .replace("🎯 Explore 18 Exercises & Solutions →", "🎯 Découvrir les 18 Exercices & Solutions →")
+        .replace("🏆 Explore 6 Capstone Projects →", "🏆 Explorer les 6 Projets Capstone →")
+        .replace("## 🛠️ Key Architectural Highlights", "## 🛠️ Points Forts de l'Architecture")
+        .replace("Client-Side WebAssembly Runtime", "Moteur WebAssembly 100% Côté Client")
+        .replace("Powered by WACL (WebAssembly Tcl 8.6.6). Code executes locally inside browser memory sandbox with zero server latency or network roundtrips.",
+                 "Propulsé par WACL (WebAssembly Tcl 8.6.6). Le code s'exécute localement dans le bac à sable mémoire du navigateur sans latence de serveur.")
+        .replace("18 Graded Labs & Auto-Testing", "18 Travaux Pratiques & Évaluation Automatique")
+        .replace("Visual Variable & Data Inspector", "Inspecteur Visuel de Variables & Données")
+        .replace("Industrial Datasets", "Jeux de Données Industriels Authentiques")
+        .replace("## 💻 Live In-Browser Laboratory", "## 💻 Laboratoire Direct dans le Navigateur")
+        .replace("Interact directly with the embedded runner below, or launch fullscreen in a new tab:",
+                 "Interagissez directement avec l'exécuteur intégré ci-dessous, ou lancez-le en plein écran dans un nouvel onglet :")
+        .replace("Launch Fullscreen ↗", "Lancer Plein Écran ↗")
+    )
+    (DOCS / "workshop.fr.md").write_text(fr_content, encoding="utf-8")
+
 
 def write_quest_pages() -> None:
     en_content = f"""# 🎮 Tcl Quest — Chip Island Adventure
@@ -579,6 +639,42 @@ A groundbreaking gamified Tcl adventure created by **@Su3037** (rated **93/100 A
 """
     (DOCS / "quest.zh.md").write_text(zh_content, encoding="utf-8")
 
+    ms_content = (en_content
+        .replace("# 🎮 Tcl Quest — Chip Island Adventure", "# 🎮 Tcl Quest — Pengembaraan Pulau Cip")
+        .replace("A groundbreaking gamified Tcl adventure created by", "Pengembaraan Tcl gamifikasi cemerlang yang dicipta oleh")
+        .replace("Code execution directly drives real-time character animations, visual level progression, interactive dialogues, and boss battles!",
+                 "Pelaksanaan kod secara langsung menggerakkan animasi watak masa nyata, kemajuan tahap visual, dialog interaktif, dan pertempuran boss!")
+        .replace("🚀 Launch Fullscreen Quest (Chip Island) ↗", "🚀 Buka Tcl Quest Skrin Penuh ↗")
+        .replace("⚡ Switch to WASM Workshop →", "⚡ Beralih ke Bengkel WASM →")
+        .replace("🎯 18 Hands-on Exercises →", "🎯 18 Latihan Amali →")
+        .replace("## 🗺️ Four Themed Adventure Worlds", "## 🗺️ Empat Dunia Pengembaraan Bertema")
+        .replace("World 1 · Starter Village (Levels 01–05)", "Dunia 1 · Kampung Permulaan (Tahap 01–05)")
+        .replace("World 2 · Logic Forest (Levels 06–10)", "Dunia 2 · Hutan Logik (Tahap 06–10)")
+        .replace("World 3 · Tools Workshop (Levels 11–15)", "Dunia 3 · Bengkel Alat (Tahap 11–15)")
+        .replace("World 4 · Silicon City (Levels 16–20)", "Dunia 4 · Bandar Silikon (Tahap 16–20)")
+        .replace("## 🕹️ Embedded Live Sandbox", "## 🕹️ Kotak Pasir Langsung Terbenam")
+        .replace("Launch Fullscreen ↗", "Buka Skrin Penuh ↗")
+    )
+    (DOCS / "quest.ms.md").write_text(ms_content, encoding="utf-8")
+
+    fr_content = (en_content
+        .replace("# 🎮 Tcl Quest — Chip Island Adventure", "# 🎮 Tcl Quest — Aventure sur l'Île des Puces")
+        .replace("A groundbreaking gamified Tcl adventure created by", "Une aventure Tcl gamifiée innovante créée par")
+        .replace("Code execution directly drives real-time character animations, visual level progression, interactive dialogues, and boss battles!",
+                 "L'exécution du code pilote directement les animations des personnages en temps réel, la progression visuelle des niveaux, les dialogues interactifs et les combats de boss !")
+        .replace("🚀 Launch Fullscreen Quest (Chip Island) ↗", "🚀 Lancer Tcl Quest Plein Écran ↗")
+        .replace("⚡ Switch to WASM Workshop →", "⚡ Basculer vers l'Atelier WASM →")
+        .replace("🎯 18 Hands-on Exercises →", "🎯 18 Exercices Pratiques →")
+        .replace("## 🗺️ Four Themed Adventure Worlds", "## 🗺️ Quatre Mondes d'Aventure Thématiques")
+        .replace("World 1 · Starter Village (Levels 01–05)", "Monde 1 · Village de Départ (Niveaux 01–05)")
+        .replace("World 2 · Logic Forest (Levels 06–10)", "Monde 2 · Forêt Logique (Niveaux 06–10)")
+        .replace("World 3 · Tools Workshop (Levels 11–15)", "Monde 3 · Atelier d'Outils (Niveaux 11–15)")
+        .replace("World 4 · Silicon City (Levels 16–20)", "Monde 4 · Cité Silicium (Niveaux 16–20)")
+        .replace("## 🕹️ Embedded Live Sandbox", "## 🕹️ Bac à Sable Interactif Intégré")
+        .replace("Launch Fullscreen ↗", "Lancer Plein Écran ↗")
+    )
+    (DOCS / "quest.fr.md").write_text(fr_content, encoding="utf-8")
+
 
 def write_exercises_pages() -> None:
     en_content = f"""# 🎯 18 Practical Exercises (54 Coding Tasks)
@@ -672,6 +768,32 @@ tclsh solutions/01/01.tcl
 | **18** | `18-timing-report` | STA 时序分析报告解析与 WNS 门禁判定 | `sample_timing.rpt` | [`01.tcl`]({GITHUB}/blob/main/exercises/18/01.tcl) | [`01.tcl`]({GITHUB}/blob/main/solutions/18/01.tcl) |
 """
     (DOCS / "exercises.zh.md").write_text(zh_content, encoding="utf-8")
+
+    ms_content = (en_content
+        .replace("# 🎯 18 Practical Exercises (54 Coding Tasks)", "# 🎯 18 Latihan Amali (54 Tugasan Pengekodan)")
+        .replace("Curated from FanqinZeng's top-ranked educational project (Audit Score 98/100), this suite provides **18 modular practice units** (comprising 54 graduated tasks). Each module features authentic engineering data, starter code templates, test criteria, and verified reference solutions.",
+                 "Disusun daripada projek pendidikan terbaik FanqinZeng (Skor Audit 98/100), suite ini menyediakan **18 unit latihan modular** (merangkumi 54 tugasan bertahap). Setiap modul menampilkan data kejuruteraan tulen, templat kod permulaan, kriteria ujian, dan penyelesaian rujukan yang disahkan.")
+        .replace("Execute them directly in our [🚀 Interactive WASM Lab](workshop.md) or clone locally to run under standard `tclsh`.",
+                 "Laksanakannya secara langsung dalam [🚀 Bengkel Interaktif WASM](workshop.md) kami atau klon secara tempatan untuk dijalankan di bawah `tclsh` standard.")
+        .replace("## 📋 Exercise Directory", "## 📋 Direktori Latihan")
+        .replace("Key Skills & Tasks", "Kemahiran Utama & Tugasan")
+        .replace("Starter", "Permulaan")
+        .replace("Solution", "Penyelesaian")
+    )
+    (DOCS / "exercises.ms.md").write_text(ms_content, encoding="utf-8")
+
+    fr_content = (en_content
+        .replace("# 🎯 18 Practical Exercises (54 Coding Tasks)", "# 🎯 18 Exercices Pratiques (54 Tâches de Code)")
+        .replace("Curated from FanqinZeng's top-ranked educational project (Audit Score 98/100), this suite provides **18 modular practice units** (comprising 54 graduated tasks). Each module features authentic engineering data, starter code templates, test criteria, and verified reference solutions.",
+                 "Issu du projet éducatif d'excellence de FanqinZeng (Score d'audit 98/100), cet ensemble propose **18 unités de pratique modulaire** (54 tâches progressives). Chaque module intègre des données d'ingénierie authentiques, des modèles de code de départ, des critères de test et des solutions de référence vérifiées.")
+        .replace("Execute them directly in our [🚀 Interactive WASM Lab](workshop.md) or clone locally to run under standard `tclsh`.",
+                 "Exécutez-les directement dans notre [🚀 Atelier Interactif WASM](workshop.md) ou clonez localement sous un interpréteur `tclsh` standard.")
+        .replace("## 📋 Exercise Directory", "## 📋 Répertoire des Exercices")
+        .replace("Key Skills & Tasks", "Compétences Clés & Tâches")
+        .replace("Starter", "Départ")
+        .replace("Solution", "Solution")
+    )
+    (DOCS / "exercises.fr.md").write_text(fr_content, encoding="utf-8")
 
 
 def write_capstone_pages() -> None:
@@ -848,6 +970,26 @@ tclsh solution.tcl
 """
     (DOCS / "capstone.zh.md").write_text(zh_content, encoding="utf-8")
 
+    ms_content = (en_content
+        .replace("# 🏆 6 Capstone Data Engineering Projects", "# 🏆 6 Projek Capstone Kejuruteraan Data")
+        .replace("In addition to foundational exercises, this curriculum incorporates 6 major capstone data engineering projects (Projects A–F). Each project models real-world chip development, server administration, or enterprise data workflows, complete with automated test suites (`case-1.tcl` through `case-4.tcl`), starter templates, and reference implementations.",
+                 "Selain latihan asas, kurikulum ini menggabungkan 6 projek kejuruteraan data capstone utama (Projek A–F). Setiap projek memodelkan pembangunan cip dunia sebenar, pentadbiran pelayan, atau aliran kerja data perusahaan, lengkap dengan suite ujian automatik (`case-1.tcl` hingga `case-4.tcl`), templat permulaan, dan pelaksanaan rujukan.")
+        .replace("## 📁 Project Matrix", "## 📁 Matriks Projek")
+        .replace("View Project Spec →", "Lihat Spesifikasi Projek →")
+        .replace("Solution Source", "Kod Sumber Penyelesaian")
+    )
+    (DOCS / "capstone.ms.md").write_text(ms_content, encoding="utf-8")
+
+    fr_content = (en_content
+        .replace("# 🏆 6 Capstone Data Engineering Projects", "# 🏆 6 Projets Capstone d'Ingénierie des Données")
+        .replace("In addition to foundational exercises, this curriculum incorporates 6 major capstone data engineering projects (Projects A–F). Each project models real-world chip development, server administration, or enterprise data workflows, complete with automated test suites (`case-1.tcl` through `case-4.tcl`), starter templates, and reference implementations.",
+                 "En plus des exercices de base, ce programme intègre 6 grands projets d'ingénierie des données (Projets A–F). Chaque projet modélise le développement de puces réelles, l'administration de serveurs ou des flux de données d'entreprise, avec suites de tests automatisés (`case-1.tcl` à `case-4.tcl`), modèles de démarrage et implémentations de référence.")
+        .replace("## 📁 Project Matrix", "## 📁 Matrice des Projets")
+        .replace("View Project Spec →", "Voir la Spécification du Projet →")
+        .replace("Solution Source", "Code Source de la Solution")
+    )
+    (DOCS / "capstone.fr.md").write_text(fr_content, encoding="utf-8")
+
 
 def write_homework_pages() -> None:
     (DOCS / "help").mkdir(parents=True, exist_ok=True)
@@ -865,6 +1007,8 @@ def write_homework_pages() -> None:
     
     (DOCS / "help" / "homework.md").write_text(body, encoding="utf-8")
     (DOCS / "help" / "homework.zh.md").write_text(body, encoding="utf-8")
+    (DOCS / "help" / "homework.ms.md").write_text(body, encoding="utf-8")
+    (DOCS / "help" / "homework.fr.md").write_text(body, encoding="utf-8")
 
 
 def write_quiz_pages() -> None:
@@ -910,6 +1054,20 @@ cd quiz && python3 -m http.server 8082
 - **版图与时序基础**：多边形坐标表达、引脚定义与 Slack 正负判据。
 """
     (DOCS / "help" / "quiz.zh.md").write_text(zh_page, encoding="utf-8")
+
+    ms_page = (en_page
+        .replace("# Chapter Quizzes & Knowledge Checks", "# Kuiz Bab & Semakan Pengetahuan (Interactive Quizzes)")
+        .replace("Curated from thy031's student project, this module provides rapid knowledge-check quizzes across foundational Tcl topics.",
+                 "Disusun daripada projek pelajar thy031, modul ini menyediakan kuiz semakan pengetahuan pantas merentas topik asas Tcl.")
+    )
+    (DOCS / "help" / "quiz.ms.md").write_text(ms_page, encoding="utf-8")
+
+    fr_page = (en_page
+        .replace("# Chapter Quizzes & Knowledge Checks", "# Quiz de Chapitre & Vérification des Connaissances (Interactive Quizzes)")
+        .replace("Curated from thy031's student project, this module provides rapid knowledge-check quizzes across foundational Tcl topics.",
+                 "Issu du projet étudiant de thy031, ce module propose des quiz rapides de contrôle des connaissances sur les sujets fondamentaux de Tcl.")
+    )
+    (DOCS / "help" / "quiz.fr.md").write_text(fr_page, encoding="utf-8")
 
 
 def write_playground_pages() -> None:
@@ -1197,8 +1355,100 @@ Looking for full in-browser test grading, step-by-step interactive debugging, an
 
 如需包含 18 项实战评测、变量内存树监视器与单步断点调试的完整开发环境，请启动 [🚀 交互工作坊 (WASM)](workshop.md)。
 """
+    ms_header = """# ⚡ Taman Permainan Pantas Tcl Atas Talian (Interactive Playground)
+
+<div class="tcl-badge-cluster">
+  <span class="tcl-badge blue">Jalankan Tanpa Pemasangan</span>
+  <span class="tcl-badge green">Pelaksanaan Frontend Segera</span>
+  <span class="tcl-badge purple">Pengesahan Sintaks Masa Nyata</span>
+  <span class="tcl-badge amber">Pratetap Kod Contoh</span>
+</div>
+
+Uji, bereksperimen, dan jalankan skrip Tcl terus dalam pelayar anda tanpa sebarang pemasangan tempatan. Muat pratetap di bawah atau tulis skrip tersuai anda sendiri.
+
+<div style="background: var(--tcl-surface); border: 1px solid var(--tcl-border); border-radius: 12px; padding: 20px; margin: 20px 0; box-shadow: 0 4px 20px rgba(0,0,0,0.06);">
+  <div style="display: flex; gap: 8px; margin-bottom: 14px; flex-wrap: wrap; align-items: center;">
+    <span style="font-weight: 700; font-size: 13px; color: var(--tcl-heading);">Muat Pratetap:</span>
+    <button onclick="loadSnippet('hello')" class="tcl-btn tcl-btn-secondary" style="padding: 5px 12px; font-size: 12px;">01. Hello puts</button>
+    <button onclick="loadSnippet('subst')" class="tcl-btn tcl-btn-secondary" style="padding: 5px 12px; font-size: 12px;">02. Model Mental Welch</button>
+    <button onclick="loadSnippet('expr')" class="tcl-btn tcl-btn-secondary" style="padding: 5px 12px; font-size: 12px;">03. expr Kurungan Selamat</button>
+    <button onclick="loadSnippet('list_dict')" class="tcl-btn tcl-btn-secondary" style="padding: 5px 12px; font-size: 12px;">04. Senarai & Kamus</button>
+    <button onclick="loadSnippet('timing')" class="tcl-btn tcl-btn-secondary" style="padding: 5px 12px; font-size: 12px;">05. Pengurai Slack STA</button>
+    <button onclick="loadSnippet('drvlite')" class="tcl-btn tcl-btn-secondary" style="padding: 5px 12px; font-size: 12px;">06. Susun Atur DRV-Lite</button>
+  </div>
+
+  <textarea id="tcl-code-input" style="width: 100%; height: 210px; font-family: 'JetBrains Mono', monospace; background: #0f172a; color: #f8fafc; border: 1px solid var(--tcl-border); border-radius: 8px; padding: 14px; box-sizing: border-box; font-size: 13.5px; line-height: 1.6; resize: vertical; outline: none;"></textarea>
+
+  <div style="margin-top: 12px; display: flex; gap: 10px; align-items: center; justify-content: space-between; flex-wrap: wrap;">
+    <div style="display: flex; gap: 10px; align-items: center;">
+      <button onclick="runTclCode()" class="tcl-btn tcl-btn-primary" style="padding: 8px 20px; font-size: 13px;">▶ Jalankan Skrip (Ctrl+Enter)</button>
+      <button onclick="clearOutput()" class="tcl-btn tcl-btn-secondary" style="padding: 8px 14px; font-size: 13px;">Kosongkan Konsol</button>
+    </div>
+    <span id="tcl-status" style="font-size: 12px; color: #10b981; font-weight: 600;">Sedia</span>
+  </div>
+
+  <div style="margin-top: 16px;">
+    <div style="font-size: 12px; color: var(--md-default-fg-color--lighter); margin-bottom: 6px; font-weight: 700;">Output Konsol Piawai:</div>
+    <pre id="tcl-output" style="background: #020617; color: #34d399; border: 1px solid #1e293b; border-radius: 8px; padding: 14px; min-height: 90px; max-height: 250px; overflow-y: auto; font-family: 'JetBrains Mono', monospace; font-size: 13px; margin: 0; white-space: pre-wrap; line-height: 1.5;"></pre>
+  </div>
+</div>
+"""
+    ms_footer = """
+---
+
+## IDE Tcl WebAssembly Lengkap & Mandiri
+
+Mencari persekitaran pembangunan lengkap dengan penggredan ujian 18 modul, pemantau pembolehubah memori, dan penyahpepijatan langkah demi langkah? Lancarkan [🚀 Bengkel Interaktif (WASM)](workshop.md).
+"""
+    fr_header = """# ⚡ Bac à Sable Tcl Interactif Rapide (Interactive Playground)
+
+<div class="tcl-badge-cluster">
+  <span class="tcl-badge blue">Exécution Sans Installation</span>
+  <span class="tcl-badge green">Purement Côté Client</span>
+  <span class="tcl-badge purple">Validation en Temps Réel</span>
+  <span class="tcl-badge amber">Exemples Intégrés</span>
+</div>
+
+Testez, expérimentez et exécutez des scripts Tcl directement dans votre navigateur sans aucune installation locale. Chargez des préréglages ci-dessous ou écrivez votre propre code.
+
+<div style="background: var(--tcl-surface); border: 1px solid var(--tcl-border); border-radius: 12px; padding: 20px; margin: 20px 0; box-shadow: 0 4px 20px rgba(0,0,0,0.06);">
+  <div style="display: flex; gap: 8px; margin-bottom: 14px; flex-wrap: wrap; align-items: center;">
+    <span style="font-weight: 700; font-size: 13px; color: var(--tcl-heading);">Charger un Exemple :</span>
+    <button onclick="loadSnippet('hello')" class="tcl-btn tcl-btn-secondary" style="padding: 5px 12px; font-size: 12px;">01. Hello puts</button>
+    <button onclick="loadSnippet('subst')" class="tcl-btn tcl-btn-secondary" style="padding: 5px 12px; font-size: 12px;">02. Modèle Mental de Welch</button>
+    <button onclick="loadSnippet('expr')" class="tcl-btn tcl-btn-secondary" style="padding: 5px 12px; font-size: 12px;">03. expr avec Accolades Sûres</button>
+    <button onclick="loadSnippet('list_dict')" class="tcl-btn tcl-btn-secondary" style="padding: 5px 12px; font-size: 12px;">04. Listes & Dictionnaires</button>
+    <button onclick="loadSnippet('timing')" class="tcl-btn tcl-btn-secondary" style="padding: 5px 12px; font-size: 12px;">05. Analyseur de Slack STA</button>
+    <button onclick="loadSnippet('drvlite')" class="tcl-btn tcl-btn-secondary" style="padding: 5px 12px; font-size: 12px;">06. Layout DRV-Lite</button>
+  </div>
+
+  <textarea id="tcl-code-input" style="width: 100%; height: 210px; font-family: 'JetBrains Mono', monospace; background: #0f172a; color: #f8fafc; border: 1px solid var(--tcl-border); border-radius: 8px; padding: 14px; box-sizing: border-box; font-size: 13.5px; line-height: 1.6; resize: vertical; outline: none;"></textarea>
+
+  <div style="margin-top: 12px; display: flex; gap: 10px; align-items: center; justify-content: space-between; flex-wrap: wrap;">
+    <div style="display: flex; gap: 10px; align-items: center;">
+      <button onclick="runTclCode()" class="tcl-btn tcl-btn-primary" style="padding: 8px 20px; font-size: 13px;">▶ Exécuter le Script (Ctrl+Enter)</button>
+      <button onclick="clearOutput()" class="tcl-btn tcl-btn-secondary" style="padding: 8px 14px; font-size: 13px;">Effacer la Console</button>
+    </div>
+    <span id="tcl-status" style="font-size: 12px; color: #10b981; font-weight: 600;">Prêt</span>
+  </div>
+
+  <div style="margin-top: 16px;">
+    <div style="font-size: 12px; color: var(--md-default-fg-color--lighter); margin-bottom: 6px; font-weight: 700;">Sortie Standard Console :</div>
+    <pre id="tcl-output" style="background: #020617; color: #34d399; border: 1px solid #1e293b; border-radius: 8px; padding: 14px; min-height: 90px; max-height: 250px; overflow-y: auto; font-family: 'JetBrains Mono', monospace; font-size: 13px; margin: 0; white-space: pre-wrap; line-height: 1.5;"></pre>
+  </div>
+</div>
+"""
+    fr_footer = """
+---
+
+## IDE WebAssembly Tcl Autonome & Complet
+
+Vous cherchez un environnement de développement complet avec notation de 18 exercices pratiques, inspecteur de variables mémoire et débogage pas à pas ? Lancez l'[🚀 Atelier Interactif (WASM)](workshop.md).
+"""
     (DOCS / "playground.md").write_text(en_header + "\n" + script_part + "\n" + en_footer, encoding="utf-8")
     (DOCS / "playground.zh.md").write_text(zh_header + "\n" + script_part + "\n" + zh_footer, encoding="utf-8")
+    (DOCS / "playground.ms.md").write_text(ms_header + "\n" + script_part + "\n" + ms_footer, encoding="utf-8")
+    (DOCS / "playground.fr.md").write_text(fr_header + "\n" + script_part + "\n" + fr_footer, encoding="utf-8")
 
 
 def write_layout_viewer_pages() -> None:
@@ -1471,8 +1721,42 @@ window.addEventListener('DOMContentLoaded', () => loadLayoutPreset('inv'));
         .replace("Interactive 2D Canvas", "HTML5 2D 交互画布")
         .replace("GDS II / OASIS Ready", "支持 GDS II / OASIS")
     )
+    ms_content = (en_content
+        .replace("# 📐 Interactive VLSI Layout Visualizer (DRV-Lite Simulator)", "# 📐 Visualiser Interaktif Susun Atur VLSI (Simulator DRV-Lite)")
+        .replace("A real-time in-browser semiconductor layout visualizer inspired by Capeur's pure-Tcl **DRV-Lite** engine. Inspect multi-layer IC cell geometries, toggle metal routing tracks, observe bounding box snaps, and execute Tcl layout commands directly in the browser!",
+                 "Visualiser susun atur semikonduktor masa nyata dalam pelayar yang diinspirasikan oleh enjin tulin Tcl **DRV-Lite** Capeur. Periksa geometri sel IC berbilang lapisan, togol laluan penghalaan logam, perhatikan kotak sempadan (Bounding Box), dan jalankan perintah susun atur Tcl terus dalam pelayar!")
+        .replace("Cell Preset:", "Pratetap Sel:")
+        .replace("CMOS Inverter (INV_X1)", "Penyongsang CMOS (INV_X1)")
+        .replace("2-Input NAND (NAND2_X1)", "NAND 2-Input (NAND2_X1)")
+        .replace("M1/M2 Cross-Routing with VIA1", "Penghalaan Silang M1/M2 dengan VIA1")
+        .replace("I/O Bond Pad & Guard Ring", "Pad Ikatan I/O & Cincin Pengawal")
+        .replace("Layers:", "Lapisan:")
+        .replace("⚡ Execute Tcl Command", "⚡ Jalankan Perintah Tcl")
+        .replace("DRV-Lite Pure-Tcl Engine", "Enjin Tulin Tcl DRV-Lite")
+        .replace("Zero Commercial License", "Sifar Lesen Komersial")
+        .replace("Interactive 2D Canvas", "Kanvas 2D Interaktif")
+        .replace("GDS II / OASIS Ready", "Sedia GDS II / OASIS")
+    )
+    fr_content = (en_content
+        .replace("# 📐 Interactive VLSI Layout Visualizer (DRV-Lite Simulator)", "# 📐 Visualiseur Interactif de Layout VLSI (Simulateur DRV-Lite)")
+        .replace("A real-time in-browser semiconductor layout visualizer inspired by Capeur's pure-Tcl **DRV-Lite** engine. Inspect multi-layer IC cell geometries, toggle metal routing tracks, observe bounding box snaps, and execute Tcl layout commands directly in the browser!",
+                 "Visualiseur de layout de semi-conducteurs en temps réel dans le navigateur, inspiré par le moteur **DRV-Lite** en pur Tcl de Capeur. Inspectez les géométries multicouches de cellules CI, basculez les pistes de routage métallique, observez les boîtes englobantes et exécutez des commandes de layout Tcl directement dans le navigateur !")
+        .replace("Cell Preset:", "Préréglage Cellule :")
+        .replace("CMOS Inverter (INV_X1)", "Inverseur CMOS (INV_X1)")
+        .replace("2-Input NAND (NAND2_X1)", "NAND à 2 Entrées (NAND2_X1)")
+        .replace("M1/M2 Cross-Routing with VIA1", "Routage Croisé M1/M2 avec VIA1")
+        .replace("I/O Bond Pad & Guard Ring", "Plot de Connexion I/O & Anneau de Garde")
+        .replace("Layers:", "Couches :")
+        .replace("⚡ Execute Tcl Command", "⚡ Exécuter Commande Tcl")
+        .replace("DRV-Lite Pure-Tcl Engine", "Moteur Pur Tcl DRV-Lite")
+        .replace("Zero Commercial License", "Zéro Licence Commerciale")
+        .replace("Interactive 2D Canvas", "Canevas 2D Interactif")
+        .replace("GDS II / OASIS Ready", "Prêt GDS II / OASIS")
+    )
     (DOCS / "help" / "layout_viewer.md").write_text(en_content, encoding="utf-8")
     (DOCS / "help" / "layout_viewer.zh.md").write_text(zh_content, encoding="utf-8")
+    (DOCS / "help" / "layout_viewer.ms.md").write_text(ms_content, encoding="utf-8")
+    (DOCS / "help" / "layout_viewer.fr.md").write_text(fr_content, encoding="utf-8")
 
 
 def write_timing_calculator_pages() -> None:
@@ -1698,19 +1982,66 @@ window.addEventListener('DOMContentLoaded', recalcTiming);
         .replace("Tapeout Sign-Off Gatekeeper", "流片签核自动化门禁")
         .replace("⏱️ Timing Constraints & Delays", "⏱️ 时序约束与延迟参数")
         .replace("Target Clock Period ($T_{clk}$):", "目标时钟周期 ($T_{clk}$):")
-        .replace("Data Path Logic & Wire Delay ($T_{data}$):", "数据路径逻辑与连线延迟 ($T_{data}$):")
-        .replace("Launch Flip-Flop $T_{clk\\to q}$:", "发射触发器延迟 ($T_{clk\\to q}$):")
-        .replace("Capture Flip-Flop Setup Time ($T_{setup}$):", "捕获触发器建立时间 ($T_{setup}$):")
-        .replace("Clock Skew & Uncertainty ($T_{unc}$):", "时钟偏斜与不确定度 ($T_{unc}$):")
-        .replace("🛡️ Sign-Off Decision & Margin Gauge", "🛡️ 签核裁决与时序裕量仪表盘")
-        .replace("Setup Slack Calculation Formula:", "建立时间裕量计算公式:")
-        .replace("Required Time:", "要求到达时间:")
-        .replace("Arrival Time:", "实际到达时间:")
-        .replace("Setup Slack Margin:", "建立时间裕量 (Slack):")
-        .replace("🚦 Multi-Path Sign-Off Table (Top 5 Critical Paths)", "🚦 多路径签核汇总表 (关键时序路径)")
+        .replace("Data Path Delay ($T_{data}$):", "数据路径延迟 ($T_{data}$):")
+        .replace("Clock-to-Q Delay ($T_{clk-q}$):", "触发器时钟到输出延迟 ($T_{clk-q}$):")
+        .replace("Library Setup Time ($T_{setup}$):", "器件库建立时间 ($T_{setup}$):")
+        .replace("Clock Uncertainty / Jitter ($T_{unc}$):", "时钟不确定度与抖动 ($T_{unc}$):")
+        .replace("📊 Setup Slack Equation", "📊 建立时间裕量方程")
+        .replace("Timing Margin Gauge:", "时序安全仪表盘:")
+        .replace("📋 Multi-Path Sign-off Summary (Critical Path Group)", "📋 多路径签核汇总表 (关键时序路径)")
+        .replace("Path Endpoint", "路径终点")
+        .replace("Data Delay", "数据延迟")
+        .replace("Arrival", "到达时间")
+        .replace("Status", "状态")
+    )
+    ms_content = (en_content
+        .replace("# ⚡ Interactive STA Timing Slack & WNS/TNS Gatekeeper", "# ⚡ Penjaga Masa STA Interaktif: Slack & WNS/TNS Sign-Off")
+        .replace("Interactive digital IC timing sign-off simulator. Adjust clock parameters, wire delays, setup times, and uncertainty to observe Slack calculations in real time, visualize timing margin gauges, and test tapeout pass/fail criteria!",
+                 "Simulator sign-off pemasaan IC digital interaktif. Laraskan parameter jam, kelewatan wayar, masa persediaan (Setup), dan ketidakpastian (Uncertainty) untuk melihat pengiraan Slack secara masa nyata, memvisualisasikan tolok margin pemasaan, dan menguji kriteria lulus/gagal tapeout!")
+        .replace("Static Timing Analysis (STA)", "Analisis Pemasaan Statik (STA)")
+        .replace("Worst Negative Slack (WNS)", "Slack Negatif Terburuk (WNS)")
+        .replace("Total Negative Slack (TNS)", "Jumlah Slack Negatif (TNS)")
+        .replace("Tapeout Sign-Off Gatekeeper", "Penjaga Pintu Tapeout Sign-Off")
+        .replace("⏱️ Timing Constraints & Delays", "⏱️ Kekangan Pemasaan & Kelewatan")
+        .replace("Target Clock Period ($T_{clk}$):", "Tempoh Jam Sasaran ($T_{clk}$):")
+        .replace("Data Path Delay ($T_{data}$):", "Kelewatan Laluan Data ($T_{data}$):")
+        .replace("Clock-to-Q Delay ($T_{clk-q}$):", "Kelewatan Jam-ke-Q ($T_{clk-q}$):")
+        .replace("Library Setup Time ($T_{setup}$):", "Masa Persediaan Pustaka ($T_{setup}$):")
+        .replace("Clock Uncertainty / Jitter ($T_{unc}$):", "Ketidakpastian Jam / Jitter ($T_{unc}$):")
+        .replace("📊 Setup Slack Equation", "📊 Persamaan Setup Slack")
+        .replace("Timing Margin Gauge:", "Tolok Margin Pemasaan:")
+        .replace("📋 Multi-Path Sign-off Summary (Critical Path Group)", "📋 Ringkasan Sign-off Pelbagai Laluan (Kumpulan Laluan Kritikal)")
+        .replace("Path Endpoint", "Titik Akhir Laluan")
+        .replace("Data Delay", "Kelewatan Data")
+        .replace("Arrival", "Ketibaan")
+        .replace("Status", "Status")
+    )
+    fr_content = (en_content
+        .replace("# ⚡ Interactive STA Timing Slack & WNS/TNS Gatekeeper", "# ⚡ Contrôleur Temporel STA Interactif : Marge Slack & WNS/TNS")
+        .replace("Interactive digital IC timing sign-off simulator. Adjust clock parameters, wire delays, setup times, and uncertainty to observe Slack calculations in real time, visualize timing margin gauges, and test tapeout pass/fail criteria!",
+                 "Simulateur interactif de validation temporelle pour circuits intégrés numériques. Ajustez la période d'horloge, les délais de propagation, les temps d'établissement (Setup) et l'incertitude d'horloge pour observer le calcul de Slack en temps réel, visualiser la jauge de marge et vérifier les critères de validation finale (Tapeout) !")
+        .replace("Static Timing Analysis (STA)", "Analyse Temporelle Statique (STA)")
+        .replace("Worst Negative Slack (WNS)", "Pire Marge Négative (WNS)")
+        .replace("Total Negative Slack (TNS)", "Marge Négative Totale (TNS)")
+        .replace("Tapeout Sign-Off Gatekeeper", "Porte de Validation Tapeout")
+        .replace("⏱️ Timing Constraints & Delays", "⏱️ Contraintes Temporelles & Délais")
+        .replace("Target Clock Period ($T_{clk}$):", "Période d'Horloge Cible ($T_{clk}$):")
+        .replace("Data Path Delay ($T_{data}$):", "Délai du Chemin de Données ($T_{data}$):")
+        .replace("Clock-to-Q Delay ($T_{clk-q}$):", "Délai Horloge-vers-Q ($T_{clk-q}$):")
+        .replace("Library Setup Time ($T_{setup}$):", "Temps d'Établissement Bibliothèque ($T_{setup}$):")
+        .replace("Clock Uncertainty / Jitter ($T_{unc}$):", "Incertitude d'Horloge / Gigue ($T_{unc}$):")
+        .replace("📊 Setup Slack Equation", "📊 Équation de Setup Slack")
+        .replace("Timing Margin Gauge:", "Jauge de Marge Temporelle :")
+        .replace("📋 Multi-Path Sign-off Summary (Critical Path Group)", "📋 Tableau Récapitulatif Multi-Chemins (Chemins Critiques)")
+        .replace("Path Endpoint", "Point d'Arrivée")
+        .replace("Data Delay", "Délai Données")
+        .replace("Arrival", "Arrivée")
+        .replace("Status", "Statut")
     )
     (DOCS / "help" / "timing_calculator.md").write_text(en_content, encoding="utf-8")
     (DOCS / "help" / "timing_calculator.zh.md").write_text(zh_content, encoding="utf-8")
+    (DOCS / "help" / "timing_calculator.ms.md").write_text(ms_content, encoding="utf-8")
+    (DOCS / "help" / "timing_calculator.fr.md").write_text(fr_content, encoding="utf-8")
 
 
 def write_stylesheets() -> None:
@@ -2419,9 +2750,13 @@ body, .md-typeset {
 def write_home_pages(meta: list[tuple[int, str, str]]) -> None:
     en_rows = []
     zh_rows = []
+    ms_rows = []
+    fr_rows = []
     for w, en_short, zh_short in meta:
         en_rows.append(f"| Week {w:02d} | [{en_short}](lessons/week{w}/index.md) | [Examples](lessons/week{w}/examples.md) |")
         zh_rows.append(f"| 第 {w:02d} 周 | [{zh_short}](lessons/week{w}/index.md) | [示例代码](lessons/week{w}/examples.md) |")
+        ms_rows.append(f"| Minggu {w:02d} | [{en_short}](lessons/week{w}/index.md) | [Contoh Kod](lessons/week{w}/examples.md) |")
+        fr_rows.append(f"| Semaine {w:02d} | [{en_short}](lessons/week{w}/index.md) | [Exemples de Code](lessons/week{w}/examples.md) |")
 
     en_index = f"""<div class="tcl-hero">
   <div class="tcl-badge-cluster">
@@ -2798,8 +3133,383 @@ make week21-01        # Run Week 21 layout script (DRV-Lite simulation)
 ```
 """
     (DOCS / "index.md").write_text(en_index, encoding="utf-8")
-
     (DOCS / "index.zh.md").write_text(zh_index, encoding="utf-8")
+
+    ms_index = f"""<div class="tcl-hero">
+  <div class="tcl-badge-cluster">
+    <span class="tcl-badge">CC BY 4.0</span>
+    <span class="tcl-badge">SJTU-YONGFU-RESEARCH-GRP</span>
+    <span class="tcl-badge blue">Bengkel Interaktif WASM</span>
+    <span class="tcl-badge purple">Tcl Quest (Pulau Cip RPG)</span>
+    <span class="tcl-badge green">Simulator Susun Atur DRV-Lite</span>
+    <span class="tcl-badge amber">Pintu Sign-Off Pemasaan STA</span>
+    <span class="tcl-badge cyan">Sokongan Pelbagai Bahasa</span>
+  </div>
+
+  <h1 class="tcl-hero-title">Tcl untuk VLSI · Daripada Sintaks Asas hingga Automasi Susun Atur & Pemasaan IC</h1>
+
+  <div class="tcl-hero-subtitle">
+    Daripada perintah skrip asas hingga suite automasi reka bentuk fizikal litar bersepadu gred industri.<br>
+    Menggabungkan <strong>model mental penilaian 3-langkah Brent Welch</strong>, <strong>bengkel WebAssembly dalam pelayar</strong>, <strong>pengembaraan RPG pacuan kod sebenar</strong>, <strong>simulator susun atur DRV-Lite sifar lesen</strong>, dan <strong>pengesahan sign-off pemasaan STA gelung tertutup</strong>.
+  </div>
+
+  <div class="tcl-cta-group">
+    <a href="wasm-lab/" target="_blank" class="tcl-btn tcl-btn-primary">🚀 Lancarkan Bengkel WASM ↗</a>
+    <a href="quest/" class="tcl-btn tcl-btn-accent">🎮 Tcl Quest (Pulau Cip RPG)</a>
+    <a href="lessons/week1/" class="tcl-btn tcl-btn-secondary">📖 Mula Belajar (Minggu 1) →</a>
+  </div>
+</div>
+
+<div class="tcl-fact-strip">
+  <div class="tcl-fact-item">
+    <span class="tcl-fact-val">40 Minggu</span>
+    <span class="tcl-fact-lbl">Pelan Kurikulum Lengkap</span>
+  </div>
+  <div class="tcl-fact-item">
+    <span class="tcl-fact-val">18 Makmal</span>
+    <span class="tcl-fact-lbl">Latihan Data Dunia Sebenar</span>
+  </div>
+  <div class="tcl-fact-item">
+    <span class="tcl-fact-val">20 Tahap</span>
+    <span class="tcl-fact-lbl">Pengembaraan RPG Interaktif</span>
+  </div>
+  <div class="tcl-fact-item">
+    <span class="tcl-fact-val">100%</span>
+    <span class="tcl-fact-lbl">WASM Sifar Pemasangan</span>
+  </div>
+  <div class="tcl-fact-item">
+    <span class="tcl-fact-val">Sifar Lesen</span>
+    <span class="tcl-fact-lbl">Simulator Susun Atur DRV-Lite</span>
+  </div>
+  <div class="tcl-fact-item">
+    <span class="tcl-fact-val">Industri</span>
+    <span class="tcl-fact-lbl">Pintu Sign-Off Slack STA</span>
+  </div>
+</div>
+
+<div class="tcl-tools-section-title">⚡ Makmal & Alat EDA Interaktif</div>
+
+<div class="tcl-tools-grid">
+  <a href="help/layout_viewer/" class="tcl-tool-card">
+    <div class="tcl-tool-icon">📐</div>
+    <div class="tcl-tool-body">
+      <div class="tcl-tool-title">Visualiser Susun Atur DRV-Lite</div>
+      <div class="tcl-tool-desc">Kanvas reka bentuk fizikal sifar lesen dengan peletakan sel, saluran penghalaan, dan penonjolan pelanggaran DRC secara langsung.</div>
+    </div>
+    <div class="tcl-tool-arrow">→</div>
+  </a>
+
+  <a href="help/timing_calculator/" class="tcl-tool-card">
+    <div class="tcl-tool-icon">⚡</div>
+    <div class="tcl-tool-body">
+      <div class="tcl-tool-title">Pintu Sign-Off Pemasaan STA</div>
+      <div class="tcl-tool-desc">Tolok margin persediaan masa interaktif, tempoh jam, kelewatan laluan data dengan peraturan kelulusan tapeout.</div>
+    </div>
+    <div class="tcl-tool-arrow">→</div>
+  </a>
+
+  <a href="exercises/" class="tcl-tool-card">
+    <div class="tcl-tool-icon">🎯</div>
+    <div class="tcl-tool-body">
+      <div class="tcl-tool-title">18 Latihan Amali</div>
+      <div class="tcl-tool-desc">Latihan makmal praktikal menghurai perpustakaan sel sebenar, pemetaan pin, fail DEF, dan laporan pemasaan STA.</div>
+    </div>
+    <div class="tcl-tool-arrow">→</div>
+  </a>
+
+  <a href="capstone/" class="tcl-tool-card">
+    <div class="tcl-tool-icon">🏆</div>
+    <div class="tcl-tool-body">
+      <div class="tcl-tool-title">6 Projek Capstone Kejuruteraan</div>
+      <div class="tcl-tool-desc">Projek mini industri hujung ke hujung daripada pengikis penghalaan hingga pembaikan panjang wayar ECO automatik.</div>
+    </div>
+    <div class="tcl-tool-arrow">→</div>
+  </a>
+</div>
+
+## 🎯 Laluan Pembelajaran Disyorkan
+
+Pilih laluan pembelajaran yang disesuaikan dengan latar belakang dan matlamat kejuruteraan anda:
+
+<div class="tcl-routes">
+  <div class="tcl-route-card">
+    <span class="tcl-route-num">LALUAN 01 · Langkah Pertama</span>
+    <div class="tcl-route-title">Baharu dalam Pengaturcaraan</div>
+    <div class="tcl-route-desc">
+      Bermula dengan <code>puts</code>, pembolehubah, dan ulasan kod. Kuasai model mental penilaian 3-langkah Brent Welch (Kumpulan $\to$ Penggantian $\to$ Seruan) untuk memahami perbezaan antara kurungan kerinting <code>{{}}</code> dan tanda petikan ganda <code>""</code>.
+    </div>
+    <a href="lessons/week1/" class="tcl-btn tcl-btn-secondary" style="font-size: 13px; padding: 6px 14px;">Mula Minggu 1 →</a>
+  </div>
+
+  <div class="tcl-route-card route-exp">
+    <span class="tcl-route-num">LALUAN 02 · Laluan Pantas</span>
+    <div class="tcl-route-title">Berpengalaman dalam Python / C</div>
+    <div class="tcl-route-desc">
+      Fokus pada mekanisme unik Tcl: penilaian tertunda, keselamatan <code>expr</code> berkurung (anti-suntikan dan pengkompilasi bait), manipulasi senarai/kamus, ruang nama, dan reka bentuk berorientasikan objek TclOO.
+    </div>
+    <a href="help/tcl/" class="tcl-btn tcl-btn-secondary" style="font-size: 13px; padding: 6px 14px;">Panduan Model Mental →</a>
+  </div>
+
+  <div class="tcl-route-card route-vlsi">
+    <span class="tcl-route-num">LALUAN 03 · Kejuruteraan Cip</span>
+    <div class="tcl-route-title">Jurutera VLSI & Reka Bentuk Fizikal</div>
+    <div class="tcl-route-desc">
+      Lepaskan kekangan lesen EDA komersial menggunakan simulator DRV-Lite tulin Tcl kami untuk menghasilkan poligon, wayar, kotak sempadan, dan output GDS. Analisis slack pemasaan STA, kriteria sign-off WNS dan TNS.
+    </div>
+    <a href="help/timing_lab/" class="tcl-btn tcl-btn-secondary" style="font-size: 13px; padding: 6px 14px;">Makmal Analisis Masa STA →</a>
+  </div>
+</div>
+
+---
+
+## 🛠️ Empat Tonggak Teknologi Utama
+
+<div class="tcl-pillars">
+  <div class="tcl-pillar-card">
+    <div class="tcl-pillar-icon">💻</div>
+    <div class="tcl-pillar-title">Bengkel WebAssembly Sisi Pelanggan</div>
+    <div class="tcl-pillar-desc">
+      Mengintegrasikan platform inovatif gred 98/100 FanqinZeng: enjin Tcl 8.6.6 WebAssembly asli, 18 modul berperingkat, pemantau pembolehubah memori, dan 6 projek capstone.
+    </div>
+  </div>
+
+  <div class="tcl-pillar-card">
+    <div class="tcl-pillar-icon">🎮</div>
+    <div class="tcl-pillar-title">Tcl Quest · RPG Pacuan Kod Sebenar</div>
+    <div class="tcl-pillar-desc">
+      Inovasi 93/100 Su3037: Pengembaraan 20 tahap di Pulau Cip di mana pelaksanaan kod sebenar memacu animasi penceritaan dan pertarungan boss secara langsung.
+    </div>
+  </div>
+
+  <div class="tcl-pillar-card">
+    <div class="tcl-pillar-icon">📐</div>
+    <div class="tcl-pillar-title">Simulator Susun Atur DRV-Lite</div>
+    <div class="tcl-pillar-desc">
+      Sifar lesen komersial Siemens Calibre diperlukan. Model objek susun atur tulin Tcl yang mengendalikan hierarki sel, poligon, kotak sempadan, dan aliran keluar GDS.
+    </div>
+  </div>
+
+  <div class="tcl-pillar-card">
+    <div class="tcl-pillar-icon">⚡</div>
+    <div class="tcl-pillar-title">Penjaga Pintu Pemasaan STA Industri</div>
+    <div class="tcl-pillar-desc">
+      Menghurai laporan pemasaan litar bersepadu digital, mengekstrak titik permulaan dan penamat, mengira Worst Negative Slack (WNS) dan Total Negative Slack (TNS).
+    </div>
+  </div>
+</div>
+
+---
+
+## 📚 Direktori Kurikulum (40 Minggu)
+
+| Minggu | Topik | Contoh Kod |
+| :---: | :--- | :---: |
+{chr(10).join(ms_rows)}
+
+---
+
+## 🚀 Mula Pantas (CLI)
+
+```bash
+git clone {GITHUB}.git
+cd tcl-language
+
+make check-env        # Sahkan tclsh & simulator susun atur DRV-Lite
+make drvlite-test     # Jalankan 6 ujian unit pada simulator DRV-Lite
+make timing-demo      # Jalankan makmal analisis pemasaan STA
+make week1-01         # Jalankan contoh pertama Minggu 1
+make week21-01        # Jalankan skrip susun atur Minggu 21 (simulasi DRV-Lite)
+```
+"""
+    (DOCS / "index.ms.md").write_text(ms_index, encoding="utf-8")
+
+    fr_index = f"""<div class="tcl-hero">
+  <div class="tcl-badge-cluster">
+    <span class="tcl-badge">CC BY 4.0</span>
+    <span class="tcl-badge">SJTU-YONGFU-RESEARCH-GRP</span>
+    <span class="tcl-badge blue">Atelier Interactif WASM</span>
+    <span class="tcl-badge purple">Tcl Quest (Jeu RPG)</span>
+    <span class="tcl-badge green">Simulateur de Layout DRV-Lite</span>
+    <span class="tcl-badge amber">Porte de Validation STA</span>
+    <span class="tcl-badge cyan">Support Multilingue i18n</span>
+  </div>
+
+  <h1 class="tcl-hero-title">Tcl pour VLSI · De la Syntaxe de Base à l'Automatisation de Layout & Temporisation</h1>
+
+  <div class="tcl-hero-subtitle">
+    Des commandes fondamentales de script à une suite complète d'automatisation de conception physique de circuits intégrés.<br>
+    Alliant le <strong>modèle mental d'évaluation en 3 étapes de Brent Welch</strong>, l'<strong>atelier WebAssembly dans le navigateur</strong>, la <strong>quête RPG pilotée par code réel</strong>, le <strong>simulateur de layout DRV-Lite sans licence</strong> et la <strong>porte de clôture temporelle STA</strong>.
+  </div>
+
+  <div class="tcl-cta-group">
+    <a href="wasm-lab/" target="_blank" class="tcl-btn tcl-btn-primary">🚀 Lancer l'Atelier WASM ↗</a>
+    <a href="quest/" class="tcl-btn tcl-btn-accent">🎮 Tcl Quest (Île des Puces RPG)</a>
+    <a href="lessons/week1/" class="tcl-btn tcl-btn-secondary">📖 Démarrer le Cours (Semaine 1) →</a>
+  </div>
+</div>
+
+<div class="tcl-fact-strip">
+  <div class="tcl-fact-item">
+    <span class="tcl-fact-val">40 Semaines</span>
+    <span class="tcl-fact-lbl">Programme Complet & Progressif</span>
+  </div>
+  <div class="tcl-fact-item">
+    <span class="tcl-fact-val">18 Labos</span>
+    <span class="tcl-fact-lbl">Exercices sur Données Réelles</span>
+  </div>
+  <div class="tcl-fact-item">
+    <span class="tcl-fact-val">20 Niveaux</span>
+    <span class="tcl-fact-lbl">Quête RPG Interactive</span>
+  </div>
+  <div class="tcl-fact-item">
+    <span class="tcl-fact-val">100%</span>
+    <span class="tcl-fact-lbl">Zéro Installation Navigateur WASM</span>
+  </div>
+  <div class="tcl-fact-item">
+    <span class="tcl-fact-val">Zéro Licence</span>
+    <span class="tcl-fact-lbl">Simulateur de Layout DRV-Lite</span>
+  </div>
+  <div class="tcl-fact-item">
+    <span class="tcl-fact-val">Industriel</span>
+    <span class="tcl-fact-lbl">Porte de Clôture Temporelle STA</span>
+  </div>
+</div>
+
+<div class="tcl-tools-section-title">⚡ Outils & Laboratoires Interactifs EDA</div>
+
+<div class="tcl-tools-grid">
+  <a href="help/layout_viewer/" class="tcl-tool-card">
+    <div class="tcl-tool-icon">📐</div>
+    <div class="tcl-tool-body">
+      <div class="tcl-tool-title">Visualiseur de Layout DRV-Lite</div>
+      <div class="tcl-tool-desc">Canevas de conception physique sans licence commerciale avec placement de cellules, canaux de routage et détection des violations DRC.</div>
+    </div>
+    <div class="tcl-tool-arrow">→</div>
+  </a>
+
+  <a href="help/timing_calculator/" class="tcl-tool-card">
+    <div class="tcl-tool-icon">⚡</div>
+    <div class="tcl-tool-body">
+      <div class="tcl-tool-title">Porte de Validation Temporelle STA</div>
+      <div class="tcl-tool-desc">Jauge de marge d'établissement interactive, période d'horloge, délai de chemin de données et critères de passage au tapeout.</div>
+    </div>
+    <div class="tcl-tool-arrow">→</div>
+  </a>
+
+  <a href="exercises/" class="tcl-tool-card">
+    <div class="tcl-tool-icon">🎯</div>
+    <div class="tcl-tool-body">
+      <div class="tcl-tool-title">18 Exercices Pratiques</div>
+      <div class="tcl-tool-desc">Problèmes de laboratoire analysant des bibliothèques de cellules standard, correspondances de broches, fichiers DEF et rapports STA.</div>
+    </div>
+    <div class="tcl-tool-arrow">→</div>
+  </a>
+
+  <a href="capstone/" class="tcl-tool-card">
+    <div class="tcl-tool-icon">🏆</div>
+    <div class="tcl-tool-body">
+      <div class="tcl-tool-title">6 Projets Capstone Industriels</div>
+      <div class="tcl-tool-desc">Mini-projets industriels complets, de l'extraction de routage à la correction automatique de longueur de fil ECO.</div>
+    </div>
+    <div class="tcl-tool-arrow">→</div>
+  </a>
+</div>
+
+## 🎯 Parcours d'Apprentissage Recommandés
+
+Choisissez le parcours adapté à votre profil et à vos objectifs d'ingénierie :
+
+<div class="tcl-routes">
+  <div class="tcl-route-card">
+    <span class="tcl-route-num">PARCOURS 01 · Premiers Pas</span>
+    <div class="tcl-route-title">Débutant en Programmation</div>
+    <div class="tcl-route-desc">
+      Commencez par <code>puts</code>, les variables et les commentaires. Maîtrisez le modèle mental en 3 étapes de Brent Welch (Regroupement $\to$ Substitution $\to$ Évaluation) pour démystifier les accolades <code>{{}}</code> par rapport aux guillemets <code>""</code>.
+    </div>
+    <a href="lessons/week1/" class="tcl-btn tcl-btn-secondary" style="font-size: 13px; padding: 6px 14px;">Démarrer Semaine 1 →</a>
+  </div>
+
+  <div class="tcl-route-card route-exp">
+    <span class="tcl-route-num">PARCOURS 02 · Voie Rapide</span>
+    <div class="tcl-route-title">Expérience en Python / C</div>
+    <div class="tcl-route-desc">
+      Concentrez-vous sur les spécificités de Tcl : substitution différée, sécurité de <code>expr</code> entre accolades, manipulation de listes/dictionnaires, espaces de noms et conception orientée objet TclOO.
+    </div>
+    <a href="help/tcl/" class="tcl-btn tcl-btn-secondary" style="font-size: 13px; padding: 6px 14px;">Guide du Modèle Mental →</a>
+  </div>
+
+  <div class="tcl-route-card route-vlsi">
+    <span class="tcl-route-num">PARCOURS 03 · Ingénierie des Puces</span>
+    <div class="tcl-route-title">Ingénieurs VLSI & Conception Physique</div>
+    <div class="tcl-route-desc">
+      Affranchissez-vous des licences EDA grâce à notre simulateur DRV-Lite en pur Tcl pour manipuler polygones, pistes, boîtes englobantes et sorties GDS. Analysez les marges STA, critères WNS et TNS.
+    </div>
+    <a href="help/timing_lab/" class="tcl-btn tcl-btn-secondary" style="font-size: 13px; padding: 6px 14px;">Labo Analyse Temporelle →</a>
+  </div>
+</div>
+
+---
+
+## 🛠️ Quatre Piliers Technologiques Majeurs
+
+<div class="tcl-pillars">
+  <div class="tcl-pillar-card">
+    <div class="tcl-pillar-icon">💻</div>
+    <div class="tcl-pillar-title">Atelier Client Pur WebAssembly</div>
+    <div class="tcl-pillar-desc">
+      Intègre l'innovation notée 98/100 de FanqinZeng : moteur WebAssembly Tcl 8.6.6 natif, 18 modules progressifs, inspecteur de variables mémoire et 6 projets capstone.
+    </div>
+  </div>
+
+  <div class="tcl-pillar-card">
+    <div class="tcl-pillar-icon">🎮</div>
+    <div class="tcl-pillar-title">Tcl Quest · RPG Piloté par le Code</div>
+    <div class="tcl-pillar-desc">
+      Innovation notée 93/100 de Su3037 : aventure de 20 niveaux sur l'Île des Puces où l'exécution du code réel pilote les cinématiques et les combats de boss.
+    </div>
+  </div>
+
+  <div class="tcl-pillar-card">
+    <div class="tcl-pillar-icon">📐</div>
+    <div class="tcl-pillar-title">Simulateur de Layout DRV-Lite</div>
+    <div class="tcl-pillar-desc">
+      Aucune licence Siemens Calibre requise. Modèle d'objets de layout en pur Tcl implémentant la hiérarchie de cellules, les polygones, les boîtes englobantes et l'export GDS.
+    </div>
+  </div>
+
+  <div class="tcl-pillar-card">
+    <div class="tcl-pillar-icon">⚡</div>
+    <div class="tcl-pillar-title">Contrôleur Temporel STA Industriel</div>
+    <div class="tcl-pillar-desc">
+      Analyse des rapports temporels de puces numériques, extraction des points de départ et d'arrivée, calcul précis du Worst Negative Slack (WNS) et Total Negative Slack (TNS).
+    </div>
+  </div>
+</div>
+
+---
+
+## 📚 Programme d'Études (40 Semaines)
+
+| Semaine | Sujet | Exemples de Code |
+| :---: | :--- | :---: |
+{chr(10).join(fr_rows)}
+
+---
+
+## 🚀 Démarrage Rapide (CLI)
+
+```bash
+git clone {GITHUB}.git
+cd tcl-language
+
+make check-env        # Vérifier tclsh & le simulateur DRV-Lite
+make drvlite-test     # Lancer 6 tests unitaires sur le simulateur DRV-Lite
+make timing-demo      # Lancer le labo de temporisation STA
+make week1-01         # Exécuter le premier exemple de la Semaine 1
+make week21-01        # Exécuter le script de layout de la Semaine 21 (DRV-Lite)
+```
+"""
+    (DOCS / "index.fr.md").write_text(fr_index, encoding="utf-8")
 
 
 def generate_weeks() -> list[tuple[int, str, str]]:
@@ -2831,6 +3541,8 @@ def generate_weeks() -> list[tuple[int, str, str]]:
 def write_mkdocs_yml(meta: list[tuple[int, str, str]]) -> None:
     m10_nav, m20_nav, m30_nav, m40_nav = [], [], [], []
     nav_trans_weeks = []
+    ms_nav_trans_weeks = []
+    fr_nav_trans_weeks = []
 
     m_titles = [
         ("M10: Tcl Core Syntax (Weeks 01–10)", "M10: Tcl 核心语法 (第 01–10 周)"),
@@ -2840,6 +3552,24 @@ def write_mkdocs_yml(meta: list[tuple[int, str, str]]) -> None:
     ]
     for en_m, zh_m in m_titles:
         nav_trans_weeks.append(f'            "{en_m}": "{zh_m}"')
+
+    ms_m_titles = [
+        ("M10: Tcl Core Syntax (Weeks 01–10)", "M10: Sintaks Teras Tcl (Minggu 01–10)"),
+        ("M20: Fluency & OOP (Weeks 11–20)", "M20: Pengaturcaraan Lancar & OOP (Minggu 11–20)"),
+        ("M30: Calibre Layout Core (Weeks 21–30)", "M30: Teras Susun Atur Calibre (Minggu 21–30)"),
+        ("M40: Layout Catalog & Sign-Off (Weeks 31–40)", "M40: Katalog Susun Atur & Sign-Off (Minggu 31–40)"),
+    ]
+    for en_m, ms_m in ms_m_titles:
+        ms_nav_trans_weeks.append(f'            "{en_m}": "{ms_m}"')
+
+    fr_m_titles = [
+        ("M10: Tcl Core Syntax (Weeks 01–10)", "M10: Syntaxe de Base Tcl (Semaines 01–10)"),
+        ("M20: Fluency & OOP (Weeks 11–20)", "M20: Fluidité & POO (Semaines 11–20)"),
+        ("M30: Calibre Layout Core (Weeks 21–30)", "M30: Cœur de Layout Calibre (Semaines 21–30)"),
+        ("M40: Layout Catalog & Sign-Off (Weeks 31–40)", "M40: Catalogue Layout & Validation (Semaines 31–40)"),
+    ]
+    for en_m, fr_m in fr_m_titles:
+        fr_nav_trans_weeks.append(f'            "{en_m}": "{fr_m}"')
 
     for w, en_title, zh_title in meta:
         item = (
@@ -2856,12 +3586,16 @@ def write_mkdocs_yml(meta: list[tuple[int, str, str]]) -> None:
         else:
             m40_nav.append(item)
         nav_trans_weeks.append(f'            "Week {w:02d}: {en_title}": "第 {w:02d} 周: {zh_title}"')
+        ms_nav_trans_weeks.append(f'            "Week {w:02d}: {en_title}": "Minggu {w:02d}: {en_title}"')
+        fr_nav_trans_weeks.append(f'            "Week {w:02d}: {en_title}": "Semaine {w:02d}: {en_title}"')
 
     m10_yaml = "\n".join(m10_nav)
     m20_yaml = "\n".join(m20_nav)
     m30_yaml = "\n".join(m30_nav)
     m40_yaml = "\n".join(m40_nav)
     weeks_trans_yaml = "\n".join(nav_trans_weeks)
+    ms_weeks_trans_yaml = "\n".join(ms_nav_trans_weeks)
+    fr_weeks_trans_yaml = "\n".join(fr_nav_trans_weeks)
 
     yml = f"""# Generated by scripts/build_website.py — modern high-readability architecture
 site_name: Tcl Language Lab
@@ -2910,6 +3644,12 @@ extra:
     - name: 简体中文
       link: /zh/
       lang: zh
+    - name: Bahasa Melayu
+      link: /ms/
+      lang: ms
+    - name: Français
+      link: /fr/
+      lang: fr
 
 markdown_extensions:
   - admonition
@@ -2965,6 +3705,64 @@ plugins:
             Lesson: 课文
             Examples: 示例脚本
 {weeks_trans_yaml}
+        - locale: ms
+          name: Bahasa Melayu
+          build: true
+          site_name: Makmal Automasi VLSI Tcl
+          site_description: Kurikulum Tcl / Calibre, Bengkel Interaktif WASM & Pengembaraan Cip
+          nav_translations:
+            Home: Laman Utama
+            Interactive Labs & Tools: Makmal & Alat Interaktif
+            Interactive Workshop (WASM): Bengkel Interaktif (WASM)
+            Tcl Quest (Chip Island RPG): Tcl Quest (Pengembaraan Pulau Cip)
+            Web Playground: Taman Permainan Kod (Playground)
+            VLSI Layout Visualizer: Visualiser Susun Atur VLSI (DRV-Lite)
+            STA Timing Gatekeeper: Penjaga Masa STA (Slack & WNS/TNS)
+            Practice & Projects: Latihan & Projek
+            18 Practical Exercises: 18 Latihan Amali
+            6 Capstone Data Projects: 6 Projek Capstone Data
+            Homework Assignments: Tugasan Kerja Rumah
+            Chapter Quizzes: Kuiz Bab
+            Lessons (40 Weeks): Sukatan Pelajaran (40 Minggu)
+            EDA Tools & Guides: Alat EDA & Panduan
+            DRV-Lite Layout Simulator: Simulator Susun Atur DRV-Lite
+            STA Timing Analysis Lab: Makmal Analisis Masa STA
+            Tcl Mental Model Guide: Panduan Model Mental Tcl
+            Calibre Command Reference: Rujukan Perintah Calibre
+            Knowledge Graph Coverage: Liputan Graf Pengetahuan
+            Contributors: Penyumbang & Penghargaan
+            Lesson: Pelajaran
+            Examples: Contoh Kod
+{ms_weeks_trans_yaml}
+        - locale: fr
+          name: Français
+          build: true
+          site_name: Laboratoire d'Automatisation VLSI Tcl
+          site_description: Programme Tcl / Calibre, Atelier Interactif WASM & Quête de Puce RPG
+          nav_translations:
+            Home: Accueil
+            Interactive Labs & Tools: Labos & Outils Interactifs
+            Interactive Workshop (WASM): Atelier Interactif (WASM)
+            Tcl Quest (Chip Island RPG): Tcl Quest (Aventure sur l'Île des Puces)
+            Web Playground: Bac à Sable Web (Playground)
+            VLSI Layout Visualizer: Visualiseur de Layout VLSI (DRV-Lite)
+            STA Timing Gatekeeper: Contrôleur Temporel STA (Slack & WNS/TNS)
+            Practice & Projects: Pratique & Projets
+            18 Practical Exercises: 18 Exercices Pratiques
+            6 Capstone Data Projects: 6 Projets Capstone de Données
+            Homework Assignments: Devoirs & Exercices
+            Chapter Quizzes: Quiz de Chapitre
+            Lessons (40 Weeks): Programme (40 Semaines)
+            EDA Tools & Guides: Outils EDA & Guides
+            DRV-Lite Layout Simulator: Simulateur de Layout DRV-Lite
+            STA Timing Analysis Lab: Labo d'Analyse Temporelle STA
+            Tcl Mental Model Guide: Guide du Modèle Mental Tcl
+            Calibre Command Reference: Référence des Commandes Calibre
+            Knowledge Graph Coverage: Couverture du Graphe de Connaissances
+            Contributors: Contributeurs & Attribution
+            Lesson: Leçon
+            Examples: Exemples de Code
+{fr_weeks_trans_yaml}
 
 validation:
   omitted_files: warn
