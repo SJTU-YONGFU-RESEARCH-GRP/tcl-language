@@ -2774,18 +2774,16 @@ def write_home_pages(meta: list[tuple[int, str, str]]) -> None:
   <div class="tcl-badge-cluster">
     <span class="tcl-badge">CC BY 4.0</span>
     <span class="tcl-badge">SJTU-YONGFU-RESEARCH-GRP</span>
-    <span class="tcl-badge purple">Quiz Challenge & Cert</span>
-    <span class="tcl-badge blue">WASM Interactive Lab</span>
-    <span class="tcl-badge green">DRV-Lite Layout Simulator</span>
-    <span class="tcl-badge amber">STA Timing Sign-Off Gate</span>
+    <span class="tcl-badge purple">Tcl Quiz & Practice</span>
+    <span class="tcl-badge blue">Interactive WASM Lab</span>
+    <span class="tcl-badge green">DRV Layout Practice</span>
     <span class="tcl-badge cyan">Multi-Language i18n</span>
   </div>
 
-  <h1 class="tcl-hero-title">Tcl for VLSI · From Syntax to IC Layout & Timing Automation</h1>
+  <h1 class="tcl-hero-title">Tcl for VLSI · Beginner Scripting & DRV Practice</h1>
 
   <div class="tcl-hero-subtitle">
-    From foundational scripting commands to a production-grade IC physical design automation suite.<br>
-    Bridging the <strong>Brent Welch 3-step evaluation mental model</strong>, <strong>interactive quiz challenge & verifiable completion certificate</strong>, <strong>in-browser WebAssembly workshop</strong>, <strong>execution-driven RPG quest</strong>, <strong>zero-license DRV-Lite layout simulator</strong>, and <strong>closed-loop STA timing sign-off</strong>.
+    A practical, hands-on learning lab to help beginners understand Tcl fundamentals and learn how scripting is applied in IC layout and Design Rule Violation (DRV) analysis.
   </div>
 
   <div class="tcl-cta-group">
@@ -2800,19 +2798,19 @@ def write_home_pages(meta: list[tuple[int, str, str]]) -> None:
 <div class="tcl-fact-strip">
   <div class="tcl-fact-item">
     <span class="tcl-fact-val">40 Weeks</span>
-    <span class="tcl-fact-lbl">Complete Curriculum Plan</span>
+    <span class="tcl-fact-lbl">Curriculum Plan</span>
   </div>
   <div class="tcl-fact-item">
     <span class="tcl-fact-val">4 Modules</span>
-    <span class="tcl-fact-lbl">Tcl Quiz & Cert</span>
+    <span class="tcl-fact-lbl">Tcl Quiz & Practice</span>
   </div>
   <div class="tcl-fact-item">
     <span class="tcl-fact-val">18 Labs</span>
-    <span class="tcl-fact-lbl">Real-World Data Exercises</span>
+    <span class="tcl-fact-lbl">Hands-on Exercises</span>
   </div>
   <div class="tcl-fact-item">
     <span class="tcl-fact-val">20 Levels</span>
-    <span class="tcl-fact-lbl">Live Gamified RPG Quest</span>
+    <span class="tcl-fact-lbl">Gamified RPG Quest</span>
   </div>
   <div class="tcl-fact-item">
     <span class="tcl-fact-val">100%</span>
@@ -2820,11 +2818,11 @@ def write_home_pages(meta: list[tuple[int, str, str]]) -> None:
   </div>
   <div class="tcl-fact-item">
     <span class="tcl-fact-val">Zero License</span>
-    <span class="tcl-fact-lbl">DRV-Lite Layout Simulator</span>
+    <span class="tcl-fact-lbl">DRV-Lite Layout Viewer</span>
   </div>
   <div class="tcl-fact-item">
-    <span class="tcl-fact-val">Industrial</span>
-    <span class="tcl-fact-lbl">STA Slack Sign-Off Gate</span>
+    <span class="tcl-fact-val">Beginner</span>
+    <span class="tcl-fact-lbl">Hands-on DRV Practice</span>
   </div>
 </div>
 
@@ -2844,7 +2842,7 @@ def write_home_pages(meta: list[tuple[int, str, str]]) -> None:
     <div class="tcl-tool-icon">🏆</div>
     <div class="tcl-tool-body">
       <div class="tcl-tool-title">Public Leaderboard & Hall of Fame</div>
-      <div class="tcl-tool-desc">Live cohort rankings, Grand Prix speed benchmarks, instant certificate hash verification, and performance percentiles.</div>
+      <div class="tcl-tool-desc">Cohort rankings, completion benchmarks, instant certificate hash verification, and performance percentiles.</div>
     </div>
     <div class="tcl-tool-arrow">→</div>
   </a>
@@ -2861,8 +2859,8 @@ def write_home_pages(meta: list[tuple[int, str, str]]) -> None:
   <a href="help/timing_calculator/" class="tcl-tool-card">
     <div class="tcl-tool-icon">⚡</div>
     <div class="tcl-tool-body">
-      <div class="tcl-tool-title">STA Timing Sign-Off Gate</div>
-      <div class="tcl-tool-desc">Interactive clock period, datapath delay, and setup slack margin gauge with pass/fail decision rules.</div>
+      <div class="tcl-tool-title">STA Timing Analysis Lab</div>
+      <div class="tcl-tool-desc">Beginner-friendly clock period, datapath delay, and setup slack margin calculator with visual feedback.</div>
     </div>
     <div class="tcl-tool-arrow">→</div>
   </a>
@@ -2871,7 +2869,7 @@ def write_home_pages(meta: list[tuple[int, str, str]]) -> None:
     <div class="tcl-tool-icon">📝</div>
     <div class="tcl-tool-body">
       <div class="tcl-tool-title">18 Practice Exercises</div>
-      <div class="tcl-tool-desc">Hands-on lab problems parsing real cell libraries, pin mappings, DEF files, and STA timing reports.</div>
+      <div class="tcl-tool-desc">Hands-on lab problems parsing cell libraries, pin mappings, DEF files, and basic timing reports.</div>
     </div>
     <div class="tcl-tool-arrow">→</div>
   </a>
@@ -2880,7 +2878,7 @@ def write_home_pages(meta: list[tuple[int, str, str]]) -> None:
     <div class="tcl-tool-icon">🛠️</div>
     <div class="tcl-tool-body">
       <div class="tcl-tool-title">6 Capstone Projects</div>
-      <div class="tcl-tool-desc">End-to-end industrial mini-projects from routing scrapers to automated ECO wirelength fixers.</div>
+      <div class="tcl-tool-desc">Practical mini-projects from routing scrapers to automated ECO wirelength fixers.</div>
     </div>
     <div class="tcl-tool-arrow">→</div>
   </a>
@@ -2895,7 +2893,7 @@ Choose the path tailored to your background and engineering goals:
     <span class="tcl-route-num">PATHWAY 01 · First Steps</span>
     <div class="tcl-route-title">New to Scripting</div>
     <div class="tcl-route-desc">
-      Begin with <code>puts</code>, variables, and comments. Master the Brent Welch 3-step substitution model (Grouping $\to$ Substitution $\to$ Invocation) to demystify curly braces <code>{{}}</code> vs double quotes <code>""</code>.
+      Begin with <code>puts</code>, variables, and comments. Learn the 3-step substitution model (Grouping $\to$ Substitution $\to$ Invocation) to understand curly braces <code>{{}}</code> vs double quotes <code>""</code>.
     </div>
     <a href="lessons/week1/" class="tcl-btn tcl-btn-secondary" style="font-size: 13px; padding: 6px 14px;">Start Week 1 →</a>
   </div>
@@ -2904,18 +2902,18 @@ Choose the path tailored to your background and engineering goals:
     <span class="tcl-route-num">PATHWAY 02 · Fast Track</span>
     <div class="tcl-route-title">Experienced in Python / C</div>
     <div class="tcl-route-desc">
-      Focus on Tcl's unique mechanisms: deferred substitution, braced <code>expr</code> security, list/dict manipulations, namespaces, and TclOO object-oriented design.
+      Focus on Tcl's unique mechanisms: deferred substitution, braced <code>expr</code> rules, list/dict manipulations, namespaces, and procedures.
     </div>
     <a href="help/tcl/" class="tcl-btn tcl-btn-secondary" style="font-size: 13px; padding: 6px 14px;">Mental Model Guide →</a>
   </div>
 
   <div class="tcl-route-card route-vlsi">
-    <span class="tcl-route-num">PATHWAY 03 · Chip Engineering</span>
-    <div class="tcl-route-title">VLSI & Physical Design</div>
+    <span class="tcl-route-num">PATHWAY 03 · IC Layout & DRV</span>
+    <div class="tcl-route-title">Physical Design Basics</div>
     <div class="tcl-route-desc">
-      Bypass EDA license bottlenecks using our pure-Tcl DRV-Lite simulator to generate polygons, wires, bounding boxes, and GDS outputs. Analyze STA timing slacks, WNS, and TNS sign-off criteria.
+      Explore how Tcl interacts with IC layouts using our pure-Tcl DRV-Lite viewer. Learn how scripts inspect cell coordinates, polygons, routing channels, and identify Design Rule Violations (DRV).
     </div>
-    <a href="help/timing_lab/" class="tcl-btn tcl-btn-secondary" style="font-size: 13px; padding: 6px 14px;">Timing Sign-Off Lab →</a>
+    <a href="help/layout_viewer/" class="tcl-btn tcl-btn-secondary" style="font-size: 13px; padding: 6px 14px;">DRV Layout Viewer →</a>
   </div>
 </div>
 
@@ -2928,7 +2926,7 @@ Choose the path tailored to your background and engineering goals:
     <div class="tcl-pillar-icon">💻</div>
     <div class="tcl-pillar-title">Client-Side WebAssembly Workshop</div>
     <div class="tcl-pillar-desc">
-      Incorporating FanqinZeng's 98/100 rated platform: native Tcl 8.6.6 WebAssembly engine, 18 graduated modules, memory variable inspector, and 6 capstone projects.
+      Interactive browser workshop: native Tcl 8.6.6 WebAssembly engine, 18 graduated modules, memory variable inspector, and beginner projects.
     </div>
   </div>
 
@@ -2936,7 +2934,7 @@ Choose the path tailored to your background and engineering goals:
     <div class="tcl-pillar-icon">🎮</div>
     <div class="tcl-pillar-title">Tcl Quest · Live Execution RPG</div>
     <div class="tcl-pillar-desc">
-      Su3037's 93/100 rated innovation: 20-level Chip Island adventure where real code execution directly drives storyline animations and boss challenges.
+      A 20-level Chip Island adventure where real code execution helps beginners practice Tcl commands in an engaging, step-by-step format.
     </div>
   </div>
 
@@ -2944,15 +2942,15 @@ Choose the path tailored to your background and engineering goals:
     <div class="tcl-pillar-icon">📐</div>
     <div class="tcl-pillar-title">DRV-Lite Layout Simulator</div>
     <div class="tcl-pillar-desc">
-      Zero commercial EDA licenses required. Pure-Tcl layout object model implementing cell hierarchy, polygon boundaries, bounding boxes, and GDS streamout.
+      Zero commercial EDA licenses required. Pure-Tcl layout object model helping beginners inspect cell hierarchy, polygons, and understand DRV design rule concepts.
     </div>
   </div>
 
   <div class="tcl-pillar-card">
     <div class="tcl-pillar-icon">⚡</div>
-    <div class="tcl-pillar-title">Industrial STA Timing Gatekeeper</div>
+    <div class="tcl-pillar-title">STA Timing Analysis Lab</div>
     <div class="tcl-pillar-desc">
-      Parse digital design timing reports, extract startpoints and endpoints, compute Worst Negative Slack (WNS) and Total Negative Slack (TNS).
+      Beginner-friendly timing report parser: understand setup slacks, startpoints, endpoints, and learn how Tcl scripts process EDA text outputs.
     </div>
   </div>
 </div>
@@ -2986,18 +2984,16 @@ make week21-01        # Run Week 21 layout script (DRV-Lite simulation)
   <div class="tcl-badge-cluster">
     <span class="tcl-badge">CC BY 4.0</span>
     <span class="tcl-badge">SJTU-YONGFU-RESEARCH-GRP</span>
-    <span class="tcl-badge purple">随堂测验与证书认证</span>
+    <span class="tcl-badge purple">随堂测验与结业证书</span>
     <span class="tcl-badge blue">WASM 交互工作坊</span>
-    <span class="tcl-badge green">DRV-Lite 版图仿真器</span>
-    <span class="tcl-badge amber">STA 时序门禁计算器</span>
+    <span class="tcl-badge green">DRV-Lite 版图实战</span>
     <span class="tcl-badge cyan">中英双语多语言</span>
   </div>
 
-  <h1 class="tcl-hero-title">Tcl for VLSI · 从控制台语法到芯片版图与时序自动化</h1>
+  <h1 class="tcl-hero-title">Tcl for VLSI · 从基础语法到 DRV 实战应用</h1>
 
   <div class="tcl-hero-subtitle">
-    从一张控制台打印卡片，到一套完整的工业级芯片版图自动化脚本与静态时序分析流水线。<br>
-    结合 <strong>Brent Welch 三步置换心智模型</strong>、<strong>随堂测验挑战与防伪结课证书</strong>、<strong>浏览器纯客户端 WebAssembly 交互工作坊</strong>、<strong>真实代码驱动芯片岛 RPG 冒险</strong>、<strong>免商业许可 DRV-Lite 版图仿真器</strong> 与 <strong>STA 时序违规闭环门禁</strong>。
+    专为初学者打造的实用实训平台，帮助新手快速掌握 Tcl 核心语法，并理解其在芯片物理设计与 DRV（设计规则违规）版图分析中的实际应用。
   </div>
 
   <div class="tcl-cta-group">
@@ -3012,7 +3008,7 @@ make week21-01        # Run Week 21 layout script (DRV-Lite simulation)
 <div class="tcl-fact-strip">
   <div class="tcl-fact-item">
     <span class="tcl-fact-val">40 周</span>
-    <span class="tcl-fact-lbl">系统进阶双语课程</span>
+    <span class="tcl-fact-lbl">系统进阶课程</span>
   </div>
   <div class="tcl-fact-item">
     <span class="tcl-fact-val">4 大模块</span>
@@ -3020,23 +3016,23 @@ make week21-01        # Run Week 21 layout script (DRV-Lite simulation)
   </div>
   <div class="tcl-fact-item">
     <span class="tcl-fact-val">18 项</span>
-    <span class="tcl-fact-lbl">真实数据交互实战练习</span>
+    <span class="tcl-fact-lbl">交互实战演练</span>
   </div>
   <div class="tcl-fact-item">
     <span class="tcl-fact-val">20 关</span>
-    <span class="tcl-fact-lbl">真实代码驱动芯片岛冒险</span>
+    <span class="tcl-fact-lbl">芯片岛代码闯关</span>
   </div>
   <div class="tcl-fact-item">
     <span class="tcl-fact-val">100%</span>
-    <span class="tcl-fact-lbl">浏览器 WASM 零安装运行</span>
+    <span class="tcl-fact-lbl">浏览器 WASM 零安装</span>
   </div>
   <div class="tcl-fact-item">
     <span class="tcl-fact-val">零授权</span>
-    <span class="tcl-fact-lbl">DRV-Lite 版图仿真器</span>
+    <span class="tcl-fact-lbl">DRV-Lite 版图可视化</span>
   </div>
   <div class="tcl-fact-item">
-    <span class="tcl-fact-val">工业级</span>
-    <span class="tcl-fact-lbl">STA 时序违规闭环门禁</span>
+    <span class="tcl-fact-val">零基础</span>
+    <span class="tcl-fact-lbl">DRV 版图实训入门</span>
   </div>
 </div>
 
@@ -3056,7 +3052,7 @@ make week21-01        # Run Week 21 layout script (DRV-Lite simulation)
     <div class="tcl-tool-icon">🏆</div>
     <div class="tcl-tool-body">
       <div class="tcl-tool-title">公开荣耀榜与证书校验</div>
-      <div class="tcl-tool-desc">全域排行榜、大奖赛速度基准、证书防伪哈希实时核验与多维度能力诊断雷达。</div>
+      <div class="tcl-tool-desc">全域排行榜、完成度基准、证书防伪哈希实时核验与多维度能力诊断雷达。</div>
     </div>
     <div class="tcl-tool-arrow">→</div>
   </a>
@@ -3073,8 +3069,8 @@ make week21-01        # Run Week 21 layout script (DRV-Lite simulation)
   <a href="help/timing_calculator/" class="tcl-tool-card">
     <div class="tcl-tool-icon">⚡</div>
     <div class="tcl-tool-body">
-      <div class="tcl-tool-title">STA 静态时序门禁计算器</div>
-      <div class="tcl-tool-desc">实时调节时钟周期、数据路径与时序裕量，具备违规判定与多路径关键路径签核表。</div>
+      <div class="tcl-tool-title">STA 时序分析入门计算器</div>
+      <div class="tcl-tool-desc">直观调节时钟周期、数据路径与时序裕量（Slack），掌握 EDA 文本报表与裕量分析的基本概念。</div>
     </div>
     <div class="tcl-tool-arrow">→</div>
   </a>
@@ -3091,8 +3087,8 @@ make week21-01        # Run Week 21 layout script (DRV-Lite simulation)
   <a href="capstone/" class="tcl-tool-card">
     <div class="tcl-tool-icon">🛠️</div>
     <div class="tcl-tool-body">
-      <div class="tcl-tool-title">6 大工业级综合项目</div>
-      <div class="tcl-tool-desc">从自动走线抓取、DRV 违规收敛到自动化 ECO 线长修复的完整工程级结课项目。</div>
+      <div class="tcl-tool-title">6 大综合实践项目</div>
+      <div class="tcl-tool-desc">从自动走线抓取、DRV 违规收敛到自动化 ECO 线长修复的实战项目。</div>
     </div>
     <div class="tcl-tool-arrow">→</div>
   </a>
@@ -3107,7 +3103,7 @@ make week21-01        # Run Week 21 layout script (DRV-Lite simulation)
     <span class="tcl-route-num">PATHWAY 01 · 零基础启航</span>
     <div class="tcl-route-title">第一次学习编程</div>
     <div class="tcl-route-desc">
-      从 <code>puts</code>、变量与注释入门。通过 Brent Welch 三步置换心智模型（切分 $\to$ 置换 $\to$ 调用），彻底理解大括号 <code>{{}}</code> 与双引号 <code>""</code> 的本质差异，告别初学者易犯的语法迷茫。
+      从 <code>puts</code>、变量与注释入门。通过三步置换模型（切分 $\to$ 置换 $\to$ 调用），彻底理解大括号 <code>{{}}</code> 与双引号 <code>""</code> 的本质差异，告别初学者易犯的语法迷茫。
     </div>
     <a href="lessons/week1/" class="tcl-btn tcl-btn-secondary" style="font-size: 13px; padding: 6px 14px;">从第 1 周开始 →</a>
   </div>
@@ -3116,18 +3112,18 @@ make week21-01        # Run Week 21 layout script (DRV-Lite simulation)
     <span class="tcl-route-num">PATHWAY 02 · 快速转栈</span>
     <div class="tcl-route-title">已有 Python / C 经验</div>
     <div class="tcl-route-desc">
-      聚焦 Tcl 独特机制：大括号延迟求值、<code>expr</code> 严格花括号保护（防注入与字节编译加速）、列表与字典高效操纵、命名空间与 TclOO 面向对象设计。
+      聚焦 Tcl 独特机制：大括号延迟求值、<code>expr</code> 严格花括号保护（防注入与字节编译加速）、列表与字典高效操纵、命名空间与过程封装。
     </div>
     <a href="help/tcl/" class="tcl-btn tcl-btn-secondary" style="font-size: 13px; padding: 6px 14px;">置换心智指南 →</a>
   </div>
 
   <div class="tcl-route-card route-vlsi">
-    <span class="tcl-route-num">PATHWAY 03 · 芯片工程</span>
-    <div class="tcl-route-title">VLSI 与物理设计工程师</div>
+    <span class="tcl-route-num">PATHWAY 03 · 版图与 DRV</span>
+    <div class="tcl-route-title">物理设计初学者</div>
     <div class="tcl-route-desc">
-      无需商业 EDA 许可证，直接在标准 <code>tclsh</code> 下使用纯 Tcl DRV-Lite 仿真器操纵多边形、引脚与 GDS 输出；结合静态时序分析实验，解析关键路径报表，计算 WNS/TNS 闭环流片门禁。
+      无需商业 EDA 许可证，直接在标准 <code>tclsh</code> 下体验纯 Tcl DRV-Lite 版图操作。了解脚本如何读取单元坐标与多边形，以及如何用于识别和分析设计规则违规（DRV）。
     </div>
-    <a href="help/timing_lab/" class="tcl-btn tcl-btn-secondary" style="font-size: 13px; padding: 6px 14px;">时序分析实战 →</a>
+    <a href="help/layout_viewer/" class="tcl-btn tcl-btn-secondary" style="font-size: 13px; padding: 6px 14px;">DRV 版图可视化 →</a>
   </div>
 </div>
 
@@ -3140,7 +3136,7 @@ make week21-01        # Run Week 21 layout script (DRV-Lite simulation)
     <div class="tcl-pillar-icon">💻</div>
     <div class="tcl-pillar-title">纯客户端 WebAssembly 交互工作坊</div>
     <div class="tcl-pillar-desc">
-      整合 FanqinZeng 98 分顶级工程创新：原生 Tcl 8.6.6 WebAssembly 运行时、18 项渐进实战、内存变量观察台与 6 大综合项目。
+      集成原生 Tcl 8.6.6 WebAssembly 运行时、18 项渐进实战、内存变量观察台与初学者实战练习。
     </div>
   </div>
 
@@ -3148,23 +3144,23 @@ make week21-01        # Run Week 21 layout script (DRV-Lite simulation)
     <div class="tcl-pillar-icon">🎮</div>
     <div class="tcl-pillar-title">Tcl Quest · 真实代码驱动 RPG 冒险</div>
     <div class="tcl-pillar-desc">
-      整合 Su3037 93 分 A+ 创新：20 关芯片岛实时闯关，代码执行直接驱动角色走动、剧情演出与四大 Boss 战。
+      20 关芯片岛交互闯关，代码执行直接驱动角色走动与剧情演出，降低新手上手认知门槛。
     </div>
   </div>
 
   <div class="tcl-pillar-card">
     <div class="tcl-pillar-icon">📐</div>
-    <div class="tcl-pillar-title">DRV-Lite 纯 Tcl 版图仿真器</div>
+    <div class="tcl-pillar-title">DRV-Lite 纯 Tcl 版图轻量仿真</div>
     <div class="tcl-pillar-desc">
-      突破 Siemens Calibre 商业许可壁垒！纯 Tcl 实现的 <code>layout</code> 对象模型，支持图纸创建、多边形绘制、边界计算与 GDS 导出。
+      无需商业许可证即可入门。纯 Tcl 实现的 <code>layout</code> 对象结构，帮助初学者直观理解单元层级、多边形坐标以及 DRV 设计规则违规的基本原理。
     </div>
   </div>
 
   <div class="tcl-pillar-card">
     <div class="tcl-pillar-icon">⚡</div>
-    <div class="tcl-pillar-title">工业级 STA 静态时序分析门禁</div>
+    <div class="tcl-pillar-title">STA 时序分析入门实验</div>
     <div class="tcl-pillar-desc">
-      真实数字芯片时序报告解析实验，自动提取起点、终点与 Slack，精准计算 Worst Negative Slack (WNS) 与 Total Negative Slack (TNS)。
+      面向初学者的时序文本解析练习，理解时序裕量（Slack）计算，掌握 Tcl 处理 EDA 报表的基本方法。
     </div>
   </div>
 </div>
@@ -3199,18 +3195,16 @@ make week21-01        # Run Week 21 layout script (DRV-Lite simulation)
   <div class="tcl-badge-cluster">
     <span class="tcl-badge">CC BY 4.0</span>
     <span class="tcl-badge">SJTU-YONGFU-RESEARCH-GRP</span>
-    <span class="tcl-badge purple">Kuiz & Sijil</span>
+    <span class="tcl-badge purple">Kuiz Tcl & Latihan</span>
     <span class="tcl-badge blue">Bengkel Interaktif WASM</span>
-    <span class="tcl-badge green">Simulator Susun Atur DRV-Lite</span>
-    <span class="tcl-badge amber">Pintu Sign-Off Pemasaan STA</span>
+    <span class="tcl-badge green">Amalan Susun Atur DRV</span>
     <span class="tcl-badge cyan">Sokongan Pelbagai Bahasa</span>
   </div>
 
-  <h1 class="tcl-hero-title">Tcl untuk VLSI · Daripada Sintaks Asas hingga Automasi Susun Atur & Pemasaan IC</h1>
+  <h1 class="tcl-hero-title">Tcl untuk VLSI · Daripada Sintaks Asas hingga Penskripan DRV</h1>
 
   <div class="tcl-hero-subtitle">
-    Daripada perintah skrip asas hingga suite automasi reka bentuk fizikal litar bersepadu gred industri.<br>
-    Menggabungkan <strong>model mental penilaian 3-langkah Brent Welch</strong>, <strong>cabaran kuiz interaktif & pensijilan digital</strong>, <strong>bengkel WebAssembly dalam pelayar</strong>, <strong>pengembaraan RPG pacuan kod sebenar</strong>, <strong>simulator susun atur DRV-Lite sifar lesen</strong>, dan <strong>pengesahan sign-off pemasaan STA gelung tertutup</strong>.
+    Platform pembelajaran praktikal untuk membantu pemula memahami asas penskripan Tcl dan bagaimana ia diaplikasikan dalam reka bentuk fizikal IC serta analisis susun atur DRV (Design Rule Violation).
   </div>
 
   <div class="tcl-cta-group">
@@ -3225,7 +3219,7 @@ make week21-01        # Run Week 21 layout script (DRV-Lite simulation)
 <div class="tcl-fact-strip">
   <div class="tcl-fact-item">
     <span class="tcl-fact-val">40 Minggu</span>
-    <span class="tcl-fact-lbl">Pelan Kurikulum Lengkap</span>
+    <span class="tcl-fact-lbl">Pelan Kurikulum</span>
   </div>
   <div class="tcl-fact-item">
     <span class="tcl-fact-val">4 Modul</span>
@@ -3233,11 +3227,11 @@ make week21-01        # Run Week 21 layout script (DRV-Lite simulation)
   </div>
   <div class="tcl-fact-item">
     <span class="tcl-fact-val">18 Makmal</span>
-    <span class="tcl-fact-lbl">Latihan Data Dunia Sebenar</span>
+    <span class="tcl-fact-lbl">Latihan Amali Praktikal</span>
   </div>
   <div class="tcl-fact-item">
     <span class="tcl-fact-val">20 Tahap</span>
-    <span class="tcl-fact-lbl">Pengembaraan RPG Interaktif</span>
+    <span class="tcl-fact-lbl">Pengembaraan RPG</span>
   </div>
   <div class="tcl-fact-item">
     <span class="tcl-fact-val">100%</span>
@@ -3248,8 +3242,8 @@ make week21-01        # Run Week 21 layout script (DRV-Lite simulation)
     <span class="tcl-fact-lbl">Simulator Susun Atur DRV-Lite</span>
   </div>
   <div class="tcl-fact-item">
-    <span class="tcl-fact-val">Industri</span>
-    <span class="tcl-fact-lbl">Pintu Sign-Off Slack STA</span>
+    <span class="tcl-fact-val">Pemula</span>
+    <span class="tcl-fact-lbl">Amalan Susun Atur DRV</span>
   </div>
 </div>
 
@@ -3269,7 +3263,7 @@ make week21-01        # Run Week 21 layout script (DRV-Lite simulation)
     <div class="tcl-tool-icon">🏆</div>
     <div class="tcl-tool-body">
       <div class="tcl-tool-title">Papan Juara Awam & Sijil</div>
-      <div class="tcl-tool-desc">Penanda aras kelajuan kohort secara langsung, pengesah cincangan sijil, dan kad laporan diagnostik terperinci.</div>
+      <div class="tcl-tool-desc">Penanda aras pencapaian secara langsung, pengesah cincangan sijil, dan analisis kemajuan pembelajaran.</div>
     </div>
     <div class="tcl-tool-arrow">→</div>
   </a>
@@ -3286,8 +3280,8 @@ make week21-01        # Run Week 21 layout script (DRV-Lite simulation)
   <a href="help/timing_calculator/" class="tcl-tool-card">
     <div class="tcl-tool-icon">⚡</div>
     <div class="tcl-tool-body">
-      <div class="tcl-tool-title">Pintu Sign-Off Pemasaan STA</div>
-      <div class="tcl-tool-desc">Tolok margin persediaan masa interaktif, tempoh jam, kelewatan laluan data dengan peraturan kelulusan tapeout.</div>
+      <div class="tcl-tool-title">Makmal Analisis Pemasaan STA</div>
+      <div class="tcl-tool-desc">Tolok margin persediaan masa interaktif, tempoh jam, kelewatan laluan data dengan visualisasi mudah difahami.</div>
     </div>
     <div class="tcl-tool-arrow">→</div>
   </a>
@@ -3296,7 +3290,7 @@ make week21-01        # Run Week 21 layout script (DRV-Lite simulation)
     <div class="tcl-tool-icon">📝</div>
     <div class="tcl-tool-body">
       <div class="tcl-tool-title">18 Latihan Amali</div>
-      <div class="tcl-tool-desc">Latihan makmal praktikal menghurai perpustakaan sel sebenar, pemetaan pin, fail DEF, dan laporan pemasaan STA.</div>
+      <div class="tcl-tool-desc">Latihan makmal praktikal menghurai perpustakaan sel, pemetaan pin, fail DEF, dan laporan pemasaan asas.</div>
     </div>
     <div class="tcl-tool-arrow">→</div>
   </a>
@@ -3304,8 +3298,8 @@ make week21-01        # Run Week 21 layout script (DRV-Lite simulation)
   <a href="capstone/" class="tcl-tool-card">
     <div class="tcl-tool-icon">🛠️</div>
     <div class="tcl-tool-body">
-      <div class="tcl-tool-title">6 Projek Capstone Kejuruteraan</div>
-      <div class="tcl-tool-desc">Projek mini industri hujung ke hujung daripada pengikis penghalaan hingga pembaikan panjang wayar ECO automatik.</div>
+      <div class="tcl-tool-title">6 Projek Capstone Praktikal</div>
+      <div class="tcl-tool-desc">Projek mini praktikal daripada pengikis penghalaan hingga pembaikan panjang wayar ECO automatik.</div>
     </div>
     <div class="tcl-tool-arrow">→</div>
   </a>
@@ -3320,7 +3314,7 @@ Pilih laluan pembelajaran yang disesuaikan dengan latar belakang dan matlamat ke
     <span class="tcl-route-num">LALUAN 01 · Langkah Pertama</span>
     <div class="tcl-route-title">Baharu dalam Pengaturcaraan</div>
     <div class="tcl-route-desc">
-      Bermula dengan <code>puts</code>, pembolehubah, dan ulasan kod. Kuasai model mental penilaian 3-langkah Brent Welch (Kumpulan $\to$ Penggantian $\to$ Seruan) untuk memahami perbezaan antara kurungan kerinting <code>{{}}</code> dan tanda petikan ganda <code>""</code>.
+      Bermula dengan <code>puts</code>, pembolehubah, dan ulasan kod. Kuasai model penilaian 3-langkah (Kumpulan $\to$ Penggantian $\to$ Seruan) untuk memahami perbezaan antara kurungan kerinting <code>{{}}</code> dan tanda petikan ganda <code>""</code>.
     </div>
     <a href="lessons/week1/" class="tcl-btn tcl-btn-secondary" style="font-size: 13px; padding: 6px 14px;">Mula Minggu 1 →</a>
   </div>
@@ -3329,18 +3323,18 @@ Pilih laluan pembelajaran yang disesuaikan dengan latar belakang dan matlamat ke
     <span class="tcl-route-num">LALUAN 02 · Laluan Pantas</span>
     <div class="tcl-route-title">Berpengalaman dalam Python / C</div>
     <div class="tcl-route-desc">
-      Fokus pada mekanisme unik Tcl: penilaian tertunda, keselamatan <code>expr</code> berkurung (anti-suntikan dan pengkompilasi bait), manipulasi senarai/kamus, ruang nama, dan reka bentuk berorientasikan objek TclOO.
+      Fokus pada mekanisme unik Tcl: penilaian tertunda, peraturan <code>expr</code> berkurung, manipulasi senarai/kamus, ruang nama, dan prosedur.
     </div>
     <a href="help/tcl/" class="tcl-btn tcl-btn-secondary" style="font-size: 13px; padding: 6px 14px;">Panduan Model Mental →</a>
   </div>
 
   <div class="tcl-route-card route-vlsi">
-    <span class="tcl-route-num">LALUAN 03 · Kejuruteraan Cip</span>
-    <div class="tcl-route-title">Jurutera VLSI & Reka Bentuk Fizikal</div>
+    <span class="tcl-route-num">LALUAN 03 · Susun Atur & DRV</span>
+    <div class="tcl-route-title">Asas Reka Bentuk Fizikal</div>
     <div class="tcl-route-desc">
-      Lepaskan kekangan lesen EDA komersial menggunakan simulator DRV-Lite tulin Tcl kami untuk menghasilkan poligon, wayar, kotak sempadan, dan output GDS. Analisis slack pemasaan STA, kriteria sign-off WNS dan TNS.
+      Terokai bagaimana Tcl berinteraksi dengan susun atur IC menggunakan penonton DRV-Lite tulin Tcl kami. Pelajari bagaimana skrip memeriksa koordinat sel, poligon, dan mengenalpasti pelanggaran peraturan reka bentuk (DRV).
     </div>
-    <a href="help/timing_lab/" class="tcl-btn tcl-btn-secondary" style="font-size: 13px; padding: 6px 14px;">Makmal Analisis Masa STA →</a>
+    <a href="help/layout_viewer/" class="tcl-btn tcl-btn-secondary" style="font-size: 13px; padding: 6px 14px;">Penonton Susun Atur DRV →</a>
   </div>
 </div>
 
@@ -3353,7 +3347,7 @@ Pilih laluan pembelajaran yang disesuaikan dengan latar belakang dan matlamat ke
     <div class="tcl-pillar-icon">💻</div>
     <div class="tcl-pillar-title">Bengkel WebAssembly Sisi Pelanggan</div>
     <div class="tcl-pillar-desc">
-      Mengintegrasikan platform inovatif gred 98/100 FanqinZeng: enjin Tcl 8.6.6 WebAssembly asli, 18 modul berperingkat, pemantau pembolehubah memori, dan 6 projek capstone.
+      Bengkel interaktif pelayar: enjin Tcl 8.6.6 WebAssembly asli, 18 modul berperingkat, pemantau pembolehubah memori, dan latihan permulaan.
     </div>
   </div>
 
@@ -3361,7 +3355,7 @@ Pilih laluan pembelajaran yang disesuaikan dengan latar belakang dan matlamat ke
     <div class="tcl-pillar-icon">🎮</div>
     <div class="tcl-pillar-title">Tcl Quest · RPG Pacuan Kod Sebenar</div>
     <div class="tcl-pillar-desc">
-      Inovasi 93/100 Su3037: Pengembaraan 20 tahap di Pulau Cip di mana pelaksanaan kod sebenar memacu animasi penceritaan dan pertarungan boss secara langsung.
+      Pengembaraan 20 tahap di Pulau Cip di mana pelaksanaan kod sebenar memacu jalan cerita dan animasi secara interaktif.
     </div>
   </div>
 
@@ -3369,15 +3363,15 @@ Pilih laluan pembelajaran yang disesuaikan dengan latar belakang dan matlamat ke
     <div class="tcl-pillar-icon">📐</div>
     <div class="tcl-pillar-title">Simulator Susun Atur DRV-Lite</div>
     <div class="tcl-pillar-desc">
-      Sifar lesen komersial Siemens Calibre diperlukan. Model objek susun atur tulin Tcl yang mengendalikan hierarki sel, poligon, kotak sempadan, dan aliran keluar GDS.
+      Sifar lesen komersial diperlukan. Model objek tulin Tcl untuk membantu pemula memahami hierarki sel, poligon, dan konsep peraturan reka bentuk DRV.
     </div>
   </div>
 
   <div class="tcl-pillar-card">
     <div class="tcl-pillar-icon">⚡</div>
-    <div class="tcl-pillar-title">Penjaga Pintu Pemasaan STA Industri</div>
+    <div class="tcl-pillar-title">Makmal Analisis Pemasaan STA</div>
     <div class="tcl-pillar-desc">
-      Menghurai laporan pemasaan litar bersepadu digital, mengekstrak titik permulaan dan penamat, mengira Worst Negative Slack (WNS) dan Total Negative Slack (TNS).
+      Penghurai laporan pemasaan mesra pemula: memahami slack persediaan dan mempelajari cara skrip Tcl memproses output teks EDA.
     </div>
   </div>
 </div>
@@ -3411,18 +3405,16 @@ make week21-01        # Jalankan skrip susun atur Minggu 21 (simulasi DRV-Lite)
   <div class="tcl-badge-cluster">
     <span class="tcl-badge">CC BY 4.0</span>
     <span class="tcl-badge">SJTU-YONGFU-RESEARCH-GRP</span>
-    <span class="tcl-badge purple">Quiz & Certificat</span>
+    <span class="tcl-badge purple">Quiz Tcl & Pratique</span>
     <span class="tcl-badge blue">Atelier Interactif WASM</span>
-    <span class="tcl-badge green">Simulateur de Layout DRV-Lite</span>
-    <span class="tcl-badge amber">Porte de Validation STA</span>
+    <span class="tcl-badge green">Pratique de Layout DRV</span>
     <span class="tcl-badge cyan">Support Multilingue i18n</span>
   </div>
 
-  <h1 class="tcl-hero-title">Tcl pour VLSI · De la Syntaxe de Base à l'Automatisation de Layout & Temporisation</h1>
+  <h1 class="tcl-hero-title">Tcl pour VLSI · De la Syntaxe de Base à la Pratique DRV</h1>
 
   <div class="tcl-hero-subtitle">
-    Des commandes fondamentales de script à une suite complète d'automatisation de conception physique de circuits intégrés.<br>
-    Alliant le <strong>modèle mental d'évaluation en 3 étapes de Brent Welch</strong>, le <strong>défi quiz interactif & certificat de réussite vérifiable</strong>, l'<strong>atelier WebAssembly dans le navigateur</strong>, la <strong>quête RPG pilotée par code réel</strong>, le <strong>simulateur de layout DRV-Lite sans licence</strong> et la <strong>porte de clôture temporelle STA</strong>.
+    Une plateforme d'apprentissage pratique conçue pour aider les débutants à comprendre les bases du script Tcl et son utilisation concrète dans l'analyse de layout et les violations de règles de conception (DRV).
   </div>
 
   <div class="tcl-cta-group">
@@ -3437,7 +3429,7 @@ make week21-01        # Jalankan skrip susun atur Minggu 21 (simulasi DRV-Lite)
 <div class="tcl-fact-strip">
   <div class="tcl-fact-item">
     <span class="tcl-fact-val">40 Semaines</span>
-    <span class="tcl-fact-lbl">Programme Complet & Progressif</span>
+    <span class="tcl-fact-lbl">Programme Complet</span>
   </div>
   <div class="tcl-fact-item">
     <span class="tcl-fact-val">4 Modules</span>
@@ -3445,7 +3437,7 @@ make week21-01        # Jalankan skrip susun atur Minggu 21 (simulasi DRV-Lite)
   </div>
   <div class="tcl-fact-item">
     <span class="tcl-fact-val">18 Labos</span>
-    <span class="tcl-fact-lbl">Exercices sur Données Réelles</span>
+    <span class="tcl-fact-lbl">Exercices Pratiques</span>
   </div>
   <div class="tcl-fact-item">
     <span class="tcl-fact-val">20 Niveaux</span>
@@ -3460,8 +3452,8 @@ make week21-01        # Jalankan skrip susun atur Minggu 21 (simulasi DRV-Lite)
     <span class="tcl-fact-lbl">Simulateur de Layout DRV-Lite</span>
   </div>
   <div class="tcl-fact-item">
-    <span class="tcl-fact-val">Industriel</span>
-    <span class="tcl-fact-lbl">Porte de Clôture Temporelle STA</span>
+    <span class="tcl-fact-val">Débutant</span>
+    <span class="tcl-fact-lbl">Pratique de Layout DRV</span>
   </div>
 </div>
 
@@ -3498,8 +3490,8 @@ make week21-01        # Jalankan skrip susun atur Minggu 21 (simulasi DRV-Lite)
   <a href="help/timing_calculator/" class="tcl-tool-card">
     <div class="tcl-tool-icon">⚡</div>
     <div class="tcl-tool-body">
-      <div class="tcl-tool-title">Porte de Validation Temporelle STA</div>
-      <div class="tcl-tool-desc">Jauge de marge d'établissement interactive, période d'horloge, délai de chemin de données et critères de passage au tapeout.</div>
+      <div class="tcl-tool-title">Labo d'Analyse Temporelle STA</div>
+      <div class="tcl-tool-desc">Calculateur interactif de marge temporelle, période d'horloge et délai de trajet pour comprendre les concepts de base du timing EDA.</div>
     </div>
     <div class="tcl-tool-arrow">→</div>
   </a>
@@ -3508,7 +3500,7 @@ make week21-01        # Jalankan skrip susun atur Minggu 21 (simulasi DRV-Lite)
     <div class="tcl-tool-icon">📝</div>
     <div class="tcl-tool-body">
       <div class="tcl-tool-title">18 Exercices Pratiques</div>
-      <div class="tcl-tool-desc">Problèmes de laboratoire analysant des bibliothèques de cellules standard, correspondances de broches, fichiers DEF et rapports STA.</div>
+      <div class="tcl-tool-desc">Problèmes de laboratoire analysant des bibliothèques de cellules, correspondances de broches, fichiers DEF et rapports temporels de base.</div>
     </div>
     <div class="tcl-tool-arrow">→</div>
   </a>
@@ -3516,8 +3508,8 @@ make week21-01        # Jalankan skrip susun atur Minggu 21 (simulasi DRV-Lite)
   <a href="capstone/" class="tcl-tool-card">
     <div class="tcl-tool-icon">🛠️</div>
     <div class="tcl-tool-body">
-      <div class="tcl-tool-title">6 Projets Capstone Industriels</div>
-      <div class="tcl-tool-desc">Mini-projets industriels complets, de l'extraction de routage à la correction automatique de longueur de fil ECO.</div>
+      <div class="tcl-tool-title">6 Projets Capstone Pratiques</div>
+      <div class="tcl-tool-desc">Mini-projets pratiques, de l'extraction de routage à la correction automatique de longueur de fil ECO.</div>
     </div>
     <div class="tcl-tool-arrow">→</div>
   </a>
@@ -3532,7 +3524,7 @@ Choisissez le parcours adapté à votre profil et à vos objectifs d'ingénierie
     <span class="tcl-route-num">PARCOURS 01 · Premiers Pas</span>
     <div class="tcl-route-title">Débutant en Programmation</div>
     <div class="tcl-route-desc">
-      Commencez par <code>puts</code>, les variables et les commentaires. Maîtrisez le modèle mental en 3 étapes de Brent Welch (Regroupement $\to$ Substitution $\to$ Évaluation) pour démystifier les accolades <code>{{}}</code> par rapport aux guillemets <code>""</code>.
+      Commencez par <code>puts</code>, les variables et les commentaires. Maîtrisez le modèle en 3 étapes (Regroupement $\to$ Substitution $\to$ Évaluation) pour comprendre les accolades <code>{{}}</code> par rapport aux guillemets <code>""</code>.
     </div>
     <a href="lessons/week1/" class="tcl-btn tcl-btn-secondary" style="font-size: 13px; padding: 6px 14px;">Démarrer Semaine 1 →</a>
   </div>
@@ -3541,18 +3533,18 @@ Choisissez le parcours adapté à votre profil et à vos objectifs d'ingénierie
     <span class="tcl-route-num">PARCOURS 02 · Voie Rapide</span>
     <div class="tcl-route-title">Expérience en Python / C</div>
     <div class="tcl-route-desc">
-      Concentrez-vous sur les spécificités de Tcl : substitution différée, sécurité de <code>expr</code> entre accolades, manipulation de listes/dictionnaires, espaces de noms et conception orientée objet TclOO.
+      Concentrez-vous sur les spécificités de Tcl : substitution différée, règles d'<code>expr</code> entre accolades, manipulation de listes/dictionnaires, espaces de noms et procédures.
     </div>
     <a href="help/tcl/" class="tcl-btn tcl-btn-secondary" style="font-size: 13px; padding: 6px 14px;">Guide du Modèle Mental →</a>
   </div>
 
   <div class="tcl-route-card route-vlsi">
-    <span class="tcl-route-num">PARCOURS 03 · Ingénierie des Puces</span>
-    <div class="tcl-route-title">Ingénieurs VLSI & Conception Physique</div>
+    <span class="tcl-route-num">PARCOURS 03 · Layout & DRV</span>
+    <div class="tcl-route-title">Bases de la Conception Physique</div>
     <div class="tcl-route-desc">
-      Affranchissez-vous des licences EDA grâce à notre simulateur DRV-Lite en pur Tcl pour manipuler polygones, pistes, boîtes englobantes et sorties GDS. Analysez les marges STA, critères WNS et TNS.
+      Découvrez comment Tcl interagit avec les layouts de circuits intégrés grâce à notre visualiseur DRV-Lite en pur Tcl. Apprenez comment les scripts inspectent les cellules, polygones et violations de règles de conception (DRV).
     </div>
-    <a href="help/timing_lab/" class="tcl-btn tcl-btn-secondary" style="font-size: 13px; padding: 6px 14px;">Labo Analyse Temporelle →</a>
+    <a href="help/layout_viewer/" class="tcl-btn tcl-btn-secondary" style="font-size: 13px; padding: 6px 14px;">Visualiseur de Layout DRV →</a>
   </div>
 </div>
 
@@ -3565,7 +3557,7 @@ Choisissez le parcours adapté à votre profil et à vos objectifs d'ingénierie
     <div class="tcl-pillar-icon">💻</div>
     <div class="tcl-pillar-title">Atelier Client Pur WebAssembly</div>
     <div class="tcl-pillar-desc">
-      Intègre l'innovation notée 98/100 de FanqinZeng : moteur WebAssembly Tcl 8.6.6 natif, 18 modules progressifs, inspecteur de variables mémoire et 6 projets capstone.
+      Atelier interactif dans le navigateur : moteur WebAssembly Tcl 8.6.6 natif, 18 modules progressifs, inspecteur de variables mémoire et exercices pratiques.
     </div>
   </div>
 
@@ -3573,7 +3565,7 @@ Choisissez le parcours adapté à votre profil et à vos objectifs d'ingénierie
     <div class="tcl-pillar-icon">🎮</div>
     <div class="tcl-pillar-title">Tcl Quest · RPG Piloté par le Code</div>
     <div class="tcl-pillar-desc">
-      Innovation notée 93/100 de Su3037 : aventure de 20 niveaux sur l'Île des Puces où l'exécution du code réel pilote les cinématiques et les combats de boss.
+      Aventure de 20 niveaux sur l'Île des Puces où l'exécution du code réel pilote les cinématiques de manière engageante pour les débutants.
     </div>
   </div>
 
@@ -3581,15 +3573,15 @@ Choisissez le parcours adapté à votre profil et à vos objectifs d'ingénierie
     <div class="tcl-pillar-icon">📐</div>
     <div class="tcl-pillar-title">Simulateur de Layout DRV-Lite</div>
     <div class="tcl-pillar-desc">
-      Aucune licence Siemens Calibre requise. Modèle d'objets de layout en pur Tcl implémentant la hiérarchie de cellules, les polygones, les boîtes englobantes et l'export GDS.
+      Aucune licence commerciale requise. Modèle d'objets en pur Tcl aidant les débutants à comprendre la hiérarchie de cellules, les polygones et les règles DRV.
     </div>
   </div>
 
   <div class="tcl-pillar-card">
     <div class="tcl-pillar-icon">⚡</div>
-    <div class="tcl-pillar-title">Contrôleur Temporel STA Industriel</div>
+    <div class="tcl-pillar-title">Labo d'Analyse Temporelle STA</div>
     <div class="tcl-pillar-desc">
-      Analyse des rapports temporels de puces numériques, extraction des points de départ et d'arrivée, calcul précis du Worst Negative Slack (WNS) et Total Negative Slack (TNS).
+      Analyseur de rapports temporels pour débutants : comprenez la marge temporelle (slack) et découvrez comment les scripts Tcl traitent les rapports EDA.
     </div>
   </div>
 </div>
@@ -3706,8 +3698,8 @@ def write_mkdocs_yml(meta: list[tuple[int, str, str]]) -> None:
     fr_weeks_trans_yaml = "\n".join(fr_nav_trans_weeks)
 
     yml = f"""# Generated by scripts/build_website.py — modern high-readability architecture
-site_name: Tcl Language Lab
-site_description: Bilingual Tcl / Calibre layout scripting lessons, WASM Workshop & Gamified Quest
+site_name: Tcl for VLSI Automation Lab
+site_description: Beginner Tcl scripting lessons, DRV layout practice & interactive WASM workshop
 site_url: https://sjtu-yongfu-research-grp.github.io/tcl-language/
 repo_url: {GITHUB}
 repo_name: tcl-language
@@ -3787,8 +3779,8 @@ plugins:
         - locale: zh
           name: 简体中文
           build: true
-          site_name: Tcl 工业级芯片自动化实验室
-          site_description: 中英双语 Tcl / Calibre 版图自动化与时序分析全体系课程与交互工作坊
+          site_name: Tcl 芯片自动化与 DRV 入门实验室
+          site_description: 中英双语 Tcl 入门教程与 DRV 版图自动化交互实训平台
           nav_translations:
             Home: 首页
             Quiz Challenge & Leaderboard: 测评挑战与排行榜
@@ -3819,8 +3811,8 @@ plugins:
         - locale: ms
           name: Bahasa Melayu
           build: true
-          site_name: Makmal Automasi VLSI Tcl
-          site_description: Kurikulum Tcl / Calibre, Bengkel Interaktif WASM & Pengembaraan Cip
+          site_name: Makmal Penskripan Tcl & DRV VLSI
+          site_description: Panduan Asas Penskripan Tcl, Analisis Susun Atur DRV & Bengkel Interaktif WASM
           nav_translations:
             Home: Laman Utama
             Quiz Challenge & Leaderboard: Cabaran Kuiz & Papan Juara
@@ -3851,8 +3843,8 @@ plugins:
         - locale: fr
           name: Français
           build: true
-          site_name: Laboratoire d'Automatisation VLSI Tcl
-          site_description: Programme Tcl / Calibre, Atelier Interactif WASM & Quête de Puce RPG
+          site_name: Laboratoire Tcl & DRV pour VLSI
+          site_description: Initiation au Script Tcl, Analyse de Layout DRV & Atelier Interactif WASM
           nav_translations:
             Home: Accueil
             Quiz Challenge & Leaderboard: Défi Quiz & Classement

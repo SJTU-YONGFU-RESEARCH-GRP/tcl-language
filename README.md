@@ -1,27 +1,27 @@
-# Tcl for VLSI · 从控制台语法到芯片版图与时序自动化
+# Tcl for VLSI · 从基础语法到 DRV 实战应用
 
 [![License: CC BY 4.0](https://img.shields.io/badge/License-CC%20BY%204.0-green?logo=creativecommons&logoColor=white)](https://creativecommons.org/licenses/by/4.0/)
 [![GitHub](https://img.shields.io/badge/GitHub-SJTU--YONGFU--RESEARCH--GRP%2Ftcl--language-181717?logo=github)](https://github.com/SJTU-YONGFU-RESEARCH-GRP/tcl-language)
 [![WASM Tcl 8.6](https://img.shields.io/badge/WASM_Tcl-8.6.6_Ready-17776b?logo=webassembly&logoColor=white)](https://sjtu-yongfu-research-grp.github.io/tcl-language/wasm-lab/)
 [![DRV-Lite](https://img.shields.io/badge/DRV--Lite-Zero--License_Layout_Sim-0f4f46)](docs/DRVLITE_HELP.md)
-[![STA Lab](https://img.shields.io/badge/STA_Lab-Slack_WNS_TNS-b96b28)](docs/TIMING_ANALYZER_LAB.md)
+[![STA Lab](https://img.shields.io/badge/STA_Lab-Slack_Margin-b96b28)](docs/TIMING_ANALYZER_LAB.md)
 [![Bilingual](https://img.shields.io/badge/Bilingual-EN%20%2F%20ZH-blue)](https://sjtu-yongfu-research-grp.github.io/tcl-language/)
 
-Bilingual, publication-grade **Tcl-first curriculum** and interactive educational platform for learning modern Tcl syntax, data structures, TclOO, Calibre DESIGNrev (`calibredrv`) layout scripting, and industrial Static Timing Analysis (STA).
+Bilingual, beginner-friendly **Tcl educational platform** for learning modern Tcl syntax, data structures, procedures, and understanding how scripting is applied in IC layout and Design Rule Violation (DRV) analysis.
 
 ---
 
-## 🌟 核心教学创新与平台特性 (Core Innovations)
+## 🌟 核心教学特色与实训工具 (Core Features)
 
-整合来自顶级优秀学生项目（特别是 FanqinZeng 98 分金奖项目与 GateUltra、Su3037、thy031 实践成果）的全部核心工具、工程内容与视觉设计：
+整合来自优秀开源教学实践的核心工具、演练内容与交互设计：
 
 1. **💻 纯客户端 WebAssembly 交互工作坊 (WASM Interactive Lab)**:
    - 内置编译为 WebAssembly 的原生 Tcl 8.6.6 解释器（WACL），零本地环境依赖、零服务器交互，100% 在浏览器安全沙箱中秒级执行。
    - 配备内存变量表格、数据结构单元图谱、执行耗时分析与事件日志输出。
    - [👉 立即在线打开工作坊 (Launch Live WASM Lab)](https://sjtu-yongfu-research-grp.github.io/tcl-language/wasm-lab/)
 
-2. **🎨 顶级典雅学术视觉体系 (FanqinZeng Academic Palette)**:
-   - 全面摒弃千篇一律的通用默认样式，深度定制温暖沉稳的高阶学术质感：
+2. **🎨 典雅学术视觉体系 (Academic Palette)**:
+   - 摒弃千篇一律的通用默认样式，定制沉稳学术质感：
      - **底色 (Paper)**: `#f7f6f0`（温暖象牙纸质底色）
      - **主文本 (Ink)**: `#253934`（深邃松烟墨色）
      - **学术主色 (Academic Teal)**: `#17776b`（典雅深青绿）与 `#0f4f46`（沉稳墨绿导航）
@@ -29,28 +29,28 @@ Bilingual, publication-grade **Tcl-first curriculum** and interactive educationa
      - **代码底色 (Code Slate)**: `#1d302d`（墨绿极客暗调）
      - **排版字体**: 标题采用经典衬线体 `Georgia, 'Songti SC', 'Noto Serif SC', serif`。
 
-3. **🎯 18 项真实工程数据练习（54 个阶梯任务）与参考答案**:
+3. **🎯 18 项工程数据练习（54 个阶梯任务）与参考答案**:
    - 涵盖变量置换、列表排序、嵌套字典、正则匹配、文件解析、CSV/JSON 转换到多字段聚合。
-   - 预置真实工程数据集：`data/chip_runs.csv`、`data/top10_servers.tsv`、`data/wafers.csv`、`data/weather_beijing.json` 等。
-   - 配套标准起步模版（`exercises/`）与全套满分参考解答（`solutions/`）。
+   - 预置真实工程练习数据集：`data/chip_runs.csv`、`data/top10_servers.tsv`、`data/wafers.csv`、`data/weather_beijing.json` 等。
+   - 配套标准起步模版（`exercises/`）与全套参考解答（`solutions/`）。
 
-4. **🏆 6 大综合数据工程项目 (Capstone Projects A–F)**:
+4. **🏆 6 大综合数据实战项目 (Capstone Projects A–F)**:
    - **Project A**: Nginx/Apache 访问日志统计与告警过滤
    - **Project B**: 晶圆测试机台良率聚合与缺陷分类
    - **Project C**: Git 代码仓库提交历史度量报告生成
    - **Project D**: 销售与库存多表自动化流水对账
    - **Project E**: 多源 JSON/CSV 跨格式清洗与转换管道
-   - **Project F**: EDA 时序报告与版图违规闭环门禁
-   - 配备多组严格断言测试用例（`case-1.tcl` 到 `case-4.tcl`）。
+   - **Project F**: EDA 文本报告解析与 DRV 版图违规分析
+   - 配备多组断言测试用例（`case-1.tcl` 到 `case-4.tcl`）。
 
-5. **📐 DRV-Lite: 纯 Tcl Calibre DESIGNrev 版图仿真器**:
-   - 彻底打破 Siemens Calibre 商业许可证壁垒！纯 Tcl 实现的 `layout` 对象模型，支持在普通电脑的标准 `tclsh` 环境下操纵多边形、引脚、图层及 GDS/OASIS 导出，完美支撑第 21–40 周版图课程。
+5. **📐 DRV-Lite: 纯 Tcl 版图轻量仿真器**:
+   - 无需商业 EDA 许可证！纯 Tcl 实现的 `layout` 对象结构，支持在普通电脑的标准 `tclsh` 环境下操纵多边形、引脚、图层及版图坐标，帮助初学者理解 DRV 版图分析的基本原理。
 
-6. **⚡ 工业级 STA 静态时序分析门禁**:
-   - 解析真实数字芯片时序报告（`data/sample_timing.rpt`），自动计算 Worst Negative Slack (WNS) 与 Total Negative Slack (TNS)，模拟流片门禁（Sign-off Gatekeeper）。
+6. **⚡ STA 静态时序分析入门实验**:
+   - 解析数字芯片时序报告（`data/sample_timing.rpt`），计算 Worst Negative Slack (WNS) 与 Total Negative Slack (TNS)，直观理解时序裕量分析与脚本解析方法。
 
-7. **🧠 Brent Welch 3步求值心智模型**:
-   - 严格遵循 `切分 (Grouping)` $\to$ `置换 (Substitution)` $\to$ `调用 (Invocation)`，彻底掌握大括号 `{}`、双引号 `""` 与花括号 `expr {$a + $b}` 的安全与性能准则。
+7. **🧠 Tcl 3 步置换心智模型**:
+   - 严格遵循 `切分 (Grouping)` $\to$ `置换 (Substitution)` $\to$ `调用 (Invocation)`，帮助初学者彻底理解大括号 `{}` 与双引号 `""` 的差异，掌握花括号 `expr {$a + $b}` 的安全准则。
 
 ---
 
@@ -72,7 +72,7 @@ make check-env
 # 运行 DRV-Lite 版图仿真器 6 项单元自测
 make drvlite-test
 
-# 运行工业级 STA 静态时序分析实验
+# 运行 STA 静态时序分析入门实验
 make timing-demo
 
 # 运行第一周范例脚本
