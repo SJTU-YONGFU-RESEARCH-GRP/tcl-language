@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
 """Quiz Challenge and Leaderboard generator for Tcl for VLSI Portal.
 
-Implements the adaptive 3-tier difficulty quiz challenge, silent grading,
-dynamic time scaling (more time for more mistakes), reinforcement loop
-(more questions to answer for wrong answers), SVG verifiable certificate,
+Implements the 3-tier difficulty quiz challenge, silent grading,
+dynamic time scaling (thinking time allowance), reinforcement loop
+(reinforcement questions on mistakes), SVG verifiable certificate,
 and interactive public leaderboard with Hall of Fame rankings.
 """
 
@@ -38,19 +38,19 @@ def write_leaderboard_pages(docs_dir: Path) -> None:
 def _build_quiz_page(lang: str) -> str:
     i18n_strings = {
         "en": {
-            "title": "🎯 Adaptive VLSI Tcl Quiz Challenge",
-            "badges": ["3-Tier Adaptive Model", "Silent Grading", "Dynamic Thinking Timer", "Verifiable Certificate", "Hall of Fame"],
-            "desc": "An industrial-grade adaptive diagnostic quest. Questions scale across 3 difficulty tiers (Easy → Medium → Hard). Time limits dynamically adapt to your performance—granting more thinking time when mistakes occur, while requiring additional reinforcement questions to prove true mastery before clearing a tier.",
+            "title": "🎯 VLSI Tcl Quiz Challenge & Certification",
+            "badges": ["3-Tier Mastery Model", "Silent Grading", "Thinking Timer", "Verifiable Certificate", "Hall of Fame"],
+            "desc": "An industrial-grade diagnostic quest. Questions scale across 3 difficulty tiers (Easy → Medium → Hard). Time limits provide a fair thinking allowance to support your problem-solving pace, with targeted reinforcement questions to confirm mastery before unlocking subsequent tiers.",
             "mode_select": "Choose Quest Mode & Candidate Name",
             "full_mode": "Full Grand Prix (All 4 Modules · 12 Tiers)",
             "sprint_mode": "Sprint Diagnostic (6 Core Benchmark Questions)",
             "candidate_placeholder": "Enter your name or callsign (e.g. VLSI_Cadence_Pro)...",
-            "start_btn": "🚀 Launch Adaptive Challenge",
+            "start_btn": "🚀 Launch Quiz Challenge",
             "mod_label": "Current Module",
             "tier_label": "Difficulty Tier",
-            "timer_label": "Dynamic Thinking Timer",
+            "timer_label": "Thinking Timer",
             "submit_btn": "Submit Answer (Enter)",
-            "thinking_bonus": "Dynamic Thinking Time Granted",
+            "thinking_bonus": "Thinking Time Allowance Granted",
             "report_title": "📊 Post-Quest Analytical Mastery Report",
             "cert_title": "🎓 Claim Your Industrial Mastery Certificate",
             "dl_cert": "📥 Download Certificate (SVG)",
@@ -59,19 +59,19 @@ def _build_quiz_page(lang: str) -> str:
             "retake": "🔄 Retake Challenge"
         },
         "zh": {
-            "title": "🎯 交互式自适应 VLSI Tcl 随堂评测挑战",
-            "badges": ["三阶自适应心智模型", "盲测静默评分", "动态自适应思考计时", "工业级防伪证书", "全网排行榜"],
-            "desc": "工业级芯片自动化自适应测评系统。题目分为初阶、中阶、高阶三层难度阶梯（Easy → Medium → Hard）。做错题目时，系统将动态延长单题思考时间，并自动追加同难度强化题以确保知识点闭环，唯有完全掌握方可通关评级。",
+            "title": "🎯 交互式 VLSI Tcl 随堂评测挑战与认证",
+            "badges": ["三阶能力递进", "盲测静默评分", "深度思考计时", "工业级防伪证书", "全网排行榜"],
+            "desc": "工业级芯片自动化随堂测评系统。题目分为初阶、中阶、高阶三层难度阶梯（Easy → Medium → Hard）。提供充裕的单题思考保护时间，并配置同难度强化题以确保知识点闭环，唯有完全掌握方可通关评级。",
             "mode_select": "选择挑战模式与考生代号",
             "full_mode": "全体系大奖赛 (覆盖 4 大核心模块 · 共 12 阶)",
             "sprint_mode": "疾速冲刺自测 (6 道核心基准诊断题)",
             "candidate_placeholder": "请输入您的姓名或代号 (例如: 张工_EDA_Signoff)...",
-            "start_btn": "🚀 开启自适应测评挑战",
+            "start_btn": "🚀 开启随堂评测挑战",
             "mod_label": "当前评估模块",
             "tier_label": "题目难度阶梯",
-            "timer_label": "动态自适应思考倒计时",
+            "timer_label": "思考倒计时",
             "submit_btn": "确认提交选项 (Enter)",
-            "thinking_bonus": "已自动追加思考保护时间",
+            "thinking_bonus": "已追加思考保护时间",
             "report_title": "📊 赛后深度诊断分析报告",
             "cert_title": "🎓 领取工业级芯片自动化掌握证书",
             "dl_cert": "📥 下载防伪认证证书 (SVG)",
@@ -80,17 +80,17 @@ def _build_quiz_page(lang: str) -> str:
             "retake": "🔄 重新挑战"
         },
         "ms": {
-            "title": "🎯 Cabaran Kuiz Adaptif VLSI Tcl & Pensijilan",
-            "badges": ["Model Adaptif 3-Tahap", "Penggredan Senyap", "Pemasa Berfikir Dinamik", "Sijil Sah Digital", "Papan Pendahulu"],
-            "desc": "Sistem diagnostik adaptif gred industri. Soalan berkembang merentasi 3 tahap kesukaran (Mudah → Sederhana → Sukar). Had masa diselaraskan secara dinamik—memberikan lebih masa berfikir apabila kesilapan berlaku, sambil memerlukan soalan peneguhan tambahan untuk membuktikan penguasaan sebelum melepasi sesuatu tahap.",
+            "title": "🎯 Cabaran Kuiz VLSI Tcl & Pensijilan",
+            "badges": ["Kemajuan 3-Tahap", "Penggredan Senyap", "Pemasa Berfikir", "Sijil Sah Digital", "Papan Pendahulu"],
+            "desc": "Sistem diagnostik gred industri. Soalan berkembang merentasi 3 tahap kesukaran (Mudah → Sederhana → Sukar). Had masa menyokong langkah pembelajaran anda—memberikan peruntukan masa berfikir apabila diperlukan, sambil memerlukan soalan peneguhan untuk memastikan penguasaan sebelum melepasi sesuatu tahap.",
             "mode_select": "Pilih Mod Cabaran & Nama Calon",
             "full_mode": "Grand Prix Penuh (Semua 4 Modul · 12 Tahap)",
             "sprint_mode": "Diagnostik Pecut (6 Soalan Penanda Aras Teras)",
             "candidate_placeholder": "Masukkan nama atau alias anda (cth: Jurutera_VLSI)...",
-            "start_btn": "🚀 Lancarkan Cabaran Adaptif",
+            "start_btn": "🚀 Lancarkan Cabaran Kuiz",
             "mod_label": "Modul Semasa",
             "tier_label": "Tahap Kesukaran",
-            "timer_label": "Pemasa Berfikir Dinamik",
+            "timer_label": "Pemasa Berfikir",
             "submit_btn": "Hantar Jawapan (Enter)",
             "thinking_bonus": "Masa Berfikir Tambahan Diberikan",
             "report_title": "📊 Laporan Analisis Penguasaan Pasca-Cabaran",
@@ -101,17 +101,17 @@ def _build_quiz_page(lang: str) -> str:
             "retake": "🔄 Ulang Semula Cabaran"
         },
         "fr": {
-            "title": "🎯 Défi Quiz Adaptatif VLSI Tcl & Certification",
-            "badges": ["Modèle Adaptatif 3 Niveaux", "Notation Silencieuse", "Minuteur Dynamique Réfléchi", "Certificat Vérifiable", "Classement Public"],
-            "desc": "Système de diagnostic adaptatif de niveau industriel. Les questions progressent sur 3 niveaux de difficulté (Facile → Moyen → Difficile). Le temps alloué s'adapte dynamiquement à vos performances : plus de temps de réflexion est accordé en cas d'erreur, tandis que des questions de renforcement supplémentaires sont requises pour valider définitivement un niveau.",
+            "title": "🎯 Défi Quiz VLSI Tcl & Certification",
+            "badges": ["Progression 3 Niveaux", "Notation Silencieuse", "Minuteur de Réflexion", "Certificat Vérifiable", "Classement Public"],
+            "desc": "Système de diagnostic de niveau industriel. Les questions progressent sur 3 niveaux de difficulté (Facile → Moyen → Difficile). Le temps alloué s'adapte à votre démarche : du temps de réflexion supplémentaire est accordé lorsque nécessaire, avec des questions de renforcement pour consolider la maîtrise avant de passer au niveau supérieur.",
             "mode_select": "Choisissez le Mode & Nom du Candidat",
             "full_mode": "Grand Prix Complet (4 Modules · 12 Niveaux)",
             "sprint_mode": "Sprint Diagnostic (6 Questions Clés d'Évaluation)",
             "candidate_placeholder": "Entrez votre nom ou pseudonyme (ex: Ingénieur_VLSI)...",
-            "start_btn": "🚀 Lancer le Défi Adaptatif",
+            "start_btn": "🚀 Lancer le Défi Quiz",
             "mod_label": "Module en Cours",
             "tier_label": "Niveau de Difficulté",
-            "timer_label": "Minuteur Dynamique de Réflexion",
+            "timer_label": "Minuteur de Réflexion",
             "submit_btn": "Valider la Réponse (Entrée)",
             "thinking_bonus": "Temps de Réflexion Supplémentaire Accordé",
             "report_title": "📊 Rapport Analytique de Maîtrise",
@@ -185,7 +185,7 @@ def _build_quiz_page(lang: str) -> str:
     <div style="background:var(--md-default-bg-color); border:1px solid var(--tcl-border); border-radius:8px; padding:12px 16px; margin-bottom:18px;">
       <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:6px; font-size:12px; font-weight:700;">
         <span style="color:var(--tcl-heading);">⏱️ {t["timer_label"]}: <span id="timerSecondsText" style="color:var(--tcl-blue-600); font-size:14px;">30s</span></span>
-        <span id="adaptiveAllowanceTag" style="color:#d97706; font-size:11.5px; display:none;">⚠️ {t["thinking_bonus"]}: +15s</span>
+        <span id="thinkingAllowanceTag" style="color:#d97706; font-size:11.5px; display:none;">⚠️ {t["thinking_bonus"]}: +15s</span>
       </div>
       <div style="width:100%; height:8px; background:rgba(0,0,0,0.08); border-radius:4px; overflow:hidden;">
         <div id="timerBar" style="width:100%; height:100%; background:#10b981; transition:width 0.2s linear, background-color 0.3s ease;"></div>
@@ -222,7 +222,7 @@ def _build_quiz_page(lang: str) -> str:
     <div style="text-align:center; margin-bottom:28px;">
       <div style="display:inline-block; font-size:3rem; margin-bottom:8px;">🏆</div>
       <h2 style="font-size:1.6rem; font-weight:800; color:var(--tcl-heading); margin:4px 0 8px;">{t["report_title"]}</h2>
-      <div style="color:var(--md-default-fg-color--light); font-size:14px;">Official competency diagnostic completed under adaptive 3-tier rules.</div>
+      <div style="color:var(--md-default-fg-color--light); font-size:14px;">Official competency diagnostic completed under 3-tier rules.</div>
     </div>
 
     <!-- Summary Metrics Cards -->
@@ -264,7 +264,7 @@ def _build_quiz_page(lang: str) -> str:
         <div id="certStudentName" style="font-size:1.85rem; font-weight:800; color:#0f172a; margin:10px 0; border-bottom:2px solid #e2e8f0; display:inline-block; padding:0 30px 4px;">Candidate Name</div>
         
         <div style="font-size:12.5px; color:#475569; max-width:520px; margin:10px auto; line-height:1.6;">
-          Has successfully passed all 3 tiers of the Adaptive VLSI Tcl Challenge, demonstrating full mastery across the Brent Welch 3-step evaluation model, advanced data structures, DRV-Lite physical layout objects, and STA timing sign-off gatekeeping.
+          Has successfully passed all 3 tiers of the VLSI Tcl Challenge, demonstrating full mastery across the Brent Welch 3-step evaluation model, advanced data structures, DRV-Lite physical layout objects, and STA timing sign-off gatekeeping.
         </div>
 
         <div style="display:flex; justify-content:space-around; align-items:center; margin-top:20px; padding-top:16px; border-top:1px solid #f1f5f9; font-size:12px; color:#475569;">
@@ -304,7 +304,7 @@ def _build_leaderboard_page(lang: str) -> str:
         "en": {
             "title": "🏆 Public Leaderboard & Certified Hall of Fame",
             "badges": ["Live Cohort Rankings", "Verified Certificates", "E/M/H Difficulty Metrics"],
-            "desc": "Real-time ranking table of certified engineers and students who cleared the Adaptive VLSI Tcl Challenge. Sorted by total weighted score, accuracy, and elapsed time.",
+            "desc": "Real-time ranking table of certified engineers and students who cleared the VLSI Tcl Quiz Challenge. Sorted by total weighted score, accuracy, and elapsed time.",
             "search_ph": "Search candidate name or callsign...",
             "all_mode": "All Modes",
             "full_mode": "Full Grand Prix",
@@ -320,12 +320,12 @@ def _build_leaderboard_page(lang: str) -> str:
             "verify_title": "🔍 Instant Certificate Verification",
             "verify_ph": "Enter Certificate Hash (e.g. TCL-VLSI-2026-X89F)...",
             "verify_btn": "Verify Credential",
-            "take_quiz_btn": "🎯 Take the Adaptive Quiz Challenge →"
+            "take_quiz_btn": "🎯 Take the Quiz Challenge →"
         },
         "zh": {
             "title": "🏆 荣誉排行榜与认证证书中心",
             "badges": ["全网实时排名", "工业认证核验", "易/中/难三阶通关指标"],
-            "desc": "汇聚通过 VLSI Tcl 自适应测评挑战的工程师与学生成绩榜单。按加权总分、答题正确率与耗时进行综合排位，记录通过初阶/中阶/高阶题目分布。",
+            "desc": "汇聚通过 VLSI Tcl 随堂评测挑战的工程师与学生成绩榜单。按加权总分、答题正确率与耗时进行综合排位，记录通过初阶/中阶/高阶题目分布。",
             "search_ph": "搜索考生姓名或代号...",
             "all_mode": "全部模式",
             "full_mode": "全体系大奖赛",
@@ -341,12 +341,12 @@ def _build_leaderboard_page(lang: str) -> str:
             "verify_title": "🔍 认证证书真伪即时核验",
             "verify_ph": "输入证书凭证编号 (例如: TCL-VLSI-2026-X89F)...",
             "verify_btn": "立即核验凭证",
-            "take_quiz_btn": "🎯 参与自适应随堂测评挑战 →"
+            "take_quiz_btn": "🎯 参与随堂评测挑战 →"
         },
         "ms": {
             "title": "🏆 Papan Pendahulu Awam & Dewan Kemasyhuran",
             "badges": ["Kedudukan Kohort Langsung", "Sijil Sah Digital", "Metrik Kesukaran E/M/H"],
-            "desc": "Jadual kedudukan masa nyata jurutera dan pelajar yang berjaya melepasi Cabaran Adaptif VLSI Tcl. Disusun mengikut skor wajaran, ketepatan, dan masa diambil.",
+            "desc": "Jadual kedudukan masa nyata jurutera dan pelajar yang berjaya melepasi Cabaran Kuiz VLSI Tcl. Disusun mengikut skor wajaran, ketepatan, dan masa diambil.",
             "search_ph": "Cari nama calon atau alias...",
             "all_mode": "Semua Mod",
             "full_mode": "Grand Prix Penuh",
@@ -362,12 +362,12 @@ def _build_leaderboard_page(lang: str) -> str:
             "verify_title": "🔍 Pengesahan Sijil Segera",
             "verify_ph": "Masukkan Kod Sijil (cth: TCL-VLSI-2026-X89F)...",
             "verify_btn": "Sahkan Sijil",
-            "take_quiz_btn": "🎯 Ambil Cabaran Kuiz Adaptif →"
+            "take_quiz_btn": "🎯 Ambil Cabaran Kuiz →"
         },
         "fr": {
             "title": "🏆 Tableau des Scores Public & Salle des Notabilités",
             "badges": ["Classement en Direct", "Certificats Vérifiés", "Mesures de Difficulté E/M/H"],
-            "desc": "Classement en temps réel des ingénieurs et étudiants ayant validé le Défi Adaptatif VLSI Tcl. Trié par score pondéré, précision et temps écoulé.",
+            "desc": "Classement en temps réel des ingénieurs et étudiants ayant validé le Défi Quiz VLSI Tcl. Trié par score pondéré, précision et temps écoulé.",
             "search_ph": "Rechercher un candidat ou pseudo...",
             "all_mode": "Tous les Modes",
             "full_mode": "Grand Prix Complet",
@@ -383,7 +383,7 @@ def _build_leaderboard_page(lang: str) -> str:
             "verify_title": "🔍 Vérification Instantanée de Certificat",
             "verify_ph": "Entrez le Hash du Certificat (ex: TCL-VLSI-2026-X89F)...",
             "verify_btn": "Vérifier le Certificat",
-            "take_quiz_btn": "🎯 Participer au Défi Quiz Adaptatif →"
+            "take_quiz_btn": "🎯 Participer au Défi Quiz →"
         }
     }
     t = i18n_strings.get(lang, i18n_strings["en"])
@@ -858,10 +858,10 @@ function startChallenge() {
   document.getElementById('quiz-report-screen').style.display = 'none';
   document.getElementById('quiz-active-screen').style.display = 'block';
 
-  loadNextAdaptiveQuestion();
+  loadNextQuestion();
 }
 
-function loadNextAdaptiveQuestion() {
+function loadNextQuestion() {
   clearInterval(currentQuest.timerInterval);
   currentQuest.selectedChoice = null;
   document.getElementById('btnSubmitAnswer').disabled = true;
@@ -885,7 +885,7 @@ function loadNextAdaptiveQuestion() {
   document.getElementById('hudTierClearMeter').innerText = 
     `[Easy: ${tc.easy ? '✓' : (diffKey==='easy'?'⏳':'🔒')}] [Med: ${tc.medium ? '✓' : (diffKey==='medium'?'⏳':'🔒')}] [Hard: ${tc.hard ? '✓' : (diffKey==='hard'?'⏳':'🔒')}]`;
 
-  // Pick question from bank (adaptive question queue)
+  // Pick question from bank (tier question queue)
   const pool = QUESTION_BANK[modKey][diffKey];
   let available = pool.filter(q => !currentQuest.usedQuestions[modKey][diffKey].includes(q.id));
   if (available.length === 0) {
@@ -926,10 +926,10 @@ function loadNextAdaptiveQuestion() {
   currentQuest.maxTime = dynamicTime;
   currentQuest.timeLeft = dynamicTime;
 
-  const allowanceTag = document.getElementById('adaptiveAllowanceTag');
+  const allowanceTag = document.getElementById('thinkingAllowanceTag');
   if (currentQuest.mistakesAtTier > 0) {
     allowanceTag.style.display = 'inline';
-    allowanceTag.innerText = `⚠️ Adaptive Allowance: +${currentQuest.mistakesAtTier * 15}s (More Time for Mistake)`;
+    allowanceTag.innerText = `⚠️ Thinking Allowance: +${currentQuest.mistakesAtTier * 15}s (Extra Time Granted)`;
   } else {
     allowanceTag.style.display = 'none';
   }
@@ -1017,7 +1017,7 @@ function submitCurrentAnswer() {
       if (currentQuest.modIdx >= currentQuest.modules.length) {
         finishQuest();
       } else {
-        loadNextAdaptiveQuestion();
+        loadNextQuestion();
       }
     }, 900);
 
@@ -1032,7 +1032,7 @@ function submitCurrentAnswer() {
     toast.innerText = `✗ Misconception detected! Tier not cleared. Additional reinforcement question queued (+15s thinking time granted).`;
 
     setTimeout(() => {
-      loadNextAdaptiveQuestion();
+      loadNextQuestion();
     }, 1500);
   }
 }
@@ -1048,7 +1048,7 @@ function handleTimeout() {
   toast.innerText = `⏱️ Time Expired! Tier not cleared. Queuing replacement question with +15s thinking time...`;
 
   setTimeout(() => {
-    loadNextAdaptiveQuestion();
+    loadNextQuestion();
   }, 1500);
 }
 
@@ -1144,7 +1144,7 @@ function downloadCertificateSVG() {
     <text x="400" y="225" text-anchor="middle" font-family="'Inter', sans-serif" font-size="14" fill="#475569">This official certificate is proudly conferred upon:</text>
     <text x="400" y="280" text-anchor="middle" font-family="'Inter', sans-serif" font-size="36" font-weight="900" fill="#0f172a">${name}</text>
     
-    <text x="400" y="340" text-anchor="middle" font-family="'Inter', sans-serif" font-size="13" fill="#334155">Has successfully cleared the Adaptive VLSI Tcl Challenge across all 3 difficulty tiers,</text>
+    <text x="400" y="340" text-anchor="middle" font-family="'Inter', sans-serif" font-size="13" fill="#334155">Has successfully cleared the VLSI Tcl Challenge across all 3 difficulty tiers,</text>
     <text x="400" y="360" text-anchor="middle" font-family="'Inter', sans-serif" font-size="13" fill="#334155">demonstrating full mastery of Brent Welch Substitution Rules, Physical Layout &amp; STA Sign-Off.</text>
     
     <!-- Gold Rosette Seal -->
