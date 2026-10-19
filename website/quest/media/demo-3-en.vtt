@@ -1,0 +1,19 @@
+WEBVTT
+
+00:00.000 --> 00:10.000
+proc defines a recipe, arguments supply inputs, and return gives a result back.
+
+00:10.000 --> 00:20.000
+Reuse the same procedure instead of copying its code.
+
+00:20.000 --> 00:30.000
+5/2 is 2. Use a decimal or double to preserve the fractional part.
+
+00:30.000 --> 00:40.000
+Return 0 for an empty list to avoid dividing by zero.
+
+00:40.000 --> 00:50.000
+The sum is 15. Dividing by 3 gives an average of 5.0.
+
+00:50.000 --> 01:00.000
+Try {1 2} and {-2 2} to verify that the procedure is reusable.

@@ -1,0 +1,19 @@
+WEBVTT
+
+00:00.000 --> 00:10.000
+Each record contains a path and slack. Negative slack counts as a violation.
+
+00:10.000 --> 00:20.000
+lassign passes the record fields to path and slack in order.
+
+00:20.000 --> 00:30.000
+For each slack below 0, increase count by one.
+
+00:30.000 --> 00:40.000
+Start worst with the first actual record and keep the smaller values.
+
+00:40.000 --> 00:50.000
+Another Tcl script can continue processing these results.
+
+00:50.000 --> 01:00.000
+This demo uses nonempty input. Lesson 20 also requires an empty-report case.

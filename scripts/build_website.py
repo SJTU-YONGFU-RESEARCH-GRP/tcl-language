@@ -189,6 +189,20 @@ def copy_workshop() -> None:
         print(f"Copied standalone WASM workshop -> {dst}")
 
 
+def copy_quest() -> None:
+    src = WEBSITE / "quest"
+    if not src.exists():
+        src_alt = ROOT.parent / "projects" / "su3037" / "site"
+        if src_alt.exists():
+            src = src_alt
+    dst = DOCS / "quest-lab"
+    if src.exists():
+        if dst.exists():
+            shutil.rmtree(dst)
+        shutil.copytree(src, dst)
+        print(f"Copied standalone Tcl Quest (RPG) -> {dst}")
+
+
 def copy_assets() -> None:
     src = WEBSITE / "assets"
     dst = DOCS / "assets"
@@ -325,9 +339,9 @@ A native Tcl 8.6.6 execution environment compiled to WebAssembly, featuring 18 g
 Interact directly with the embedded runner below, or launch fullscreen in a new tab:
 
 <div style="margin-top: 20px; border: 1px solid var(--tcl-border); border-radius: 12px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.06);">
-  <div style="background: var(--tcl-slate-light); padding: 12px 18px; border-bottom: 1px solid var(--tcl-border); display: flex; justify-content: space-between; align-items: center; font-size: 13px;">
+  <div style="background: var(--tcl-surface); padding: 12px 18px; border-bottom: 1px solid var(--tcl-border); display: flex; justify-content: space-between; align-items: center; font-size: 13px;">
     <span><strong>Tcl WASM Interactive Lab</strong> · Powered by WebAssembly & FanqinZeng Workshop Engine</span>
-    <a href="../wasm-lab/" target="_blank" style="color: var(--teal); font-weight: 600; text-decoration: none;">Launch Fullscreen ↗</a>
+    <a href="../wasm-lab/" target="_blank" style="color: var(--tcl-blue-600); font-weight: 600; text-decoration: none;">Launch Fullscreen ↗</a>
   </div>
   <iframe src="../wasm-lab/" style="width: 100%; height: 880px; border: 0;" title="Tcl WASM Workshop"></iframe>
 </div>
@@ -402,14 +416,168 @@ Interact directly with the embedded runner below, or launch fullscreen in a new 
 可以直接在下方嵌入式工作台中编写并运行 Tcl 代码，也可以点击上方按钮在新标签页中全屏使用：
 
 <div style="margin-top: 20px; border: 1px solid var(--tcl-border); border-radius: 12px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.06);">
-  <div style="background: var(--tcl-slate-light); padding: 12px 18px; border-bottom: 1px solid var(--tcl-border); display: flex; justify-content: space-between; align-items: center; font-size: 13px;">
+  <div style="background: var(--tcl-surface); padding: 12px 18px; border-bottom: 1px solid var(--tcl-border); display: flex; justify-content: space-between; align-items: center; font-size: 13px;">
     <span><strong>Tcl WASM Interactive Lab</strong> · Powered by WebAssembly & FanqinZeng Workshop Engine</span>
-    <a href="../wasm-lab/" target="_blank" style="color: var(--teal); font-weight: 600; text-decoration: none;">新标签页全屏打开 ↗</a>
+    <a href="../wasm-lab/" target="_blank" style="color: var(--tcl-blue-600); font-weight: 600; text-decoration: none;">新标签页全屏打开 ↗</a>
   </div>
   <iframe src="../wasm-lab/" style="width: 100%; height: 880px; border: 0;" title="Tcl WASM Workshop"></iframe>
 </div>
 """
     (DOCS / "workshop.zh.md").write_text(zh_content, encoding="utf-8")
+
+
+def write_quest_pages() -> None:
+    en_content = f"""# 🎮 Tcl Quest — Chip Island Adventure
+
+<div class="tcl-badge-cluster">
+  <span class="tcl-badge purple">Execution-Driven RPG Sandbox</span>
+  <span class="tcl-badge blue">WASM Tcl Engine</span>
+  <span class="tcl-badge green">20 Graduated Levels</span>
+  <span class="tcl-badge amber">Created by Su3037</span>
+</div>
+
+A groundbreaking gamified Tcl adventure created by **@Su3037** (rated **93/100 A+**). Code execution directly drives real-time character animations, visual level progression, interactive dialogues, and boss battles!
+
+<div class="tcl-cta-group" style="margin: 20px 0 28px;">
+  <a href="../quest-lab/index.html" target="_blank" class="tcl-btn tcl-btn-primary" style="font-size: 15px; padding: 12px 24px;">
+    🚀 Launch Fullscreen Quest (Chip Island) ↗
+  </a>
+  <a href="../workshop/" class="tcl-btn tcl-btn-secondary" style="font-size: 15px; padding: 12px 24px;">
+    ⚡ Switch to WASM Workshop →
+  </a>
+  <a href="../exercises/" class="tcl-btn tcl-btn-secondary" style="font-size: 15px; padding: 12px 24px;">
+    🎯 18 Hands-on Exercises →
+  </a>
+</div>
+
+---
+
+## 🗺️ The Four Thematic Worlds
+
+<div class="tcl-pillars">
+  <div class="tcl-pillar-card">
+    <div class="tcl-pillar-icon">🏡</div>
+    <div class="tcl-pillar-title">World 01: Newbie Village (Levels 01–05)</div>
+    <div class="tcl-pillar-desc">
+      Awaken on Chip Island! Master <code>puts</code>, comments, variables, mathematical calculations, and string greetings.
+    </div>
+  </div>
+
+  <div class="tcl-pillar-card">
+    <div class="tcl-pillar-icon">🌲</div>
+    <div class="tcl-pillar-title">World 02: Logic Forest (Levels 06–10)</div>
+    <div class="tcl-pillar-desc">
+      Navigate logic branches with <code>if/else</code>, <code>while</code>, <code>for</code> loops, lists, and procedures.
+    </div>
+  </div>
+
+  <div class="tcl-pillar-card">
+    <div class="tcl-pillar-icon">🔨</div>
+    <div class="tcl-pillar-title">World 03: Tool Workshop (Levels 11–15)</div>
+    <div class="tcl-pillar-desc">
+      Harness industrial tool glue: dictionaries, file streams, regular expressions, namespaces, and runtime introspection.
+    </div>
+  </div>
+
+  <div class="tcl-pillar-card">
+    <div class="tcl-pillar-icon">🏙️</div>
+    <div class="tcl-pillar-title">World 04: Chip City (Levels 16–20)</div>
+    <div class="tcl-pillar-desc">
+      Confront the final Boss! Build an automated digital IC static timing analysis (STA) report parser.
+    </div>
+  </div>
+</div>
+
+---
+
+## 🕹️ Embedded Live Adventure
+
+<div style="margin-top: 20px; border: 1px solid var(--tcl-border); border-radius: 12px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.06);">
+  <div style="background: var(--tcl-surface); padding: 12px 18px; border-bottom: 1px solid var(--tcl-border); display: flex; justify-content: space-between; align-items: center; font-size: 13px;">
+    <span><strong>Tcl Quest Sandbox</strong> · Powered by Su3037 Execution-Driven RPG Engine</span>
+    <a href="../quest-lab/index.html" target="_blank" style="color: var(--tcl-blue-600); font-weight: 600; text-decoration: none;">Launch Fullscreen ↗</a>
+  </div>
+  <iframe src="../quest-lab/index.html" style="width: 100%; height: 860px; border: 0;" title="Tcl Quest Adventure"></iframe>
+</div>
+"""
+    (DOCS / "quest.md").write_text(en_content, encoding="utf-8")
+
+    zh_content = f"""# 🎮 Tcl Quest — 芯片岛实时闯关冒险
+
+<div class="tcl-badge-cluster">
+  <span class="tcl-badge purple">真实代码驱动 live 剧情</span>
+  <span class="tcl-badge blue">WASM Tcl 8.6 原生沙箱</span>
+  <span class="tcl-badge green">20 个渐进冒险关卡</span>
+  <span class="tcl-badge amber">开发者：Su3037 (93分 A+)</span>
+</div>
+
+整合来自 **@Su3037** 的 93 分 A+ 顶级教学创新：**真实 Tcl 代码执行驱动剧情动画**。用户在浏览器中编写并运行的每行代码、每个变量变化，都会实时触发角色走动、对话推进、Boss 挑战与关卡结算！
+
+<div class="tcl-cta-group" style="margin: 20px 0 28px;">
+  <a href="../quest-lab/index.html" target="_blank" class="tcl-btn tcl-btn-primary" style="font-size: 15px; padding: 12px 24px;">
+    🚀 在新标签页全屏开启芯片岛冒险 ↗
+  </a>
+  <a href="../workshop/" class="tcl-btn tcl-btn-secondary" style="font-size: 15px; padding: 12px 24px;">
+    ⚡ 切换至 WASM 自动化工作坊 →
+  </a>
+  <a href="../exercises/" class="tcl-btn tcl-btn-secondary" style="font-size: 15px; padding: 12px 24px;">
+    🎯 浏览 18 项实战练习 →
+  </a>
+</div>
+
+---
+
+## 🗺️ 四大主题冒险世界
+
+<div class="tcl-pillars">
+  <div class="tcl-pillar-card">
+    <div class="tcl-pillar-icon">🏡</div>
+    <div class="tcl-pillar-title">第一世界 · 新手村 (第 01–05 关)</div>
+    <div class="tcl-pillar-desc">
+      在芯片岛醒来！从 <code>puts</code> 打印、注释、变量赋值、数学计算到格式化输出，迈出 Tcl 第一步。
+    </div>
+  </div>
+
+  <div class="tcl-pillar-card">
+    <div class="tcl-pillar-icon">🌲</div>
+    <div class="tcl-pillar-title">第二世界 · 逻辑森林 (第 06–10 关)</div>
+    <div class="tcl-pillar-desc">
+      穿越迷宫般的条件分支：<code>if/else</code>、<code>while</code>、<code>for</code> 循环、列表构建与自定义过程。
+    </div>
+  </div>
+
+  <div class="tcl-pillar-card">
+    <div class="tcl-pillar-icon">🔨</div>
+    <div class="tcl-pillar-title">第三世界 · 工具工坊 (第 11–15 关)</div>
+    <div class="tcl-pillar-desc">
+      掌握芯片胶水语言核心：字典映射、文件 I/O 流、正则表达式提取、命名空间与自省。
+    </div>
+  </div>
+
+  <div class="tcl-pillar-card">
+    <div class="tcl-pillar-icon">🏙️</div>
+    <div class="tcl-pillar-title">第四世界 · 芯片城 (第 16–20 关)</div>
+    <div class="tcl-pillar-desc">
+      迎战终极四大 Boss！亲手搭建数字芯片静态时序分析 (STA) 违规报表自动化分析器。
+    </div>
+  </div>
+</div>
+
+---
+
+## 🕹️ 嵌入式实时冒险沙箱 (Embedded Sandbox)
+
+可以在下方直接闯关，也可以点击上方按钮在新窗口中全屏畅玩：
+
+<div style="margin-top: 20px; border: 1px solid var(--tcl-border); border-radius: 12px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.06);">
+  <div style="background: var(--tcl-surface); padding: 12px 18px; border-bottom: 1px solid var(--tcl-border); display: flex; justify-content: space-between; align-items: center; font-size: 13px;">
+    <span><strong>芯片岛闯关沙箱</strong> · 真实代码驱动剧情 · 进度保存在此浏览器</span>
+    <a href="../quest-lab/index.html" target="_blank" style="color: var(--tcl-blue-600); font-weight: 600; text-decoration: none;">新标签页全屏打开 ↗</a>
+  </div>
+  <iframe src="../quest-lab/index.html" style="width: 100%; height: 860px; border: 0;" title="Tcl Quest Adventure"></iframe>
+</div>
+"""
+    (DOCS / "quest.zh.md").write_text(zh_content, encoding="utf-8")
 
 
 def write_exercises_pages() -> None:
@@ -682,6 +850,7 @@ tclsh solution.tcl
 
 
 def write_homework_pages() -> None:
+    (DOCS / "help").mkdir(parents=True, exist_ok=True)
     src = ROOT / "homework" / "README.md"
     body = ""
     if src.is_file():
@@ -699,6 +868,7 @@ def write_homework_pages() -> None:
 
 
 def write_quiz_pages() -> None:
+    (DOCS / "help").mkdir(parents=True, exist_ok=True)
     en_page = f"""# Chapter Quizzes & Knowledge Checks
 
 <div class="tcl-badge-cluster">
@@ -743,36 +913,45 @@ cd quiz && python3 -m http.server 8082
 
 
 def write_playground_pages() -> None:
-    content = """# Interactive Tcl Web Playground
+    en_header = """# ⚡ Interactive Tcl Web Playground
 
-Run, test, and experiment with Tcl scripts directly in your browser without local installation.
-
-<div style="background: var(--md-code-bg-color, #1d302d); border-radius: 8px; padding: 16px; margin: 20px 0; border: 1px solid var(--tcl-border);">
-  <div style="display: flex; gap: 8px; margin-bottom: 12px; flex-wrap: wrap; align-items: center;">
-    <span style="font-weight: bold; color: var(--teal);">Load Example:</span>
-    <button onclick="loadSnippet('hello')" style="background: var(--tcl-slate-light); color: var(--ink); border: 1px solid var(--tcl-border); border-radius: 4px; padding: 6px 12px; cursor: pointer;">Hello puts</button>
-    <button onclick="loadSnippet('subst')" style="background: var(--tcl-slate-light); color: var(--ink); border: 1px solid var(--tcl-border); border-radius: 4px; padding: 6px 12px; cursor: pointer;">Welch Mental Model</button>
-    <button onclick="loadSnippet('expr')" style="background: var(--tcl-slate-light); color: var(--ink); border: 1px solid var(--tcl-border); border-radius: 4px; padding: 6px 12px; cursor: pointer;">Braced expr</button>
-    <button onclick="loadSnippet('list_dict')" style="background: var(--tcl-slate-light); color: var(--ink); border: 1px solid var(--tcl-border); border-radius: 4px; padding: 6px 12px; cursor: pointer;">List & Dict</button>
-    <button onclick="loadSnippet('timing')" style="background: var(--tcl-slate-light); color: var(--ink); border: 1px solid var(--tcl-border); border-radius: 4px; padding: 6px 12px; cursor: pointer;">STA Slack Parser</button>
-    <button onclick="loadSnippet('drvlite')" style="background: var(--tcl-slate-light); color: var(--ink); border: 1px solid var(--tcl-border); border-radius: 4px; padding: 6px 12px; cursor: pointer;">DRV-Lite Layout</button>
-  </div>
-
-  <textarea id="tcl-code-input" style="width: 100%; height: 200px; font-family: monospace; background: var(--code); color: #e9f1ea; border: 1px solid #334c44; border-radius: 6px; padding: 12px; box-sizing: border-box; font-size: 14px; line-height: 1.5; resize: vertical; outline: none;"></textarea>
-
-  <div style="margin-top: 10px; display: flex; gap: 10px; align-items: center;">
-    <button onclick="runTclCode()" style="background: var(--teal); color: white; border: none; border-radius: 6px; padding: 8px 18px; font-weight: bold; cursor: pointer;">Run Script (Ctrl+Enter)</button>
-    <button onclick="clearOutput()" style="background: transparent; color: var(--muted); border: 1px solid var(--tcl-border); border-radius: 6px; padding: 8px 14px; cursor: pointer;">Clear Output</button>
-    <span id="tcl-status" style="font-size: 13px; color: var(--muted);">Ready</span>
-  </div>
-
-  <div style="margin-top: 14px;">
-    <div style="font-size: 12px; color: var(--muted); margin-bottom: 4px; font-weight: bold;">Standard Output:</div>
-    <pre id="tcl-output" style="background: #0f1c19; color: #a7f3d0; border-radius: 6px; padding: 12px; min-height: 80px; max-height: 250px; overflow-y: auto; font-family: monospace; font-size: 13px; margin: 0; white-space: pre-wrap;"></pre>
-  </div>
+<div class="tcl-badge-cluster">
+  <span class="tcl-badge blue">Zero-Install Runtime</span>
+  <span class="tcl-badge green">Pure JavaScript Engine</span>
+  <span class="tcl-badge purple">Live Syntax Checks</span>
+  <span class="tcl-badge amber">Preset Code Examples</span>
 </div>
 
-<script>
+Test, experiment, and run Tcl scripts directly in your browser without local installation. Load presets below or write custom scripts.
+
+<div style="background: var(--tcl-surface); border: 1px solid var(--tcl-border); border-radius: 12px; padding: 20px; margin: 20px 0; box-shadow: 0 4px 20px rgba(0,0,0,0.06);">
+  <div style="display: flex; gap: 8px; margin-bottom: 14px; flex-wrap: wrap; align-items: center;">
+    <span style="font-weight: 700; font-size: 13px; color: var(--tcl-heading);">Load Presets:</span>
+    <button onclick="loadSnippet('hello')" class="tcl-btn tcl-btn-secondary" style="padding: 5px 12px; font-size: 12px;">01. Hello puts</button>
+    <button onclick="loadSnippet('subst')" class="tcl-btn tcl-btn-secondary" style="padding: 5px 12px; font-size: 12px;">02. Welch Mental Model</button>
+    <button onclick="loadSnippet('expr')" class="tcl-btn tcl-btn-secondary" style="padding: 5px 12px; font-size: 12px;">03. Braced expr</button>
+    <button onclick="loadSnippet('list_dict')" class="tcl-btn tcl-btn-secondary" style="padding: 5px 12px; font-size: 12px;">04. List & Dict</button>
+    <button onclick="loadSnippet('timing')" class="tcl-btn tcl-btn-secondary" style="padding: 5px 12px; font-size: 12px;">05. STA Slack Parser</button>
+    <button onclick="loadSnippet('drvlite')" class="tcl-btn tcl-btn-secondary" style="padding: 5px 12px; font-size: 12px;">06. DRV-Lite Layout</button>
+  </div>
+
+  <textarea id="tcl-code-input" style="width: 100%; height: 210px; font-family: 'JetBrains Mono', monospace; background: #0f172a; color: #f8fafc; border: 1px solid var(--tcl-border); border-radius: 8px; padding: 14px; box-sizing: border-box; font-size: 13.5px; line-height: 1.6; resize: vertical; outline: none;"></textarea>
+
+  <div style="margin-top: 12px; display: flex; gap: 10px; align-items: center; justify-content: space-between; flex-wrap: wrap;">
+    <div style="display: flex; gap: 10px; align-items: center;">
+      <button onclick="runTclCode()" class="tcl-btn tcl-btn-primary" style="padding: 8px 20px; font-size: 13px;">▶ Run Script (Ctrl+Enter)</button>
+      <button onclick="clearOutput()" class="tcl-btn tcl-btn-secondary" style="padding: 8px 14px; font-size: 13px;">Clear Console</button>
+    </div>
+    <span id="tcl-status" style="font-size: 12px; color: #10b981; font-weight: 600;">Ready</span>
+  </div>
+
+  <div style="margin-top: 16px;">
+    <div style="font-size: 12px; color: var(--md-default-fg-color--lighter); margin-bottom: 6px; font-weight: 700;">Standard Console Output:</div>
+    <pre id="tcl-output" style="background: #020617; color: #34d399; border: 1px solid #1e293b; border-radius: 8px; padding: 14px; min-height: 90px; max-height: 250px; overflow-y: auto; font-family: 'JetBrains Mono', monospace; font-size: 13px; margin: 0; white-space: pre-wrap; line-height: 1.5;"></pre>
+  </div>
+</div>
+"""
+    script_part = """<script>
 const snippets = {
   hello: `# 01. Hello puts & Variables
 set course "Tcl for VLSI"
@@ -965,169 +1144,814 @@ function runTclCode() {
 
 window.addEventListener('DOMContentLoaded', () => loadSnippet('hello'));
 </script>
+"""
+    zh_header = """# ⚡ Tcl 在线快速演练台 (Interactive Playground)
 
+<div class="tcl-badge-cluster">
+  <span class="tcl-badge blue">免安装在线运行</span>
+  <span class="tcl-badge green">纯前端即时执行</span>
+  <span class="tcl-badge purple">实时语法校验</span>
+  <span class="tcl-badge amber">内置经典示例</span>
+</div>
+
+无需本地安装任何环境，直接在浏览器中编写、测试并运行 Tcl 脚本。可在上方点击加载预设示例，或自由编辑代码体验。
+
+<div style="background: var(--tcl-surface); border: 1px solid var(--tcl-border); border-radius: 12px; padding: 20px; margin: 20px 0; box-shadow: 0 4px 20px rgba(0,0,0,0.06);">
+  <div style="display: flex; gap: 8px; margin-bottom: 14px; flex-wrap: wrap; align-items: center;">
+    <span style="font-weight: 700; font-size: 13px; color: var(--tcl-heading);">加载示例预设:</span>
+    <button onclick="loadSnippet('hello')" class="tcl-btn tcl-btn-secondary" style="padding: 5px 12px; font-size: 12px;">01. Hello puts</button>
+    <button onclick="loadSnippet('subst')" class="tcl-btn tcl-btn-secondary" style="padding: 5px 12px; font-size: 12px;">02. 置换心智模型</button>
+    <button onclick="loadSnippet('expr')" class="tcl-btn tcl-btn-secondary" style="padding: 5px 12px; font-size: 12px;">03. 安全花括号 expr</button>
+    <button onclick="loadSnippet('list_dict')" class="tcl-btn tcl-btn-secondary" style="padding: 5px 12px; font-size: 12px;">04. 列表与字典</button>
+    <button onclick="loadSnippet('timing')" class="tcl-btn tcl-btn-secondary" style="padding: 5px 12px; font-size: 12px;">05. STA 时序解析</button>
+    <button onclick="loadSnippet('drvlite')" class="tcl-btn tcl-btn-secondary" style="padding: 5px 12px; font-size: 12px;">06. DRV-Lite 版图</button>
+  </div>
+
+  <textarea id="tcl-code-input" style="width: 100%; height: 210px; font-family: 'JetBrains Mono', monospace; background: #0f172a; color: #f8fafc; border: 1px solid var(--tcl-border); border-radius: 8px; padding: 14px; box-sizing: border-box; font-size: 13.5px; line-height: 1.6; resize: vertical; outline: none;"></textarea>
+
+  <div style="margin-top: 12px; display: flex; gap: 10px; align-items: center; justify-content: space-between; flex-wrap: wrap;">
+    <div style="display: flex; gap: 10px; align-items: center;">
+      <button onclick="runTclCode()" class="tcl-btn tcl-btn-primary" style="padding: 8px 20px; font-size: 13px;">▶ 运行脚本 (Ctrl+Enter)</button>
+      <button onclick="clearOutput()" class="tcl-btn tcl-btn-secondary" style="padding: 8px 14px; font-size: 13px;">清空控制台</button>
+    </div>
+    <span id="tcl-status" style="font-size: 12px; color: #10b981; font-weight: 600;">就绪</span>
+  </div>
+
+  <div style="margin-top: 16px;">
+    <div style="font-size: 12px; color: var(--md-default-fg-color--lighter); margin-bottom: 6px; font-weight: 700;">标准控制台输出:</div>
+    <pre id="tcl-output" style="background: #020617; color: #34d399; border: 1px solid #1e293b; border-radius: 8px; padding: 14px; min-height: 90px; max-height: 250px; overflow-y: auto; font-family: 'JetBrains Mono', monospace; font-size: 13px; margin: 0; white-space: pre-wrap; line-height: 1.5;"></pre>
+  </div>
+</div>
+"""
+    en_footer = """
 ---
 
 ## Standalone WebAssembly Tcl IDE
 
 Looking for full in-browser test grading, step-by-step interactive debugging, and memory table inspector? Launch the [🚀 Interactive Workshop (WASM)](workshop.md).
 """
-    (DOCS / "playground.md").write_text(content, encoding="utf-8")
-    (DOCS / "playground.zh.md").write_text(content, encoding="utf-8")
+    zh_footer = """
+---
+
+## 独立 WebAssembly 完整 Tcl IDE
+
+如需包含 18 项实战评测、变量内存树监视器与单步断点调试的完整开发环境，请启动 [🚀 交互工作坊 (WASM)](workshop.md)。
+"""
+    (DOCS / "playground.md").write_text(en_header + "\n" + script_part + "\n" + en_footer, encoding="utf-8")
+    (DOCS / "playground.zh.md").write_text(zh_header + "\n" + script_part + "\n" + zh_footer, encoding="utf-8")
+
+
+def write_layout_viewer_pages() -> None:
+    (DOCS / "help").mkdir(parents=True, exist_ok=True)
+    en_content = """# 📐 Interactive VLSI Layout Visualizer (DRV-Lite Simulator)
+
+<div class="tcl-badge-cluster">
+  <span class="tcl-badge blue">DRV-Lite Pure-Tcl Engine</span>
+  <span class="tcl-badge green">Zero Commercial License</span>
+  <span class="tcl-badge cyan">Interactive 2D Canvas</span>
+  <span class="tcl-badge purple">GDS II / OASIS Ready</span>
+</div>
+
+A real-time in-browser semiconductor layout visualizer inspired by Capeur's pure-Tcl **DRV-Lite** engine. Inspect multi-layer IC cell geometries, toggle metal routing tracks, observe bounding box snaps, and execute Tcl layout commands directly in the browser!
+
+---
+
+<div class="layout-viewer-container" style="background: var(--tcl-surface); border: 1px solid var(--tcl-border); border-radius: 12px; padding: 20px; margin: 24px 0; box-shadow: 0 4px 20px rgba(0,0,0,0.06);">
+  
+  <!-- Toolbar -->
+  <div style="display: flex; gap: 12px; flex-wrap: wrap; align-items: center; justify-content: space-between; margin-bottom: 14px;">
+    <div style="display: flex; gap: 8px; align-items: center; flex-wrap: wrap;">
+      <span style="font-weight: 700; font-size: 13px; color: var(--md-default-fg-color);">Cell Preset:</span>
+      <select id="cellPresetSelect" onchange="loadLayoutPreset(this.value)" style="background: var(--md-default-bg-color); color: var(--md-default-fg-color); border: 1px solid var(--tcl-border); border-radius: 6px; padding: 6px 12px; font-size: 13px; cursor: pointer; outline: none;">
+        <option value="inv">CMOS Inverter (INV_X1)</option>
+        <option value="nand2">2-Input NAND (NAND2_X1)</option>
+        <option value="routing">M1/M2 Cross-Routing with VIA1</option>
+        <option value="pad">I/O Bond Pad & Guard Ring</option>
+      </select>
+    </div>
+
+    <div style="display: flex; gap: 6px; align-items: center;">
+      <button onclick="zoomCanvas(1.2)" class="tcl-btn tcl-btn-secondary" style="padding: 4px 10px; font-size: 13px;">🔍+ Zoom In</button>
+      <button onclick="zoomCanvas(0.8)" class="tcl-btn tcl-btn-secondary" style="padding: 4px 10px; font-size: 13px;">🔍- Zoom Out</button>
+      <button onclick="resetCanvas()" class="tcl-btn tcl-btn-secondary" style="padding: 4px 10px; font-size: 13px;">⟲ Reset</button>
+      <button id="gridToggleBtn" onclick="toggleGrid()" class="tcl-btn tcl-btn-secondary" style="padding: 4px 10px; font-size: 13px;">Grid: ON</button>
+      <button id="bboxToggleBtn" onclick="toggleBBox()" class="tcl-btn tcl-btn-secondary" style="padding: 4px 10px; font-size: 13px;">BBox: ON</button>
+    </div>
+  </div>
+
+  <!-- Layer Filter Palette -->
+  <div style="display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 12px; padding: 8px 12px; background: var(--md-default-bg-color); border: 1px solid var(--tcl-border); border-radius: 6px; font-size: 12px;">
+    <span style="font-weight: 700; align-self: center;">Layers:</span>
+    <label style="cursor: pointer; display: flex; align-items: center; gap: 4px;"><input type="checkbox" checked onchange="toggleLayer(1, this.checked)"> <span style="display:inline-block; width:10px; height:10px; background:#f59e0b; border-radius:2px;"></span> NWEL (1)</label>
+    <label style="cursor: pointer; display: flex; align-items: center; gap: 4px;"><input type="checkbox" checked onchange="toggleLayer(2, this.checked)"> <span style="display:inline-block; width:10px; height:10px; background:#10b981; border-radius:2px;"></span> DIFF (2)</label>
+    <label style="cursor: pointer; display: flex; align-items: center; gap: 4px;"><input type="checkbox" checked onchange="toggleLayer(3, this.checked)"> <span style="display:inline-block; width:10px; height:10px; background:#ef4444; border-radius:2px;"></span> POLY (3)</label>
+    <label style="cursor: pointer; display: flex; align-items: center; gap: 4px;"><input type="checkbox" checked onchange="toggleLayer(4, this.checked)"> <span style="display:inline-block; width:10px; height:10px; background:#94a3b8; border-radius:2px;"></span> CONT (4)</label>
+    <label style="cursor: pointer; display: flex; align-items: center; gap: 4px;"><input type="checkbox" checked onchange="toggleLayer(5, this.checked)"> <span style="display:inline-block; width:10px; height:10px; background:#3b82f6; border-radius:2px;"></span> M1 (5)</label>
+    <label style="cursor: pointer; display: flex; align-items: center; gap: 4px;"><input type="checkbox" checked onchange="toggleLayer(6, this.checked)"> <span style="display:inline-block; width:10px; height:10px; background:#ec4899; border-radius:2px;"></span> VIA1 (6)</label>
+    <label style="cursor: pointer; display: flex; align-items: center; gap: 4px;"><input type="checkbox" checked onchange="toggleLayer(7, this.checked)"> <span style="display:inline-block; width:10px; height:10px; background:#06b6d4; border-radius:2px;"></span> M2 (7)</label>
+  </div>
+
+  <!-- HTML5 Canvas Visualizer -->
+  <div style="position: relative; width: 100%; border-radius: 8px; overflow: hidden; border: 1px solid var(--tcl-border);">
+    <canvas id="chipCanvas" width="840" height="420" style="width: 100%; height: 420px; background: #070d18; display: block; cursor: crosshair;"></canvas>
+    
+    <!-- Floating Coordinate Overlay -->
+    <div id="coordOverlay" style="position: absolute; bottom: 8px; left: 8px; background: rgba(15, 23, 42, 0.85); color: #94a3b8; font-family: monospace; font-size: 11px; padding: 4px 10px; border-radius: 4px; pointer-events: none; border: 1px solid rgba(255,255,255,0.1);">
+      Cursor: X: 0.00 um, Y: 0.00 um | BBox: [0.0 0.0 1200.0 650.0] | Scale: 1.0x
+    </div>
+  </div>
+
+  <!-- Interactive Tcl Command Line -->
+  <div style="margin-top: 16px; display: flex; gap: 8px; flex-wrap: wrap;">
+    <input type="text" id="tclLayoutCmdInput" value="$L create box TOP 5 150 200 550 450" style="flex: 1; min-width: 280px; background: var(--md-code-bg-color); color: #f8fafc; border: 1px solid var(--tcl-border); border-radius: 6px; padding: 10px 14px; font-family: monospace; font-size: 13px; outline: none;">
+    <button onclick="executeLayoutCmd()" class="tcl-btn tcl-btn-primary" style="padding: 10px 18px; font-size: 13px;">⚡ Execute Tcl Command</button>
+  </div>
+  <div id="layoutCmdLog" style="margin-top: 8px; font-family: monospace; font-size: 12px; color: #10b981;">Ready. Select a preset cell or enter a layout command.</div>
+</div>
+
+<script>
+const canvas = document.getElementById('chipCanvas');
+const ctx = canvas.getContext('2d');
+let zoom = 1.0;
+let panX = 120, panY = 70;
+let showGrid = true;
+let showBBox = true;
+
+const layerColors = {
+  1: 'rgba(245, 158, 11, 0.45)',  // NWEL
+  2: 'rgba(16, 185, 129, 0.55)',  // DIFF
+  3: 'rgba(239, 68, 68, 0.70)',   // POLY
+  4: 'rgba(148, 163, 184, 0.85)', // CONT
+  5: 'rgba(59, 130, 246, 0.65)',  // M1
+  6: 'rgba(236, 72, 153, 0.85)',  // VIA1
+  7: 'rgba(6, 182, 212, 0.65)'    // M2
+};
+
+const layerVisible = { 1: true, 2: true, 3: true, 4: true, 5: true, 6: true, 7: true };
+
+let currentGeoms = [];
+
+const cellPresets = {
+  inv: [
+    { layer: 1, x: 50, y: 150, w: 500, h: 250, label: 'NWEL' },
+    { layer: 2, x: 80, y: 50, w: 440, h: 80, label: 'DIFF (NMOS)' },
+    { layer: 2, x: 80, y: 200, w: 440, h: 160, label: 'DIFF (PMOS)' },
+    { layer: 3, x: 250, y: 30, w: 60, h: 360, label: 'POLY (GATE)' },
+    { layer: 4, x: 120, y: 70, w: 30, h: 30 },
+    { layer: 4, x: 420, y: 70, w: 30, h: 30 },
+    { layer: 4, x: 120, y: 260, w: 30, h: 30 },
+    { layer: 4, x: 420, y: 260, w: 30, h: 30 },
+    { layer: 5, x: 30, y: 370, w: 540, h: 50, label: 'M1 (VDD RAIL)' },
+    { layer: 5, x: 30, y: 10, w: 540, h: 50, label: 'M1 (GND RAIL)' },
+    { layer: 5, x: 390, y: 60, w: 90, h: 260, label: 'M1 (OUT)' }
+  ],
+  nand2: [
+    { layer: 1, x: 50, y: 160, w: 650, h: 240, label: 'NWEL' },
+    { layer: 2, x: 80, y: 50, w: 580, h: 90, label: 'DIFF (NMOS)' },
+    { layer: 2, x: 80, y: 210, w: 580, h: 160, label: 'DIFF (PMOS)' },
+    { layer: 3, x: 220, y: 30, w: 50, h: 360, label: 'POLY (IN_A)' },
+    { layer: 3, x: 420, y: 30, w: 50, h: 360, label: 'POLY (IN_B)' },
+    { layer: 5, x: 30, y: 380, w: 700, h: 50, label: 'M1 (VDD)' },
+    { layer: 5, x: 30, y: 10, w: 700, h: 50, label: 'M1 (GND)' },
+    { layer: 5, x: 520, y: 60, w: 80, h: 280, label: 'M1 (OUT)' }
+  ],
+  routing: [
+    { layer: 5, x: 50, y: 100, w: 600, h: 40, label: 'M1_TRACK_0' },
+    { layer: 5, x: 50, y: 220, w: 600, h: 40, label: 'M1_TRACK_1' },
+    { layer: 5, x: 50, y: 340, w: 600, h: 40, label: 'M1_TRACK_2' },
+    { layer: 6, x: 180, y: 105, w: 30, h: 30, label: 'VIA1' },
+    { layer: 6, x: 400, y: 225, w: 30, h: 30, label: 'VIA1' },
+    { layer: 7, x: 175, y: 40, w: 40, h: 340, label: 'M2_VERTICAL_0' },
+    { layer: 7, x: 395, y: 160, w: 40, h: 220, label: 'M2_VERTICAL_1' }
+  ],
+  pad: [
+    { layer: 1, x: 60, y: 60, w: 580, h: 320, label: 'NWEL GUARD' },
+    { layer: 2, x: 80, y: 80, w: 540, h: 280, label: 'GUARD RING' },
+    { layer: 5, x: 120, y: 120, w: 460, h: 200, label: 'M1 METAL' },
+    { layer: 6, x: 160, y: 160, w: 380, h: 120, label: 'VIA1 ARRAY' },
+    { layer: 7, x: 140, y: 140, w: 420, h: 160, label: 'M2 BOND PAD' }
+  ]
+};
+
+function renderLayout() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+  // Draw Grid
+  if (showGrid) {
+    ctx.strokeStyle = 'rgba(255, 255, 255, 0.05)';
+    ctx.lineWidth = 1;
+    const step = 40 * zoom;
+    for (let x = panX % step; x < canvas.width; x += step) {
+      ctx.beginPath(); ctx.moveTo(x, 0); ctx.lineTo(x, canvas.height); ctx.stroke();
+    }
+    for (let y = panY % step; y < canvas.height; y += step) {
+      ctx.beginPath(); ctx.moveTo(0, y); ctx.lineTo(canvas.width, y); ctx.stroke();
+    }
+  }
+
+  // Draw Geometries
+  let minX = Infinity, minY = Infinity, maxX = -Infinity, maxY = -Infinity;
+
+  currentGeoms.forEach(g => {
+    if (!layerVisible[g.layer]) return;
+    minX = Math.min(minX, g.x);
+    minY = Math.min(minY, g.y);
+    maxX = Math.max(maxX, g.x + g.w);
+    maxY = Math.max(maxY, g.y + g.h);
+
+    const rx = panX + g.x * zoom * 0.7;
+    const ry = panY + g.y * zoom * 0.7;
+    const rw = g.w * zoom * 0.7;
+    const rh = g.h * zoom * 0.7;
+
+    ctx.fillStyle = layerColors[g.layer] || '#38bdf8';
+    ctx.fillRect(rx, ry, rw, rh);
+    ctx.strokeStyle = '#ffffff';
+    ctx.lineWidth = 0.8;
+    ctx.strokeRect(rx, ry, rw, rh);
+
+    if (g.label && rw > 40) {
+      ctx.fillStyle = '#ffffff';
+      ctx.font = '10px monospace';
+      ctx.fillText(g.label, rx + 4, ry + 12);
+    }
+  });
+
+  // Draw Bounding Box
+  if (showBBox && minX !== Infinity) {
+    const bx = panX + minX * zoom * 0.7;
+    const by = panY + minY * zoom * 0.7;
+    const bw = (maxX - minX) * zoom * 0.7;
+    const bh = (maxY - minY) * zoom * 0.7;
+    ctx.strokeStyle = '#f59e0b';
+    ctx.lineWidth = 1.5;
+    ctx.setLineDash([5, 5]);
+    ctx.strokeRect(bx, by, bw, bh);
+    ctx.setLineDash([]);
+    ctx.fillStyle = '#f59e0b';
+    ctx.font = '11px monospace';
+    ctx.fillText(`BBox: [${minX} ${minY} ${maxX} ${maxY}]`, bx + 4, by - 4);
+    document.getElementById('coordOverlay').innerText = 
+      `BBox: [${minX} ${minY} ${maxX} ${maxY}] | Entities: ${currentGeoms.length} | Zoom: ${(zoom*100).toFixed(0)}%`;
+  }
+}
+
+function loadLayoutPreset(name) {
+  currentGeoms = cellPresets[name] ? [...cellPresets[name]] : [];
+  renderLayout();
+  document.getElementById('layoutCmdLog').innerText = `Loaded preset: ${name} with ${currentGeoms.length} shapes.`;
+}
+
+function toggleLayer(layer, vis) {
+  layerVisible[layer] = vis;
+  renderLayout();
+}
+
+function zoomCanvas(factor) {
+  zoom = Math.max(0.4, Math.min(3.0, zoom * factor));
+  renderLayout();
+}
+
+function resetCanvas() {
+  zoom = 1.0; panX = 120; panY = 70;
+  renderLayout();
+}
+
+function toggleGrid() {
+  showGrid = !showGrid;
+  document.getElementById('gridToggleBtn').innerText = 'Grid: ' + (showGrid ? 'ON' : 'OFF');
+  renderLayout();
+}
+
+function toggleBBox() {
+  showBBox = !showBBox;
+  document.getElementById('bboxToggleBtn').innerText = 'BBox: ' + (showBBox ? 'ON' : 'OFF');
+  renderLayout();
+}
+
+function executeLayoutCmd() {
+  const cmd = document.getElementById('tclLayoutCmdInput').value.trim();
+  const log = document.getElementById('layoutCmdLog');
+  const m = cmd.match(/create\\s+box\\s+(\\w+)\\s+(\\d+)\\s+(\\d+)\\s+(\\d+)\\s+(\\d+)\\s+(\\d+)/i);
+  if (m) {
+    const layer = parseInt(m[2]);
+    const x1 = parseInt(m[3]), y1 = parseInt(m[4]), x2 = parseInt(m[5]), y2 = parseInt(m[6]);
+    currentGeoms.push({ layer, x: x1, y: y1, w: Math.abs(x2 - x1), h: Math.abs(y2 - y1), label: `L${layer}_BOX` });
+    renderLayout();
+    log.innerText = `[DRV-Lite Engine]: Successfully created box on layer ${layer} [${x1} ${y1} ${x2} ${y2}].`;
+  } else {
+    log.innerText = `[Syntax]: Use format -> $L create box TOP <layer> <x1> <y1> <x2> <y2>`;
+  }
+}
+
+canvas.addEventListener('mousemove', e => {
+  const rect = canvas.getBoundingClientRect();
+  const mx = (e.clientX - rect.left - panX) / (zoom * 0.7);
+  const my = (e.clientY - rect.top - panY) / (zoom * 0.7);
+  document.getElementById('coordOverlay').innerText = 
+    `Cursor: X: ${mx.toFixed(1)} um, Y: ${my.toFixed(1)} um | Zoom: ${(zoom*100).toFixed(0)}%`;
+});
+
+window.addEventListener('DOMContentLoaded', () => loadLayoutPreset('inv'));
+</script>
+"""
+    zh_content = (en_content
+        .replace("# 📐 Interactive VLSI Layout Visualizer (DRV-Lite Simulator)", "# 📐 交互式 VLSI 版图可视化仿真器 (DRV-Lite Simulator)")
+        .replace("A real-time in-browser semiconductor layout visualizer inspired by Capeur's pure-Tcl **DRV-Lite** engine. Inspect multi-layer IC cell geometries, toggle metal routing tracks, observe bounding box snaps, and execute Tcl layout commands directly in the browser!",
+                 "基于 Capeur 纯 Tcl 实现的 **DRV-Lite** 核心版图对象模型，本工具提供浏览器内实时 2D 半导体版图渲染与交互。支持查看多层 IC 几何体、切换金属布线层、检查包围盒坐标（Bounding Box），并可在底部直接运行纯 Tcl 版图创建命令！")
+        .replace("Cell Preset:", "单元预设:")
+        .replace("CMOS Inverter (INV_X1)", "CMOS 反相器 (INV_X1)")
+        .replace("2-Input NAND (NAND2_X1)", "2输入与非门 (NAND2_X1)")
+        .replace("M1/M2 Cross-Routing with VIA1", "M1/M2 跨层布线与 VIA1 通孔")
+        .replace("I/O Bond Pad & Guard Ring", "I/O 压焊盘与保护环 (Guard Ring)")
+        .replace("Layers:", "图层列表:")
+        .replace("⚡ Execute Tcl Command", "⚡ 执行 Tcl 布局命令")
+        .replace("DRV-Lite Pure-Tcl Engine", "DRV-Lite 纯 Tcl 引擎")
+        .replace("Zero Commercial License", "零商业许可依赖")
+        .replace("Interactive 2D Canvas", "HTML5 2D 交互画布")
+        .replace("GDS II / OASIS Ready", "支持 GDS II / OASIS")
+    )
+    (DOCS / "help" / "layout_viewer.md").write_text(en_content, encoding="utf-8")
+    (DOCS / "help" / "layout_viewer.zh.md").write_text(zh_content, encoding="utf-8")
+
+
+def write_timing_calculator_pages() -> None:
+    (DOCS / "help").mkdir(parents=True, exist_ok=True)
+    en_content = """# ⚡ Interactive STA Timing Slack & WNS/TNS Gatekeeper
+
+<div class="tcl-badge-cluster">
+  <span class="tcl-badge blue">Static Timing Analysis (STA)</span>
+  <span class="tcl-badge green">Worst Negative Slack (WNS)</span>
+  <span class="tcl-badge purple">Total Negative Slack (TNS)</span>
+  <span class="tcl-badge amber">Tapeout Sign-Off Gatekeeper</span>
+</div>
+
+Interactive digital IC timing sign-off simulator. Adjust clock parameters, wire delays, setup times, and uncertainty to observe Slack calculations in real time, visualize timing margin gauges, and test tapeout pass/fail criteria!
+
+---
+
+<div class="timing-calculator-container" style="background: var(--tcl-surface); border: 1px solid var(--tcl-border); border-radius: 12px; padding: 24px; margin: 24px 0; box-shadow: 0 4px 20px rgba(0,0,0,0.06);">
+  
+  <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 24px;">
+    <!-- Sliders Column -->
+    <div>
+      <h3 style="margin-top:0; font-size:16px;">⏱️ Timing Constraints & Delays</h3>
+      
+      <div style="margin-bottom: 14px;">
+        <div style="display:flex; justify-content:space-between; font-size:13px; font-weight:600;">
+          <span>Target Clock Period ($T_{clk}$):</span>
+          <span id="val_clk" style="color:var(--tcl-blue-600);">1.00 ns (1000 MHz)</span>
+        </div>
+        <input type="range" id="input_clk" min="0.5" max="3.0" step="0.05" value="1.0" oninput="recalcTiming()" style="width:100%; cursor:pointer;">
+      </div>
+
+      <div style="margin-bottom: 14px;">
+        <div style="display:flex; justify-content:space-between; font-size:13px; font-weight:600;">
+          <span>Data Path Delay ($T_{data}$):</span>
+          <span id="val_data" style="color:var(--tcl-blue-600);">720 ps</span>
+        </div>
+        <input type="range" id="input_data" min="200" max="1600" step="10" value="720" oninput="recalcTiming()" style="width:100%; cursor:pointer;">
+      </div>
+
+      <div style="margin-bottom: 14px;">
+        <div style="display:flex; justify-content:space-between; font-size:13px; font-weight:600;">
+          <span>Clock-to-Q Delay ($T_{clk-q}$):</span>
+          <span id="val_clk_q" style="color:var(--tcl-blue-600);">90 ps</span>
+        </div>
+        <input type="range" id="input_clk_q" min="20" max="250" step="5" value="90" oninput="recalcTiming()" style="width:100%; cursor:pointer;">
+      </div>
+
+      <div style="margin-bottom: 14px;">
+        <div style="display:flex; justify-content:space-between; font-size:13px; font-weight:600;">
+          <span>Library Setup Time ($T_{setup}$):</span>
+          <span id="val_setup" style="color:var(--tcl-blue-600);">50 ps</span>
+        </div>
+        <input type="range" id="input_setup" min="10" max="150" step="5" value="50" oninput="recalcTiming()" style="width:100%; cursor:pointer;">
+      </div>
+
+      <div style="margin-bottom: 14px;">
+        <div style="display:flex; justify-content:space-between; font-size:13px; font-weight:600;">
+          <span>Clock Uncertainty / Jitter ($T_{unc}$):</span>
+          <span id="val_unc" style="color:var(--tcl-blue-600);">40 ps</span>
+        </div>
+        <input type="range" id="input_unc" min="0" max="150" step="5" value="40" oninput="recalcTiming()" style="width:100%; cursor:pointer;">
+      </div>
+    </div>
+
+    <!-- Live Equation & Verdict Column -->
+    <div style="background: var(--md-default-bg-color); border: 1px solid var(--tcl-border); border-radius: 10px; padding: 20px; display: flex; flex-direction: column; justify-content: space-between;">
+      <div>
+        <h3 style="margin-top:0; font-size:16px;">📊 Setup Slack Equation</h3>
+        <div style="font-family:monospace; font-size:12px; background:var(--tcl-surface); padding:10px; border-radius:6px; line-height:1.6; border:1px solid var(--tcl-border);">
+          <div>Required = T_clk - T_unc - T_setup = <span id="eq_req">910 ps</span></div>
+          <div>Arrival  = T_clk_q + T_data       = <span id="eq_arr">810 ps</span></div>
+          <div style="border-top:1px dashed var(--tcl-border); margin-top:6px; padding-top:6px; font-weight:bold; font-size:13px;">
+            Slack = Required - Arrival = <span id="eq_slack" style="color:#10b981;">+100 ps (+0.100 ns)</span>
+          </div>
+        </div>
+
+        <!-- Animated Gauge Bar -->
+        <div style="margin-top: 18px;">
+          <div style="display:flex; justify-content:space-between; font-size:12px; margin-bottom:4px; font-weight:600;">
+            <span>Timing Margin Gauge:</span>
+            <span id="gaugeStatusText" style="color:#10b981;">Positive Slack (+100 ps)</span>
+          </div>
+          <div style="width:100%; height:14px; background:rgba(0,0,0,0.1); border-radius:7px; overflow:hidden; position:relative;">
+            <div id="gaugeBar" style="width:65%; height:100%; background:#10b981; transition:all 0.2s ease;"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Verdict Stamp -->
+      <div id="signoffStamp" style="margin-top:20px; padding:16px; border-radius:8px; text-align:center; font-weight:800; font-size:15px; background:rgba(16, 185, 129, 0.12); color:#10b981; border:2px solid #10b981; letter-spacing:0.5px;">
+        🛡️ TIMING MET · APPROVED FOR TAPEOUT
+      </div>
+    </div>
+  </div>
+
+  <!-- Multi-Path Scenario Table -->
+  <div style="margin-top: 24px;">
+    <h3 style="font-size:15px; margin-bottom:10px;">📋 Multi-Path Sign-off Summary (Critical Path Group)</h3>
+    <table style="width:100%; font-size:13px; border-collapse:collapse;">
+      <thead>
+        <tr style="background:var(--md-default-bg-color); text-align:left;">
+          <th style="padding:8px 12px; border:1px solid var(--tcl-border);">Path Endpoint</th>
+          <th style="padding:8px 12px; border:1px solid var(--tcl-border);">Data Delay</th>
+          <th style="padding:8px 12px; border:1px solid var(--tcl-border);">Arrival</th>
+          <th style="padding:8px 12px; border:1px solid var(--tcl-border);">Slack</th>
+          <th style="padding:8px 12px; border:1px solid var(--tcl-border);">Status</th>
+        </tr>
+      </thead>
+      <tbody id="multiPathTable">
+        <!-- Rendered dynamically -->
+      </tbody>
+    </table>
+    <div style="margin-top:10px; display:flex; gap:20px; font-size:13px; font-family:monospace; font-weight:bold;">
+      <span>WNS (Worst Negative Slack): <span id="summary_wns" style="color:#10b981;">0.000 ns</span></span>
+      <span>TNS (Total Negative Slack): <span id="summary_tns" style="color:#10b981;">0.000 ns</span></span>
+    </div>
+  </div>
+</div>
+
+<script>
+function recalcTiming() {
+  const t_clk = parseFloat(document.getElementById('input_clk').value) * 1000;
+  const t_data = parseFloat(document.getElementById('input_data').value);
+  const t_clk_q = parseFloat(document.getElementById('input_clk_q').value);
+  const t_setup = parseFloat(document.getElementById('input_setup').value);
+  const t_unc = parseFloat(document.getElementById('input_unc').value);
+
+  document.getElementById('val_clk').innerText = (t_clk / 1000).toFixed(2) + ' ns (' + (1000000 / t_clk).toFixed(0) + ' MHz)';
+  document.getElementById('val_data').innerText = t_data.toFixed(0) + ' ps';
+  document.getElementById('val_clk_q').innerText = t_clk_q.toFixed(0) + ' ps';
+  document.getElementById('val_setup').innerText = t_setup.toFixed(0) + ' ps';
+  document.getElementById('val_unc').innerText = t_unc.toFixed(0) + ' ps';
+
+  const req = t_clk - t_unc - t_setup;
+  const arr = t_clk_q + t_data;
+  const slack = req - arr;
+
+  document.getElementById('eq_req').innerText = req.toFixed(0) + ' ps';
+  document.getElementById('eq_arr').innerText = arr.toFixed(0) + ' ps';
+  
+  const slackElem = document.getElementById('eq_slack');
+  const stamp = document.getElementById('signoffStamp');
+  const bar = document.getElementById('gaugeBar');
+  const gaugeText = document.getElementById('gaugeStatusText');
+
+  if (slack >= 0) {
+    slackElem.innerText = `+${slack.toFixed(0)} ps (+${(slack/1000).toFixed(3)} ns)`;
+    slackElem.style.color = '#10b981';
+    gaugeText.innerText = `Positive Slack (+${slack.toFixed(0)} ps)`;
+    gaugeText.style.color = '#10b981';
+    bar.style.background = '#10b981';
+    bar.style.width = Math.min(100, Math.max(10, (slack / 500) * 100)) + '%';
+    stamp.innerHTML = '🛡️ TIMING MET · APPROVED FOR TAPEOUT';
+    stamp.style.color = '#10b981';
+    stamp.style.borderColor = '#10b981';
+    stamp.style.background = 'rgba(16, 185, 129, 0.12)';
+  } else {
+    slackElem.innerText = `${slack.toFixed(0)} ps (${(slack/1000).toFixed(3)} ns)`;
+    slackElem.style.color = '#ef4444';
+    gaugeText.innerText = `TIMING VIOLATION (${slack.toFixed(0)} ps)`;
+    gaugeText.style.color = '#ef4444';
+    bar.style.background = '#ef4444';
+    bar.style.width = Math.min(100, Math.max(15, (Math.abs(slack) / 500) * 100)) + '%';
+    stamp.innerHTML = '⚠️ TIMING VIOLATION · TAPEOUT GATE BLOCKED';
+    stamp.style.color = '#ef4444';
+    stamp.style.borderColor = '#ef4444';
+    stamp.style.background = 'rgba(239, 68, 68, 0.12)';
+  }
+
+  // Update multi-path scenarios
+  updateMultiPaths(req, t_clk_q);
+}
+
+function updateMultiPaths(req, clk_q) {
+  const paths = [
+    { name: 'u_alu/adder_reg_31/D', data: 720 },
+    { name: 'u_fsm/state_next_reg/D', data: 540 },
+    { name: 'u_cache/tag_match_reg/D', data: 890 },
+    { name: 'u_mmu/tlb_hit_reg/D', data: 630 },
+    { name: 'u_io/uart_tx_shift_reg/D', data: 410 }
+  ];
+
+  let wns = 0, tns = 0;
+  let rows = '';
+
+  paths.forEach(p => {
+    const arr = clk_q + p.data;
+    const slack = (req - arr) / 1000;
+    if (slack < 0) {
+      wns = Math.min(wns, slack);
+      tns += slack;
+    }
+    const isMet = slack >= 0;
+    rows += `<tr>
+      <td style="padding:6px 12px; border:1px solid var(--tcl-border); font-family:monospace;">${p.name}</td>
+      <td style="padding:6px 12px; border:1px solid var(--tcl-border);">${p.data} ps</td>
+      <td style="padding:6px 12px; border:1px solid var(--tcl-border);">${arr.toFixed(0)} ps</td>
+      <td style="padding:6px 12px; border:1px solid var(--tcl-border); font-weight:bold; color:${isMet ? '#10b981':'#ef4444'};">${slack >= 0 ? '+':''}${slack.toFixed(3)} ns</td>
+      <td style="padding:6px 12px; border:1px solid var(--tcl-border);"><span style="display:inline-block; padding:2px 8px; border-radius:4px; font-size:11px; font-weight:bold; background:${isMet ? 'rgba(16,185,129,0.15)':'rgba(239,68,68,0.15)'}; color:${isMet ? '#10b981':'#ef4444'};">${isMet ? 'PASS':'VIOLATION'}</span></td>
+    </tr>`;
+  });
+
+  document.getElementById('multiPathTable').innerHTML = rows;
+  const wnsElem = document.getElementById('summary_wns');
+  const tnsElem = document.getElementById('summary_tns');
+  wnsElem.innerText = wns.toFixed(3) + ' ns';
+  tnsElem.innerText = tns.toFixed(3) + ' ns';
+  wnsElem.style.color = wns < 0 ? '#ef4444' : '#10b981';
+  tnsElem.style.color = tns < 0 ? '#ef4444' : '#10b981';
+}
+
+window.addEventListener('DOMContentLoaded', recalcTiming);
+</script>
+"""
+    zh_content = (en_content
+        .replace("# ⚡ Interactive STA Timing Slack & WNS/TNS Gatekeeper", "# ⚡ 交互式 STA 静态时序 Slack 与 WNS/TNS 签核门禁")
+        .replace("Interactive digital IC timing sign-off simulator. Adjust clock parameters, wire delays, setup times, and uncertainty to observe Slack calculations in real time, visualize timing margin gauges, and test tapeout pass/fail criteria!",
+                 "数字芯片时序签核交互仿真器。实时调节目标时钟周期、数据路径组合延迟、触发器固有延迟与时钟不确定度（Uncertainty），直观观察建立时间裕量（Setup Slack）动态计算、观察时序安全仪表盘，并自动化检验流片准入判决（Tapeout Gate Verdict）！")
+        .replace("Static Timing Analysis (STA)", "静态时序分析 (STA)")
+        .replace("Worst Negative Slack (WNS)", "最差负裕量 (WNS)")
+        .replace("Total Negative Slack (TNS)", "总负裕量 (TNS)")
+        .replace("Tapeout Sign-Off Gatekeeper", "流片签核自动化门禁")
+        .replace("⏱️ Timing Constraints & Delays", "⏱️ 时序约束与延迟参数")
+        .replace("Target Clock Period ($T_{clk}$):", "目标时钟周期 ($T_{clk}$):")
+        .replace("Data Path Logic & Wire Delay ($T_{data}$):", "数据路径逻辑与连线延迟 ($T_{data}$):")
+        .replace("Launch Flip-Flop $T_{clk\\to q}$:", "发射触发器延迟 ($T_{clk\\to q}$):")
+        .replace("Capture Flip-Flop Setup Time ($T_{setup}$):", "捕获触发器建立时间 ($T_{setup}$):")
+        .replace("Clock Skew & Uncertainty ($T_{unc}$):", "时钟偏斜与不确定度 ($T_{unc}$):")
+        .replace("🛡️ Sign-Off Decision & Margin Gauge", "🛡️ 签核裁决与时序裕量仪表盘")
+        .replace("Setup Slack Calculation Formula:", "建立时间裕量计算公式:")
+        .replace("Required Time:", "要求到达时间:")
+        .replace("Arrival Time:", "实际到达时间:")
+        .replace("Setup Slack Margin:", "建立时间裕量 (Slack):")
+        .replace("🚦 Multi-Path Sign-Off Table (Top 5 Critical Paths)", "🚦 多路径签核汇总表 (关键时序路径)")
+    )
+    (DOCS / "help" / "timing_calculator.md").write_text(en_content, encoding="utf-8")
+    (DOCS / "help" / "timing_calculator.zh.md").write_text(zh_content, encoding="utf-8")
 
 
 def write_stylesheets() -> None:
     css_dir = DOCS / "stylesheets"
     css_dir.mkdir(parents=True, exist_ok=True)
-    css_content = """/* Custom styling for Tcl Language Lab inspired by top student educational innovations */
+    css_content = """/* Modern High-Readability Semiconductor Engineering Design System */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap');
 
 :root, [data-md-color-scheme="default"] {
-  --paper: #f7f6f0;
-  --ink: #253934;
-  --muted: #64716b;
-  --teal: #17776b;
-  --teal-dark: #0f4f46;
-  --light: #e7f2eb;
-  --line: #dce1d7;
-  --orange: #b96b28;
-  --code: #1d302d;
+  /* Modern High-Readability Light Palette */
+  --md-default-bg-color: #ffffff !important;
+  --md-default-bg-color--light: #f8fafc !important;
+  --md-default-bg-color--lighter: #f1f5f9 !important;
+  --md-default-fg-color: #0f172a !important;       /* Slate 900 */
+  --md-default-fg-color--light: #1e293b !important; /* Slate 800 body text */
+  --md-default-fg-color--lighter: #475569 !important; /* Slate 600 */
+  
+  --md-primary-fg-color: #0f172a !important;       /* Slate 900 Header */
+  --md-primary-fg-color--light: #1e293b !important;
+  --md-primary-fg-color--dark: #020617 !important;
+  --md-accent-fg-color: #2563eb !important;        /* Royal Blue */
+  --md-code-bg-color: #0f172a !important;
+  --md-code-fg-color: #f8fafc !important;
 
-  --md-default-bg-color: #f7f6f0 !important;
-  --md-default-fg-color: #253934 !important;
-  --md-default-fg-color--light: #64716b !important;
-  --md-default-fg-color--lighter: #8b9993 !important;
-  --md-primary-fg-color: #17776b !important;
-  --md-primary-fg-color--light: #238b7e !important;
-  --md-primary-fg-color--dark: #0f4f46 !important;
-  --md-primary-bg-color: #f7f6f0 !important;
-  --md-accent-fg-color: #b96b28 !important;
-  --md-code-bg-color: #1d302d !important;
-  --md-code-fg-color: #e9f1ea !important;
-
-  --tcl-teal-dark: #0f4f46;
-  --tcl-teal: #17776b;
-  --tcl-teal-light: #e7f2eb;
-  --tcl-amber: #b96b28;
-  --tcl-amber-light: #fdf5ea;
-  --tcl-slate-dark: #1d302d;
-  --tcl-slate: #253934;
-  --tcl-slate-light: #f2f0e6;
-  --tcl-border: #dce1d7;
+  --tcl-blue-600: #2563eb;
+  --tcl-blue-700: #1d4ed8;
+  --tcl-surface: #f8fafc;
+  --tcl-surface-card: #ffffff;
+  --tcl-border: #e2e8f0;
+  --tcl-border-hover: #cbd5e1;
+  --tcl-heading: #0f172a;
 }
 
 [data-md-color-scheme="slate"] {
-  --md-default-bg-color: #13221f !important;
-  --md-default-bg-color--light: #1d302d !important;
-  --md-default-bg-color--lighter: #253934 !important;
-  --md-default-fg-color: #f7f6f0 !important;
-  --md-default-fg-color--light: #b2c2bb !important;
-  --md-primary-fg-color: #238b7e !important;
-  --md-primary-fg-color--dark: #17776b !important;
-  --md-code-bg-color: #0f1c19 !important;
-  --tcl-border: #334c44;
-  --tcl-slate-light: #1d302d;
+  /* OLED Midnight High-Readability Dark Palette */
+  --md-default-bg-color: #0b0f19 !important;       /* Deep space slate */
+  --md-default-bg-color--light: #111827 !important;
+  --md-default-bg-color--lighter: #1e293b !important;
+  --md-default-fg-color: #f8fafc !important;       /* Slate 50 */
+  --md-default-fg-color--light: #cbd5e1 !important; /* Slate 300 body text */
+  --md-default-fg-color--lighter: #94a3b8 !important; /* Slate 400 */
+
+  --md-primary-fg-color: #090d16 !important;
+  --md-primary-fg-color--light: #111827 !important;
+  --md-primary-fg-color--dark: #030712 !important;
+  --md-accent-fg-color: #38bdf8 !important;        /* Electric Cyan */
+  --md-code-bg-color: #070a12 !important;
+  --md-code-fg-color: #f1f5f9 !important;
+
+  --tcl-blue-600: #38bdf8;
+  --tcl-blue-700: #60a5fa;
+  --tcl-surface: #111827;
+  --tcl-surface-card: #1e293b;
+  --tcl-border: #334155;
+  --tcl-border-hover: #475569;
+  --tcl-heading: #f8fafc;
 }
 
+/* Global Typography - Pure Sans-Serif Stack (No fuzzy serifs!) */
 body, .md-typeset {
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", sans-serif;
-  color: #253934;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif !important;
+  font-size: 15.5px;
+  line-height: 1.75;
+  color: var(--md-default-fg-color--light);
   background-color: var(--md-default-bg-color);
+  -webkit-font-smoothing: antialiased;
 }
 
+.md-typeset p, .md-typeset li {
+  color: var(--md-default-fg-color--light) !important;
+}
+
+.md-typeset strong {
+  color: var(--tcl-heading) !important;
+  font-weight: 700 !important;
+}
+
+.md-typeset h1, .md-typeset h2, .md-typeset h3, .md-typeset h4 {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif !important;
+  color: var(--tcl-heading) !important;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+.md-typeset code, .md-typeset pre {
+  font-family: 'JetBrains Mono', 'Fira Code', ui-monospace, SFMono-Regular, monospace !important;
+}
+
+/* Explicit Inline Code Styling */
+.md-typeset :not(pre) > code {
+  color: #0f172a !important;
+  background-color: #f1f5f9 !important;
+  border: 1px solid #e2e8f0 !important;
+  border-radius: 4px !important;
+  padding: 0.18em 0.45em !important;
+  font-size: 0.88em !important;
+  font-weight: 600 !important;
+}
+[data-md-color-scheme="slate"] .md-typeset :not(pre) > code {
+  color: #f1f5f9 !important;
+  background-color: #1e293b !important;
+  border-color: #334155 !important;
+}
+
+/* High Contrast Links */
+.md-typeset a {
+  color: #2563eb !important;
+  font-weight: 600 !important;
+  text-decoration: none !important;
+}
+.md-typeset a:hover {
+  text-decoration: underline !important;
+  color: #1d4ed8 !important;
+}
+[data-md-color-scheme="slate"] .md-typeset a {
+  color: #38bdf8 !important;
+}
+[data-md-color-scheme="slate"] .md-typeset a:hover {
+  color: #7dd3fc !important;
+}
+
+/* Header & Tabs */
 .md-header {
-  background-color: #17776b !important;
-  box-shadow: 0 2px 8px rgba(15, 79, 70, 0.25) !important;
+  background-color: #0f172a !important;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08) !important;
+  box-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.12) !important;
 }
 
 .md-tabs {
-  background-color: #0f4f46 !important;
+  background-color: #1e293b !important;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05) !important;
 }
 
 .md-tabs__link {
-  font-weight: 600;
-  opacity: 0.95;
+  font-weight: 500;
+  font-size: 14px;
+  opacity: 0.85;
 }
 
-.md-typeset h1, .md-typeset h2, .md-typeset h3 {
-  font-family: Georgia, "Songti SC", "Noto Serif SC", serif;
-  color: #17776b;
-  letter-spacing: -0.5px;
-}
-
-[data-md-color-scheme="slate"] .md-typeset h1,
-[data-md-color-scheme="slate"] .md-typeset h2,
-[data-md-color-scheme="slate"] .md-typeset h3 {
-  color: #4db6ac;
+.md-tabs__link--active {
+  opacity: 1 !important;
+  font-weight: 600 !important;
+  color: #38bdf8 !important;
 }
 
 /* Hero Section */
 .tcl-hero {
-  padding: 30px 0 20px;
+  padding: 36px 0 24px;
   border-bottom: 1px solid var(--tcl-border);
-  margin-bottom: 24px;
+  margin-bottom: 28px;
 }
 .tcl-badge-cluster {
   display: flex;
   gap: 8px;
   flex-wrap: wrap;
-  margin-bottom: 14px;
+  margin-bottom: 16px;
 }
 .tcl-badge {
   display: inline-flex;
   align-items: center;
   gap: 6px;
-  padding: 4px 10px;
+  padding: 4px 12px;
   border-radius: 9999px;
   font-size: 12px;
   font-weight: 600;
-  background: var(--tcl-teal-light);
-  color: var(--tcl-teal-dark);
-  border: 1px solid rgba(23, 119, 107, 0.3);
+  background: #eff6ff;
+  color: #1e40af;
+  border: 1px solid #bfdbfe;
 }
 [data-md-color-scheme="slate"] .tcl-badge {
-  background: rgba(35, 139, 126, 0.25);
-  color: #5eead4;
-  border-color: rgba(94, 234, 212, 0.3);
+  background: rgba(37, 99, 235, 0.15);
+  color: #93c5fd;
+  border-color: rgba(96, 165, 250, 0.3);
 }
 .tcl-badge.amber {
-  background: var(--tcl-amber-light);
-  color: #b96b28;
-  border-color: rgba(185, 107, 40, 0.3);
+  background: #fffbeb;
+  color: #92400e;
+  border-color: #fde68a;
 }
 [data-md-color-scheme="slate"] .tcl-badge.amber {
-  background: rgba(185, 107, 40, 0.2);
+  background: rgba(245, 158, 11, 0.15);
   color: #fcd34d;
   border-color: rgba(252, 211, 77, 0.3);
 }
-.tcl-hero-title {
-  font-family: Georgia, "Songti SC", "Noto Serif SC", serif;
-  font-size: 2.3rem;
-  font-weight: 700;
-  line-height: 1.25;
-  margin: 8px 0 14px 0;
-  color: #17776b;
+.tcl-badge.green {
+  background: #ecfdf5;
+  color: #065f46;
+  border-color: #a7f3d0;
 }
-[data-md-color-scheme="slate"] .tcl-hero-title {
-  color: #5eead4;
+[data-md-color-scheme="slate"] .tcl-badge.green {
+  background: rgba(16, 185, 129, 0.15);
+  color: #6ee7b7;
+  border-color: rgba(110, 231, 183, 0.3);
+}
+.tcl-badge.purple {
+  background: #faf5ff;
+  color: #581c87;
+  border-color: #e9d5ff;
+}
+[data-md-color-scheme="slate"] .tcl-badge.purple {
+  background: rgba(168, 85, 247, 0.15);
+  color: #d8b4fe;
+  border-color: rgba(216, 180, 254, 0.3);
+}
+.tcl-badge.cyan {
+  background: #ecfeff;
+  color: #155e75;
+  border-color: #a5f3fc;
+}
+[data-md-color-scheme="slate"] .tcl-badge.cyan {
+  background: rgba(6, 182, 212, 0.15);
+  color: #67e8f9;
+  border-color: rgba(103, 232, 249, 0.3);
+}
+
+.tcl-hero-title {
+  font-size: 2.3rem;
+  font-weight: 800;
+  line-height: 1.25;
+  margin: 8px 0 16px 0;
+  color: var(--tcl-heading) !important;
+  letter-spacing: -0.03em;
 }
 .tcl-hero-subtitle {
-  font-size: 1.05rem;
+  font-size: 1.1rem;
   line-height: 1.7;
   color: var(--md-default-fg-color--light);
-  max-width: 860px;
-  margin-bottom: 20px;
+  max-width: 880px;
+  margin-bottom: 24px;
 }
 .tcl-cta-group {
   display: flex;
   gap: 12px;
   flex-wrap: wrap;
-  margin: 18px 0 10px;
+  margin: 20px 0 12px;
 }
 .tcl-btn {
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  padding: 10px 20px;
+  padding: 10px 22px;
   border-radius: 8px;
   font-size: 14px;
   font-weight: 600;
@@ -1135,24 +1959,25 @@ body, .md-typeset {
   transition: all 0.2s ease;
 }
 .tcl-btn-primary {
-  background: #17776b;
+  background: linear-gradient(135deg, #2563eb, #1d4ed8);
   color: #ffffff !important;
-  box-shadow: 0 4px 14px rgba(23, 119, 107, 0.25);
+  box-shadow: 0 4px 14px rgba(37, 99, 235, 0.3);
 }
 .tcl-btn-primary:hover {
-  background: #0f4f46;
+  background: linear-gradient(135deg, #1d4ed8, #1e40af);
   transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(23, 119, 107, 0.35);
+  box-shadow: 0 6px 20px rgba(37, 99, 235, 0.45);
 }
 .tcl-btn-secondary {
-  background: var(--tcl-slate-light);
+  background: var(--tcl-surface-card);
   color: var(--md-default-fg-color) !important;
   border: 1px solid var(--tcl-border);
 }
 .tcl-btn-secondary:hover {
-  border-color: #17776b;
-  background: rgba(23, 119, 107, 0.08);
+  border-color: var(--tcl-blue-600);
+  background: var(--tcl-surface);
   transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
 }
 
 /* Stats Fact Strip */
@@ -1160,8 +1985,8 @@ body, .md-typeset {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
   gap: 16px;
-  padding: 20px 24px;
-  background: var(--tcl-slate-light);
+  padding: 22px 26px;
+  background: var(--tcl-surface);
   border: 1px solid var(--tcl-border);
   border-radius: 12px;
   margin: 24px 0 36px;
@@ -1170,19 +1995,21 @@ body, .md-typeset {
   text-align: center;
 }
 .tcl-fact-val {
-  font-family: Georgia, 'Songti SC', serif;
-  font-size: 2rem;
-  font-weight: 700;
-  color: #17776b;
+  font-family: 'Inter', sans-serif;
+  font-size: 2.1rem;
+  font-weight: 800;
+  color: #2563eb;
   display: block;
+  letter-spacing: -0.02em;
 }
 [data-md-color-scheme="slate"] .tcl-fact-val {
-  color: #5eead4;
+  color: #38bdf8;
 }
 .tcl-fact-lbl {
   font-size: 0.85rem;
-  color: var(--md-default-fg-color--light);
-  font-weight: 500;
+  color: var(--md-default-fg-color--lighter);
+  font-weight: 600;
+  margin-top: 4px;
 }
 
 /* 3-Column Route Cards */
@@ -1193,51 +2020,50 @@ body, .md-typeset {
   margin: 20px 0 36px;
 }
 .tcl-route-card {
-  padding: 24px;
+  padding: 26px;
   border-radius: 12px;
   border: 1px solid var(--tcl-border);
-  background: var(--md-default-bg-color);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
+  background: var(--tcl-surface-card);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
   position: relative;
   overflow: hidden;
   transition: all 0.25s ease;
 }
 .tcl-route-card:hover {
-  transform: translateY(-4px);
-  border-color: #17776b;
-  box-shadow: 0 12px 28px rgba(23, 119, 107, 0.12);
+  transform: translateY(-3px);
+  border-color: #2563eb;
+  box-shadow: 0 12px 28px rgba(37, 99, 235, 0.12);
 }
 .tcl-route-card::before {
   content: "";
   position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
+  top: 0; left: 0; right: 0;
   height: 4px;
-  background: #17776b;
+  background: #2563eb;
 }
-.tcl-route-card.route-exp::before { background: #b96b28; }
-.tcl-route-card.route-vlsi::before { background: #0f4f46; }
+.tcl-route-card.route-exp::before { background: #f59e0b; }
+.tcl-route-card.route-vlsi::before { background: #06b6d4; }
 .tcl-route-num {
-  font-size: 12px;
+  font-size: 11px;
   font-family: monospace;
   font-weight: 700;
-  color: #17776b;
+  color: #2563eb;
   text-transform: uppercase;
   letter-spacing: 1px;
 }
-.tcl-route-card.route-exp .tcl-route-num { color: #b96b28; }
-.tcl-route-card.route-vlsi .tcl-route-num { color: #0f4f46; }
+.tcl-route-card.route-exp .tcl-route-num { color: #d97706; }
+.tcl-route-card.route-vlsi .tcl-route-num { color: #0891b2; }
 .tcl-route-title {
   font-size: 1.25rem;
   font-weight: 700;
-  margin: 8px 0 10px;
+  margin: 10px 0 10px;
+  color: var(--tcl-heading);
 }
 .tcl-route-desc {
   font-size: 0.95rem;
   line-height: 1.6;
   color: var(--md-default-fg-color--light);
-  margin-bottom: 16px;
+  margin-bottom: 18px;
 }
 
 /* Feature Pillars Grid */
@@ -1248,59 +2074,47 @@ body, .md-typeset {
   margin: 20px 0 36px;
 }
 .tcl-pillar-card {
-  padding: 22px;
-  border-radius: 10px;
+  padding: 24px;
+  border-radius: 12px;
   border: 1px solid var(--tcl-border);
-  background: var(--tcl-slate-light);
+  background: var(--tcl-surface);
   transition: all 0.2s ease;
 }
 .tcl-pillar-card:hover {
-  border-color: #17776b;
+  border-color: #2563eb;
   transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.05);
 }
 .tcl-pillar-icon {
-  font-size: 1.7rem;
-  margin-bottom: 8px;
+  font-size: 1.8rem;
+  margin-bottom: 10px;
 }
 .tcl-pillar-title {
   font-size: 1.05rem;
   font-weight: 700;
   margin: 4px 0 8px;
+  color: var(--tcl-heading);
 }
 .tcl-pillar-desc {
   font-size: 0.9rem;
-  line-height: 1.55;
+  line-height: 1.6;
   color: var(--md-default-fg-color--light);
 }
 
-/* Unit Module Cards */
-.tcl-units-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-  gap: 20px;
-  margin: 20px 0 30px;
+/* High Contrast Tables */
+.md-typeset table:not([class]) {
+  border: 1px solid var(--tcl-border) !important;
+  border-radius: 8px !important;
+  overflow: hidden !important;
 }
-.tcl-unit-card {
-  border: 1px solid var(--tcl-border);
-  border-radius: 10px;
-  padding: 20px;
-  background: var(--md-default-bg-color);
-  transition: all 0.2s ease;
+.md-typeset table:not([class]) th {
+  background: var(--tcl-surface) !important;
+  color: var(--tcl-heading) !important;
+  font-weight: 700 !important;
+  border-bottom: 2px solid var(--tcl-border) !important;
 }
-.tcl-unit-card:hover {
-  border-color: #17776b;
-  transform: translateY(-2px);
-}
-.tcl-unit-badge {
-  display: inline-block;
-  font-size: 11px;
-  font-weight: 700;
-  text-transform: uppercase;
-  padding: 2px 8px;
-  border-radius: 4px;
-  background: rgba(23, 119, 107, 0.12);
-  color: #17776b;
-  margin-bottom: 8px;
+.md-typeset table:not([class]) td {
+  border-bottom: 1px solid var(--tcl-border) !important;
 }
 """
     (css_dir / "extra.css").write_text(css_content, encoding="utf-8")
@@ -1317,26 +2131,27 @@ def write_home_pages(meta: list[tuple[int, str, str]]) -> None:
   <div class="tcl-badge-cluster">
     <span class="tcl-badge">CC BY 4.0</span>
     <span class="tcl-badge">SJTU-YONGFU-RESEARCH-GRP</span>
-    <span class="tcl-badge amber">WASM Interactive Lab</span>
-    <span class="tcl-badge">DRV-Lite Simulator</span>
-    <span class="tcl-badge amber">STA Timing Sign-Off</span>
-    <span class="tcl-badge">Multi-Language</span>
+    <span class="tcl-badge blue">WASM Interactive Lab</span>
+    <span class="tcl-badge purple">Tcl Quest (Live RPG)</span>
+    <span class="tcl-badge green">DRV-Lite Layout Simulator</span>
+    <span class="tcl-badge amber">STA Timing Sign-Off Gate</span>
+    <span class="tcl-badge cyan">Multi-Language i18n</span>
   </div>
 
   <h1 class="tcl-hero-title">Tcl for VLSI · From Syntax to IC Layout & Timing Automation</h1>
 
   <div class="tcl-hero-subtitle">
     From foundational scripting commands to a production-grade IC physical design automation suite.<br>
-    Bridging the <strong>Brent Welch 3-step evaluation mental model</strong>, <strong>in-browser WebAssembly interactive workshop</strong>, <strong>zero-license DRV-Lite layout simulator</strong>, and <strong>closed-loop STA timing sign-off</strong>.
+    Bridging the <strong>Brent Welch 3-step evaluation mental model</strong>, <strong>in-browser WebAssembly workshop</strong>, <strong>execution-driven RPG quest</strong>, <strong>zero-license DRV-Lite layout simulator</strong>, and <strong>closed-loop STA timing sign-off</strong>.
   </div>
 
   <div class="tcl-cta-group">
     <a href="wasm-lab/" target="_blank" class="tcl-btn tcl-btn-primary">🚀 Launch WASM Workshop ↗</a>
+    <a href="quest/" class="tcl-btn tcl-btn-secondary">🎮 Tcl Quest (RPG Sandbox)</a>
+    <a href="help/layout_viewer/" class="tcl-btn tcl-btn-secondary">📐 Layout Visualizer</a>
+    <a href="help/timing_calculator/" class="tcl-btn tcl-btn-secondary">⚡ Timing Gatekeeper</a>
     <a href="exercises/" class="tcl-btn tcl-btn-secondary">🎯 18 Practice Exercises</a>
-    <a href="capstone/" class="tcl-btn tcl-btn-secondary">🏆 6 Capstone Projects</a>
-    <a href="help/drvlite/" class="tcl-btn tcl-btn-secondary">📐 Layout Simulator (DRV-Lite)</a>
-    <a href="help/timing_lab/" class="tcl-btn tcl-btn-secondary">⚡ Timing Analysis Lab</a>
-    <a href="help/tcl/" class="tcl-btn tcl-btn-secondary">🧠 3-Step Mental Model</a>
+    <a href="capstone/" class="tcl-btn tcl-btn-secondary">🏆 6 Capstones</a>
   </div>
 </div>
 
@@ -1350,8 +2165,8 @@ def write_home_pages(meta: list[tuple[int, str, str]]) -> None:
     <span class="tcl-fact-lbl">Real-World Data Exercises</span>
   </div>
   <div class="tcl-fact-item">
-    <span class="tcl-fact-val">6 Projects</span>
-    <span class="tcl-fact-lbl">Capstone Data Engineering</span>
+    <span class="tcl-fact-val">20 Levels</span>
+    <span class="tcl-fact-lbl">Live Gamified RPG Quest</span>
   </div>
   <div class="tcl-fact-item">
     <span class="tcl-fact-val">100%</span>
@@ -1414,18 +2229,18 @@ Choose the path tailored to your background and engineering goals:
   </div>
 
   <div class="tcl-pillar-card">
-    <div class="tcl-pillar-icon">📐</div>
-    <div class="tcl-pillar-title">DRV-Lite Layout Simulator</div>
+    <div class="tcl-pillar-icon">🎮</div>
+    <div class="tcl-pillar-title">Tcl Quest · Live Execution RPG</div>
     <div class="tcl-pillar-desc">
-      Zero commercial EDA licenses required. Pure-Tcl layout object model implementing cell hierarchy, polygon boundaries, bounding boxes, and GDS streamout.
+      Su3037's 93/100 rated innovation: 20-level Chip Island adventure where real code execution directly drives storyline animations and boss challenges.
     </div>
   </div>
 
   <div class="tcl-pillar-card">
-    <div class="tcl-pillar-icon">🧠</div>
-    <div class="tcl-pillar-title">Brent Welch 3-Step Model</div>
+    <div class="tcl-pillar-icon">📐</div>
+    <div class="tcl-pillar-title">DRV-Lite Layout Simulator</div>
     <div class="tcl-pillar-desc">
-      Strict adherence to Argument Grouping $\to$ Value Substitution $\to$ Command Invocation, eliminating double evaluation and security hazards.
+      Zero commercial EDA licenses required. Pure-Tcl layout object model implementing cell hierarchy, polygon boundaries, bounding boxes, and GDS streamout.
     </div>
   </div>
 
@@ -1467,26 +2282,27 @@ make week21-01        # Run Week 21 layout script (DRV-Lite simulation)
   <div class="tcl-badge-cluster">
     <span class="tcl-badge">CC BY 4.0</span>
     <span class="tcl-badge">SJTU-YONGFU-RESEARCH-GRP</span>
-    <span class="tcl-badge amber">WASM 交互工作坊</span>
-    <span class="tcl-badge">DRV-Lite 版图仿真器</span>
-    <span class="tcl-badge amber">STA 时序违规闭环门禁</span>
-    <span class="tcl-badge">多语言支持</span>
+    <span class="tcl-badge blue">WASM 交互工作坊</span>
+    <span class="tcl-badge purple">芯片岛闯关冒险 (RPG)</span>
+    <span class="tcl-badge green">DRV-Lite 版图仿真器</span>
+    <span class="tcl-badge amber">STA 时序门禁计算器</span>
+    <span class="tcl-badge cyan">中英双语多语言</span>
   </div>
 
   <h1 class="tcl-hero-title">Tcl for VLSI · 从控制台语法到芯片版图与时序自动化</h1>
 
   <div class="tcl-hero-subtitle">
     从一张控制台打印卡片，到一套完整的工业级芯片版图自动化脚本与静态时序分析流水线。<br>
-    结合 <strong>Brent Welch 三步置换心智模型</strong>、<strong>浏览器纯客户端 WebAssembly 交互工作坊</strong>、<strong>免商业许可 DRV-Lite 版图仿真器</strong> 与 <strong>STA 时序违规闭环门禁</strong>，让每行 Tcl 代码都能在真实工程场景中高效运行。
+    结合 <strong>Brent Welch 三步置换心智模型</strong>、<strong>浏览器纯客户端 WebAssembly 交互工作坊</strong>、<strong>真实代码驱动芯片岛 RPG 冒险</strong>、<strong>免商业许可 DRV-Lite 版图仿真器</strong> 与 <strong>STA 时序违规闭环门禁</strong>。
   </div>
 
   <div class="tcl-cta-group">
     <a href="wasm-lab/" target="_blank" class="tcl-btn tcl-btn-primary">🚀 交互工作坊 (WASM Lab) ↗</a>
-    <a href="exercises/" class="tcl-btn tcl-btn-secondary">🎯 18 项实战练习 (Exercises)</a>
-    <a href="capstone/" class="tcl-btn tcl-btn-secondary">🏆 6 大综合项目 (Capstones)</a>
-    <a href="help/drvlite/" class="tcl-btn tcl-btn-secondary">📐 版图仿真器 (DRV-Lite)</a>
-    <a href="help/timing_lab/" class="tcl-btn tcl-btn-secondary">⚡ 时序分析实验 (Timing Lab)</a>
-    <a href="help/tcl/" class="tcl-btn tcl-btn-secondary">🧠 置换心智指南</a>
+    <a href="quest/" class="tcl-btn tcl-btn-secondary">🎮 芯片岛闯关冒险 (RPG)</a>
+    <a href="help/layout_viewer/" class="tcl-btn tcl-btn-secondary">📐 版图仿真可视化</a>
+    <a href="help/timing_calculator/" class="tcl-btn tcl-btn-secondary">⚡ 时序门禁计算器</a>
+    <a href="exercises/" class="tcl-btn tcl-btn-secondary">🎯 18 项实战练习</a>
+    <a href="capstone/" class="tcl-btn tcl-btn-secondary">🏆 6 大综合项目</a>
   </div>
 </div>
 
@@ -1500,8 +2316,8 @@ make week21-01        # Run Week 21 layout script (DRV-Lite simulation)
     <span class="tcl-fact-lbl">真实数据交互实战练习</span>
   </div>
   <div class="tcl-fact-item">
-    <span class="tcl-fact-val">6 个</span>
-    <span class="tcl-fact-lbl">综合数据工程项目</span>
+    <span class="tcl-fact-val">20 关</span>
+    <span class="tcl-fact-lbl">真实代码驱动芯片岛冒险</span>
   </div>
   <div class="tcl-fact-item">
     <span class="tcl-fact-val">100%</span>
@@ -1564,18 +2380,18 @@ make week21-01        # Run Week 21 layout script (DRV-Lite simulation)
   </div>
 
   <div class="tcl-pillar-card">
-    <div class="tcl-pillar-icon">📐</div>
-    <div class="tcl-pillar-title">DRV-Lite 纯 Tcl 版图仿真器</div>
+    <div class="tcl-pillar-icon">🎮</div>
+    <div class="tcl-pillar-title">Tcl Quest · 真实代码驱动 RPG 冒险</div>
     <div class="tcl-pillar-desc">
-      突破 Siemens Calibre 商业许可壁垒！纯 Tcl 实现的 <code>layout</code> 对象模型，支持图纸创建、多边形绘制、边界计算与 GDS 导出。
+      整合 Su3037 93 分 A+ 创新：20 关芯片岛实时闯关，代码执行直接驱动角色走动、剧情演出与四大 Boss 战。
     </div>
   </div>
 
   <div class="tcl-pillar-card">
-    <div class="tcl-pillar-icon">🧠</div>
-    <div class="tcl-pillar-title">Brent Welch 3步求值心智模型</div>
+    <div class="tcl-pillar-icon">📐</div>
+    <div class="tcl-pillar-title">DRV-Lite 纯 Tcl 版图仿真器</div>
     <div class="tcl-pillar-desc">
-      严格遵循 Argument Grouping $\to$ Value Substitution $\to$ Command Invocation，彻底规避双重求值与不安全字符串拼接。
+      突破 Siemens Calibre 商业许可壁垒！纯 Tcl 实现的 <code>layout</code> 对象模型，支持图纸创建、多边形绘制、边界计算与 GDS 导出。
     </div>
   </div>
 
@@ -1590,12 +2406,29 @@ make week21-01        # Run Week 21 layout script (DRV-Lite simulation)
 
 ---
 
-## 📚 课程体系索引 (40 周)
+## 📚 Curriculum Directory (40 Weeks)
 
-| 周次 | 课程专题 | 示例代码 |
+| Week | Topic | Examples |
 | :---: | :--- | :---: |
-{chr(10).join(zh_rows)}
+{chr(10).join(en_rows)}
+
+---
+
+## 🚀 Quick Start (CLI)
+
+```bash
+git clone {GITHUB}.git
+cd tcl-language
+
+make check-env        # Verify tclsh & DRV-Lite layout simulator
+make drvlite-test     # Run 6 unit tests on pure-Tcl layout simulator
+make timing-demo      # Run STA timing analysis lab
+make week1-01         # Run Week 1 first example
+make week21-01        # Run Week 21 layout script (DRV-Lite simulation)
+```
 """
+    (DOCS / "index.md").write_text(en_index, encoding="utf-8")
+
     (DOCS / "index.zh.md").write_text(zh_index, encoding="utf-8")
 
 
@@ -1660,9 +2493,9 @@ def write_mkdocs_yml(meta: list[tuple[int, str, str]]) -> None:
     m40_yaml = "\n".join(m40_nav)
     weeks_trans_yaml = "\n".join(nav_trans_weeks)
 
-    yml = f"""# Generated by scripts/build_website.py — multi-language architecture
+    yml = f"""# Generated by scripts/build_website.py — modern high-readability architecture
 site_name: Tcl Language Lab
-site_description: Bilingual Tcl / Calibre layout scripting lessons & Interactive WASM Workshop
+site_description: Bilingual Tcl / Calibre layout scripting lessons, WASM Workshop & Gamified Quest
 site_url: https://sjtu-yongfu-research-grp.github.io/tcl-language/
 repo_url: {GITHUB}
 repo_name: tcl-language
@@ -1673,20 +2506,20 @@ theme:
   language: en
   palette:
     - scheme: default
-      primary: teal
-      accent: amber
+      primary: indigo
+      accent: blue
       toggle:
         icon: material/weather-night
         name: Switch to dark mode
     - scheme: slate
-      primary: teal
-      accent: amber
+      primary: indigo
+      accent: cyan
       toggle:
         icon: material/weather-sunny
         name: Switch to light mode
   font:
     text: Inter
-    code: Fira Code
+    code: JetBrains Mono
   features:
     - navigation.tabs
     - navigation.sections
@@ -1740,8 +2573,12 @@ plugins:
           site_description: 中英双语 Tcl / Calibre 版图自动化与时序分析全体系课程与交互工作坊
           nav_translations:
             Home: 首页
+            Interactive Labs & Tools: 交互实验室与实战工具
             Interactive Workshop (WASM): 交互工作坊 (WASM)
+            Tcl Quest (Chip Island RPG): 芯片岛闯关冒险 (RPG)
             Web Playground: 演练台 (Playground)
+            VLSI Layout Visualizer: VLSI 版图仿真可视化 (DRV-Lite)
+            STA Timing Gatekeeper: STA 时序门禁计算器
             Practice & Projects: 实战与项目
             18 Practical Exercises: 18 项实战练习
             6 Capstone Data Projects: 6 大综合项目
@@ -1766,8 +2603,12 @@ validation:
 
 nav:
   - Home: index.md
-  - Interactive Workshop (WASM): workshop.md
-  - Web Playground: playground.md
+  - Interactive Labs & Tools:
+      - Interactive Workshop (WASM): workshop.md
+      - Tcl Quest (Chip Island RPG): quest.md
+      - Web Playground: playground.md
+      - VLSI Layout Visualizer: help/layout_viewer.md
+      - STA Timing Gatekeeper: help/timing_calculator.md
   - Practice & Projects:
       - 18 Practical Exercises: exercises.md
       - 6 Capstone Data Projects: capstone.md
@@ -1797,6 +2638,7 @@ def clean_docs() -> None:
     if DOCS.exists():
         shutil.rmtree(DOCS)
     DOCS.mkdir(parents=True)
+    (DOCS / "help").mkdir(parents=True, exist_ok=True)
 
 
 def main() -> None:
@@ -1806,9 +2648,13 @@ def main() -> None:
         raise SystemExit("No lesson weeks found under lessons/")
     write_stylesheets()
     copy_workshop()
+    copy_quest()
     copy_assets()
     write_workshop_pages()
+    write_quest_pages()
     write_playground_pages()
+    write_layout_viewer_pages()
+    write_timing_calculator_pages()
     write_exercises_pages()
     write_capstone_pages()
     copy_help_docs()
@@ -1822,3 +2668,4 @@ def main() -> None:
 
 if __name__ == "__main__":
     main()
+

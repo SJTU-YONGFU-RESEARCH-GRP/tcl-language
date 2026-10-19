@@ -1,0 +1,64 @@
+Lists, conditions and loops
+Original silent demo · 10 seconds per scene · Output from real Tcl
+
+[00–10 seconds] Count the backpack slots
+list preserves item boundaries. The words red apple form one item.
+
+set bag [list key "red apple" map]
+puts [llength $bag]
+
+Output:
+3
+
+[10–20 seconds] Find the second item
+Indices start at 0, so the second item has index 1.
+
+set bag [list key "red apple" map]
+puts [lindex $bag 1]
+
+Output:
+red apple
+
+[20–30 seconds] Repeat a job for each item
+foreach puts each list element into item, then executes the script.
+
+foreach item {key apple map} {
+    puts $item
+}
+
+Output:
+key
+apple
+map
+
+[30–40 seconds] Let the gatekeeper choose
+>= includes equality: exactly 10 coins can enter.
+
+set coins 10
+if {$coins >= 10} {puts Enter} else {puts Wait}
+
+Output:
+Enter
+
+[40–50 seconds] Add values using a loop
+Start total at 0 and add the current number on every turn.
+
+set total 0
+foreach n {2 4 6} {incr total $n}
+puts $total
+
+Output:
+12
+
+[50–60 seconds] Combine two skills
+Collect only names that meet the threshold. What changes if it becomes >=8?
+
+set selected {}
+foreach row {{Ada 7} {Bo 2} {Cy 5}} {
+    lassign $row name hunger
+    if {$hunger >= 5} {lappend selected $name}
+}
+puts $selected
+
+Output:
+Ada Cy

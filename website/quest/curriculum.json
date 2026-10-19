@@ -1,0 +1,968 @@
+{
+  "worlds": [
+    {
+      "name": "新手村",
+      "subtitle": "让代码开口说话",
+      "color": "#b1ed9d",
+      "icon": "芽",
+      "badge": "信标点亮者"
+    },
+    {
+      "name": "逻辑森林",
+      "subtitle": "学会选择与重复",
+      "color": "#9bd9ce",
+      "icon": "林",
+      "badge": "森林守护者"
+    },
+    {
+      "name": "工具工坊",
+      "subtitle": "把小技能变成工具",
+      "color": "#f5c77f",
+      "icon": "匠",
+      "badge": "工具锻造师"
+    },
+    {
+      "name": "芯片城",
+      "subtitle": "走进 VLSI 的世界",
+      "color": "#c2b8f5",
+      "icon": "芯",
+      "badge": "时序侦探"
+    }
+  ],
+  "levels": [
+    {
+      "id": 1,
+      "world": 0,
+      "title": "唤醒小机器人",
+      "topic": "puts · 注释",
+      "story": "芯片岛的机器人睡着了。用第一条指令向它打招呼。",
+      "explain": [
+        "Tcl 读作 tickle。它是一种让电脑按步骤做事的语言。把 puts 想成机器人的小喇叭：后面跟什么，它就说什么。",
+        "一行通常是一条命令。命令名和参数之间用空格分开；双引号把一句话包成一个参数。以 # 开头的完整行是注释，写给人看。"
+      ],
+      "example": "puts \"Hello, Tcl!\"\n# 这行不会被说出来\nputs \"Ready!\"",
+      "task": "让机器人依次输出 Hello, Tcl! 和 Ready!，每句话单独一行。",
+      "starter": "# 给机器人两条说话指令\nputs \"Hello, Tcl!\"\n# 在下面补上一行\n",
+      "solution": "puts \"Hello, Tcl!\"\nputs \"Ready!\"",
+      "expected": "Hello, Tcl!\nReady!",
+      "checks": [],
+      "hints": [
+        "说话的命令是 puts。",
+        "第二条指令是 puts \"Ready!\"。"
+      ],
+      "quiz": "puts \"Hello world\" 中，双引号有什么用？",
+      "choices": [
+        "把一句话当成一个参数",
+        "让文字变成注释",
+        "重复运行两次"
+      ],
+      "answer": 0,
+      "diagram": [
+        "命令 puts",
+        "参数 \"Hello, Tcl!\"",
+        "输出 Hello, Tcl!"
+      ],
+      "pitfall": "Tcl 区分大小写：Puts 和 puts 不是同一条命令。",
+      "transfer": "把打招呼的内容换成你喜欢的角色名，再点运行。",
+      "boss": false,
+      "xp": 100,
+      "minutes": 10
+    },
+    {
+      "id": 2,
+      "world": 0,
+      "title": "给背包贴标签",
+      "topic": "set · $变量",
+      "story": "出发前，把金币放进一个有名字的背包格子。",
+      "explain": [
+        "变量像贴了标签的格子。set coins 8 把数字 8 放到 coins 格子里。set 既可以存入，也可以在只给名字时取出。",
+        "$coins 的意思是“拿出 coins 里面的东西”。设置时写名字 coins，使用值时常写 $coins。"
+      ],
+      "example": "set coins 8\nputs $coins\nset coins 12\nputs \"Coins: $coins\"",
+      "task": "建立变量 hero，值为 Ada；建立变量 coins，值为 12。输出 Ada has 12 coins。",
+      "starter": "set hero Ada\nset coins 0\nputs \"$hero has $coins coins\"",
+      "solution": "set hero Ada\nset coins 12\nputs \"$hero has $coins coins\"",
+      "expected": "Ada has 12 coins",
+      "checks": [
+        {
+          "label": "角色名保存在 hero 中",
+          "expr": "$hero eq \"Ada\""
+        },
+        {
+          "label": "coins 保存数值 12",
+          "expr": "$coins == 12"
+        }
+      ],
+      "hints": [
+        "修改 set coins 后面的数字。",
+        "输出时，$hero 和 $coins 会被替换成变量的值。"
+      ],
+      "quiz": "哪一句把 12 放入 coins？",
+      "choices": [
+        "set coins 12",
+        "set $coins 12",
+        "coins = 12"
+      ],
+      "answer": 0,
+      "diagram": [
+        "标签 coins",
+        "格子里是 12",
+        "$coins → 12"
+      ],
+      "pitfall": "set $coins 12 会把 coins 的值当作另一个变量的名字。",
+      "transfer": "试着覆盖 coins 的值，观察变量不是永久不变的。",
+      "boss": false,
+      "xp": 100,
+      "minutes": 10
+    },
+    {
+      "id": 3,
+      "world": 0,
+      "title": "穿过括号迷宫",
+      "topic": "\" \" · { } · [ ]",
+      "story": "迷宫里有三种门：有的替换内容，有的保留原样，有的先执行里面的指令。",
+      "explain": [
+        "双引号允许 $变量 和 [命令] 替换。花括号通常保留内容原样，适合保存脚本或表达式。方括号先执行里面的命令，再用结果替换整对方括号。",
+        "例如 set n 3 后，puts \"$n\" 输出 3，而 puts {$n} 输出字面文字 $n。花括号并非永远不执行：if、expr 等命令拿到它们的内容后，会按各自规则处理。"
+      ],
+      "example": "set n 3\nputs \"value=$n\"\nputs {value=$n}\nputs [string toupper hi]",
+      "task": "设置 hero 为 Ada。第一行输出 Hello Ada，第二行原样输出 Hello $hero，第三行输出 ADA。",
+      "starter": "set hero Ada\nputs \"Hello $hero\"\n# 原样保留变量名\n# 把角色名变成大写\n",
+      "solution": "set hero Ada\nputs \"Hello $hero\"\nputs {Hello $hero}\nputs [string toupper $hero]",
+      "expected": "Hello Ada\nHello $hero\nADA",
+      "checks": [],
+      "hints": [
+        "花括号会保留 $hero 的原样文字。",
+        "用 [string toupper $hero] 先取得大写结果。"
+      ],
+      "quiz": "puts {$hero} 会输出什么？",
+      "choices": [
+        "$hero 这段文字",
+        "hero 的值",
+        "什么也没有"
+      ],
+      "answer": 0,
+      "diagram": [
+        "\"$hero\" → Ada",
+        "{$hero} → $hero",
+        "[string toupper hi] → HI"
+      ],
+      "pitfall": "Tcl 的括号有语义，不是可以随意互换的装饰。",
+      "transfer": "写出一句同时包含普通文字、变量和命令替换的欢迎语。",
+      "boss": false,
+      "xp": 100,
+      "minutes": 10
+    },
+    {
+      "id": 4,
+      "world": 0,
+      "title": "炼制能量药水",
+      "topic": "expr · incr",
+      "story": "药水配方需要计算总能量。让电脑帮你做算术。",
+      "explain": [
+        "expr 是计算器。expr {3 + 4} 返回 7；把它放进方括号，就能把结果存进变量。常用符号有 +、-、*、/ 和 %。",
+        "推荐用花括号包表达式，如 expr {$a + $b}，由 expr 负责变量替换。incr coins 3 会给 coins 加 3。整数除法 5/2 得到 2，5/2.0 才得到 2.5。"
+      ],
+      "example": "set base 6\nset power [expr {$base * 3}]\nincr power 2\nputs $power\nputs [expr {5 / 2.0}]",
+      "task": "3 瓶药水，每瓶 7 点能量，另加 4 点奖励。把总数存入 energy，并输出 25。",
+      "starter": "set bottles 3\nset each 7\nset energy 0\nputs $energy",
+      "solution": "set bottles 3\nset each 7\nset energy [expr {$bottles * $each}]\nincr energy 4\nputs $energy",
+      "expected": "25",
+      "checks": [
+        {
+          "label": "energy 是 25",
+          "expr": "$energy == 25"
+        }
+      ],
+      "hints": [
+        "先计算 $bottles * $each。",
+        "先 set energy [expr {...}]，再 incr energy 4。"
+      ],
+      "quiz": "expr {5 / 2} 的结果是？",
+      "choices": [
+        "2",
+        "2.5",
+        "报错"
+      ],
+      "answer": 0,
+      "diagram": [
+        "3 瓶 × 7 点",
+        "21 点 + 4 点奖励",
+        "energy = 25"
+      ],
+      "pitfall": "puts 3+4 只会输出文字 3+4；puts 不做算术。",
+      "transfer": "把瓶数改成 10，预测结果后再运行。",
+      "boss": false,
+      "xp": 100,
+      "minutes": 10
+    },
+    {
+      "id": 5,
+      "world": 0,
+      "title": "BOSS · 修好出发信标",
+      "topic": "组合挑战 · 变量与替换",
+      "story": "信标的名字、能量和原始模板都坏了。把前三种技能组合起来。",
+      "explain": [
+        "这关把输出、变量、计算和引用组合成一个小程序。先准备数据，再计算，最后展示结果，是很多脚本的共同顺序。",
+        "不要急着一次写完。先让第一行正确，再增加下一行。编程中的试错像调试积木：每次只改一个地方，更容易找到原因。"
+      ],
+      "example": "set name Beacon\nset power [expr {4 * 5}]\nputs \"$name: $power\"",
+      "task": "设置 hero=Ada、cells=4、each=5，energy 为两者乘积。输出三行：Ada ready、Energy: 20、$energy（最后一行保留字面变量名）。",
+      "starter": "set hero Ada\nset cells 4\nset each 5\n# 计算 energy 并点亮信标\n",
+      "solution": "set hero Ada\nset cells 4\nset each 5\nset energy [expr {$cells * $each}]\nputs \"$hero ready\"\nputs \"Energy: $energy\"\nputs {$energy}",
+      "expected": "Ada ready\nEnergy: 20\n$energy",
+      "checks": [
+        {
+          "label": "能量来自变量 energy",
+          "expr": "$energy == 20"
+        }
+      ],
+      "hints": [
+        "第一步是 set energy [expr {$cells * $each}]。",
+        "前两行用双引号，最后一行用花括号。"
+      ],
+      "quiz": "程序出错时，哪种方法更容易找到原因？",
+      "choices": [
+        "每次改一处并运行",
+        "同时改所有行",
+        "把所有括号删掉"
+      ],
+      "answer": 0,
+      "diagram": [
+        "准备数据",
+        "计算能量",
+        "点亮信标"
+      ],
+      "pitfall": "把所有内容都包进花括号会阻止你想要的替换。",
+      "transfer": "为信标增加一个 doubleEnergy 变量，显示双倍能量。",
+      "boss": true,
+      "xp": 200,
+      "minutes": 20
+    },
+    {
+      "id": 6,
+      "world": 1,
+      "title": "守门人的选择",
+      "topic": "if · 比较",
+      "story": "城门要求至少 10 枚金币。用条件告诉守门人该怎么做。",
+      "explain": [
+        "if 就是“如果”。条件成立，执行第一段脚本；不成立，执行 else 后的脚本。比较数字可以用 >=、<、==。",
+        "比较文字推荐用 eq 和 ne。例如 if {$name eq \"Ada\"}。Tcl 的 if 条件和脚本通常都用花括号包住。"
+      ],
+      "example": "set coins 8\nif {$coins >= 10} {\n    puts \"Enter\"\n} else {\n    puts \"Collect more\"\n}",
+      "task": "写过程 gate {coins}，金币至少 10 时返回 Enter，否则返回 Wait。输出 gate 12 的结果。",
+      "starter": "proc gate {coins} {\n    # if ... return ...\n}\nputs [gate 12]",
+      "solution": "proc gate {coins} {\n    if {$coins >= 10} {return Enter} else {return Wait}\n}\nputs [gate 12]",
+      "expected": "Enter",
+      "checks": [
+        {
+          "label": "边界 10 可以进入",
+          "expr": "[gate 10] eq \"Enter\""
+        },
+        {
+          "label": "9 需要等待",
+          "expr": "[gate 9] eq \"Wait\""
+        },
+        {
+          "label": "0 需要等待",
+          "expr": "[gate 0] eq \"Wait\""
+        }
+      ],
+      "hints": [
+        "proc 是一张可以重复使用的指令卡，本关先照着结构填写，第 11 关再深入。",
+        "if {$coins >= 10} {return Enter} else {return Wait}"
+      ],
+      "quiz": "至少 10 枚金币对应哪个条件？",
+      "choices": [
+        "$coins >= 10",
+        "$coins > 10",
+        "$coins < 10"
+      ],
+      "answer": 0,
+      "diagram": [
+        "金币数 ≥ 10？",
+        "是 → Enter",
+        "否 → Wait"
+      ],
+      "pitfall": "别漏掉边界值 10。数字相等比较用 ==，赋值用 set。",
+      "transfer": "把门槛改成 20，并测试 19、20、21。",
+      "boss": false,
+      "xp": 100,
+      "minutes": 10
+    },
+    {
+      "id": 7,
+      "world": 1,
+      "title": "收集物品清单",
+      "topic": "list · lindex · llength · lappend",
+      "story": "把钥匙、苹果和地图装进背包，保持每件物品的边界。",
+      "explain": [
+        "列表像一排格子，每个格子放一件物品。list 可以把多个值组成列表；lappend 往末尾加物品。",
+        "lindex bag 0 取第一个物品，索引从 0 开始；llength 计算物品数量。带空格的物品用 list 或花括号保持为一个元素。"
+      ],
+      "example": "set bag [list key \"red apple\"]\nlappend bag map\nputs [llength $bag]\nputs [lindex $bag 1]",
+      "task": "创建 bag，依次装入 key、red apple、map。输出数量 3，再输出第二件物品 red apple。",
+      "starter": "set bag [list key]\n# 加入两件物品\nputs [llength $bag]\nputs [lindex $bag 1]",
+      "solution": "set bag [list key \"red apple\" map]\nputs [llength $bag]\nputs [lindex $bag 1]",
+      "expected": "3\nred apple",
+      "checks": [
+        {
+          "label": "列表有三个物品",
+          "expr": "[llength $bag] == 3"
+        },
+        {
+          "label": "末尾物品是 map",
+          "expr": "[lindex $bag 2] eq \"map\""
+        }
+      ],
+      "hints": [
+        "list key \"red apple\" map 会生成三个元素。",
+        "第二个元素的索引是 1。"
+      ],
+      "quiz": "列表的第一个索引是？",
+      "choices": [
+        "0",
+        "1",
+        "-1"
+      ],
+      "answer": 0,
+      "diagram": [
+        "0: key",
+        "1: red apple",
+        "2: map"
+      ],
+      "pitfall": "set bag \"key red apple map\" 会把 red 和 apple 作为两个列表元素。",
+      "transfer": "用 lappend 再放入 compass，预测新长度。",
+      "boss": false,
+      "xp": 100,
+      "minutes": 10
+    },
+    {
+      "id": 8,
+      "world": 1,
+      "title": "循环采集机器人",
+      "topic": "foreach · for · while",
+      "story": "机器人可以重复采集，不需要你复制十条指令。",
+      "explain": [
+        "foreach 逐个拿出列表里的元素并执行脚本。foreach item $bag {...} 就像“对背包里的每件物品都做这些事”。",
+        "for 适合计数：初始化、继续条件、步进、循环体四部分。while 只给继续条件，要在循环体内更新状态，否则可能一直运行。"
+      ],
+      "example": "foreach fruit {apple pear} {puts $fruit}\nfor {set i 1} {$i <= 3} {incr i} {puts $i}",
+      "task": "遍历 2、4、6，把总和存进 total，输出 12。请用 foreach 和累加。",
+      "starter": "set total 0\nforeach n {2 4 6} {\n    # 把 n 加入 total\n}\nputs $total",
+      "solution": "set total 0\nforeach n {2 4 6} {incr total $n}\nputs $total",
+      "expected": "12",
+      "checks": [
+        {
+          "label": "total 中保存总和",
+          "expr": "$total == 12"
+        }
+      ],
+      "hints": [
+        "incr total $n 会增加当前数值。",
+        "每轮分别加 2、4、6，最后输出 total。"
+      ],
+      "quiz": "while 循环最容易忘记什么？",
+      "choices": [
+        "更新用于判断的状态",
+        "写 puts 英文大写",
+        "加一个网页链接"
+      ],
+      "answer": 0,
+      "diagram": [
+        "total = 0",
+        "依次加 2、4、6",
+        "total = 12"
+      ],
+      "pitfall": "在无限循环中，页面会在超时后停止本次运行。",
+      "transfer": "换成 {1 2 3 4 5}，预测总和 15。",
+      "boss": false,
+      "xp": 100,
+      "minutes": 10
+    },
+    {
+      "id": 9,
+      "world": 1,
+      "title": "文字变形术",
+      "topic": "string · split · join",
+      "story": "路牌文字太乱了。清理空格、统一大小写，再拼成新路牌。",
+      "explain": [
+        "string trim 去掉两端空白，string toupper 转大写，string length 数字符。可以用嵌套方括号把步骤串起来。",
+        "split 把字符串按分隔字符拆成列表；join 把列表拼成字符串。split 的第二个参数是一组分隔字符，不是一个完整分隔词。"
+      ],
+      "example": "set raw \"  chip island  \"\nputs [string toupper [string trim $raw]]\nputs [join {A B C} \"-\"]",
+      "task": "写过程 clean {text}：去掉两端空白并转大写。输出 clean \"  chip  \" 的结果 CHIP。",
+      "starter": "proc clean {text} {\n    return $text\n}\nputs [clean \"  chip  \"]",
+      "solution": "proc clean {text} {\n    return [string toupper [string trim $text]]\n}\nputs [clean \"  chip  \"]",
+      "expected": "CHIP",
+      "checks": [
+        {
+          "label": "清理不同的文字",
+          "expr": "[clean \"  Ada \"] eq \"ADA\""
+        },
+        {
+          "label": "全空格变空字符串",
+          "expr": "[clean \"   \"] eq \"\""
+        }
+      ],
+      "hints": [
+        "先 string trim $text。",
+        "把 trim 的结果传给 string toupper。"
+      ],
+      "quiz": "哪条命令去掉字符串两端的空格？",
+      "choices": [
+        "string trim",
+        "string length",
+        "llength"
+      ],
+      "answer": 0,
+      "diagram": [
+        "\"  chip  \"",
+        "trim → \"chip\"",
+        "toupper → \"CHIP\""
+      ],
+      "pitfall": "llength 计算列表元素数，string length 计算字符串长度。",
+      "transfer": "把 CHIP 用 string tolower 改回小写，看看命令名字的规律。",
+      "boss": false,
+      "xp": 100,
+      "minutes": 10
+    },
+    {
+      "id": 10,
+      "world": 1,
+      "title": "BOSS · 给精灵分配补给",
+      "topic": "组合挑战 · 列表与条件",
+      "story": "三只精灵饥饿值各不相同，机器人要分出谁需要补给。",
+      "explain": [
+        "用列表保存多条记录，再用 foreach 一条条处理。每条记录仍然可以是列表，lassign 能按位置把一条记录拆进多个变量。",
+        "把变化的输入放进过程参数，便于测试。此处 supply 接收记录列表；同一套规则应该适用于新的角色，而不仅是眼前样例。"
+      ],
+      "example": "foreach row {{Ada 4} {Bo 8}} {\n    lassign $row name hunger\n    puts \"$name: $hunger\"\n}",
+      "task": "实现 supply {rows}：每行是 {名字 饥饿值}。饥饿值 >=5 的名字加入列表并返回。输出示例中需要补给的名字 Ada Cy。",
+      "starter": "proc supply {rows} {\n    set selected {}\n    foreach row $rows {\n        lassign $row name hunger\n        # 判断并添加名字\n    }\n    return $selected\n}\nputs [supply {{Ada 7} {Bo 2} {Cy 5}}]",
+      "solution": "proc supply {rows} {\n    set selected {}\n    foreach row $rows {\n        lassign $row name hunger\n        if {$hunger >= 5} {lappend selected $name}\n    }\n    return $selected\n}\nputs [supply {{Ada 7} {Bo 2} {Cy 5}}]",
+      "expected": "Ada Cy",
+      "checks": [
+        {
+          "label": "空输入没有角色",
+          "expr": "[supply {}] eq \"\""
+        },
+        {
+          "label": "正确处理边界和新角色",
+          "expr": "[supply {{Fox 5} {Owl 4} {Bee 9}}] eq \"Fox Bee\""
+        }
+      ],
+      "hints": [
+        "使用 if {$hunger >= 5}。",
+        "条件成立时 lappend selected $name。"
+      ],
+      "quiz": "为什么测试新的角色名字？",
+      "choices": [
+        "确认程序真的按规则处理输入",
+        "为了增加代码长度",
+        "Tcl 只能接受三个名字"
+      ],
+      "answer": 0,
+      "diagram": [
+        "读取 {名字 饥饿值}",
+        "饥饿 ≥ 5？",
+        "把名字加入 selected"
+      ],
+      "pitfall": "返回列表时不要提前 join，否则有空格的名字会丢失元素边界。",
+      "transfer": "把条件改成 >=8，观察哪些精灵不再需要补给。",
+      "boss": true,
+      "xp": 200,
+      "minutes": 20
+    },
+    {
+      "id": 11,
+      "world": 2,
+      "title": "制作可重复的技能卡",
+      "topic": "proc · 参数 · return",
+      "story": "把招呼语装成技能卡，换个名字也能使用。",
+      "explain": [
+        "proc 定义过程，像一张带输入格子的配方。proc greet {name} {...} 定义 greet，name 是输入参数。调用 greet Ada 时，name 得到 Ada。",
+        "过程内部的普通变量通常是局部变量。return 把计算结果交给调用者，puts 把内容显示出来；两者作用不同。参数还可以有默认值。"
+      ],
+      "example": "proc greet {name {place Island}} {\n    return \"Hello $name at $place\"\n}\nputs [greet Ada]\nputs [greet Bo Forest]",
+      "task": "实现 double {n} 返回输入的两倍。输出 double 7 的结果 14。",
+      "starter": "proc double {n} {\n    return $n\n}\nputs [double 7]",
+      "solution": "proc double {n} {return [expr {$n * 2}]}\nputs [double 7]",
+      "expected": "14",
+      "checks": [
+        {
+          "label": "处理 0",
+          "expr": "[double 0] == 0"
+        },
+        {
+          "label": "处理负数",
+          "expr": "[double -3] == -6"
+        },
+        {
+          "label": "处理小数",
+          "expr": "[double 1.5] == 3"
+        }
+      ],
+      "hints": [
+        "计算使用 expr。",
+        "return [expr {$n * 2}] 将结果返回。"
+      ],
+      "quiz": "调用者要拿到计算结果，应使用？",
+      "choices": [
+        "return",
+        "puts",
+        "#"
+      ],
+      "answer": 0,
+      "diagram": [
+        "输入 n = 7",
+        "过程 double",
+        "返回 14"
+      ],
+      "pitfall": "只在过程里 puts 结果，通常不能让外面的 expr 使用那个结果。",
+      "transfer": "增加一个 times {n factor} 过程，让倍率也成为参数。",
+      "boss": false,
+      "xp": 100,
+      "minutes": 10
+    },
+    {
+      "id": 12,
+      "world": 2,
+      "title": "记录角色档案",
+      "topic": "dict · array",
+      "story": "用名字取属性，比记住“第几个格子”更直观。",
+      "explain": [
+        "字典 dict 用键和值记录信息，像“hp 对应 80，name 对应 Ada”的档案。dict get 取值，dict set 修改，dict exists 检查键是否存在。",
+        "Tcl 还有数组 array：set hero(hp) 80。数组是一组变量元素，字典则是一个可以作为参数传递的值。本关练习字典，不把两者混为一谈。"
+      ],
+      "example": "set hero [dict create name Ada hp 80]\ndict incr hero hp 5\nputs [dict get $hero hp]\nset bag(key) 1\nputs $bag(key)",
+      "task": "创建 hero 字典，name=Ada、hp=80；增加 20 点 hp，输出 Ada:100。",
+      "starter": "set hero [dict create name Ada hp 80]\n# 增加生命值\nputs \"[dict get $hero name]:[dict get $hero hp]\"",
+      "solution": "set hero [dict create name Ada hp 80]\ndict incr hero hp 20\nputs \"[dict get $hero name]:[dict get $hero hp]\"",
+      "expected": "Ada:100",
+      "checks": [
+        {
+          "label": "字典保存了 hp=100",
+          "expr": "[dict get $hero hp] == 100"
+        },
+        {
+          "label": "角色名字没有丢失",
+          "expr": "[dict get $hero name] eq \"Ada\""
+        }
+      ],
+      "hints": [
+        "dict incr hero hp 20 修改变量 hero 中的字典。",
+        "dict get $hero hp 读取修改后的数值。"
+      ],
+      "quiz": "哪一句读取 hero 字典中的 hp？",
+      "choices": [
+        "dict get $hero hp",
+        "set hero(hp)",
+        "lindex hp hero"
+      ],
+      "answer": 0,
+      "diagram": [
+        "字典 hero",
+        "name → Ada",
+        "hp → 100"
+      ],
+      "pitfall": "读取不存在的键会报错，可以先用 dict exists 判断。",
+      "transfer": "为 hero 添加 level 键，值为 3。",
+      "boss": false,
+      "xp": 100,
+      "minutes": 10
+    },
+    {
+      "id": 13,
+      "world": 2,
+      "title": "保存冒险日志",
+      "topic": "open · puts · gets · close",
+      "story": "离开页面前，把故事写进文件，再读回来。",
+      "explain": [
+        "open 返回文件通道，像一根连接文件的管道。模式 w 会新建或覆盖文件；r 读取；a 追加。puts $f 把文字写进通道。",
+        "gets $f 读取一行，close $f 关闭通道。在这里，浏览器使用内存中的虚拟文件；它不会自动写进你电脑的磁盘。每次运行都会获得新环境。"
+      ],
+      "example": "set f [open diary.txt w]\nputs $f \"Day 1: Ready\"\nclose $f\nset f [open diary.txt r]\nputs [gets $f]\nclose $f",
+      "task": "向 quest.txt 写入第一行 Level 13、第二行 Saved。关闭后重新打开，读回两行并输出。",
+      "starter": "set f [open quest.txt w]\n# 写入两行并关闭\n# 再用 r 打开、读取、关闭\n",
+      "solution": "set f [open quest.txt w]\nputs $f \"Level 13\"\nputs $f \"Saved\"\nclose $f\nset f [open quest.txt r]\nputs [gets $f]\nputs [gets $f]\nclose $f",
+      "expected": "Level 13\nSaved",
+      "checks": [
+        {
+          "label": "确实创建了文件",
+          "expr": "[file exists quest.txt]"
+        }
+      ],
+      "hints": [
+        "写入用 puts $f \"Level 13\"。",
+        "关闭写通道后，再 set f [open quest.txt r]。"
+      ],
+      "quiz": "模式 w 对已有文件会做什么？",
+      "choices": [
+        "覆盖原内容",
+        "只读取",
+        "自动备份所有版本"
+      ],
+      "answer": 0,
+      "diagram": [
+        "open quest.txt w",
+        "puts → 文件 → close",
+        "open r → gets → close"
+      ],
+      "pitfall": "真实电脑上用 w 会覆盖文件，练习时请使用专门的练习文件名。",
+      "transfer": "用 a 追加第三行，在本地 Tcl 中再次运行读取脚本。",
+      "boss": false,
+      "xp": 100,
+      "minutes": 10
+    },
+    {
+      "id": 14,
+      "world": 2,
+      "title": "识破错误陷阱",
+      "topic": "catch · error · 错误信息",
+      "story": "打不开的宝箱不该让整场冒险终止。学会处理失败。",
+      "explain": [
+        "catch 执行一段脚本，并把结果或错误文字存入指定变量。返回 0 表示正常完成；普通错误返回 1。",
+        "用 error 主动报告不符合规则的输入。错误是程序给你的线索。catch 还有 return、break 等其他完成码，本关只处理普通错误与成功。"
+      ],
+      "example": "if {[catch {open missing.txt r} message]} {\n    puts \"Could not open file\"\n}\nputs \"Still running\"",
+      "task": "实现 safeDivide {a b}：b 为 0 时返回 undefined，否则做浮点除法。输出 5/2 的 2.5 和 5/0 的 undefined。",
+      "starter": "proc safeDivide {a b} {\n    # 先处理 0\n    return 0\n}\nputs [safeDivide 5 2]\nputs [safeDivide 5 0]",
+      "solution": "proc safeDivide {a b} {\n    if {$b == 0} {return undefined}\n    return [expr {double($a) / $b}]\n}\nputs [safeDivide 5 2]\nputs [safeDivide 5 0]",
+      "expected": "2.5\nundefined",
+      "checks": [
+        {
+          "label": "负数也能计算",
+          "expr": "[safeDivide -6 2] == -3"
+        },
+        {
+          "label": "其他除零输入也安全",
+          "expr": "[safeDivide 0 0] eq \"undefined\""
+        }
+      ],
+      "hints": [
+        "在除法之前用 if {$b == 0} 判断。",
+        "expr 中的 double($a) 让整数输入也能保留小数。"
+      ],
+      "quiz": "catch 返回 0 通常说明什么？",
+      "choices": [
+        "脚本正常完成",
+        "发生普通错误",
+        "文件大小为 0"
+      ],
+      "answer": 0,
+      "diagram": [
+        "检查输入",
+        "有效 → 计算",
+        "无效 → 解释原因"
+      ],
+      "pitfall": "安全除法可以先检查输入，不必等程序报错再处理。",
+      "transfer": "额外实验：catch {error \"Bad key\"} msg 后输出 $msg。",
+      "boss": false,
+      "xp": 100,
+      "minutes": 10
+    },
+    {
+      "id": 15,
+      "world": 2,
+      "title": "BOSS · 修复技能工坊",
+      "topic": "组合挑战 · 通用过程",
+      "story": "工坊需要一张计算平均值的技能卡，空背包也不能把它弄坏。",
+      "explain": [
+        "先用 foreach 求和，再除以元素数量。空列表的长度为 0，要先处理，避免除以零。",
+        "工程脚本经常需要统计多个数。使用 double 保留平均值的小数部分；过程接收一个列表参数，调用时用花括号把多个数打包。"
+      ],
+      "example": "puts [llength {3 4 8}]\nputs [expr {double(15) / 3}]",
+      "task": "实现 average {numbers}。空列表返回 0，其他列表返回算术平均值。输出 {2 4 9} 的平均值 5.0。",
+      "starter": "proc average {numbers} {\n    set total 0\n    # 处理空列表、求和、返回平均值\n    return 0\n}\nputs [average {2 4 9}]",
+      "solution": "proc average {numbers} {\n    if {[llength $numbers] == 0} {return 0}\n    set total 0\n    foreach n $numbers {set total [expr {$total + $n}]}\n    return [expr {double($total) / [llength $numbers]}]\n}\nputs [average {2 4 9}]",
+      "expected": "5.0",
+      "checks": [
+        {
+          "label": "空列表返回 0",
+          "expr": "[average {}] == 0"
+        },
+        {
+          "label": "保留小数平均值",
+          "expr": "[average {1 2}] == 1.5"
+        },
+        {
+          "label": "处理负数",
+          "expr": "[average {-2 2}] == 0"
+        }
+      ],
+      "hints": [
+        "先用 llength 判断空列表。",
+        "累计后返回 expr {double($total) / [llength $numbers]}。"
+      ],
+      "quiz": "为什么平均值计算中使用 double？",
+      "choices": [
+        "避免整数除法截断小数",
+        "让循环跑两遍",
+        "给变量改名"
+      ],
+      "answer": 0,
+      "diagram": [
+        "列表 → 求和",
+        "空列表先返回 0",
+        "总和 ÷ 数量"
+      ],
+      "pitfall": "incr 只适合整数；本关求和用 expr 也能支持小数。",
+      "transfer": "输入 {1.5 2.5}，验证结果是 2.0。",
+      "boss": true,
+      "xp": 200,
+      "minutes": 20
+    },
+    {
+      "id": 16,
+      "world": 3,
+      "title": "进入芯片城",
+      "topic": "namespace · EDA 命令",
+      "story": "生活中的自动化学会了。下一步，把技能带到芯片设计现场。",
+      "explain": [
+        "VLSI 指超大规模集成电路；EDA 是帮助设计芯片的软件。Tcl 常被用来控制这些工具，但工具增加的命令并不是 Tcl 自带命令。",
+        "namespace 像给技能卡分文件夹，减少同名冲突。下面的 lab::area 是我们自建的教学命令，只算矩形面积，不执行真正的芯片设计。"
+      ],
+      "example": "namespace eval lab {\n    proc area {w h} {return [expr {$w * $h}]}\n}\nputs [lab::area 3 4]",
+      "task": "在 namespace lab 内实现 area {w h}，返回宽乘高。输出 lab::area 6 7 的结果 42。",
+      "starter": "namespace eval lab {\n    proc area {w h} {return 0}\n}\nputs [lab::area 6 7]",
+      "solution": "namespace eval lab {\n    proc area {w h} {return [expr {$w * $h}]}\n}\nputs [lab::area 6 7]",
+      "expected": "42",
+      "checks": [
+        {
+          "label": "换一组尺寸",
+          "expr": "[lab::area 2 3] == 6"
+        },
+        {
+          "label": "零宽度面积为 0",
+          "expr": "[lab::area 0 9] == 0"
+        }
+      ],
+      "hints": [
+        "命名空间里的过程仍然用 proc 定义。",
+        "调用时用 lab::area，过程里返回 expr {$w * $h}。"
+      ],
+      "quiz": "create_clock 是 Tcl 核心自带命令吗？",
+      "choices": [
+        "不是，通常由 EDA 工具提供",
+        "是，所有 tclsh 都能运行",
+        "它是浏览器命令"
+      ],
+      "answer": 0,
+      "diagram": [
+        "Tcl 核心语法",
+        "工具扩展命令",
+        "EDA 设计流程"
+      ],
+      "pitfall": "普通 tclsh 中直接运行 create_clock 通常会报 unknown command。",
+      "transfer": "在本地执行 info commands lab::*，看看命名空间中的命令。",
+      "boss": false,
+      "xp": 100,
+      "minutes": 10
+    },
+    {
+      "id": 17,
+      "world": 3,
+      "title": "从报告中寻找线索",
+      "topic": "regexp · 捕获组",
+      "story": "设计报告里藏着一个 slack 数字，把它取出来。",
+      "explain": [
+        "正则表达式 regexp 是寻找文字规律的工具。([0-9]+) 表示捕获一串数字；括号圈住的部分可以存入变量。",
+        "slack 可以理解为时间余量：负数通常意味着这个检查没有满足时间要求。本关只识别教学格式 slack: 数字，不代替真实工具的报告解析。"
+      ],
+      "example": "set line \"slack: -0.25\"\nif {[regexp {slack: (-?[0-9]+\\.[0-9]+)} $line whole value]} {\n    puts $value\n}",
+      "task": "实现 slackValue {line}，识别格式 slack: 后的整数或小数（可带负号），返回数值文字；不匹配返回 NA。输出 -0.25。",
+      "starter": "proc slackValue {line} {\n    # regexp 匹配后 return 捕获的值\n    return NA\n}\nputs [slackValue \"slack: -0.25\"]",
+      "solution": "proc slackValue {line} {\n    if {[regexp {^slack: (-?[0-9]+(\\.[0-9]+)?)$} $line whole value]} {return $value}\n    return NA\n}\nputs [slackValue \"slack: -0.25\"]",
+      "expected": "-0.25",
+      "checks": [
+        {
+          "label": "识别正整数",
+          "expr": "[slackValue \"slack: 2\"] eq \"2\""
+        },
+        {
+          "label": "识别小数",
+          "expr": "[slackValue \"slack: 0.10\"] eq \"0.10\""
+        },
+        {
+          "label": "无效行返回 NA",
+          "expr": "[slackValue \"hello\"] eq \"NA\""
+        }
+      ],
+      "hints": [
+        "-? 表示可选负号，(\\.[0-9]+)? 表示可选小数部分。",
+        "模式两端用 ^ 和 $，整行匹配；数值保存在 value。"
+      ],
+      "quiz": "slack 为负数，在本教学场景中意味着？",
+      "choices": [
+        "时间要求未满足",
+        "文件不存在",
+        "芯片已经损坏"
+      ],
+      "answer": 0,
+      "diagram": [
+        "报告 slack: -0.25",
+        "regexp 识别模式",
+        "value = -0.25"
+      ],
+      "pitfall": "正则里的点默认表示任意字符；匹配小数点要用反斜杠转义。",
+      "transfer": "扩展规则让 slack: 后也可以有多个空格，提示使用 [[:space:]]+。",
+      "boss": false,
+      "xp": 100,
+      "minutes": 10
+    },
+    {
+      "id": 18,
+      "world": 3,
+      "title": "打造会行动的芯片对象",
+      "topic": "TclOO · class · method",
+      "story": "设计一张芯片图纸，再从图纸造出多个对象。",
+      "explain": [
+        "类像图纸，对象像按图纸造出来的模型。Tcl 8.6 自带 TclOO。oo::class create 定义类，constructor 初始化状态，method 定义对象的动作。",
+        "类中 variable 声明对象自己的变量。不同对象各有一份状态，修改一个对象不该影响另一个。最后可以 destroy 对象释放它。"
+      ],
+      "example": "oo::class create Lamp {\n    variable state\n    constructor {} {set state off}\n    method on {} {set state on}\n    method status {} {return $state}\n}\nset lamp [Lamp new]\n$lamp on\nputs [$lamp status]\n$lamp destroy",
+      "task": "创建类 Chip：constructor {value} 保存 name；method label {} 返回 name。创建名为 Tiny 的对象并输出 Tiny。",
+      "starter": "oo::class create Chip {\n    variable name\n    constructor {value} {set name $value}\n    method label {} {return \"TODO\"}\n}\nset chip [Chip new Tiny]\nputs [$chip label]\n$chip destroy",
+      "solution": "oo::class create Chip {\n    variable name\n    constructor {value} {set name $value}\n    method label {} {return $name}\n}\nset chip [Chip new Tiny]\nputs [$chip label]\n$chip destroy",
+      "expected": "Tiny",
+      "checks": [
+        {
+          "label": "新对象保存自己的名字",
+          "script": "set other [Chip new Nova]\nset ok [expr {[$other label] eq \"Nova\"}]\n$other destroy\nset ok"
+        },
+        {
+          "label": "两个对象不共享名字",
+          "script": "set a [Chip new A]\nset b [Chip new B]\nset ok [expr {[$a label] eq \"A\" && [$b label] eq \"B\"}]\n$a destroy\n$b destroy\nset ok"
+        }
+      ],
+      "hints": [
+        "label 应当返回对象变量 name。",
+        "使用 return $name。"
+      ],
+      "quiz": "类和对象的关系更像？",
+      "choices": [
+        "图纸和按图纸制造的模型",
+        "文件名和文件后缀",
+        "加法和乘法"
+      ],
+      "answer": 0,
+      "diagram": [
+        "类 Chip",
+        "对象 Tiny",
+        "对象 Nova"
+      ],
+      "pitfall": "对象方法的调用形式是 $object method，而不是 object.method()。",
+      "transfer": "增加一个 rename {value} 方法，更新对象的名字。",
+      "boss": false,
+      "xp": 100,
+      "minutes": 10
+    },
+    {
+      "id": 19,
+      "world": 3,
+      "title": "搭建教学设计流程",
+      "topic": "source · 模块 · 流程",
+      "story": "把配置和操作分开，让一套脚本能用于不同设计。",
+      "explain": [
+        "source 读取另一个 Tcl 文件，并在当前解释器中执行。把可变参数放在配置文件，再 source 它，是常见的脚本组织方式。",
+        "真实 EDA 的读入、约束、综合、布局布线与报告命令因工具而异。本关 mockFlow 只生成教学流程描述，不调用商业工具，不生成 GDS。"
+      ],
+      "example": "set f [open config.tcl w]\nputs $f {set design Tiny}\nclose $f\nsource config.tcl\nputs \"Design: $design\"",
+      "task": "实现 mockFlow {design period}：周期 <=0 时用 error 报错，否则返回列表 {read:设计名 clock:周期 report:timing}。输出 Tiny、周期 10 的流程。",
+      "starter": "proc mockFlow {design period} {\n    # 检查周期，然后用 list 生成三个步骤\n    return {}\n}\nputs [mockFlow Tiny 10]",
+      "solution": "proc mockFlow {design period} {\n    if {$period <= 0} {error \"Period must be positive\"}\n    return [list \"read:$design\" \"clock:$period\" \"report:timing\"]\n}\nputs [mockFlow Tiny 10]",
+      "expected": "read:Tiny clock:10 report:timing",
+      "checks": [
+        {
+          "label": "新设计也能生成流程",
+          "expr": "[mockFlow Nova 5] eq \"read:Nova clock:5 report:timing\""
+        },
+        {
+          "label": "拒绝无效周期",
+          "expr": "[catch {mockFlow Tiny 0}] == 1"
+        },
+        {
+          "label": "设计名包含空格仍保持三步",
+          "expr": "[llength [mockFlow \"My Chip\" 10]] == 3"
+        }
+      ],
+      "hints": [
+        "if {$period <= 0} {error \"Period must be positive\"}。",
+        "用 list 而不是拼接字符串，保留包含空格的设计名。"
+      ],
+      "quiz": "source config.tcl 的作用是什么？",
+      "choices": [
+        "执行这个 Tcl 文件",
+        "把它变成视频",
+        "自动启动商业 EDA"
+      ],
+      "answer": 0,
+      "diagram": [
+        "配置文件",
+        "source 载入",
+        "读入 → 时钟 → 报告"
+      ],
+      "pitfall": "这里的 clock:10 只是文字，不是创建真实时钟的 EDA 命令。",
+      "transfer": "把设计名换成 My Chip，用 llength 验证仍有三个步骤。",
+      "boss": false,
+      "xp": 100,
+      "minutes": 10
+    },
+    {
+      "id": 20,
+      "world": 3,
+      "title": "终极 BOSS · 时序报告侦探",
+      "topic": "毕业项目 · 统计与验证",
+      "story": "芯片城的时序报告送到了。找出违规路径数和最差时间余量，提交你的结案报告。",
+      "explain": [
+        "报告用列表模拟，每条记录是 {路径名 slack}。slack <0 算违规；最小的 slack 是最差余量。程序输出字典，便于别的脚本继续使用。",
+        "先处理空输入，再把最差值设为第一条记录的 slack。不要随便从 0 开始取最小值：如果所有 slack 都为正，最差余量也应该为正。"
+      ],
+      "example": "set rows {{p1 0.12} {p2 -0.25} {p3 -0.05}}\nforeach row $rows {\n    lassign $row path slack\n    puts \"$path -> $slack ns\"\n}",
+      "task": "实现 analyze {rows}，返回包含 violations 和 worst 的字典。空列表返回 violations=0、worst=NA。示例输出 Violations: 2 和 Worst: -0.25 ns。",
+      "starter": "proc analyze {rows} {\n    # 统计违规数量，并找到最小 slack\n    return [dict create violations 0 worst NA]\n}\nset result [analyze {{p1 0.12} {p2 -0.25} {p3 -0.05}}]\nputs \"Violations: [dict get $result violations]\"\nputs \"Worst: [dict get $result worst] ns\"",
+      "solution": "proc analyze {rows} {\n    if {[llength $rows] == 0} {return [dict create violations 0 worst NA]}\n    set violations 0\n    set worst [lindex [lindex $rows 0] 1]\n    foreach row $rows {\n        lassign $row path slack\n        if {$slack < 0} {incr violations}\n        if {$slack < $worst} {set worst $slack}\n    }\n    return [dict create violations $violations worst $worst]\n}\nset result [analyze {{p1 0.12} {p2 -0.25} {p3 -0.05}}]\nputs \"Violations: [dict get $result violations]\"\nputs \"Worst: [dict get $result worst] ns\"",
+      "expected": "Violations: 2\nWorst: -0.25 ns",
+      "checks": [
+        {
+          "label": "空报告有明确结果",
+          "expr": "[dict get [analyze {}] violations] == 0 && [dict get [analyze {}] worst] eq \"NA\""
+        },
+        {
+          "label": "全部为正时最差值仍为正",
+          "expr": "[dict get [analyze {{a 0.3} {b 0.1}}] worst] == 0.1"
+        },
+        {
+          "label": "零余量不算违规",
+          "expr": "[dict get [analyze {{a 0} {b -1}}] violations] == 1"
+        },
+        {
+          "label": "不同路径名和顺序也正确",
+          "expr": "[dict get [analyze {{x -0.8} {y 2} {z -0.2}}] worst] == -0.8"
+        }
+      ],
+      "hints": [
+        "空输入先返回。非空时 worst 从第一条记录读取。",
+        "foreach 中分别判断 slack<0 和 slack<worst，最后用 dict create 返回。"
+      ],
+      "quiz": "所有 slack 都是正数时，worst 应该是什么？",
+      "choices": [
+        "其中最小的正数",
+        "一定是 0",
+        "一定是 NA"
+      ],
+      "answer": 0,
+      "diagram": [
+        "报告记录列表",
+        "计数 slack < 0 · 取最小 slack",
+        "字典 violations / worst"
+      ],
+      "pitfall": "这是简化的教学数据格式；真实报告包含多种检查和单位，需按工具文档解析。",
+      "transfer": "升级毕业作品：从文本文件读取记录，忽略空行，检查坏数据并输出 CSV。",
+      "boss": true,
+      "xp": 200,
+      "minutes": 20
+    }
+  ]
+}

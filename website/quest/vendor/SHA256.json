@@ -1,0 +1,7 @@
+{
+  "require.js": "0ca49b7de8f5e006ba5eb976937a3f9fb96b05ebfbb11d685c0b21ead94aacaf",
+  "wacl.js": "a75043d9faaf93e06f4359bcfd59fa3a90b3c06ba51dd25535339c50fc866088",
+  "wacl.wasm": "9f55db5a617fd154882bb93bbf333dad5af1d0d697e8076ed05896fb91b22e99",
+  "wacl-library.data": "3a8e166c2197920e36c874e2fefae4ca6e0c4a920a443b8e1d2282c344d485f0",
+  "wacl-custom.data": "46874b6dfe04b9c693815fe904a52e3583260323857dee46ac7373c484e3b2f8"
+}

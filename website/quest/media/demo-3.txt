@@ -1,0 +1,76 @@
+过程与安全计算
+原创无配音代码演示 · 每段 10 秒 · 输出来自真实 Tcl
+
+[00–10 秒] 制作一张技能卡
+proc 定义配方，参数是输入，return 是返回的结果。
+
+proc double {n} {return [expr {$n * 2}]}
+puts [double 7]
+
+输出：
+14
+
+[10–20 秒] 换一个输入也能用
+同一个过程，不需要复制代码。
+
+proc double {n} {return [expr {$n * 2}]}
+puts [double 3]
+puts [double -2]
+
+输出：
+6
+-4
+
+[20–30 秒] 留意整数除法
+5/2 得到 2。使用小数或 double，结果才保留小数。
+
+puts [expr {5 / 2}]
+puts [expr {5 / 2.0}]
+
+输出：
+2
+2.5
+
+[30–40 秒] 先保护空输入
+空列表先返回 0，避免平均值计算中除以零。
+
+proc average {numbers} {
+    if {[llength $numbers] == 0} {return 0}
+    set total 0
+    foreach n $numbers {set total [expr {$total + $n}]}
+    return [expr {double($total) / [llength $numbers]}]
+}
+puts [average {}]
+
+输出：
+0
+
+[40–50 秒] 累加，再除以数量
+求和得到 15，除以 3，平均值为 5.0。
+
+proc average {numbers} {
+    if {[llength $numbers] == 0} {return 0}
+    set total 0
+    foreach n $numbers {set total [expr {$total + $n}]}
+    return [expr {double($total) / [llength $numbers]}]
+}
+puts [average {2 4 9}]
+
+输出：
+5.0
+
+[50–60 秒] 换数据，验证规则
+试试 {1 2} 和 {-2 2}，确认过程真的通用。
+
+proc average {numbers} {
+    if {[llength $numbers] == 0} {return 0}
+    set total 0
+    foreach n $numbers {set total [expr {$total + $n}]}
+    return [expr {double($total) / [llength $numbers]}]
+}
+puts [average {1 2}]
+puts [average {-2 2}]
+
+输出：
+1.5
+0.0

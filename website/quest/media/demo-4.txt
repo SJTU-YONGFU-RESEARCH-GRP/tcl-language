@@ -1,0 +1,91 @@
+一份报告，一次芯片冒险
+原创无配音代码演示 · 每段 10 秒 · 输出来自真实 Tcl
+
+[00–10 秒] 认识简化的时序报告
+每行是一条路径和 slack；负余量算作违规。
+
+set report {{p1 0.12} {p2 -0.25} {p3 -0.05}}
+foreach row $report {puts $row}
+
+输出：
+p1 0.12
+p2 -0.25
+p3 -0.05
+
+[10–20 秒] 拆开一行数据
+lassign 把一行按顺序交给 path 和 slack。
+
+lassign {p2 -0.25} path slack
+puts "Path: $path"
+puts "Slack: $slack ns"
+
+输出：
+Path: p2
+Slack: -0.25 ns
+
+[20–30 秒] 数出没有达标的路径
+循环里遇到 slack<0，就给 count 加一。
+
+set count 0
+foreach row {{p1 0.12} {p2 -0.25} {p3 -0.05}} {
+    lassign $row path slack
+    if {$slack < 0} {incr count}
+}
+puts "Violations: $count"
+
+输出：
+Violations: 2
+
+[30–40 秒] 寻找最差余量
+worst 从第一条记录开始，依次保留更小的值。
+
+set worst 0.12
+foreach slack {0.12 -0.25 -0.05} {
+    if {$slack < $worst} {set worst $slack}
+}
+puts "Worst: $worst ns"
+
+输出：
+Worst: -0.25 ns
+
+[40–50 秒] 用字典交付结果
+结果可以继续交给别的 Tcl 脚本处理。
+
+proc analyze {rows} {
+    set count 0
+    set worst [lindex [lindex $rows 0] 1]
+    foreach row $rows {
+        lassign $row path slack
+        if {$slack < 0} {incr count}
+        if {$slack < $worst} {set worst $slack}
+    }
+    return [dict create violations $count worst $worst]
+}
+set report {{p1 0.12} {p2 -0.25} {p3 -0.05}}
+set result [analyze $report]
+puts $result
+
+输出：
+violations 2 worst -0.25
+
+[50–60 秒] 毕业前的最后检查
+这段动画演示非空输入；第 20 关还要处理空报告。
+
+proc analyze {rows} {
+    set count 0
+    set worst [lindex [lindex $rows 0] 1]
+    foreach row $rows {
+        lassign $row path slack
+        if {$slack < 0} {incr count}
+        if {$slack < $worst} {set worst $slack}
+    }
+    return [dict create violations $count worst $worst]
+}
+set report {{p1 0.12} {p2 -0.25} {p3 -0.05}}
+set result [analyze $report]
+puts $result
+puts [dict get $result violations]
+
+输出：
+violations 2 worst -0.25
+2

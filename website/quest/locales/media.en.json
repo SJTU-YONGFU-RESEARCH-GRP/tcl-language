@@ -1,0 +1,30 @@
+[
+ {"title":"First lines of code and variables","scenes":[
+  ["Ask the computer to say hello","puts is a little loudspeaker. Double quotes keep a message together."],
+  ["Give a backpack pocket a name","set stores a value in a variable with a name."],
+  ["Read what is in the pocket","$hero is replaced with the Ada value stored in hero."],
+  ["Invite a calculator along","Brackets run expr first and give its result to set."],
+  ["Three kinds of grouping","Double quotes allow substitution; braces preserve this text literally."],
+  ["Repair the launch beacon","Pause, predict the output and try the mission in lesson 5."]]},
+ {"title":"Lists, conditions and loops","scenes":[
+  ["Count the backpack slots","list preserves item boundaries. The words red apple form one item."],
+  ["Find the second item","Indices start at 0, so the second item has index 1."],
+  ["Repeat a job for each item","foreach puts each list element into item, then executes the script."],
+  ["Let the gatekeeper choose",">= includes equality: exactly 10 coins can enter."],
+  ["Add values using a loop","Start total at 0 and add the current number on every turn."],
+  ["Combine two skills","Collect only names that meet the threshold. What changes if it becomes >=8?"]]},
+ {"title":"Procedures and safe calculations","scenes":[
+  ["Make a reusable skill card","proc defines a recipe, arguments supply inputs, and return gives a result back."],
+  ["Use another input","Reuse the same procedure instead of copying its code."],
+  ["Notice integer division","5/2 is 2. Use a decimal or double to preserve the fractional part."],
+  ["Protect empty input first","Return 0 for an empty list to avoid dividing by zero."],
+  ["Add, then divide by the count","The sum is 15. Dividing by 3 gives an average of 5.0."],
+  ["Change the data to test the rule","Try {1 2} and {-2 2} to verify that the procedure is reusable."]]},
+ {"title":"One report, one chip adventure","scenes":[
+  ["Meet a simplified timing report","Each record contains a path and slack. Negative slack counts as a violation."],
+  ["Separate a record's fields","lassign passes the record fields to path and slack in order."],
+  ["Count violating paths","For each slack below 0, increase count by one."],
+  ["Find the worst slack","Start worst with the first actual record and keep the smaller values."],
+  ["Deliver the result as a dictionary","Another Tcl script can continue processing these results."],
+  ["One last check before graduating","This demo uses nonempty input. Lesson 20 also requires an empty-report case."]]}
+]

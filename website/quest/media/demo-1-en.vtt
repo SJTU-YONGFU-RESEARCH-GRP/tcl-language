@@ -1,0 +1,19 @@
+WEBVTT
+
+00:00.000 --> 00:10.000
+puts is a little loudspeaker. Double quotes keep a message together.
+
+00:10.000 --> 00:20.000
+set stores a value in a variable with a name.
+
+00:20.000 --> 00:30.000
+$hero is replaced with the Ada value stored in hero.
+
+00:30.000 --> 00:40.000
+Brackets run expr first and give its result to set.
+
+00:40.000 --> 00:50.000
+Double quotes allow substitution; braces preserve this text literally.
+
+00:50.000 --> 01:00.000
+Pause, predict the output and try the mission in lesson 5.

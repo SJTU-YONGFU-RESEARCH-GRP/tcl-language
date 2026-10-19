@@ -1,0 +1,968 @@
+{
+  "worlds": [
+    {
+      "name": "Starter Village",
+      "subtitle": "Make your code speak",
+      "color": "#b1ed9d",
+      "icon": "S",
+      "badge": "Beacon Lighter"
+    },
+    {
+      "name": "Logic Forest",
+      "subtitle": "Choose and repeat",
+      "color": "#9bd9ce",
+      "icon": "L",
+      "badge": "Forest Guardian"
+    },
+    {
+      "name": "Tool Workshop",
+      "subtitle": "Turn small skills into tools",
+      "color": "#f5c77f",
+      "icon": "T",
+      "badge": "Tool Maker"
+    },
+    {
+      "name": "Chip City",
+      "subtitle": "Explore the VLSI setting",
+      "color": "#c2b8f5",
+      "icon": "C",
+      "badge": "Timing Detective"
+    }
+  ],
+  "levels": [
+    {
+      "id": 1,
+      "world": 0,
+      "title": "Wake Up the Little Robot",
+      "topic": "puts · comments",
+      "story": "The robot on Chip Island is asleep. Wake it with your first greeting.",
+      "explain": [
+        "puts tells Tcl to display some text. Think of it as a small loudspeaker: puts \"Hello\" says Hello. Double quotes keep the words of one message together.",
+        "A line beginning with # is a comment. It explains the code to people; Tcl does not run it. Start with one command per line."
+      ],
+      "example": "puts \"Hello, Tcl!\"\n# A comment: Tcl does not execute this line.\nputs \"Ready!\"",
+      "task": "Print Hello, Tcl! and then Ready!, with each message on its own line.",
+      "starter": "# TODO: complete the task described above.\nputs \"Hello, Tcl!\"\n# TODO: complete the task described above.\n",
+      "solution": "puts \"Hello, Tcl!\"\nputs \"Ready!\"",
+      "expected": "Hello, Tcl!\nReady!",
+      "checks": [],
+      "hints": [
+        "Use two puts commands.",
+        "Wrap each message in double quotes."
+      ],
+      "quiz": "What do the double quotes in puts \"Hello world\" do?",
+      "choices": [
+        "Group the sentence as one argument",
+        "Turn the text into a comment",
+        "Run the command twice"
+      ],
+      "answer": 0,
+      "diagram": [
+        "A puts command",
+        "Text goes to output",
+        "One message per line"
+      ],
+      "pitfall": "Use straight quotes \", not curly quotation marks. Tcl command names are case-sensitive.",
+      "transfer": "Replace the greeting with your own name and run it again.",
+      "boss": false,
+      "xp": 100,
+      "minutes": 10
+    },
+    {
+      "id": 2,
+      "world": 0,
+      "title": "Label Your Backpack",
+      "topic": "set · variable substitution",
+      "story": "Before you set off, put your coins in a backpack pocket with a name.",
+      "explain": [
+        "A variable is a named pocket that holds a value. set coins 8 puts 8 in the pocket called coins. You can replace it with another value later.",
+        "Use $coins to read the value. In double quotes, Tcl replaces $hero and $coins with their stored values. set assigns a value; $ reads it."
+      ],
+      "example": "set coins 8\nputs $coins\nset coins 12\nputs \"Coins: $coins\"",
+      "task": "Create hero with the value Ada and coins with the value 12. Print Ada has 12 coins.",
+      "starter": "set hero Ada\nset coins 0\nputs \"$hero has $coins coins\"",
+      "solution": "set hero Ada\nset coins 12\nputs \"$hero has $coins coins\"",
+      "expected": "Ada has 12 coins",
+      "checks": [
+        {
+          "label": "The character name is stored in hero",
+          "expr": "$hero eq \"Ada\""
+        },
+        {
+          "label": "coins stores the number 12",
+          "expr": "$coins == 12"
+        }
+      ],
+      "hints": [
+        "Use set hero Ada and set coins 12.",
+        "Use puts \"$hero has $coins coins\" to build the sentence."
+      ],
+      "quiz": "Which command stores 12 in coins?",
+      "choices": [
+        "set coins 12",
+        "set $coins 12",
+        "coins = 12"
+      ],
+      "answer": 0,
+      "diagram": [
+        "Label: coins",
+        "Store a value: 12",
+        "Read with $coins"
+      ],
+      "pitfall": "Do not put $ before the variable name when assigning it: use set coins 12.",
+      "transfer": "Change the coin count, then print the same sentence again.",
+      "boss": false,
+      "xp": 100,
+      "minutes": 10
+    },
+    {
+      "id": 3,
+      "world": 0,
+      "title": "The Three Bracket Doors",
+      "topic": "quotes · braces · brackets",
+      "story": "Three doors treat the same message differently: substitute, preserve, or run a command first.",
+      "explain": [
+        "Double quotes group words and allow variable and command substitution. Braces group words while normally preserving their contents at this stage: {Hello $hero} keeps the dollar sign and name.",
+        "Square brackets run the command inside first and substitute its result. Tcl then passes that result to the surrounding command. Braces are also commonly used for scripts and expressions."
+      ],
+      "example": "set n 3\nputs \"value=$n\"\nputs {value=$n}\nputs [string toupper hi]",
+      "task": "Set hero to Ada. Print Hello Ada, then the literal text Hello $hero, then ADA on separate lines.",
+      "starter": "set hero Ada\nputs \"Hello $hero\"\n# TODO: complete the task described above.\n# TODO: complete the task described above.\n",
+      "solution": "set hero Ada\nputs \"Hello $hero\"\nputs {Hello $hero}\nputs [string toupper $hero]",
+      "expected": "Hello Ada\nHello $hero\nADA",
+      "checks": [],
+      "hints": [
+        "Use double quotes for the first line and braces for the second.",
+        "For the third line, use [string toupper $hero]."
+      ],
+      "quiz": "What does puts {$hero} print?",
+      "choices": [
+        "The literal text $hero",
+        "The value of hero",
+        "Nothing"
+      ],
+      "answer": 0,
+      "diagram": [
+        "\" \" allows substitution",
+        "{ } preserves the text",
+        "[ ] runs a command first"
+      ],
+      "pitfall": "Brackets run a Tcl command, not arbitrary text. Every opening bracket or brace needs its matching closing partner.",
+      "transfer": "Change hero to Bo and predict all three lines before running them.",
+      "boss": false,
+      "xp": 100,
+      "minutes": 10
+    },
+    {
+      "id": 4,
+      "world": 0,
+      "title": "Brew an Energy Potion",
+      "topic": "expr · incr · arithmetic",
+      "story": "Let Tcl calculate the energy in your potion recipe.",
+      "explain": [
+        "expr evaluates arithmetic. set energy [expr {3 * 7}] calculates 21 and stores it. Braces around the expression let expr handle its variables safely and efficiently.",
+        "incr energy 4 adds 4 to an integer variable. Integer division drops the fractional part: 5 / 2 is 2, while 5 / 2.0 is 2.5."
+      ],
+      "example": "set base 6\nset power [expr {$base * 3}]\nincr power 2\nputs $power\nputs [expr {5 / 2.0}]",
+      "task": "There are 3 bottles with 7 energy each and a bonus of 4. Store the total in energy and print 25.",
+      "starter": "set bottles 3\nset each 7\nset energy 0\nputs $energy",
+      "solution": "set bottles 3\nset each 7\nset energy [expr {$bottles * $each}]\nincr energy 4\nputs $energy",
+      "expected": "25",
+      "checks": [
+        {
+          "label": "energy is 25",
+          "expr": "$energy == 25"
+        }
+      ],
+      "hints": [
+        "Multiply the bottle count by the energy per bottle using expr.",
+        "Then use incr energy 4 and puts $energy."
+      ],
+      "quiz": "What is the result of expr {5 / 2}?",
+      "choices": [
+        "2",
+        "2.5",
+        "An error"
+      ],
+      "answer": 0,
+      "diagram": [
+        "3 bottles × 7",
+        "Add a bonus of 4",
+        "Total energy: 25"
+      ],
+      "pitfall": "incr expects an integer increment. Use expr when your calculation needs fractions.",
+      "transfer": "Try a different bottle count and calculate the expected total yourself.",
+      "boss": false,
+      "xp": 100,
+      "minutes": 10
+    },
+    {
+      "id": 5,
+      "world": 0,
+      "title": "BOSS · Repair the Launch Beacon",
+      "topic": "combined skills · variables and quoting",
+      "story": "The launch beacon needs its name, energy and original template restored.",
+      "explain": [
+        "Combine the skills from the village: store values with set, calculate with expr and display with puts. Think about whether each output should contain a value or literal text.",
+        "Double quotes replace variables; braces preserve the literal template in this task. These three output lines deliberately use different rules."
+      ],
+      "example": "set name Beacon\nset power [expr {4 * 5}]\nputs \"$name: $power\"",
+      "task": "Set hero=Ada, cells=4 and each=5. Store their product in energy. Print Ada ready, Energy: 20, and the literal text $energy on three lines.",
+      "starter": "set hero Ada\nset cells 4\nset each 5\n# TODO: complete the task described above.\n",
+      "solution": "set hero Ada\nset cells 4\nset each 5\nset energy [expr {$cells * $each}]\nputs \"$hero ready\"\nputs \"Energy: $energy\"\nputs {$energy}",
+      "expected": "Ada ready\nEnergy: 20\n$energy",
+      "checks": [
+        {
+          "label": "Energy is stored in the energy variable",
+          "expr": "$energy == 20"
+        }
+      ],
+      "hints": [
+        "Use expr {$cells * $each} for the energy.",
+        "Use braces around $energy on the final output line."
+      ],
+      "quiz": "Which approach makes a bug easier to find?",
+      "choices": [
+        "Change one thing and run it",
+        "Change every line at once",
+        "Delete all the brackets"
+      ],
+      "answer": 0,
+      "diagram": [
+        "Store the inputs",
+        "Calculate total energy",
+        "Broadcast values and a template"
+      ],
+      "pitfall": "The last line must preserve $energy; printing 20 again does not satisfy this part of the task.",
+      "transfer": "Change the hero and battery count and predict which output lines will change.",
+      "boss": true,
+      "xp": 200,
+      "minutes": 20
+    },
+    {
+      "id": 6,
+      "world": 1,
+      "title": "The Gatekeeper’s Choice",
+      "topic": "if · comparisons",
+      "story": "The forest gate requires at least 10 coins. Help the gatekeeper make a choice.",
+      "explain": [
+        "if means “if this condition holds”. A true condition runs one script; else supplies the alternative. Numeric comparisons include >=, < and ==.",
+        "For text comparisons, prefer eq and ne: if {$name eq \"Ada\"}. Tcl if conditions and branch scripts are usually enclosed in braces. A procedure scaffold is provided here; you will study procedures in more detail later."
+      ],
+      "example": "set coins 8\nif {$coins >= 10} {\n    puts \"Enter\"\n} else {\n    puts \"Collect more\"\n}",
+      "task": "Write gate {coins}. Return Enter for at least 10 coins and Wait otherwise. Print the result of gate 12.",
+      "starter": "proc gate {coins} {\n    # if ... return ...\n}\nputs [gate 12]",
+      "solution": "proc gate {coins} {\n    if {$coins >= 10} {return Enter} else {return Wait}\n}\nputs [gate 12]",
+      "expected": "Enter",
+      "checks": [
+        {
+          "label": "Exactly 10 coins can enter",
+          "expr": "[gate 10] eq \"Enter\""
+        },
+        {
+          "label": "9 coins must wait",
+          "expr": "[gate 9] eq \"Wait\""
+        },
+        {
+          "label": "0 coins must wait",
+          "expr": "[gate 0] eq \"Wait\""
+        }
+      ],
+      "hints": [
+        "Use if {$coins >= 10}.",
+        "Each branch should return its result: Enter or Wait."
+      ],
+      "quiz": "Which condition means “at least 10 coins”?",
+      "choices": [
+        "$coins >= 10",
+        "$coins > 10",
+        "$coins < 10"
+      ],
+      "answer": 0,
+      "diagram": [
+        "Are coins ≥ 10?",
+        "Yes → Enter",
+        "No → Wait"
+      ],
+      "pitfall": "The boundary value 10 must be allowed. Compare numbers with ==; assign values with set.",
+      "transfer": "Change the threshold to 20 and test 19, 20 and 21.",
+      "boss": false,
+      "xp": 100,
+      "minutes": 10
+    },
+    {
+      "id": 7,
+      "world": 1,
+      "title": "Pack an Item List",
+      "topic": "list · lindex · llength · lappend",
+      "story": "Pack a key, an apple and a map without losing each item’s boundary.",
+      "explain": [
+        "A list keeps track of its elements. list key \"red apple\" creates two elements, even though red apple contains a space. lappend adds another element to a list variable.",
+        "llength counts elements. lindex selects one by its index, starting at 0. The second item therefore has index 1."
+      ],
+      "example": "set bag [list key \"red apple\"]\nlappend bag map\nputs [llength $bag]\nputs [lindex $bag 1]",
+      "task": "Create bag containing key, red apple and map in that order. Print the count 3 and then the second item, red apple.",
+      "starter": "set bag [list key]\n# TODO: complete the task described above.\nputs [llength $bag]\nputs [lindex $bag 1]",
+      "solution": "set bag [list key \"red apple\" map]\nputs [llength $bag]\nputs [lindex $bag 1]",
+      "expected": "3\nred apple",
+      "checks": [
+        {
+          "label": "The list has three items",
+          "expr": "[llength $bag] == 3"
+        },
+        {
+          "label": "The final item is map",
+          "expr": "[lindex $bag 2] eq \"map\""
+        }
+      ],
+      "hints": [
+        "Create the list with [list key \"red apple\" map].",
+        "Use llength for the count and lindex with index 1 for the second item."
+      ],
+      "quiz": "What is the first index in a list?",
+      "choices": [
+        "0",
+        "1",
+        "-1"
+      ],
+      "answer": 0,
+      "diagram": [
+        "A list preserves boundaries",
+        "3 items, including red apple",
+        "Index 1 selects the second item"
+      ],
+      "pitfall": "Do not treat every space as an element boundary. Use list and proper grouping when an item contains spaces.",
+      "transfer": "Append a compass and verify that the list now contains four items.",
+      "boss": false,
+      "xp": 100,
+      "minutes": 10
+    },
+    {
+      "id": 8,
+      "world": 1,
+      "title": "The Collecting Robot",
+      "topic": "foreach · for · while",
+      "story": "The robot can repeat a job without asking you to copy the same command many times.",
+      "explain": [
+        "foreach takes each item from a list in turn and runs a script with that item. A running total starts at 0 and adds the current value on every turn.",
+        "for combines initialization, a condition and an update; while repeats while its condition is true. Make sure the condition can eventually become false. The task uses foreach."
+      ],
+      "example": "foreach fruit {apple pear} {puts $fruit}\nfor {set i 1} {$i <= 3} {incr i} {puts $i}",
+      "task": "Visit 2, 4 and 6, accumulate their sum in total using foreach, and print 12.",
+      "starter": "set total 0\nforeach n {2 4 6} {\n    # TODO: complete the task described above.\n}\nputs $total",
+      "solution": "set total 0\nforeach n {2 4 6} {incr total $n}\nputs $total",
+      "expected": "12",
+      "checks": [
+        {
+          "label": "total stores the sum",
+          "expr": "$total == 12"
+        }
+      ],
+      "hints": [
+        "Start with set total 0.",
+        "Inside foreach n {2 4 6}, use incr total $n."
+      ],
+      "quiz": "What is easy to forget in a while loop?",
+      "choices": [
+        "Updating the state used by its condition",
+        "Writing PUTS in uppercase",
+        "Adding a website link"
+      ],
+      "answer": 0,
+      "diagram": [
+        "Start total at 0",
+        "Add 2, then 4, then 6",
+        "Print total: 12"
+      ],
+      "pitfall": "Do not reset total inside the loop. That would discard the sum from previous turns.",
+      "transfer": "Try {1 3 5}, then an empty list. Predict each total.",
+      "boss": false,
+      "xp": 100,
+      "minutes": 10
+    },
+    {
+      "id": 9,
+      "world": 1,
+      "title": "Transform a Sign",
+      "topic": "string · trim · toupper · split/join",
+      "story": "Clean a messy sign, convert the letters and hang up the new version.",
+      "explain": [
+        "string trim removes whitespace at the beginning and end of text. string toupper converts letters to uppercase. You can nest bracketed commands so that one result becomes another command’s input.",
+        "split turns text into a list using separator characters. join combines list elements with a chosen separator. They are useful for moving between structured data and readable text."
+      ],
+      "example": "set raw \"  chip island  \"\nputs [string toupper [string trim $raw]]\nputs [join {A B C} \"-\"]",
+      "task": "Write clean {text} to trim both ends and convert to uppercase. Print the result for \"  chip  \": CHIP.",
+      "starter": "proc clean {text} {\n    return $text\n}\nputs [clean \"  chip  \"]",
+      "solution": "proc clean {text} {\n    return [string toupper [string trim $text]]\n}\nputs [clean \"  chip  \"]",
+      "expected": "CHIP",
+      "checks": [
+        {
+          "label": "Different text is cleaned",
+          "expr": "[clean \"  Ada \"] eq \"ADA\""
+        },
+        {
+          "label": "All spaces become an empty string",
+          "expr": "[clean \"   \"] eq \"\""
+        }
+      ],
+      "hints": [
+        "Apply string trim to $text first.",
+        "Return [string toupper [string trim $text]]."
+      ],
+      "quiz": "Which command removes spaces at both ends of a string?",
+      "choices": [
+        "string trim",
+        "string length",
+        "llength"
+      ],
+      "answer": 0,
+      "diagram": [
+        "Raw text with edge spaces",
+        "trim clears the edges",
+        "toupper makes it uppercase"
+      ],
+      "pitfall": "trim does not remove spaces in the middle of the text. Preserve those when cleaning a multiword sign.",
+      "transfer": "Try \"  chip island  \" and check that the middle space remains.",
+      "boss": false,
+      "xp": 100,
+      "minutes": 10
+    },
+    {
+      "id": 10,
+      "world": 1,
+      "title": "BOSS · Deliver Supplies",
+      "topic": "combined skills · filtering records",
+      "story": "Three forest friends have different hunger levels. Find out who needs supplies.",
+      "explain": [
+        "Each record is a list containing a name and hunger value. foreach visits the records, and lassign extracts their fields into variables.",
+        "Use if to select records and lappend to collect their names. The returned value should remain a list so that names containing spaces keep their boundaries."
+      ],
+      "example": "foreach row {{Ada 4} {Bo 8}} {\n    lassign $row name hunger\n    puts \"$name: $hunger\"\n}",
+      "task": "Implement supply {rows}. Each row is {name hunger}. Return a list of names with hunger >=5. For the sample, print Ada Cy.",
+      "starter": "proc supply {rows} {\n    set selected {}\n    foreach row $rows {\n        lassign $row name hunger\n        # TODO: complete the task described above.\n    }\n    return $selected\n}\nputs [supply {{Ada 7} {Bo 2} {Cy 5}}]",
+      "solution": "proc supply {rows} {\n    set selected {}\n    foreach row $rows {\n        lassign $row name hunger\n        if {$hunger >= 5} {lappend selected $name}\n    }\n    return $selected\n}\nputs [supply {{Ada 7} {Bo 2} {Cy 5}}]",
+      "expected": "Ada Cy",
+      "checks": [
+        {
+          "label": "Empty input selects nobody",
+          "expr": "[supply {}] eq \"\""
+        },
+        {
+          "label": "Boundary values and new names work",
+          "expr": "[supply {{Fox 5} {Owl 4} {Bee 9}}] eq \"Fox Bee\""
+        }
+      ],
+      "hints": [
+        "Check if {$hunger >= 5}.",
+        "Inside that branch, use lappend selected $name."
+      ],
+      "quiz": "Why do the checks use different character names?",
+      "choices": [
+        "To verify that the rule works for new input",
+        "To make the code longer",
+        "Tcl only accepts three names"
+      ],
+      "answer": 0,
+      "diagram": [
+        "Read a {name hunger} record",
+        "Is hunger ≥ 5?",
+        "Append selected names"
+      ],
+      "pitfall": "Do not join the list before returning it; that can lose the boundaries of names containing spaces.",
+      "transfer": "Raise the threshold to 8 and see which friends no longer need supplies.",
+      "boss": true,
+      "xp": 200,
+      "minutes": 20
+    },
+    {
+      "id": 11,
+      "world": 2,
+      "title": "Make a Reusable Skill Card",
+      "topic": "proc · arguments · return",
+      "story": "Put a greeting into a skill card that works for more than one name.",
+      "explain": [
+        "proc defines a reusable procedure, like a recipe with input slots. proc greet {name} {...} defines greet with an argument named name. Calling greet Ada supplies Ada for that argument.",
+        "Ordinary variables inside a procedure are usually local. return hands a result back to the caller; puts displays text. Arguments may also have default values."
+      ],
+      "example": "proc greet {name {place Island}} {\n    return \"Hello $name at $place\"\n}\nputs [greet Ada]\nputs [greet Bo Forest]",
+      "task": "Implement double {n} to return twice its input. Print 14 for double 7.",
+      "starter": "proc double {n} {\n    return $n\n}\nputs [double 7]",
+      "solution": "proc double {n} {return [expr {$n * 2}]}\nputs [double 7]",
+      "expected": "14",
+      "checks": [
+        {
+          "label": "Handles zero",
+          "expr": "[double 0] == 0"
+        },
+        {
+          "label": "Handles negative inputs",
+          "expr": "[double -3] == -6"
+        },
+        {
+          "label": "Handles decimal inputs",
+          "expr": "[double 1.5] == 3"
+        }
+      ],
+      "hints": [
+        "Calculate with expr.",
+        "Use return [expr {$n * 2}] to pass the result back."
+      ],
+      "quiz": "Which command gives a computed result back to the caller?",
+      "choices": [
+        "return",
+        "puts",
+        "#"
+      ],
+      "answer": 0,
+      "diagram": [
+        "Input n = 7",
+        "Call double",
+        "Return 14"
+      ],
+      "pitfall": "Printing inside a procedure does not usually provide the result that an outer expr needs.",
+      "transfer": "Add times {n factor} so the multiplier becomes an argument too.",
+      "boss": false,
+      "xp": 100,
+      "minutes": 10
+    },
+    {
+      "id": 12,
+      "world": 2,
+      "title": "Keep a Character Record",
+      "topic": "dict · array",
+      "story": "Find an attribute by its name instead of remembering which numbered slot contains it.",
+      "explain": [
+        "A dictionary stores key/value pairs, such as hp mapped to 80 and name mapped to Ada. dict get reads a value, dict set changes it and dict exists checks whether a key is present.",
+        "Tcl also has arrays: set hero(hp) 80. An array is a collection of variable elements; a dictionary is a value that can be passed as an argument. This task practices dictionaries."
+      ],
+      "example": "set hero [dict create name Ada hp 80]\ndict incr hero hp 5\nputs [dict get $hero hp]\nset bag(key) 1\nputs $bag(key)",
+      "task": "Create a hero dictionary with name=Ada and hp=80. Increase hp by 20 and print Ada:100.",
+      "starter": "set hero [dict create name Ada hp 80]\n# TODO: complete the task described above.\nputs \"[dict get $hero name]:[dict get $hero hp]\"",
+      "solution": "set hero [dict create name Ada hp 80]\ndict incr hero hp 20\nputs \"[dict get $hero name]:[dict get $hero hp]\"",
+      "expected": "Ada:100",
+      "checks": [
+        {
+          "label": "The dictionary stores hp=100",
+          "expr": "[dict get $hero hp] == 100"
+        },
+        {
+          "label": "The character name is preserved",
+          "expr": "[dict get $hero name] eq \"Ada\""
+        }
+      ],
+      "hints": [
+        "dict incr hero hp 20 updates the dictionary in variable hero.",
+        "dict get $hero hp reads the updated value."
+      ],
+      "quiz": "Which expression reads hp from the hero dictionary?",
+      "choices": [
+        "dict get $hero hp",
+        "set hero(hp)",
+        "lindex hp hero"
+      ],
+      "answer": 0,
+      "diagram": [
+        "Dictionary: hero",
+        "name → Ada",
+        "hp → 100"
+      ],
+      "pitfall": "Reading a missing key raises an error. You can check with dict exists first.",
+      "transfer": "Add a level key with the value 3.",
+      "boss": false,
+      "xp": 100,
+      "minutes": 10
+    },
+    {
+      "id": 13,
+      "world": 2,
+      "title": "Save Your Adventure Log",
+      "topic": "open · puts · gets · close",
+      "story": "Write your story to a file and read it back.",
+      "explain": [
+        "open returns a file channel, like a pipe connected to the file. Mode w creates or overwrites a file; r reads and a appends. puts $f writes text to that channel.",
+        "gets $f reads one line and close $f closes the channel. The browser uses an in-memory virtual filesystem; this does not automatically save a file on your computer. Each run starts a fresh environment."
+      ],
+      "example": "set f [open diary.txt w]\nputs $f \"Day 1: Ready\"\nclose $f\nset f [open diary.txt r]\nputs [gets $f]\nclose $f",
+      "task": "Write Level 13 and Saved as two lines in quest.txt. Close it, reopen for reading, and print both lines.",
+      "starter": "set f [open quest.txt w]\n# TODO: complete the task described above.\n# TODO: complete the task described above.\n",
+      "solution": "set f [open quest.txt w]\nputs $f \"Level 13\"\nputs $f \"Saved\"\nclose $f\nset f [open quest.txt r]\nputs [gets $f]\nputs [gets $f]\nclose $f",
+      "expected": "Level 13\nSaved",
+      "checks": [
+        {
+          "label": "The file was actually created",
+          "expr": "[file exists quest.txt]"
+        }
+      ],
+      "hints": [
+        "Write with puts $f \"Level 13\".",
+        "After closing the write channel, reopen using set f [open quest.txt r]."
+      ],
+      "quiz": "What does mode w do to an existing file?",
+      "choices": [
+        "Overwrites its contents",
+        "Only reads it",
+        "Automatically backs up every version"
+      ],
+      "answer": 0,
+      "diagram": [
+        "open quest.txt w",
+        "puts → file → close",
+        "open r → gets → close"
+      ],
+      "pitfall": "On a real computer, w overwrites an existing file. Practice with dedicated exercise filenames.",
+      "transfer": "Use a to append a third line in local Tcl, then read the file again.",
+      "boss": false,
+      "xp": 100,
+      "minutes": 10
+    },
+    {
+      "id": 14,
+      "world": 2,
+      "title": "Avoid an Error Trap",
+      "topic": "catch · error · error messages",
+      "story": "A locked chest should not end the whole adventure. Learn how to handle failure.",
+      "explain": [
+        "catch runs a script and stores its result or error message in a variable. Completion code 0 means success; an ordinary error returns 1.",
+        "error reports an invalid situation explicitly. Errors are clues about your program. catch also handles completion codes such as return and break; this lesson concentrates on normal completion and ordinary errors."
+      ],
+      "example": "if {[catch {open missing.txt r} message]} {\n    puts \"Could not open file\"\n}\nputs \"Still running\"",
+      "task": "Implement safeDivide {a b}: return undefined when b is 0; otherwise use floating-point division. Print 2.5 for 5/2 and undefined for 5/0.",
+      "starter": "proc safeDivide {a b} {\n    # TODO: complete the task described above.\n    return 0\n}\nputs [safeDivide 5 2]\nputs [safeDivide 5 0]",
+      "solution": "proc safeDivide {a b} {\n    if {$b == 0} {return undefined}\n    return [expr {double($a) / $b}]\n}\nputs [safeDivide 5 2]\nputs [safeDivide 5 0]",
+      "expected": "2.5\nundefined",
+      "checks": [
+        {
+          "label": "Negative values divide correctly",
+          "expr": "[safeDivide -6 2] == -3"
+        },
+        {
+          "label": "Other zero divisors are safe",
+          "expr": "[safeDivide 0 0] eq \"undefined\""
+        }
+      ],
+      "hints": [
+        "Check if {$b == 0} before dividing.",
+        "double($a) inside expr preserves fractions even with integer input."
+      ],
+      "quiz": "What does a catch result of 0 usually mean?",
+      "choices": [
+        "The script completed normally",
+        "An ordinary error occurred",
+        "A file has size zero"
+      ],
+      "answer": 0,
+      "diagram": [
+        "Check the input",
+        "Valid → calculate",
+        "Invalid → explain why"
+      ],
+      "pitfall": "Safe division can validate its input before an error occurs; it does not have to wait for division to fail.",
+      "transfer": "Try catch {error \"Bad key\"} msg and then print $msg.",
+      "boss": false,
+      "xp": 100,
+      "minutes": 10
+    },
+    {
+      "id": 15,
+      "world": 2,
+      "title": "BOSS · Repair the Workshop",
+      "topic": "combined skills · general procedures",
+      "story": "The workshop needs an average skill card that also handles an empty basket.",
+      "explain": [
+        "First add the values with foreach, then divide by the element count. An empty list has length 0; handle it before dividing.",
+        "Engineering scripts often calculate statistics. Use double to preserve fractional averages. The procedure accepts a single list argument, so group its values with braces at the call site."
+      ],
+      "example": "puts [llength {3 4 8}]\nputs [expr {double(15) / 3}]",
+      "task": "Implement average {numbers}. Return 0 for an empty list and the arithmetic mean otherwise. Print 5.0 for {2 4 9}.",
+      "starter": "proc average {numbers} {\n    set total 0\n    # TODO: complete the task described above.\n    return 0\n}\nputs [average {2 4 9}]",
+      "solution": "proc average {numbers} {\n    if {[llength $numbers] == 0} {return 0}\n    set total 0\n    foreach n $numbers {set total [expr {$total + $n}]}\n    return [expr {double($total) / [llength $numbers]}]\n}\nputs [average {2 4 9}]",
+      "expected": "5.0",
+      "checks": [
+        {
+          "label": "Empty lists return 0",
+          "expr": "[average {}] == 0"
+        },
+        {
+          "label": "Fractional averages are preserved",
+          "expr": "[average {1 2}] == 1.5"
+        },
+        {
+          "label": "Handles negative inputs",
+          "expr": "[average {-2 2}] == 0"
+        }
+      ],
+      "hints": [
+        "Use llength to check for an empty list first.",
+        "After summing, return expr {double($total) / [llength $numbers]}."
+      ],
+      "quiz": "Why use double in the average calculation?",
+      "choices": [
+        "To avoid losing fractions to integer division",
+        "To run the loop twice",
+        "To rename the variable"
+      ],
+      "answer": 0,
+      "diagram": [
+        "List → sum",
+        "Empty list returns 0 first",
+        "Sum ÷ count"
+      ],
+      "pitfall": "incr works with integers. Using expr for this sum also supports decimal inputs.",
+      "transfer": "Try {1.5 2.5} and verify the result is 2.0.",
+      "boss": true,
+      "xp": 200,
+      "minutes": 20
+    },
+    {
+      "id": 16,
+      "world": 3,
+      "title": "Enter Chip City",
+      "topic": "namespace · EDA commands",
+      "story": "Take your everyday automation skills into a chip-design setting.",
+      "explain": [
+        "VLSI means very-large-scale integration; EDA software helps people design chips. Tcl often controls these tools, but the additional tool commands are not built into Tcl itself.",
+        "A namespace groups related commands and helps avoid name conflicts. Our lab::area is a teaching command that calculates a rectangle’s area; it does not perform real chip design."
+      ],
+      "example": "namespace eval lab {\n    proc area {w h} {return [expr {$w * $h}]}\n}\nputs [lab::area 3 4]",
+      "task": "Inside namespace lab, implement area {w h} to return width times height. Print 42 for lab::area 6 7.",
+      "starter": "namespace eval lab {\n    proc area {w h} {return 0}\n}\nputs [lab::area 6 7]",
+      "solution": "namespace eval lab {\n    proc area {w h} {return [expr {$w * $h}]}\n}\nputs [lab::area 6 7]",
+      "expected": "42",
+      "checks": [
+        {
+          "label": "New dimensions work",
+          "expr": "[lab::area 2 3] == 6"
+        },
+        {
+          "label": "Zero width has zero area",
+          "expr": "[lab::area 0 9] == 0"
+        }
+      ],
+      "hints": [
+        "Define proc area inside namespace eval lab {...}.",
+        "Return [expr {$w * $h}]."
+      ],
+      "quiz": "Is create_clock a built-in Tcl core command?",
+      "choices": [
+        "No; it is usually provided by an EDA tool",
+        "Yes; every tclsh can run it",
+        "It is a browser command"
+      ],
+      "answer": 0,
+      "diagram": [
+        "Namespace lab",
+        "Procedure area",
+        "lab::area 6 7 → 42"
+      ],
+      "pitfall": "EDA commands depend on the specific tool. They may not exist in an ordinary Tcl interpreter.",
+      "transfer": "Create another namespace with its own area command and compare the full names.",
+      "boss": false,
+      "xp": 100,
+      "minutes": 10
+    },
+    {
+      "id": 17,
+      "world": 3,
+      "title": "Find a Clue in a Report",
+      "topic": "regexp · captures",
+      "story": "A report line contains a slack value. Extract the number.",
+      "explain": [
+        "regexp matches text against a regular-expression pattern. Parenthesized parts can capture a substring into a variable. A successful match returns 1; a failed match returns 0.",
+        "The pattern in this task allows an optional minus sign, integer digits and an optional decimal part. ^ and $ require the whole line to match. Return NA when the format does not match."
+      ],
+      "example": "set line \"slack: -0.25\"\nif {[regexp {slack: (-?[0-9]+\\.[0-9]+)} $line whole value]} {\n    puts $value\n}",
+      "task": "Implement slackValue {line}. Accept the exact prefix slack: followed by an integer or decimal, optionally negative. Return the number text, or NA if it does not match. Print -0.25 for the sample.",
+      "starter": "proc slackValue {line} {\n    # TODO: complete the task described above.\n    return NA\n}\nputs [slackValue \"slack: -0.25\"]",
+      "solution": "proc slackValue {line} {\n    if {[regexp {^slack: (-?[0-9]+(\\.[0-9]+)?)$} $line whole value]} {return $value}\n    return NA\n}\nputs [slackValue \"slack: -0.25\"]",
+      "expected": "-0.25",
+      "checks": [
+        {
+          "label": "Recognizes positive integers",
+          "expr": "[slackValue \"slack: 2\"] eq \"2\""
+        },
+        {
+          "label": "Recognizes decimals",
+          "expr": "[slackValue \"slack: 0.10\"] eq \"0.10\""
+        },
+        {
+          "label": "Invalid lines return NA",
+          "expr": "[slackValue \"hello\"] eq \"NA\""
+        }
+      ],
+      "hints": [
+        "Use a capturing group for the number.",
+        "A suitable pattern is {^slack: (-?[0-9]+(\\.[0-9]+)?)$}."
+      ],
+      "quiz": "What does negative slack mean in this teaching setting?",
+      "choices": [
+        "A timing requirement is not met",
+        "A file does not exist",
+        "The chip is already broken"
+      ],
+      "answer": 0,
+      "diagram": [
+        "A report line",
+        "regexp matches the pattern",
+        "Capture number text or return NA"
+      ],
+      "pitfall": "This is a simplified teaching format. Real tool reports require patterns based on that tool’s documented format and units.",
+      "transfer": "Try slack: 3, slack: -2.5 and a line without the slack prefix.",
+      "boss": false,
+      "xp": 100,
+      "minutes": 10
+    },
+    {
+      "id": 18,
+      "world": 3,
+      "title": "Build a Chip Object",
+      "topic": "TclOO · class · constructor · method",
+      "story": "Draw a blueprint, then manufacture objects from it.",
+      "explain": [
+        "A class is a blueprint; an object is a particular instance made from it. TclOO is included in Tcl 8.6+. A constructor initializes an object’s state, and methods operate on that object.",
+        "An object variable belongs to its instance. Two Chip objects can therefore keep different names. Call a method with $object method and destroy the object when you are finished."
+      ],
+      "example": "oo::class create Lamp {\n    variable state\n    constructor {} {set state off}\n    method on {} {set state on}\n    method status {} {return $state}\n}\nset lamp [Lamp new]\n$lamp on\nputs [$lamp status]\n$lamp destroy",
+      "task": "Create class Chip. Its constructor {value} stores name, and method label {} returns name. Create an object called Tiny and print Tiny.",
+      "starter": "oo::class create Chip {\n    variable name\n    constructor {value} {set name $value}\n    method label {} {return \"TODO\"}\n}\nset chip [Chip new Tiny]\nputs [$chip label]\n$chip destroy",
+      "solution": "oo::class create Chip {\n    variable name\n    constructor {value} {set name $value}\n    method label {} {return $name}\n}\nset chip [Chip new Tiny]\nputs [$chip label]\n$chip destroy",
+      "expected": "Tiny",
+      "checks": [
+        {
+          "label": "A new object keeps its own name",
+          "script": "set other [Chip new Nova]\nset ok [expr {[$other label] eq \"Nova\"}]\n$other destroy\nset ok"
+        },
+        {
+          "label": "Two objects keep separate names",
+          "script": "set a [Chip new A]\nset b [Chip new B]\nset ok [expr {[$a label] eq \"A\" && [$b label] eq \"B\"}]\n$a destroy\n$b destroy\nset ok"
+        }
+      ],
+      "hints": [
+        "label must return the object variable name.",
+        "Use return $name in the method."
+      ],
+      "quiz": "Which comparison best describes classes and objects?",
+      "choices": [
+        "A blueprint and models made from it",
+        "A filename and its extension",
+        "Addition and multiplication"
+      ],
+      "answer": 0,
+      "diagram": [
+        "Class Chip",
+        "Object Tiny",
+        "Object Nova"
+      ],
+      "pitfall": "Call an object method using $object method, not object.method().",
+      "transfer": "Add a rename {value} method that updates the object’s name.",
+      "boss": false,
+      "xp": 100,
+      "minutes": 10
+    },
+    {
+      "id": 19,
+      "world": 3,
+      "title": "Build a Teaching Design Flow",
+      "topic": "source · modules · workflows",
+      "story": "Separate configuration from operations so one script can serve different designs.",
+      "explain": [
+        "source reads and executes another Tcl file in the current interpreter. Loading changeable parameters from a configuration file is a common way to organize scripts.",
+        "Real EDA read, constraint, synthesis, place-and-route and report commands vary between tools. mockFlow only returns a teaching description; it calls no commercial tool and produces no GDS."
+      ],
+      "example": "set f [open config.tcl w]\nputs $f {set design Tiny}\nclose $f\nsource config.tcl\nputs \"Design: $design\"",
+      "task": "Implement mockFlow {design period}. Raise an error for period <=0; otherwise return the list {read:design clock:period report:timing}. Print the flow for Tiny with period 10.",
+      "starter": "proc mockFlow {design period} {\n    # TODO: complete the task described above.\n    return {}\n}\nputs [mockFlow Tiny 10]",
+      "solution": "proc mockFlow {design period} {\n    if {$period <= 0} {error \"Period must be positive\"}\n    return [list \"read:$design\" \"clock:$period\" \"report:timing\"]\n}\nputs [mockFlow Tiny 10]",
+      "expected": "read:Tiny clock:10 report:timing",
+      "checks": [
+        {
+          "label": "A new design can produce a flow",
+          "expr": "[mockFlow Nova 5] eq \"read:Nova clock:5 report:timing\""
+        },
+        {
+          "label": "Invalid periods are rejected",
+          "expr": "[catch {mockFlow Tiny 0}] == 1"
+        },
+        {
+          "label": "A multiword name still produces three steps",
+          "expr": "[llength [mockFlow \"My Chip\" 10]] == 3"
+        }
+      ],
+      "hints": [
+        "Use if {$period <= 0} {error \"Period must be positive\"}.",
+        "Use list instead of string concatenation to preserve a design name containing spaces."
+      ],
+      "quiz": "What does source config.tcl do?",
+      "choices": [
+        "Executes that Tcl file",
+        "Turns it into a video",
+        "Automatically starts commercial EDA software"
+      ],
+      "answer": 0,
+      "diagram": [
+        "Configuration file",
+        "Load using source",
+        "Read → clock → report"
+      ],
+      "pitfall": "Here clock:10 is only text, not an EDA command that creates a real clock.",
+      "transfer": "Try the design name My Chip and verify that llength still reports three steps.",
+      "boss": false,
+      "xp": 100,
+      "minutes": 10
+    },
+    {
+      "id": 20,
+      "world": 3,
+      "title": "FINAL BOSS · Timing Report Detective",
+      "topic": "final project · statistics and validation",
+      "story": "Chip City’s timing report has arrived. Count violating paths and find the worst slack.",
+      "explain": [
+        "The report is a list of {path slack} records. A slack below 0 counts as a violation; the smallest slack is the worst value. Return a dictionary so another script can use the results.",
+        "Handle empty input first. For nonempty input, initialize worst from the first actual record. Starting at 0 would incorrectly report 0 when all slack values are positive."
+      ],
+      "example": "set rows {{p1 0.12} {p2 -0.25} {p3 -0.05}}\nforeach row $rows {\n    lassign $row path slack\n    puts \"$path -> $slack ns\"\n}",
+      "task": "Implement analyze {rows}, returning a dictionary with violations and worst. Empty input returns violations=0 and worst=NA. The sample prints Violations: 2 and Worst: -0.25 ns.",
+      "starter": "proc analyze {rows} {\n    # TODO: complete the task described above.\n    return [dict create violations 0 worst NA]\n}\nset result [analyze {{p1 0.12} {p2 -0.25} {p3 -0.05}}]\nputs \"Violations: [dict get $result violations]\"\nputs \"Worst: [dict get $result worst] ns\"",
+      "solution": "proc analyze {rows} {\n    if {[llength $rows] == 0} {return [dict create violations 0 worst NA]}\n    set violations 0\n    set worst [lindex [lindex $rows 0] 1]\n    foreach row $rows {\n        lassign $row path slack\n        if {$slack < 0} {incr violations}\n        if {$slack < $worst} {set worst $slack}\n    }\n    return [dict create violations $violations worst $worst]\n}\nset result [analyze {{p1 0.12} {p2 -0.25} {p3 -0.05}}]\nputs \"Violations: [dict get $result violations]\"\nputs \"Worst: [dict get $result worst] ns\"",
+      "expected": "Violations: 2\nWorst: -0.25 ns",
+      "checks": [
+        {
+          "label": "Empty reports have an explicit result",
+          "expr": "[dict get [analyze {}] violations] == 0 && [dict get [analyze {}] worst] eq \"NA\""
+        },
+        {
+          "label": "All-positive slack keeps a positive minimum",
+          "expr": "[dict get [analyze {{a 0.3} {b 0.1}}] worst] == 0.1"
+        },
+        {
+          "label": "Zero slack is not a violation",
+          "expr": "[dict get [analyze {{a 0} {b -1}}] violations] == 1"
+        },
+        {
+          "label": "Different names and ordering work",
+          "expr": "[dict get [analyze {{x -0.8} {y 2} {z -0.2}}] worst] == -0.8"
+        }
+      ],
+      "hints": [
+        "Return early for empty input. Otherwise initialize worst from the first record.",
+        "In foreach, test slack<0 and slack<worst separately, then return a dict create result."
+      ],
+      "quiz": "If every slack is positive, what should worst contain?",
+      "choices": [
+        "The smallest positive value",
+        "Always 0",
+        "Always NA"
+      ],
+      "answer": 0,
+      "diagram": [
+        "A list of report records",
+        "Count slack < 0 · find minimum slack",
+        "Dictionary: violations / worst"
+      ],
+      "pitfall": "This is simplified teaching data. Real reports contain multiple checks and units; parse them according to the tool documentation.",
+      "transfer": "Extend the project: read records from a text file, skip blank lines, reject invalid data and write CSV.",
+      "boss": true,
+      "xp": 200,
+      "minutes": 20
+    }
+  ]
+}

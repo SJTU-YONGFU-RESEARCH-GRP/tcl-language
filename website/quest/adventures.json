@@ -1,0 +1,1255 @@
+[
+  {
+    "id": 1,
+    "setting": "晨光唤醒站",
+    "title": "一句话，点亮芯芯",
+    "steps": [
+      {
+        "title": "等待指令",
+        "text": "芯芯还在休眠。puts 就像传话筒：把后面的文字送到输出区。",
+        "line": 0
+      },
+      {
+        "title": "第一次问好",
+        "text": "第一条 puts 让芯芯说出第一句话。双引号把一句话包在一起。",
+        "line": 0
+      },
+      {
+        "title": "准备出发",
+        "text": "继续执行下一条 puts；两条命令会依次运行。",
+        "line": 1
+      },
+      {
+        "title": "听见回声",
+        "text": "每条 puts 默认另起一行。看气泡，再对照两行输出。",
+        "line": 1
+      }
+    ],
+    "variants": [
+      {
+        "label": "任务中的输入",
+        "code": "puts \"Hello, Tcl!\"\nputs \"Ready!\"",
+        "output": "Hello, Tcl!\nReady!",
+        "props": {
+          "lines": [
+            "Hello, Tcl!",
+            "Ready!"
+          ]
+        }
+      },
+      {
+        "label": "中文问候",
+        "code": "puts \"你好，芯片岛！\"\nputs \"Ready!\"",
+        "output": "你好，芯片岛！\nReady!",
+        "props": {
+          "lines": [
+            "你好，芯片岛！",
+            "Ready!"
+          ]
+        }
+      },
+      {
+        "label": "换个伙伴",
+        "code": "puts \"Hello, Ada!\"\nputs \"Ready!\"",
+        "output": "Hello, Ada!\nReady!",
+        "props": {
+          "lines": [
+            "Hello, Ada!",
+            "Ready!"
+          ]
+        }
+      }
+    ]
+  },
+  {
+    "id": 2,
+    "setting": "背包整理台",
+    "title": "名字是标签，值是物品",
+    "steps": [
+      {
+        "title": "贴上姓名",
+        "text": "set 给格子取名字，并把值放进去。hero 格子里存的是角色名字。",
+        "line": 0
+      },
+      {
+        "title": "放入金币",
+        "text": "coins 是格子的标签，数字才是格子里的值。",
+        "line": 1
+      },
+      {
+        "title": "打开格子",
+        "text": "双引号中的 $hero 和 $coins 会取出对应的值。",
+        "line": 2
+      },
+      {
+        "title": "读出背包",
+        "text": "把取出的值拼进一句话，再交给 puts 说出来。",
+        "line": 2
+      }
+    ],
+    "variants": [
+      {
+        "label": "任务中的输入",
+        "code": "set hero Ada\nset coins 12\nputs \"$hero has $coins coins\"",
+        "output": "Ada has 12 coins",
+        "props": {
+          "name": "Ada",
+          "coins": 12
+        }
+      },
+      {
+        "label": "Bo 的 8 枚金币",
+        "code": "set hero Bo\nset coins 8\nputs \"$hero has $coins coins\"",
+        "output": "Bo has 8 coins",
+        "props": {
+          "name": "Bo",
+          "coins": 8
+        }
+      },
+      {
+        "label": "空的钱包",
+        "code": "set hero Ada\nset coins 0\nputs \"$hero has $coins coins\"",
+        "output": "Ada has 0 coins",
+        "props": {
+          "name": "Ada",
+          "coins": 0
+        }
+      }
+    ]
+  },
+  {
+    "id": 3,
+    "setting": "三扇括号门",
+    "title": "同一张字条，三种旅程",
+    "steps": [
+      {
+        "title": "准备字条",
+        "text": "先保存 hero 的值，再让同一张字条经过三扇门。",
+        "line": 0
+      },
+      {
+        "title": "双引号门",
+        "text": "双引号保留一句话的边界，同时允许 $hero 替换成值。",
+        "line": 1
+      },
+      {
+        "title": "花括号门",
+        "text": "花括号保留里面的文字，$hero 不会在这里被替换。",
+        "line": 2
+      },
+      {
+        "title": "方括号门",
+        "text": "方括号先运行里面的 string toupper，再把返回值交给 puts。",
+        "line": 3
+      }
+    ],
+    "variants": [
+      {
+        "label": "任务中的输入",
+        "code": "set hero Ada\nputs \"Hello $hero\"\nputs {Hello $hero}\nputs [string toupper $hero]",
+        "output": "Hello Ada\nHello $hero\nADA",
+        "props": {
+          "name": "Ada",
+          "upper": "ADA"
+        }
+      },
+      {
+        "label": "名字换成 Bo",
+        "code": "set hero Bo\nputs \"Hello $hero\"\nputs {Hello $hero}\nputs [string toupper $hero]",
+        "output": "Hello Bo\nHello $hero\nBO",
+        "props": {
+          "name": "Bo",
+          "upper": "BO"
+        }
+      },
+      {
+        "label": "名字换成 Cy",
+        "code": "set hero Cy\nputs \"Hello $hero\"\nputs {Hello $hero}\nputs [string toupper $hero]",
+        "output": "Hello Cy\nHello $hero\nCY",
+        "props": {
+          "name": "Cy",
+          "upper": "CY"
+        }
+      }
+    ]
+  },
+  {
+    "id": 4,
+    "setting": "能量炼制台",
+    "title": "乘一乘，再加上奖励",
+    "steps": [
+      {
+        "title": "摆好材料",
+        "text": "bottles 记录瓶数，each 记录每瓶的能量。",
+        "line": 0
+      },
+      {
+        "title": "配方计算",
+        "text": "expr 计算乘法；方括号把算出的结果交给 set energy。",
+        "line": 2
+      },
+      {
+        "title": "加入奖励",
+        "text": "incr 在原来的 energy 上增加奖励，格子里的值更新了。",
+        "line": 3
+      },
+      {
+        "title": "能量出炉",
+        "text": "puts $energy 取出最后的总能量。",
+        "line": 4
+      }
+    ],
+    "variants": [
+      {
+        "label": "任务中的输入",
+        "code": "set bottles 3\nset each 7\nset energy [expr {$bottles * $each}]\nincr energy 4\nputs $energy",
+        "output": "25",
+        "props": {
+          "bottles": 3,
+          "each": 7,
+          "bonus": 4,
+          "energy": 25
+        }
+      },
+      {
+        "label": "2 瓶 × 5，加 1",
+        "code": "set bottles 2\nset each 5\nset energy [expr {$bottles * $each}]\nincr energy 1\nputs $energy",
+        "output": "11",
+        "props": {
+          "bottles": 2,
+          "each": 5,
+          "bonus": 1,
+          "energy": 11
+        }
+      },
+      {
+        "label": "没有药水，奖励仍在",
+        "code": "set bottles 0\nset each 7\nset energy [expr {$bottles * $each}]\nincr energy 4\nputs $energy",
+        "output": "4",
+        "props": {
+          "bottles": 0,
+          "each": 7,
+          "bonus": 4,
+          "energy": 4
+        }
+      }
+    ]
+  },
+  {
+    "id": 5,
+    "setting": "出发信标",
+    "title": "把三项本领接成一束光",
+    "steps": [
+      {
+        "title": "连接电池",
+        "text": "信标需要名字、电池数量和每节能量三个输入。",
+        "line": 0
+      },
+      {
+        "title": "算出能量",
+        "text": "先用 expr 计算总能量，再写进 energy 格子。",
+        "line": 3
+      },
+      {
+        "title": "发送广播",
+        "text": "双引号中的变量会替换成真实名字和能量。",
+        "line": 5
+      },
+      {
+        "title": "保留模板",
+        "text": "最后使用花括号：广播的是字面文字 $energy。",
+        "line": 6
+      }
+    ],
+    "variants": [
+      {
+        "label": "任务中的输入",
+        "code": "set hero Ada\nset cells 4\nset each 5\nset energy [expr {$cells * $each}]\nputs \"$hero ready\"\nputs \"Energy: $energy\"\nputs {$energy}",
+        "output": "Ada ready\nEnergy: 20\n$energy",
+        "props": {
+          "name": "Ada",
+          "cells": 4,
+          "each": 5,
+          "energy": 20
+        }
+      },
+      {
+        "label": "2 节电池",
+        "code": "set hero Ada\nset cells 2\nset each 5\nset energy [expr {$cells * $each}]\nputs \"$hero ready\"\nputs \"Energy: $energy\"\nputs {$energy}",
+        "output": "Ada ready\nEnergy: 10\n$energy",
+        "props": {
+          "name": "Ada",
+          "cells": 2,
+          "each": 5,
+          "energy": 10
+        }
+      },
+      {
+        "label": "Bo 出发",
+        "code": "set hero Bo\nset cells 4\nset each 5\nset energy [expr {$cells * $each}]\nputs \"$hero ready\"\nputs \"Energy: $energy\"\nputs {$energy}",
+        "output": "Bo ready\nEnergy: 20\n$energy",
+        "props": {
+          "name": "Bo",
+          "cells": 4,
+          "each": 5,
+          "energy": 20
+        }
+      }
+    ]
+  },
+  {
+    "id": 6,
+    "setting": "森林金币门",
+    "title": "条件决定走哪条路",
+    "steps": [
+      {
+        "title": "递交金币",
+        "text": "gate 收到一个金币数。可以切换输入，看看守门精灵怎样选择。",
+        "line": 3
+      },
+      {
+        "title": "检查条件",
+        "text": "比较 coins >= 10。等于 10 也满足“至少 10”。",
+        "line": 1
+      },
+      {
+        "title": "选择分支",
+        "text": "条件成立走 Enter 分支，否则走 Wait 分支；一次只走一条。",
+        "line": 1
+      },
+      {
+        "title": "收到答复",
+        "text": "return 把分支结果交回调用处，puts 再显示它。",
+        "line": 3
+      }
+    ],
+    "variants": [
+      {
+        "label": "任务中的输入",
+        "code": "proc gate {coins} {\n    if {$coins >= 10} {return Enter} else {return Wait}\n}\nputs [gate 12]",
+        "output": "Enter",
+        "props": {
+          "coins": 12,
+          "enter": true
+        }
+      },
+      {
+        "label": "8 枚：还不够",
+        "code": "proc gate {coins} {\n    if {$coins >= 10} {return Enter} else {return Wait}\n}\nputs [gate 8]",
+        "output": "Wait",
+        "props": {
+          "coins": 8,
+          "enter": false
+        }
+      },
+      {
+        "label": "10 枚：刚好够",
+        "code": "proc gate {coins} {\n    if {$coins >= 10} {return Enter} else {return Wait}\n}\nputs [gate 10]",
+        "output": "Enter",
+        "props": {
+          "coins": 10,
+          "enter": true
+        }
+      }
+    ]
+  },
+  {
+    "id": 7,
+    "setting": "物品收纳架",
+    "title": "有空格，也只算一件",
+    "steps": [
+      {
+        "title": "摆出物品",
+        "text": "list 把每件物品的边界记录下来。带空格的名字需要正确分组。",
+        "line": 0
+      },
+      {
+        "title": "装进背包",
+        "text": "带空格的物品名有多个单词，却仍然只占一个物品格子。",
+        "line": 0
+      },
+      {
+        "title": "数清格子",
+        "text": "llength 数的是元素个数，不是单词数。",
+        "line": 1
+      },
+      {
+        "title": "取第二件",
+        "text": "lindex 从 0 开始计数，所以索引 1 取出第二件物品。",
+        "line": 2
+      }
+    ],
+    "variants": [
+      {
+        "label": "任务中的输入",
+        "code": "set bag [list key \"red apple\" map]\nputs [llength $bag]\nputs [lindex $bag 1]",
+        "output": "3\nred apple",
+        "props": {
+          "items": [
+            "key",
+            "red apple",
+            "map"
+          ]
+        }
+      },
+      {
+        "label": "换成绿梨",
+        "code": "set bag [list key \"green pear\" map]\nputs [llength $bag]\nputs [lindex $bag 1]",
+        "output": "3\ngreen pear",
+        "props": {
+          "items": [
+            "key",
+            "green pear",
+            "map"
+          ]
+        }
+      },
+      {
+        "label": "再装一个指南针",
+        "code": "set bag [list key \"red apple\" map compass]\nputs [llength $bag]\nputs [lindex $bag 1]",
+        "output": "4\nred apple",
+        "props": {
+          "items": [
+            "key",
+            "red apple",
+            "map",
+            "compass"
+          ]
+        }
+      }
+    ]
+  },
+  {
+    "id": 8,
+    "setting": "循环采集地",
+    "title": "让芯芯逐个采集",
+    "steps": [
+      {
+        "title": "空篮出发",
+        "text": "先把 total 设为 0，给累加准备一个起点。",
+        "line": 0
+      },
+      {
+        "title": "采集第一件",
+        "text": "foreach 把列表中的第一项交给 n，再执行循环体。",
+        "line": 1
+      },
+      {
+        "title": "继续采集",
+        "text": "每轮 incr total $n 都把当前数加入总和；不是把旧值覆盖。",
+        "line": 1
+      },
+      {
+        "title": "完成遍历",
+        "text": "列表没有下一项时，循环结束，输出累积的 total。",
+        "line": 2
+      }
+    ],
+    "variants": [
+      {
+        "label": "任务中的输入",
+        "code": "set total 0\nforeach n {2 4 6} {incr total $n}\nputs $total",
+        "output": "12",
+        "props": {
+          "items": [
+            2,
+            4,
+            6
+          ],
+          "total": 12
+        }
+      },
+      {
+        "label": "采集 1、3、5",
+        "code": "set total 0\nforeach n {1 3 5} {incr total $n}\nputs $total",
+        "output": "9",
+        "props": {
+          "items": [
+            1,
+            3,
+            5
+          ],
+          "total": 9
+        }
+      },
+      {
+        "label": "空列表",
+        "code": "set total 0\nforeach n {} {incr total $n}\nputs $total",
+        "output": "0",
+        "props": {
+          "items": [],
+          "total": 0
+        }
+      }
+    ]
+  },
+  {
+    "id": 9,
+    "setting": "路牌修理铺",
+    "title": "让乱糟糟的文字变整齐",
+    "steps": [
+      {
+        "title": "收到旧路牌",
+        "text": "clean 收到原始文字，包括两端看不见的空格。",
+        "line": 3
+      },
+      {
+        "title": "擦掉边缘",
+        "text": "内层 string trim 先去掉两端空白，不删除中间的空格。",
+        "line": 1
+      },
+      {
+        "title": "统一大写",
+        "text": "外层 string toupper 再把清理后的字母转成大写。",
+        "line": 1
+      },
+      {
+        "title": "挂上路牌",
+        "text": "return 交回新文字，puts 把它显示出来。",
+        "line": 3
+      }
+    ],
+    "variants": [
+      {
+        "label": "任务中的输入",
+        "code": "proc clean {text} {\n    return [string toupper [string trim $text]]\n}\nputs [clean \"  chip  \"]",
+        "output": "CHIP",
+        "props": {
+          "raw": "  chip  ",
+          "clean": "CHIP"
+        }
+      },
+      {
+        "label": "换一块路牌",
+        "code": "proc clean {text} {\n    return [string toupper [string trim $text]]\n}\nputs [clean \"  forest  \"]",
+        "output": "FOREST",
+        "props": {
+          "raw": "  forest  ",
+          "clean": "FOREST"
+        }
+      },
+      {
+        "label": "保留中间空格",
+        "code": "proc clean {text} {\n    return [string toupper [string trim $text]]\n}\nputs [clean \"  chip island  \"]",
+        "output": "CHIP ISLAND",
+        "props": {
+          "raw": "  chip island  ",
+          "clean": "CHIP ISLAND"
+        }
+      }
+    ]
+  },
+  {
+    "id": 10,
+    "setting": "精灵补给站",
+    "title": "照顾每一位需要帮助的伙伴",
+    "steps": [
+      {
+        "title": "拿到名单",
+        "text": "每行记录一个名字和饥饿值；先准备空的 selected 列表。",
+        "line": 1
+      },
+      {
+        "title": "逐位询问",
+        "text": "foreach 遍历名单，lassign 把名字和饥饿值拆开。",
+        "line": 3
+      },
+      {
+        "title": "分发补给",
+        "text": "只在 hunger >= 5 时把名字加入 selected；5 也需要补给。",
+        "line": 4
+      },
+      {
+        "title": "整理回执",
+        "text": "返回选中的名字列表；被跳过的伙伴不会出现在回执里。",
+        "line": 6
+      }
+    ],
+    "variants": [
+      {
+        "label": "任务中的输入",
+        "code": "proc supply {rows} {\n    set selected {}\n    foreach row $rows {\n        lassign $row name hunger\n        if {$hunger >= 5} {lappend selected $name}\n    }\n    return $selected\n}\nputs [supply {{Ada 7} {Bo 2} {Cy 5}}]",
+        "output": "Ada Cy",
+        "props": {
+          "rows": [
+            [
+              "Ada",
+              7
+            ],
+            [
+              "Bo",
+              2
+            ],
+            [
+              "Cy",
+              5
+            ]
+          ],
+          "selected": [
+            "Ada",
+            "Cy"
+          ]
+        }
+      },
+      {
+        "label": "大家都吃饱了",
+        "code": "proc supply {rows} {\n    set selected {}\n    foreach row $rows {\n        lassign $row name hunger\n        if {$hunger >= 5} {lappend selected $name}\n    }\n    return $selected\n}\nputs [supply {{Ada 1} {Bo 2} {Cy 0}}]",
+        "output": "",
+        "props": {
+          "rows": [
+            [
+              "Ada",
+              1
+            ],
+            [
+              "Bo",
+              2
+            ],
+            [
+              "Cy",
+              0
+            ]
+          ],
+          "selected": []
+        }
+      },
+      {
+        "label": "Bo 刚好需要",
+        "code": "proc supply {rows} {\n    set selected {}\n    foreach row $rows {\n        lassign $row name hunger\n        if {$hunger >= 5} {lappend selected $name}\n    }\n    return $selected\n}\nputs [supply {{Ada 4} {Bo 5} {Cy 8}}]",
+        "output": "Bo Cy",
+        "props": {
+          "rows": [
+            [
+              "Ada",
+              4
+            ],
+            [
+              "Bo",
+              5
+            ],
+            [
+              "Cy",
+              8
+            ]
+          ],
+          "selected": [
+            "Bo",
+            "Cy"
+          ]
+        }
+      }
+    ]
+  },
+  {
+    "id": 11,
+    "setting": "技能卡工作台",
+    "title": "一张图纸，重复使用",
+    "steps": [
+      {
+        "title": "绘制技能",
+        "text": "proc 定义过程 double，n 是等待调用时填写的参数。",
+        "line": 0
+      },
+      {
+        "title": "插入数字",
+        "text": "调用 double 时，把输入值交给 n。下一次可换一个数。",
+        "line": 1
+      },
+      {
+        "title": "运行卡片",
+        "text": "expr 计算 n 的两倍；return 把结果交回调用处。",
+        "line": 0
+      },
+      {
+        "title": "接住结果",
+        "text": "puts 打印返回值。卡片不能只写死一个答案。",
+        "line": 1
+      }
+    ],
+    "variants": [
+      {
+        "label": "任务中的输入",
+        "code": "proc double {n} {return [expr {$n * 2}]}\nputs [double 7]",
+        "output": "14",
+        "props": {
+          "n": 7,
+          "result": 14
+        }
+      },
+      {
+        "label": "输入 3",
+        "code": "proc double {n} {return [expr {$n * 2}]}\nputs [double 3]",
+        "output": "6",
+        "props": {
+          "n": 3,
+          "result": 6
+        }
+      },
+      {
+        "label": "输入小数 2.5",
+        "code": "proc double {n} {return [expr {$n * 2}]}\nputs [double 2.5]",
+        "output": "5.0",
+        "props": {
+          "n": 2.5,
+          "result": "5.0"
+        }
+      }
+    ]
+  },
+  {
+    "id": 12,
+    "setting": "角色档案室",
+    "title": "用属性名字找到数值",
+    "steps": [
+      {
+        "title": "建立档案",
+        "text": "dict create 用 name、hp 这样的键记录属性。",
+        "line": 0
+      },
+      {
+        "title": "补充生命",
+        "text": "dict incr 找到 hp 键，再增加指定的数值。",
+        "line": 1
+      },
+      {
+        "title": "按名查找",
+        "text": "dict get 分别按 name 和 hp 两个键取值，不需要记位置。",
+        "line": 2
+      },
+      {
+        "title": "展示档案",
+        "text": "两个查询结果组成“名字:生命值”，交给 puts。",
+        "line": 2
+      }
+    ],
+    "variants": [
+      {
+        "label": "任务中的输入",
+        "code": "set hero [dict create name Ada hp 80]\ndict incr hero hp 20\nputs \"[dict get $hero name]:[dict get $hero hp]\"",
+        "output": "Ada:100",
+        "props": {
+          "name": "Ada",
+          "hp": 80,
+          "gain": 20
+        }
+      },
+      {
+        "label": "只补 5 点",
+        "code": "set hero [dict create name Ada hp 80]\ndict incr hero hp 5\nputs \"[dict get $hero name]:[dict get $hero hp]\"",
+        "output": "Ada:85",
+        "props": {
+          "name": "Ada",
+          "hp": 80,
+          "gain": 5
+        }
+      },
+      {
+        "label": "换成 Bo",
+        "code": "set hero [dict create name Bo hp 60]\ndict incr hero hp 20\nputs \"[dict get $hero name]:[dict get $hero hp]\"",
+        "output": "Bo:80",
+        "props": {
+          "name": "Bo",
+          "hp": 60,
+          "gain": 20
+        }
+      }
+    ]
+  },
+  {
+    "id": 13,
+    "setting": "冒险日志柜",
+    "title": "写完要关，读时再开",
+    "steps": [
+      {
+        "title": "打开写入口",
+        "text": "open 的 w 模式创建或覆盖文件，返回的通道存在 f 中。",
+        "line": 0
+      },
+      {
+        "title": "写入两页",
+        "text": "puts $f 把文字写入文件通道，不是屏幕。",
+        "line": 1
+      },
+      {
+        "title": "关闭并重开",
+        "text": "先 close 结束写入，再用 r 模式重新打开同一文件。",
+        "line": 4
+      },
+      {
+        "title": "读回日志",
+        "text": "每次 gets 读一行，puts 将读到的内容显示到屏幕。",
+        "line": 5
+      }
+    ],
+    "variants": [
+      {
+        "label": "任务中的输入",
+        "code": "set f [open quest.txt w]\nputs $f \"Level 13\"\nputs $f \"Saved\"\nclose $f\nset f [open quest.txt r]\nputs [gets $f]\nputs [gets $f]\nclose $f",
+        "output": "Level 13\nSaved",
+        "props": {
+          "lines": [
+            "Level 13",
+            "Saved"
+          ]
+        }
+      },
+      {
+        "label": "换一页日记",
+        "code": "set f [open quest.txt w]\nputs $f \"Day 2\"\nputs $f \"Ready\"\nclose $f\nset f [open quest.txt r]\nputs [gets $f]\nputs [gets $f]\nclose $f",
+        "output": "Day 2\nReady",
+        "props": {
+          "lines": [
+            "Day 2",
+            "Ready"
+          ]
+        }
+      },
+      {
+        "label": "中文也能存",
+        "code": "set f [open quest.txt w]\nputs $f \"第十三关\"\nputs $f \"已保存\"\nclose $f\nset f [open quest.txt r]\nputs [gets $f]\nputs [gets $f]\nclose $f",
+        "output": "第十三关\n已保存",
+        "props": {
+          "lines": [
+            "第十三关",
+            "已保存"
+          ]
+        }
+      }
+    ]
+  },
+  {
+    "id": 14,
+    "setting": "安全宝箱屋",
+    "title": "遇到零，也能继续走",
+    "steps": [
+      {
+        "title": "放入两个数",
+        "text": "safeDivide 收到 a 和 b。先检查危险，再进行计算。",
+        "line": 4
+      },
+      {
+        "title": "检查除数",
+        "text": "b 等于 0 时直接返回 undefined，绕过除法。",
+        "line": 1
+      },
+      {
+        "title": "安全计算",
+        "text": "b 非零时用 double 做浮点除法，保留小数结果。",
+        "line": 2
+      },
+      {
+        "title": "继续冒险",
+        "text": "两个调用都得到可读结果。分支保护让零输入不会终止这段脚本。",
+        "line": 5
+      }
+    ],
+    "variants": [
+      {
+        "label": "任务中的输入",
+        "code": "proc safeDivide {a b} {\n    if {$b == 0} {return undefined}\n    return [expr {double($a) / $b}]\n}\nputs [safeDivide 5 2]\nputs [safeDivide 5 0]",
+        "output": "2.5\nundefined",
+        "props": {
+          "a": 5,
+          "b": 2,
+          "result": "2.5",
+          "zero": "undefined"
+        }
+      },
+      {
+        "label": "9 除以 2",
+        "code": "proc safeDivide {a b} {\n    if {$b == 0} {return undefined}\n    return [expr {double($a) / $b}]\n}\nputs [safeDivide 9 2]\nputs [safeDivide 9 0]",
+        "output": "4.5\nundefined",
+        "props": {
+          "a": 9,
+          "b": 2,
+          "result": "4.5",
+          "zero": "undefined"
+        }
+      },
+      {
+        "label": "负数除法",
+        "code": "proc safeDivide {a b} {\n    if {$b == 0} {return undefined}\n    return [expr {double($a) / $b}]\n}\nputs [safeDivide -5 2]\nputs [safeDivide 5 0]",
+        "output": "-2.5\nundefined",
+        "props": {
+          "a": -5,
+          "b": 2,
+          "result": "-2.5",
+          "zero": "undefined"
+        }
+      }
+    ]
+  },
+  {
+    "id": 15,
+    "setting": "工坊平均值机",
+    "title": "每件材料，都算进去",
+    "steps": [
+      {
+        "title": "检查空篮",
+        "text": "先用 llength 检查列表；空列表直接返回 0。",
+        "line": 1
+      },
+      {
+        "title": "称出总量",
+        "text": "非空时遍历每个数，把所有数累加到 total。",
+        "line": 3
+      },
+      {
+        "title": "平分材料",
+        "text": "用浮点总量除以元素个数，得到算术平均值。",
+        "line": 4
+      },
+      {
+        "title": "交付技能",
+        "text": "average 应适用于新列表和小数，也应照顾空列表。",
+        "line": 6
+      }
+    ],
+    "variants": [
+      {
+        "label": "任务中的输入",
+        "code": "proc average {numbers} {\n    if {[llength $numbers] == 0} {return 0}\n    set total 0\n    foreach n $numbers {set total [expr {$total + $n}]}\n    return [expr {double($total) / [llength $numbers]}]\n}\nputs [average {2 4 9}]",
+        "output": "5.0",
+        "props": {
+          "items": [
+            2,
+            4,
+            9
+          ],
+          "result": "5.0"
+        }
+      },
+      {
+        "label": "小数列表",
+        "code": "proc average {numbers} {\n    if {[llength $numbers] == 0} {return 0}\n    set total 0\n    foreach n $numbers {set total [expr {$total + $n}]}\n    return [expr {double($total) / [llength $numbers]}]\n}\nputs [average {1.5 2.5}]",
+        "output": "2.0",
+        "props": {
+          "items": [
+            1.5,
+            2.5
+          ],
+          "result": "2.0"
+        }
+      },
+      {
+        "label": "空背包",
+        "code": "proc average {numbers} {\n    if {[llength $numbers] == 0} {return 0}\n    set total 0\n    foreach n $numbers {set total [expr {$total + $n}]}\n    return [expr {double($total) / [llength $numbers]}]\n}\nputs [average {}]",
+        "output": "0",
+        "props": {
+          "items": [],
+          "result": "0"
+        }
+      }
+    ]
+  },
+  {
+    "id": 16,
+    "setting": "芯片城分区台",
+    "title": "给工具一个专属地址",
+    "steps": [
+      {
+        "title": "建立分区",
+        "text": "namespace eval lab 建立命名空间，把相关工具放在一起。",
+        "line": 0
+      },
+      {
+        "title": "放入工具",
+        "text": "area 定义在 lab 中，参数是宽 w 和高 h。",
+        "line": 1
+      },
+      {
+        "title": "计算面积",
+        "text": "expr 将宽和高相乘。这是教学面积计算，不是 EDA 引擎。",
+        "line": 1
+      },
+      {
+        "title": "按地址调用",
+        "text": "lab::area 的完整名字告诉 Tcl 去哪个命名空间找工具。",
+        "line": 3
+      }
+    ],
+    "variants": [
+      {
+        "label": "任务中的输入",
+        "code": "namespace eval lab {\n    proc area {w h} {return [expr {$w * $h}]}\n}\nputs [lab::area 6 7]",
+        "output": "42",
+        "props": {
+          "w": 6,
+          "h": 7,
+          "result": 42
+        }
+      },
+      {
+        "label": "3 × 4 的区域",
+        "code": "namespace eval lab {\n    proc area {w h} {return [expr {$w * $h}]}\n}\nputs [lab::area 3 4]",
+        "output": "12",
+        "props": {
+          "w": 3,
+          "h": 4,
+          "result": 12
+        }
+      },
+      {
+        "label": "零宽度",
+        "code": "namespace eval lab {\n    proc area {w h} {return [expr {$w * $h}]}\n}\nputs [lab::area 0 7]",
+        "output": "0",
+        "props": {
+          "w": 0,
+          "h": 7,
+          "result": 0
+        }
+      }
+    ]
+  },
+  {
+    "id": 17,
+    "setting": "报告放大镜",
+    "title": "从一行文字中捕获数字",
+    "steps": [
+      {
+        "title": "展开报告",
+        "text": "slackValue 收到一整行文字。并非每一行都一定符合格式。",
+        "line": 4
+      },
+      {
+        "title": "寻找模式",
+        "text": "regexp 检查 slack: 后的可选负号、整数和可选小数部分。",
+        "line": 1
+      },
+      {
+        "title": "取出捕获",
+        "text": "匹配时 value 保存数字文字；不匹配则走 NA 返回分支。",
+        "line": 2
+      },
+      {
+        "title": "交出线索",
+        "text": "返回的是捕获的文字，不是重新计算出的时序数据。",
+        "line": 4
+      }
+    ],
+    "variants": [
+      {
+        "label": "任务中的输入",
+        "code": "proc slackValue {line} {\n    if {[regexp {^slack: (-?[0-9]+(\\.[0-9]+)?)$} $line whole value]} {return $value}\n    return NA\n}\nputs [slackValue \"slack: -0.25\"]",
+        "output": "-0.25",
+        "props": {
+          "line": "slack: -0.25",
+          "value": "-0.25"
+        }
+      },
+      {
+        "label": "正整数余量",
+        "code": "proc slackValue {line} {\n    if {[regexp {^slack: (-?[0-9]+(\\.[0-9]+)?)$} $line whole value]} {return $value}\n    return NA\n}\nputs [slackValue \"slack: 3\"]",
+        "output": "3",
+        "props": {
+          "line": "slack: 3",
+          "value": "3"
+        }
+      },
+      {
+        "label": "不匹配的行",
+        "code": "proc slackValue {line} {\n    if {[regexp {^slack: (-?[0-9]+(\\.[0-9]+)?)$} $line whole value]} {return $value}\n    return NA\n}\nputs [slackValue \"arrival: 0.5\"]",
+        "output": "NA",
+        "props": {
+          "line": "arrival: 0.5",
+          "value": "NA"
+        }
+      }
+    ]
+  },
+  {
+    "id": 18,
+    "setting": "芯片图纸工厂",
+    "title": "图纸与实例，各有职责",
+    "steps": [
+      {
+        "title": "画出图纸",
+        "text": "oo::class 定义 Chip 类，它是制造对象的图纸。",
+        "line": 0
+      },
+      {
+        "title": "制造实例",
+        "text": "Chip new 创建对象，constructor 把传入值保存到对象自己的 name。",
+        "line": 5
+      },
+      {
+        "title": "调用方法",
+        "text": "通过对象调用 label，取出该对象内部保存的 name。",
+        "line": 6
+      },
+      {
+        "title": "结束使用",
+        "text": "destroy 销毁对象。不同对象可以有不同的名字，不共享这份状态。",
+        "line": 7
+      }
+    ],
+    "variants": [
+      {
+        "label": "任务中的输入",
+        "code": "oo::class create Chip {\n    variable name\n    constructor {value} {set name $value}\n    method label {} {return $name}\n}\nset chip [Chip new Tiny]\nputs [$chip label]\n$chip destroy",
+        "output": "Tiny",
+        "props": {
+          "name": "Tiny"
+        }
+      },
+      {
+        "label": "制造 Wide",
+        "code": "oo::class create Chip {\n    variable name\n    constructor {value} {set name $value}\n    method label {} {return $name}\n}\nset chip [Chip new Wide]\nputs [$chip label]\n$chip destroy",
+        "output": "Wide",
+        "props": {
+          "name": "Wide"
+        }
+      },
+      {
+        "label": "制造 Nano",
+        "code": "oo::class create Chip {\n    variable name\n    constructor {value} {set name $value}\n    method label {} {return $name}\n}\nset chip [Chip new Nano]\nputs [$chip label]\n$chip destroy",
+        "output": "Nano",
+        "props": {
+          "name": "Nano"
+        }
+      }
+    ]
+  },
+  {
+    "id": 19,
+    "setting": "教学流程轨道",
+    "title": "把参数送过三个站点",
+    "steps": [
+      {
+        "title": "接收配置",
+        "text": "mockFlow 收到设计名和周期。这个关卡只模拟流程的文字记录。",
+        "line": 4
+      },
+      {
+        "title": "检查周期",
+        "text": "period <= 0 时 error 报错，流程不会继续返回正常结果。",
+        "line": 1
+      },
+      {
+        "title": "连接站点",
+        "text": "合法周期时，list 把 read、clock、report 三条记录组成列表。",
+        "line": 2
+      },
+      {
+        "title": "输出流程",
+        "text": "返回的是教学流程清单；没有实际读取网表或计算时序。",
+        "line": 4
+      }
+    ],
+    "variants": [
+      {
+        "label": "任务中的输入",
+        "code": "proc mockFlow {design period} {\n    if {$period <= 0} {error \"Period must be positive\"}\n    return [list \"read:$design\" \"clock:$period\" \"report:timing\"]\n}\nputs [mockFlow Tiny 10]",
+        "output": "read:Tiny clock:10 report:timing",
+        "props": {
+          "name": "Tiny",
+          "period": 10
+        }
+      },
+      {
+        "label": "Wide，周期 5",
+        "code": "proc mockFlow {design period} {\n    if {$period <= 0} {error \"Period must be positive\"}\n    return [list \"read:$design\" \"clock:$period\" \"report:timing\"]\n}\nputs [mockFlow Wide 5]",
+        "output": "read:Wide clock:5 report:timing",
+        "props": {
+          "name": "Wide",
+          "period": 5
+        }
+      },
+      {
+        "label": "周期为零",
+        "code": "proc mockFlow {design period} {\n    if {$period <= 0} {error \"Period must be positive\"}\n    return [list \"read:$design\" \"clock:$period\" \"report:timing\"]\n}\nputs [mockFlow Tiny 0]",
+        "output": null,
+        "props": {
+          "name": "Tiny",
+          "period": 0,
+          "error": "Period must be positive"
+        }
+      }
+    ]
+  },
+  {
+    "id": 20,
+    "setting": "时序侦探指挥台",
+    "title": "沿着路径，找到最差余量",
+    "steps": [
+      {
+        "title": "接收路径",
+        "text": "每条记录有路径名和 slack。空报告要返回 0 和 NA。",
+        "line": 1
+      },
+      {
+        "title": "逐条检查",
+        "text": "slack < 0 才违规；等于 0 不计违规。遍历每一条路径。",
+        "line": 6
+      },
+      {
+        "title": "更新最差值",
+        "text": "从第一条真实记录开始比较，保存更小的 slack，不能默认从 0 开始。",
+        "line": 7
+      },
+      {
+        "title": "提交结案",
+        "text": "返回含 violations 和 worst 的字典，再读取这两个键输出报告。",
+        "line": 9
+      }
+    ],
+    "variants": [
+      {
+        "label": "任务中的输入",
+        "code": "proc analyze {rows} {\n    if {[llength $rows] == 0} {return [dict create violations 0 worst NA]}\n    set violations 0\n    set worst [lindex [lindex $rows 0] 1]\n    foreach row $rows {\n        lassign $row path slack\n        if {$slack < 0} {incr violations}\n        if {$slack < $worst} {set worst $slack}\n    }\n    return [dict create violations $violations worst $worst]\n}\nset result [analyze {{p1 0.12} {p2 -0.25} {p3 -0.05}}]\nputs \"Violations: [dict get $result violations]\"\nputs \"Worst: [dict get $result worst] ns\"",
+        "output": "Violations: 2\nWorst: -0.25 ns",
+        "props": {
+          "rows": [
+            [
+              "p1",
+              0.12
+            ],
+            [
+              "p2",
+              -0.25
+            ],
+            [
+              "p3",
+              -0.05
+            ]
+          ],
+          "violations": 2,
+          "worst": "-0.25"
+        }
+      },
+      {
+        "label": "所有路径都合格",
+        "code": "proc analyze {rows} {\n    if {[llength $rows] == 0} {return [dict create violations 0 worst NA]}\n    set violations 0\n    set worst [lindex [lindex $rows 0] 1]\n    foreach row $rows {\n        lassign $row path slack\n        if {$slack < 0} {incr violations}\n        if {$slack < $worst} {set worst $slack}\n    }\n    return [dict create violations $violations worst $worst]\n}\nset result [analyze {{p1 0.12} {p2 0.25} {p3 0.05}}]\nputs \"Violations: [dict get $result violations]\"\nputs \"Worst: [dict get $result worst] ns\"",
+        "output": "Violations: 0\nWorst: 0.05 ns",
+        "props": {
+          "rows": [
+            [
+              "p1",
+              0.12
+            ],
+            [
+              "p2",
+              0.25
+            ],
+            [
+              "p3",
+              0.05
+            ]
+          ],
+          "violations": 0,
+          "worst": "0.05"
+        }
+      },
+      {
+        "label": "空报告",
+        "code": "proc analyze {rows} {\n    if {[llength $rows] == 0} {return [dict create violations 0 worst NA]}\n    set violations 0\n    set worst [lindex [lindex $rows 0] 1]\n    foreach row $rows {\n        lassign $row path slack\n        if {$slack < 0} {incr violations}\n        if {$slack < $worst} {set worst $slack}\n    }\n    return [dict create violations $violations worst $worst]\n}\nset result [analyze {}]\nputs \"Violations: [dict get $result violations]\"\nputs \"Worst: [dict get $result worst] ns\"",
+        "output": "Violations: 0\nWorst: NA ns",
+        "props": {
+          "rows": [],
+          "violations": 0,
+          "worst": "NA"
+        }
+      }
+    ]
+  }
+]

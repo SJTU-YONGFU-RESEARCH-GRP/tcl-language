@@ -1,0 +1,1255 @@
+[
+  {
+    "id": 1,
+    "setting": "Morning Wake-up Station",
+    "title": "Light up Chip with a greeting",
+    "steps": [
+      {
+        "title": "Await a command",
+        "text": "Chip is asleep. puts sends the text after it to the output area, like a small loudspeaker.",
+        "line": 0
+      },
+      {
+        "title": "Say hello",
+        "text": "The first puts produces the first message. Double quotes keep the words together.",
+        "line": 0
+      },
+      {
+        "title": "Get ready",
+        "text": "The next puts runs after the first. Tcl executes these commands in order.",
+        "line": 1
+      },
+      {
+        "title": "Hear the echo",
+        "text": "Each puts normally starts a new line. Compare the speech bubbles with the output.",
+        "line": 1
+      }
+    ],
+    "variants": [
+      {
+        "label": "Mission input",
+        "code": "puts \"Hello, Tcl!\"\nputs \"Ready!\"",
+        "output": "Hello, Tcl!\nReady!",
+        "props": {
+          "lines": [
+            "Hello, Tcl!",
+            "Ready!"
+          ]
+        }
+      },
+      {
+        "label": "A greeting in Chinese",
+        "code": "puts \"你好，芯片岛！\"\nputs \"Ready!\"",
+        "output": "你好，芯片岛！\nReady!",
+        "props": {
+          "lines": [
+            "你好，芯片岛！",
+            "Ready!"
+          ]
+        }
+      },
+      {
+        "label": "Greet another friend",
+        "code": "puts \"Hello, Ada!\"\nputs \"Ready!\"",
+        "output": "Hello, Ada!\nReady!",
+        "props": {
+          "lines": [
+            "Hello, Ada!",
+            "Ready!"
+          ]
+        }
+      }
+    ]
+  },
+  {
+    "id": 2,
+    "setting": "Backpack Desk",
+    "title": "A name is a label; a value is what it holds",
+    "steps": [
+      {
+        "title": "Name the pocket",
+        "text": "set names a pocket and stores a value. The hero pocket holds a character name.",
+        "line": 0
+      },
+      {
+        "title": "Store the coins",
+        "text": "coins is the label. The number is the value stored inside that pocket.",
+        "line": 1
+      },
+      {
+        "title": "Read the pockets",
+        "text": "Inside double quotes, $hero and $coins read their stored values.",
+        "line": 2
+      },
+      {
+        "title": "Read the backpack",
+        "text": "Those values become part of a sentence, which puts displays.",
+        "line": 2
+      }
+    ],
+    "variants": [
+      {
+        "label": "Mission input",
+        "code": "set hero Ada\nset coins 12\nputs \"$hero has $coins coins\"",
+        "output": "Ada has 12 coins",
+        "props": {
+          "name": "Ada",
+          "coins": 12
+        }
+      },
+      {
+        "label": "Bo with 8 coins",
+        "code": "set hero Bo\nset coins 8\nputs \"$hero has $coins coins\"",
+        "output": "Bo has 8 coins",
+        "props": {
+          "name": "Bo",
+          "coins": 8
+        }
+      },
+      {
+        "label": "An empty wallet",
+        "code": "set hero Ada\nset coins 0\nputs \"$hero has $coins coins\"",
+        "output": "Ada has 0 coins",
+        "props": {
+          "name": "Ada",
+          "coins": 0
+        }
+      }
+    ]
+  },
+  {
+    "id": 3,
+    "setting": "Three Bracket Doors",
+    "title": "One message, three different journeys",
+    "steps": [
+      {
+        "title": "Prepare the message",
+        "text": "Store a value in hero, then send a message through the three doors.",
+        "line": 0
+      },
+      {
+        "title": "The quote door",
+        "text": "Double quotes group a message and allow $hero to be replaced with its value.",
+        "line": 1
+      },
+      {
+        "title": "The brace door",
+        "text": "Braces preserve the text here. $hero is not substituted at this stage.",
+        "line": 2
+      },
+      {
+        "title": "The bracket door",
+        "text": "Square brackets run string toupper first, then give its result to puts.",
+        "line": 3
+      }
+    ],
+    "variants": [
+      {
+        "label": "Mission input",
+        "code": "set hero Ada\nputs \"Hello $hero\"\nputs {Hello $hero}\nputs [string toupper $hero]",
+        "output": "Hello Ada\nHello $hero\nADA",
+        "props": {
+          "name": "Ada",
+          "upper": "ADA"
+        }
+      },
+      {
+        "label": "Use the name Bo",
+        "code": "set hero Bo\nputs \"Hello $hero\"\nputs {Hello $hero}\nputs [string toupper $hero]",
+        "output": "Hello Bo\nHello $hero\nBO",
+        "props": {
+          "name": "Bo",
+          "upper": "BO"
+        }
+      },
+      {
+        "label": "Use the name Cy",
+        "code": "set hero Cy\nputs \"Hello $hero\"\nputs {Hello $hero}\nputs [string toupper $hero]",
+        "output": "Hello Cy\nHello $hero\nCY",
+        "props": {
+          "name": "Cy",
+          "upper": "CY"
+        }
+      }
+    ]
+  },
+  {
+    "id": 4,
+    "setting": "Potion Bench",
+    "title": "Multiply the ingredients, then add the bonus",
+    "steps": [
+      {
+        "title": "Set out ingredients",
+        "text": "bottles records how many bottles there are; each records their individual energy.",
+        "line": 0
+      },
+      {
+        "title": "Calculate the recipe",
+        "text": "expr multiplies the inputs. Brackets give its result to set energy.",
+        "line": 2
+      },
+      {
+        "title": "Add the bonus",
+        "text": "incr adds a bonus to the current energy value and updates that pocket.",
+        "line": 3
+      },
+      {
+        "title": "Finish the potion",
+        "text": "puts $energy reads and displays the final total.",
+        "line": 4
+      }
+    ],
+    "variants": [
+      {
+        "label": "Mission input",
+        "code": "set bottles 3\nset each 7\nset energy [expr {$bottles * $each}]\nincr energy 4\nputs $energy",
+        "output": "25",
+        "props": {
+          "bottles": 3,
+          "each": 7,
+          "bonus": 4,
+          "energy": 25
+        }
+      },
+      {
+        "label": "2 × 5, plus 1",
+        "code": "set bottles 2\nset each 5\nset energy [expr {$bottles * $each}]\nincr energy 1\nputs $energy",
+        "output": "11",
+        "props": {
+          "bottles": 2,
+          "each": 5,
+          "bonus": 1,
+          "energy": 11
+        }
+      },
+      {
+        "label": "No bottles, but a bonus",
+        "code": "set bottles 0\nset each 7\nset energy [expr {$bottles * $each}]\nincr energy 4\nputs $energy",
+        "output": "4",
+        "props": {
+          "bottles": 0,
+          "each": 7,
+          "bonus": 4,
+          "energy": 4
+        }
+      }
+    ]
+  },
+  {
+    "id": 5,
+    "setting": "Launch Beacon",
+    "title": "Connect three skills into one beam",
+    "steps": [
+      {
+        "title": "Connect the batteries",
+        "text": "The beacon needs a name, a battery count and energy per battery.",
+        "line": 0
+      },
+      {
+        "title": "Calculate energy",
+        "text": "expr calculates the total, which is stored in energy.",
+        "line": 3
+      },
+      {
+        "title": "Broadcast values",
+        "text": "In double quotes, the variable names are replaced with the real name and energy.",
+        "line": 5
+      },
+      {
+        "title": "Preserve a template",
+        "text": "The final braces preserve the literal text $energy.",
+        "line": 6
+      }
+    ],
+    "variants": [
+      {
+        "label": "Mission input",
+        "code": "set hero Ada\nset cells 4\nset each 5\nset energy [expr {$cells * $each}]\nputs \"$hero ready\"\nputs \"Energy: $energy\"\nputs {$energy}",
+        "output": "Ada ready\nEnergy: 20\n$energy",
+        "props": {
+          "name": "Ada",
+          "cells": 4,
+          "each": 5,
+          "energy": 20
+        }
+      },
+      {
+        "label": "Two batteries",
+        "code": "set hero Ada\nset cells 2\nset each 5\nset energy [expr {$cells * $each}]\nputs \"$hero ready\"\nputs \"Energy: $energy\"\nputs {$energy}",
+        "output": "Ada ready\nEnergy: 10\n$energy",
+        "props": {
+          "name": "Ada",
+          "cells": 2,
+          "each": 5,
+          "energy": 10
+        }
+      },
+      {
+        "label": "Bo sets off",
+        "code": "set hero Bo\nset cells 4\nset each 5\nset energy [expr {$cells * $each}]\nputs \"$hero ready\"\nputs \"Energy: $energy\"\nputs {$energy}",
+        "output": "Bo ready\nEnergy: 20\n$energy",
+        "props": {
+          "name": "Bo",
+          "cells": 4,
+          "each": 5,
+          "energy": 20
+        }
+      }
+    ]
+  },
+  {
+    "id": 6,
+    "setting": "Forest Coin Gate",
+    "title": "A condition chooses the path",
+    "steps": [
+      {
+        "title": "Offer the coins",
+        "text": "gate receives a coin count. Switch the input to see how the gatekeeper chooses.",
+        "line": 3
+      },
+      {
+        "title": "Check the condition",
+        "text": "Compare coins >= 10. Exactly 10 also satisfies “at least 10”.",
+        "line": 1
+      },
+      {
+        "title": "Choose a branch",
+        "text": "Use Enter when the condition is true and Wait otherwise. Only one branch runs.",
+        "line": 1
+      },
+      {
+        "title": "Receive the answer",
+        "text": "return passes the selected result back to the caller; puts displays it.",
+        "line": 3
+      }
+    ],
+    "variants": [
+      {
+        "label": "Mission input",
+        "code": "proc gate {coins} {\n    if {$coins >= 10} {return Enter} else {return Wait}\n}\nputs [gate 12]",
+        "output": "Enter",
+        "props": {
+          "coins": 12,
+          "enter": true
+        }
+      },
+      {
+        "label": "8 coins: not enough",
+        "code": "proc gate {coins} {\n    if {$coins >= 10} {return Enter} else {return Wait}\n}\nputs [gate 8]",
+        "output": "Wait",
+        "props": {
+          "coins": 8,
+          "enter": false
+        }
+      },
+      {
+        "label": "10 coins: just enough",
+        "code": "proc gate {coins} {\n    if {$coins >= 10} {return Enter} else {return Wait}\n}\nputs [gate 10]",
+        "output": "Enter",
+        "props": {
+          "coins": 10,
+          "enter": true
+        }
+      }
+    ]
+  },
+  {
+    "id": 7,
+    "setting": "Item Shelf",
+    "title": "A name with a space can still be one item",
+    "steps": [
+      {
+        "title": "Lay out the items",
+        "text": "list records each item’s boundary. A multiword name must be grouped correctly.",
+        "line": 0
+      },
+      {
+        "title": "Pack the backpack",
+        "text": "An item name containing a space still occupies only one list slot.",
+        "line": 0
+      },
+      {
+        "title": "Count the slots",
+        "text": "llength counts elements rather than individual words.",
+        "line": 1
+      },
+      {
+        "title": "Take the second item",
+        "text": "lindex starts at 0, so index 1 selects the second item.",
+        "line": 2
+      }
+    ],
+    "variants": [
+      {
+        "label": "Mission input",
+        "code": "set bag [list key \"red apple\" map]\nputs [llength $bag]\nputs [lindex $bag 1]",
+        "output": "3\nred apple",
+        "props": {
+          "items": [
+            "key",
+            "red apple",
+            "map"
+          ]
+        }
+      },
+      {
+        "label": "Use a green pear",
+        "code": "set bag [list key \"green pear\" map]\nputs [llength $bag]\nputs [lindex $bag 1]",
+        "output": "3\ngreen pear",
+        "props": {
+          "items": [
+            "key",
+            "green pear",
+            "map"
+          ]
+        }
+      },
+      {
+        "label": "Add a compass",
+        "code": "set bag [list key \"red apple\" map compass]\nputs [llength $bag]\nputs [lindex $bag 1]",
+        "output": "4\nred apple",
+        "props": {
+          "items": [
+            "key",
+            "red apple",
+            "map",
+            "compass"
+          ]
+        }
+      }
+    ]
+  },
+  {
+    "id": 8,
+    "setting": "Collection Trail",
+    "title": "Let Chip collect each item in turn",
+    "steps": [
+      {
+        "title": "Start with an empty basket",
+        "text": "Set total to 0 to give the running sum a starting point.",
+        "line": 0
+      },
+      {
+        "title": "Collect the first item",
+        "text": "foreach gives the first list element to n, then runs the loop body.",
+        "line": 1
+      },
+      {
+        "title": "Keep collecting",
+        "text": "Each incr total $n adds the current value to the existing sum instead of replacing it.",
+        "line": 1
+      },
+      {
+        "title": "Finish the list",
+        "text": "When no items remain, the loop finishes and puts displays total.",
+        "line": 2
+      }
+    ],
+    "variants": [
+      {
+        "label": "Mission input",
+        "code": "set total 0\nforeach n {2 4 6} {incr total $n}\nputs $total",
+        "output": "12",
+        "props": {
+          "items": [
+            2,
+            4,
+            6
+          ],
+          "total": 12
+        }
+      },
+      {
+        "label": "Collect 1, 3 and 5",
+        "code": "set total 0\nforeach n {1 3 5} {incr total $n}\nputs $total",
+        "output": "9",
+        "props": {
+          "items": [
+            1,
+            3,
+            5
+          ],
+          "total": 9
+        }
+      },
+      {
+        "label": "An empty list",
+        "code": "set total 0\nforeach n {} {incr total $n}\nputs $total",
+        "output": "0",
+        "props": {
+          "items": [],
+          "total": 0
+        }
+      }
+    ]
+  },
+  {
+    "id": 9,
+    "setting": "Sign Repair Shop",
+    "title": "Turn messy text into a tidy sign",
+    "steps": [
+      {
+        "title": "Receive the old sign",
+        "text": "clean receives raw text, including the spaces at its edges.",
+        "line": 3
+      },
+      {
+        "title": "Clean the edges",
+        "text": "The inner string trim removes edge whitespace. Spaces in the middle stay.",
+        "line": 1
+      },
+      {
+        "title": "Make it uppercase",
+        "text": "The outer string toupper converts the cleaned text to uppercase.",
+        "line": 1
+      },
+      {
+        "title": "Hang the sign",
+        "text": "return gives the new text back; puts displays it.",
+        "line": 3
+      }
+    ],
+    "variants": [
+      {
+        "label": "Mission input",
+        "code": "proc clean {text} {\n    return [string toupper [string trim $text]]\n}\nputs [clean \"  chip  \"]",
+        "output": "CHIP",
+        "props": {
+          "raw": "  chip  ",
+          "clean": "CHIP"
+        }
+      },
+      {
+        "label": "A different sign",
+        "code": "proc clean {text} {\n    return [string toupper [string trim $text]]\n}\nputs [clean \"  forest  \"]",
+        "output": "FOREST",
+        "props": {
+          "raw": "  forest  ",
+          "clean": "FOREST"
+        }
+      },
+      {
+        "label": "Keep a middle space",
+        "code": "proc clean {text} {\n    return [string toupper [string trim $text]]\n}\nputs [clean \"  chip island  \"]",
+        "output": "CHIP ISLAND",
+        "props": {
+          "raw": "  chip island  ",
+          "clean": "CHIP ISLAND"
+        }
+      }
+    ]
+  },
+  {
+    "id": 10,
+    "setting": "Forest Supply Station",
+    "title": "Help every friend who needs supplies",
+    "steps": [
+      {
+        "title": "Read the roster",
+        "text": "Each row has a name and hunger value. Start with an empty selected list.",
+        "line": 1
+      },
+      {
+        "title": "Visit each friend",
+        "text": "foreach visits the records; lassign separates name and hunger.",
+        "line": 3
+      },
+      {
+        "title": "Deliver supplies",
+        "text": "Append a name only when hunger >= 5. Exactly 5 needs supplies too.",
+        "line": 4
+      },
+      {
+        "title": "Write the receipt",
+        "text": "Return the selected names as a list. Skipped friends do not appear in it.",
+        "line": 6
+      }
+    ],
+    "variants": [
+      {
+        "label": "Mission input",
+        "code": "proc supply {rows} {\n    set selected {}\n    foreach row $rows {\n        lassign $row name hunger\n        if {$hunger >= 5} {lappend selected $name}\n    }\n    return $selected\n}\nputs [supply {{Ada 7} {Bo 2} {Cy 5}}]",
+        "output": "Ada Cy",
+        "props": {
+          "rows": [
+            [
+              "Ada",
+              7
+            ],
+            [
+              "Bo",
+              2
+            ],
+            [
+              "Cy",
+              5
+            ]
+          ],
+          "selected": [
+            "Ada",
+            "Cy"
+          ]
+        }
+      },
+      {
+        "label": "Everyone has eaten",
+        "code": "proc supply {rows} {\n    set selected {}\n    foreach row $rows {\n        lassign $row name hunger\n        if {$hunger >= 5} {lappend selected $name}\n    }\n    return $selected\n}\nputs [supply {{Ada 1} {Bo 2} {Cy 0}}]",
+        "output": "",
+        "props": {
+          "rows": [
+            [
+              "Ada",
+              1
+            ],
+            [
+              "Bo",
+              2
+            ],
+            [
+              "Cy",
+              0
+            ]
+          ],
+          "selected": []
+        }
+      },
+      {
+        "label": "Bo just qualifies",
+        "code": "proc supply {rows} {\n    set selected {}\n    foreach row $rows {\n        lassign $row name hunger\n        if {$hunger >= 5} {lappend selected $name}\n    }\n    return $selected\n}\nputs [supply {{Ada 4} {Bo 5} {Cy 8}}]",
+        "output": "Bo Cy",
+        "props": {
+          "rows": [
+            [
+              "Ada",
+              4
+            ],
+            [
+              "Bo",
+              5
+            ],
+            [
+              "Cy",
+              8
+            ]
+          ],
+          "selected": [
+            "Bo",
+            "Cy"
+          ]
+        }
+      }
+    ]
+  },
+  {
+    "id": 11,
+    "setting": "Skill-card Bench",
+    "title": "One recipe, many calls",
+    "steps": [
+      {
+        "title": "Define the skill",
+        "text": "proc defines double. n is an argument waiting for a value at call time.",
+        "line": 0
+      },
+      {
+        "title": "Supply an input",
+        "text": "Calling double supplies its input for n. The next call can use another number.",
+        "line": 1
+      },
+      {
+        "title": "Run the card",
+        "text": "expr doubles n; return passes the computed result back.",
+        "line": 0
+      },
+      {
+        "title": "Receive the result",
+        "text": "puts displays the returned value. The procedure must not hard-code one answer.",
+        "line": 1
+      }
+    ],
+    "variants": [
+      {
+        "label": "Mission input",
+        "code": "proc double {n} {return [expr {$n * 2}]}\nputs [double 7]",
+        "output": "14",
+        "props": {
+          "n": 7,
+          "result": 14
+        }
+      },
+      {
+        "label": "Input 3",
+        "code": "proc double {n} {return [expr {$n * 2}]}\nputs [double 3]",
+        "output": "6",
+        "props": {
+          "n": 3,
+          "result": 6
+        }
+      },
+      {
+        "label": "Decimal input 2.5",
+        "code": "proc double {n} {return [expr {$n * 2}]}\nputs [double 2.5]",
+        "output": "5.0",
+        "props": {
+          "n": 2.5,
+          "result": "5.0"
+        }
+      }
+    ]
+  },
+  {
+    "id": 12,
+    "setting": "Character Archive",
+    "title": "Find values by their attribute names",
+    "steps": [
+      {
+        "title": "Create a record",
+        "text": "dict create stores attributes using keys such as name and hp.",
+        "line": 0
+      },
+      {
+        "title": "Restore health",
+        "text": "dict incr finds the hp key and increases its value.",
+        "line": 1
+      },
+      {
+        "title": "Look up by name",
+        "text": "dict get retrieves name and hp by key, without needing their positions.",
+        "line": 2
+      },
+      {
+        "title": "Show the record",
+        "text": "The two retrieved values form name:health, which puts displays.",
+        "line": 2
+      }
+    ],
+    "variants": [
+      {
+        "label": "Mission input",
+        "code": "set hero [dict create name Ada hp 80]\ndict incr hero hp 20\nputs \"[dict get $hero name]:[dict get $hero hp]\"",
+        "output": "Ada:100",
+        "props": {
+          "name": "Ada",
+          "hp": 80,
+          "gain": 20
+        }
+      },
+      {
+        "label": "Restore only 5 points",
+        "code": "set hero [dict create name Ada hp 80]\ndict incr hero hp 5\nputs \"[dict get $hero name]:[dict get $hero hp]\"",
+        "output": "Ada:85",
+        "props": {
+          "name": "Ada",
+          "hp": 80,
+          "gain": 5
+        }
+      },
+      {
+        "label": "Use Bo’s record",
+        "code": "set hero [dict create name Bo hp 60]\ndict incr hero hp 20\nputs \"[dict get $hero name]:[dict get $hero hp]\"",
+        "output": "Bo:80",
+        "props": {
+          "name": "Bo",
+          "hp": 60,
+          "gain": 20
+        }
+      }
+    ]
+  },
+  {
+    "id": 13,
+    "setting": "Adventure Log Cabinet",
+    "title": "Close after writing, reopen for reading",
+    "steps": [
+      {
+        "title": "Open for writing",
+        "text": "open with w creates or overwrites a file. Its channel is stored in f.",
+        "line": 0
+      },
+      {
+        "title": "Write two lines",
+        "text": "puts $f writes to the file channel rather than the screen.",
+        "line": 1
+      },
+      {
+        "title": "Close and reopen",
+        "text": "close finishes writing. Reopen the same file with r to read it.",
+        "line": 4
+      },
+      {
+        "title": "Read the log",
+        "text": "Each gets reads one line; puts sends that line to the screen.",
+        "line": 5
+      }
+    ],
+    "variants": [
+      {
+        "label": "Mission input",
+        "code": "set f [open quest.txt w]\nputs $f \"Level 13\"\nputs $f \"Saved\"\nclose $f\nset f [open quest.txt r]\nputs [gets $f]\nputs [gets $f]\nclose $f",
+        "output": "Level 13\nSaved",
+        "props": {
+          "lines": [
+            "Level 13",
+            "Saved"
+          ]
+        }
+      },
+      {
+        "label": "A new diary page",
+        "code": "set f [open quest.txt w]\nputs $f \"Day 2\"\nputs $f \"Ready\"\nclose $f\nset f [open quest.txt r]\nputs [gets $f]\nputs [gets $f]\nclose $f",
+        "output": "Day 2\nReady",
+        "props": {
+          "lines": [
+            "Day 2",
+            "Ready"
+          ]
+        }
+      },
+      {
+        "label": "Save Chinese text",
+        "code": "set f [open quest.txt w]\nputs $f \"第十三关\"\nputs $f \"已保存\"\nclose $f\nset f [open quest.txt r]\nputs [gets $f]\nputs [gets $f]\nclose $f",
+        "output": "第十三关\n已保存",
+        "props": {
+          "lines": [
+            "第十三关",
+            "已保存"
+          ]
+        }
+      }
+    ]
+  },
+  {
+    "id": 14,
+    "setting": "Safe Treasure Room",
+    "title": "A zero divisor does not have to end the trip",
+    "steps": [
+      {
+        "title": "Supply two numbers",
+        "text": "safeDivide receives a and b. Check for danger before calculating.",
+        "line": 4
+      },
+      {
+        "title": "Check the divisor",
+        "text": "When b is 0, return undefined immediately and skip the division.",
+        "line": 1
+      },
+      {
+        "title": "Calculate safely",
+        "text": "For a nonzero b, use double to perform floating-point division.",
+        "line": 2
+      },
+      {
+        "title": "Continue the trip",
+        "text": "Both calls return readable results. The zero-input branch protects this script.",
+        "line": 5
+      }
+    ],
+    "variants": [
+      {
+        "label": "Mission input",
+        "code": "proc safeDivide {a b} {\n    if {$b == 0} {return undefined}\n    return [expr {double($a) / $b}]\n}\nputs [safeDivide 5 2]\nputs [safeDivide 5 0]",
+        "output": "2.5\nundefined",
+        "props": {
+          "a": 5,
+          "b": 2,
+          "result": "2.5",
+          "zero": "undefined"
+        }
+      },
+      {
+        "label": "9 divided by 2",
+        "code": "proc safeDivide {a b} {\n    if {$b == 0} {return undefined}\n    return [expr {double($a) / $b}]\n}\nputs [safeDivide 9 2]\nputs [safeDivide 9 0]",
+        "output": "4.5\nundefined",
+        "props": {
+          "a": 9,
+          "b": 2,
+          "result": "4.5",
+          "zero": "undefined"
+        }
+      },
+      {
+        "label": "Divide a negative number",
+        "code": "proc safeDivide {a b} {\n    if {$b == 0} {return undefined}\n    return [expr {double($a) / $b}]\n}\nputs [safeDivide -5 2]\nputs [safeDivide 5 0]",
+        "output": "-2.5\nundefined",
+        "props": {
+          "a": -5,
+          "b": 2,
+          "result": "-2.5",
+          "zero": "undefined"
+        }
+      }
+    ]
+  },
+  {
+    "id": 15,
+    "setting": "Workshop Average Machine",
+    "title": "Every ingredient counts",
+    "steps": [
+      {
+        "title": "Check the basket",
+        "text": "Check llength first. An empty list returns 0 immediately.",
+        "line": 1
+      },
+      {
+        "title": "Weigh the total",
+        "text": "For a nonempty list, visit every number and accumulate total.",
+        "line": 3
+      },
+      {
+        "title": "Share the ingredients",
+        "text": "Divide the floating-point total by the element count to get the mean.",
+        "line": 4
+      },
+      {
+        "title": "Deliver the tool",
+        "text": "average should work for new lists, decimal values and empty input.",
+        "line": 6
+      }
+    ],
+    "variants": [
+      {
+        "label": "Mission input",
+        "code": "proc average {numbers} {\n    if {[llength $numbers] == 0} {return 0}\n    set total 0\n    foreach n $numbers {set total [expr {$total + $n}]}\n    return [expr {double($total) / [llength $numbers]}]\n}\nputs [average {2 4 9}]",
+        "output": "5.0",
+        "props": {
+          "items": [
+            2,
+            4,
+            9
+          ],
+          "result": "5.0"
+        }
+      },
+      {
+        "label": "Decimal values",
+        "code": "proc average {numbers} {\n    if {[llength $numbers] == 0} {return 0}\n    set total 0\n    foreach n $numbers {set total [expr {$total + $n}]}\n    return [expr {double($total) / [llength $numbers]}]\n}\nputs [average {1.5 2.5}]",
+        "output": "2.0",
+        "props": {
+          "items": [
+            1.5,
+            2.5
+          ],
+          "result": "2.0"
+        }
+      },
+      {
+        "label": "An empty basket",
+        "code": "proc average {numbers} {\n    if {[llength $numbers] == 0} {return 0}\n    set total 0\n    foreach n $numbers {set total [expr {$total + $n}]}\n    return [expr {double($total) / [llength $numbers]}]\n}\nputs [average {}]",
+        "output": "0",
+        "props": {
+          "items": [],
+          "result": "0"
+        }
+      }
+    ]
+  },
+  {
+    "id": 16,
+    "setting": "Chip City Tool District",
+    "title": "Give your tool its own address",
+    "steps": [
+      {
+        "title": "Create a district",
+        "text": "namespace eval lab creates a namespace to group related tools.",
+        "line": 0
+      },
+      {
+        "title": "Add a tool",
+        "text": "Define area inside lab, with width w and height h as its arguments.",
+        "line": 1
+      },
+      {
+        "title": "Calculate the area",
+        "text": "expr multiplies width and height. This is a teaching calculation, not an EDA engine.",
+        "line": 1
+      },
+      {
+        "title": "Call the address",
+        "text": "The full name lab::area tells Tcl which namespace contains the command.",
+        "line": 3
+      }
+    ],
+    "variants": [
+      {
+        "label": "Mission input",
+        "code": "namespace eval lab {\n    proc area {w h} {return [expr {$w * $h}]}\n}\nputs [lab::area 6 7]",
+        "output": "42",
+        "props": {
+          "w": 6,
+          "h": 7,
+          "result": 42
+        }
+      },
+      {
+        "label": "A 3 × 4 rectangle",
+        "code": "namespace eval lab {\n    proc area {w h} {return [expr {$w * $h}]}\n}\nputs [lab::area 3 4]",
+        "output": "12",
+        "props": {
+          "w": 3,
+          "h": 4,
+          "result": 12
+        }
+      },
+      {
+        "label": "Zero width",
+        "code": "namespace eval lab {\n    proc area {w h} {return [expr {$w * $h}]}\n}\nputs [lab::area 0 7]",
+        "output": "0",
+        "props": {
+          "w": 0,
+          "h": 7,
+          "result": 0
+        }
+      }
+    ]
+  },
+  {
+    "id": 17,
+    "setting": "Report Magnifier",
+    "title": "Capture a number from one line of text",
+    "steps": [
+      {
+        "title": "Open the report",
+        "text": "slackValue receives a whole line. Not every line will match the required format.",
+        "line": 4
+      },
+      {
+        "title": "Find the pattern",
+        "text": "regexp checks slack: followed by an optional minus sign, digits and optional decimal part.",
+        "line": 1
+      },
+      {
+        "title": "Read the capture",
+        "text": "When matched, value contains the number text. Otherwise the procedure returns NA.",
+        "line": 2
+      },
+      {
+        "title": "Deliver the clue",
+        "text": "The result is captured text, not a newly calculated timing value.",
+        "line": 4
+      }
+    ],
+    "variants": [
+      {
+        "label": "Mission input",
+        "code": "proc slackValue {line} {\n    if {[regexp {^slack: (-?[0-9]+(\\.[0-9]+)?)$} $line whole value]} {return $value}\n    return NA\n}\nputs [slackValue \"slack: -0.25\"]",
+        "output": "-0.25",
+        "props": {
+          "line": "slack: -0.25",
+          "value": "-0.25"
+        }
+      },
+      {
+        "label": "Positive integer slack",
+        "code": "proc slackValue {line} {\n    if {[regexp {^slack: (-?[0-9]+(\\.[0-9]+)?)$} $line whole value]} {return $value}\n    return NA\n}\nputs [slackValue \"slack: 3\"]",
+        "output": "3",
+        "props": {
+          "line": "slack: 3",
+          "value": "3"
+        }
+      },
+      {
+        "label": "A line that does not match",
+        "code": "proc slackValue {line} {\n    if {[regexp {^slack: (-?[0-9]+(\\.[0-9]+)?)$} $line whole value]} {return $value}\n    return NA\n}\nputs [slackValue \"arrival: 0.5\"]",
+        "output": "NA",
+        "props": {
+          "line": "arrival: 0.5",
+          "value": "NA"
+        }
+      }
+    ]
+  },
+  {
+    "id": 18,
+    "setting": "Chip Blueprint Factory",
+    "title": "A blueprint and an instance have different roles",
+    "steps": [
+      {
+        "title": "Draw a blueprint",
+        "text": "oo::class defines Chip: a class used as the blueprint for objects.",
+        "line": 0
+      },
+      {
+        "title": "Make an instance",
+        "text": "Chip new creates an object. The constructor stores its input in that object’s name.",
+        "line": 5
+      },
+      {
+        "title": "Call a method",
+        "text": "Calling label on the object retrieves its own stored name.",
+        "line": 6
+      },
+      {
+        "title": "Finish using it",
+        "text": "destroy removes the object. Separate objects can keep separate names.",
+        "line": 7
+      }
+    ],
+    "variants": [
+      {
+        "label": "Mission input",
+        "code": "oo::class create Chip {\n    variable name\n    constructor {value} {set name $value}\n    method label {} {return $name}\n}\nset chip [Chip new Tiny]\nputs [$chip label]\n$chip destroy",
+        "output": "Tiny",
+        "props": {
+          "name": "Tiny"
+        }
+      },
+      {
+        "label": "Manufacture Wide",
+        "code": "oo::class create Chip {\n    variable name\n    constructor {value} {set name $value}\n    method label {} {return $name}\n}\nset chip [Chip new Wide]\nputs [$chip label]\n$chip destroy",
+        "output": "Wide",
+        "props": {
+          "name": "Wide"
+        }
+      },
+      {
+        "label": "Manufacture Nano",
+        "code": "oo::class create Chip {\n    variable name\n    constructor {value} {set name $value}\n    method label {} {return $name}\n}\nset chip [Chip new Nano]\nputs [$chip label]\n$chip destroy",
+        "output": "Nano",
+        "props": {
+          "name": "Nano"
+        }
+      }
+    ]
+  },
+  {
+    "id": 19,
+    "setting": "Teaching Flow Track",
+    "title": "Send the parameters through three stations",
+    "steps": [
+      {
+        "title": "Receive configuration",
+        "text": "mockFlow receives a design name and period. This lesson simulates text records only.",
+        "line": 4
+      },
+      {
+        "title": "Check the period",
+        "text": "For period <= 0, error reports failure instead of returning a normal flow.",
+        "line": 1
+      },
+      {
+        "title": "Connect the stations",
+        "text": "For a valid period, list groups the read, clock and report records.",
+        "line": 2
+      },
+      {
+        "title": "Output the flow",
+        "text": "This is a teaching checklist. No netlist is actually read and no timing is calculated.",
+        "line": 4
+      }
+    ],
+    "variants": [
+      {
+        "label": "Mission input",
+        "code": "proc mockFlow {design period} {\n    if {$period <= 0} {error \"Period must be positive\"}\n    return [list \"read:$design\" \"clock:$period\" \"report:timing\"]\n}\nputs [mockFlow Tiny 10]",
+        "output": "read:Tiny clock:10 report:timing",
+        "props": {
+          "name": "Tiny",
+          "period": 10
+        }
+      },
+      {
+        "label": "Wide with period 5",
+        "code": "proc mockFlow {design period} {\n    if {$period <= 0} {error \"Period must be positive\"}\n    return [list \"read:$design\" \"clock:$period\" \"report:timing\"]\n}\nputs [mockFlow Wide 5]",
+        "output": "read:Wide clock:5 report:timing",
+        "props": {
+          "name": "Wide",
+          "period": 5
+        }
+      },
+      {
+        "label": "A zero period",
+        "code": "proc mockFlow {design period} {\n    if {$period <= 0} {error \"Period must be positive\"}\n    return [list \"read:$design\" \"clock:$period\" \"report:timing\"]\n}\nputs [mockFlow Tiny 0]",
+        "output": null,
+        "props": {
+          "name": "Tiny",
+          "period": 0,
+          "error": "Period must be positive"
+        }
+      }
+    ]
+  },
+  {
+    "id": 20,
+    "setting": "Timing Detective Desk",
+    "title": "Follow the paths to the worst slack",
+    "steps": [
+      {
+        "title": "Receive the paths",
+        "text": "Each record has a path name and slack. Empty input returns 0 and NA.",
+        "line": 1
+      },
+      {
+        "title": "Inspect every path",
+        "text": "Only slack < 0 is a violation. Zero is allowed. Visit every path.",
+        "line": 6
+      },
+      {
+        "title": "Update the minimum",
+        "text": "Start with the first actual record and keep the smaller slack; do not start at 0.",
+        "line": 7
+      },
+      {
+        "title": "Close the case",
+        "text": "Return violations and worst in a dictionary, then read both keys to print the report.",
+        "line": 9
+      }
+    ],
+    "variants": [
+      {
+        "label": "Mission input",
+        "code": "proc analyze {rows} {\n    if {[llength $rows] == 0} {return [dict create violations 0 worst NA]}\n    set violations 0\n    set worst [lindex [lindex $rows 0] 1]\n    foreach row $rows {\n        lassign $row path slack\n        if {$slack < 0} {incr violations}\n        if {$slack < $worst} {set worst $slack}\n    }\n    return [dict create violations $violations worst $worst]\n}\nset result [analyze {{p1 0.12} {p2 -0.25} {p3 -0.05}}]\nputs \"Violations: [dict get $result violations]\"\nputs \"Worst: [dict get $result worst] ns\"",
+        "output": "Violations: 2\nWorst: -0.25 ns",
+        "props": {
+          "rows": [
+            [
+              "p1",
+              0.12
+            ],
+            [
+              "p2",
+              -0.25
+            ],
+            [
+              "p3",
+              -0.05
+            ]
+          ],
+          "violations": 2,
+          "worst": "-0.25"
+        }
+      },
+      {
+        "label": "All paths pass",
+        "code": "proc analyze {rows} {\n    if {[llength $rows] == 0} {return [dict create violations 0 worst NA]}\n    set violations 0\n    set worst [lindex [lindex $rows 0] 1]\n    foreach row $rows {\n        lassign $row path slack\n        if {$slack < 0} {incr violations}\n        if {$slack < $worst} {set worst $slack}\n    }\n    return [dict create violations $violations worst $worst]\n}\nset result [analyze {{p1 0.12} {p2 0.25} {p3 0.05}}]\nputs \"Violations: [dict get $result violations]\"\nputs \"Worst: [dict get $result worst] ns\"",
+        "output": "Violations: 0\nWorst: 0.05 ns",
+        "props": {
+          "rows": [
+            [
+              "p1",
+              0.12
+            ],
+            [
+              "p2",
+              0.25
+            ],
+            [
+              "p3",
+              0.05
+            ]
+          ],
+          "violations": 0,
+          "worst": "0.05"
+        }
+      },
+      {
+        "label": "An empty report",
+        "code": "proc analyze {rows} {\n    if {[llength $rows] == 0} {return [dict create violations 0 worst NA]}\n    set violations 0\n    set worst [lindex [lindex $rows 0] 1]\n    foreach row $rows {\n        lassign $row path slack\n        if {$slack < 0} {incr violations}\n        if {$slack < $worst} {set worst $slack}\n    }\n    return [dict create violations $violations worst $worst]\n}\nset result [analyze {}]\nputs \"Violations: [dict get $result violations]\"\nputs \"Worst: [dict get $result worst] ns\"",
+        "output": "Violations: 0\nWorst: NA ns",
+        "props": {
+          "rows": [],
+          "violations": 0,
+          "worst": "NA"
+        }
+      }
+    ]
+  }
+]
