@@ -49,7 +49,9 @@ def _build_quiz_page(lang: str) -> str:
             "mod_label": "Current Module",
             "tier_label": "Difficulty Tier",
             "timer_label": "Thinking Timer",
-            "submit_btn": "Submit Answer (Enter)",
+            "keyboard_hint": "Press keys 1–4 or click to select",
+            "auto_accept_hint": "⚡ Auto-accepts in 0.3s",
+            "locking_hint": "⏳ Accepting option in 0.3s...",
             "thinking_bonus": "Thinking Time Allowance Granted",
             "report_title": "📊 Post-Quest Analytical Mastery Report",
             "cert_title": "🎓 Claim Your Industrial Mastery Certificate",
@@ -70,7 +72,9 @@ def _build_quiz_page(lang: str) -> str:
             "mod_label": "当前评估模块",
             "tier_label": "题目难度阶梯",
             "timer_label": "思考倒计时",
-            "submit_btn": "确认提交选项 (Enter)",
+            "keyboard_hint": "按数字键 1–4 或直接点击选项",
+            "auto_accept_hint": "⚡ 选中选项 0.3 秒后自动提交",
+            "locking_hint": "⏳ 正在锁定选项 (0.3s)...",
             "thinking_bonus": "已追加思考保护时间",
             "report_title": "📊 赛后深度诊断分析报告",
             "cert_title": "🎓 领取工业级芯片自动化掌握证书",
@@ -91,7 +95,9 @@ def _build_quiz_page(lang: str) -> str:
             "mod_label": "Modul Semasa",
             "tier_label": "Tahap Kesukaran",
             "timer_label": "Pemasa Berfikir",
-            "submit_btn": "Hantar Jawapan (Enter)",
+            "keyboard_hint": "Tekan kekunci 1–4 atau klik untuk memilih",
+            "auto_accept_hint": "⚡ Diterima secara automatik 0.3s selepas pilihan",
+            "locking_hint": "⏳ Mengunci pilihan dalam 0.3s...",
             "thinking_bonus": "Masa Berfikir Tambahan Diberikan",
             "report_title": "📊 Laporan Analisis Penguasaan Pasca-Cabaran",
             "cert_title": "🎓 Tuntut Sijil Penguasaan Industri Anda",
@@ -112,7 +118,9 @@ def _build_quiz_page(lang: str) -> str:
             "mod_label": "Module en Cours",
             "tier_label": "Niveau de Difficulté",
             "timer_label": "Minuteur de Réflexion",
-            "submit_btn": "Valider la Réponse (Entrée)",
+            "keyboard_hint": "Appuyez sur 1–4 ou cliquez pour sélectionner",
+            "auto_accept_hint": "⚡ Validation automatique 0,3s après sélection",
+            "locking_hint": "⏳ Validation de l'option dans 0,3s...",
             "thinking_bonus": "Temps de Réflexion Supplémentaire Accordé",
             "report_title": "📊 Rapport Analytique de Maîtrise",
             "cert_title": "🎓 Obtenez Votre Certificat de Maîtrise Industrielle",
@@ -208,10 +216,14 @@ def _build_quiz_page(lang: str) -> str:
 
     <!-- Action Bar -->
     <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px; padding-top:14px; border-top:1px solid var(--tcl-border);">
-      <div style="font-size:12.5px; color:var(--md-default-fg-color--lighter);">
-        💡 Press keys <kbd style="background:var(--tcl-surface); border:1px solid var(--tcl-border); padding:2px 6px; border-radius:4px; font-size:11px;">1</kbd>–<kbd style="background:var(--tcl-surface); border:1px solid var(--tcl-border); padding:2px 6px; border-radius:4px; font-size:11px;">4</kbd> or click to choose
+      <div style="font-size:12.5px; color:var(--md-default-fg-color--lighter); display:flex; align-items:center; gap:6px;">
+        <span>💡</span>
+        <span>{t["keyboard_hint"]} (<kbd style="background:var(--tcl-surface); border:1px solid var(--tcl-border); padding:2px 6px; border-radius:4px; font-size:11px;">1</kbd>–<kbd style="background:var(--tcl-surface); border:1px solid var(--tcl-border); padding:2px 6px; border-radius:4px; font-size:11px;">4</kbd>)</span>
       </div>
-      <button onclick="submitCurrentAnswer()" id="btnSubmitAnswer" class="tcl-btn tcl-btn-primary" style="padding:9px 22px; font-size:13.5px;" disabled>{t["submit_btn"]}</button>
+      <div id="autoAcceptIndicator" style="font-size:12.5px; font-weight:600; color:var(--tcl-blue-600); display:flex; align-items:center; gap:8px;">
+        <span id="autoAcceptDot" style="display:inline-block; width:8px; height:8px; border-radius:50%; background:var(--tcl-blue-600); transition:background 0.2s;"></span>
+        <span id="autoAcceptText" data-default-hint="{t['auto_accept_hint']}" data-locking-hint="{t['locking_hint']}">{t["auto_accept_hint"]}</span>
+      </div>
     </div>
 
   </div>
@@ -817,8 +829,12 @@ let currentQuest = {
   timeLeft: 0,
   maxTime: 30,
   currentQuestion: null,
-  selectedChoice: null
+  selectedChoice: null,
+  autoSubmitTimer: null,
+  isSubmitting: false
 };
+
+const AUTO_ACCEPT_DELAY_MS = 300; // 0.3s grace period before accepting answer
 
 const BASE_LIMITS = {
   easy: 30,
@@ -863,9 +879,22 @@ function startChallenge() {
 
 function loadNextQuestion() {
   clearInterval(currentQuest.timerInterval);
+  if (currentQuest.autoSubmitTimer) {
+    clearTimeout(currentQuest.autoSubmitTimer);
+    currentQuest.autoSubmitTimer = null;
+  }
+  currentQuest.isSubmitting = false;
   currentQuest.selectedChoice = null;
-  document.getElementById('btnSubmitAnswer').disabled = true;
   document.getElementById('feedbackToast').style.display = 'none';
+
+  const dot = document.getElementById('autoAcceptDot');
+  const txt = document.getElementById('autoAcceptText');
+  if (dot && txt) {
+    dot.style.background = 'var(--tcl-blue-600)';
+    dot.style.animation = 'none';
+    txt.style.color = 'var(--tcl-blue-600)';
+    txt.innerText = txt.getAttribute('data-default-hint') || "⚡ Auto-accepts in 0.3s";
+  }
 
   const modKey = currentQuest.modules[currentQuest.modIdx];
   const diffKey = currentQuest.diffTiers[currentQuest.tierIdx];
@@ -939,18 +968,46 @@ function loadNextQuestion() {
 }
 
 function selectChoice(idx) {
+  if (currentQuest.isSubmitting) return;
+  if (currentQuest.selectedChoice === idx && currentQuest.autoSubmitTimer) return;
+
   currentQuest.selectedChoice = idx;
   const items = document.querySelectorAll('.choice-item');
   items.forEach((item, i) => {
     if (i === idx) {
       item.style.borderColor = '#2563eb';
-      item.style.background = 'rgba(37, 99, 235, 0.08)';
+      item.style.background = 'rgba(37, 99, 235, 0.09)';
+      item.style.boxShadow = '0 0 0 2px rgba(37, 99, 235, 0.25)';
+      item.style.transform = 'translateY(-1px)';
     } else {
       item.style.borderColor = 'var(--tcl-border)';
       item.style.background = 'var(--md-default-bg-color)';
+      item.style.boxShadow = 'none';
+      item.style.transform = 'none';
     }
   });
-  document.getElementById('btnSubmitAnswer').disabled = false;
+
+  // Visual status on auto-accept indicator
+  const dot = document.getElementById('autoAcceptDot');
+  const txt = document.getElementById('autoAcceptText');
+  if (dot && txt) {
+    dot.style.background = '#f59e0b';
+    dot.style.animation = 'pulse 0.4s infinite alternate';
+    txt.style.color = '#f59e0b';
+    txt.innerText = txt.getAttribute('data-locking-hint') || "⏳ Accepting option in 0.3s...";
+  }
+
+  // Clear previous debounce timer if candidate changes option within 0.3s
+  if (currentQuest.autoSubmitTimer) {
+    clearTimeout(currentQuest.autoSubmitTimer);
+    currentQuest.autoSubmitTimer = null;
+  }
+
+  // Accept automatically after 0.3s (300ms) without further option change
+  currentQuest.autoSubmitTimer = setTimeout(() => {
+    currentQuest.autoSubmitTimer = null;
+    submitCurrentAnswer();
+  }, AUTO_ACCEPT_DELAY_MS);
 }
 
 function onTimerTick() {
@@ -982,9 +1039,31 @@ function updateTimerDisplay() {
 }
 
 function submitCurrentAnswer() {
-  if (currentQuest.selectedChoice === null) return;
+  if (currentQuest.selectedChoice === null || currentQuest.isSubmitting) return;
+  currentQuest.isSubmitting = true;
+
+  if (currentQuest.autoSubmitTimer) {
+    clearTimeout(currentQuest.autoSubmitTimer);
+    currentQuest.autoSubmitTimer = null;
+  }
   clearInterval(currentQuest.timerInterval);
-  
+
+  // Lock choices from further interaction while feedback toast is showing
+  const items = document.querySelectorAll('.choice-item');
+  items.forEach(item => {
+    item.style.pointerEvents = 'none';
+    item.style.cursor = 'default';
+  });
+
+  const dot = document.getElementById('autoAcceptDot');
+  const txt = document.getElementById('autoAcceptText');
+  if (dot && txt) {
+    dot.style.background = '#10b981';
+    dot.style.animation = 'none';
+    txt.style.color = '#10b981';
+    txt.innerText = "✓ Option accepted";
+  }
+
   currentQuest.totalAttempts++;
   const isCorrect = (currentQuest.selectedChoice === currentQuest.currentQuestion.answer);
   const modKey = currentQuest.modules[currentQuest.modIdx];
@@ -1038,6 +1117,18 @@ function submitCurrentAnswer() {
 }
 
 function handleTimeout() {
+  if (currentQuest.autoSubmitTimer) {
+    clearTimeout(currentQuest.autoSubmitTimer);
+    currentQuest.autoSubmitTimer = null;
+  }
+  currentQuest.isSubmitting = true;
+
+  const items = document.querySelectorAll('.choice-item');
+  items.forEach(item => {
+    item.style.pointerEvents = 'none';
+    item.style.cursor = 'default';
+  });
+
   currentQuest.totalAttempts++;
   currentQuest.mistakesAtTier++;
   const toast = document.getElementById('feedbackToast');
@@ -1053,6 +1144,11 @@ function handleTimeout() {
 }
 
 function finishQuest() {
+  if (currentQuest.autoSubmitTimer) {
+    clearTimeout(currentQuest.autoSubmitTimer);
+    currentQuest.autoSubmitTimer = null;
+  }
+  currentQuest.isSubmitting = false;
   clearInterval(currentQuest.timerInterval);
   const elapsedMs = Date.now() - currentQuest.startTime;
   const elapsedSec = Math.round(elapsedMs / 1000);
@@ -1178,12 +1274,17 @@ function restartChallenge() {
 // Keyboard shortcuts (1-4 and A-D)
 window.addEventListener('keydown', e => {
   if (document.getElementById('quiz-active-screen').style.display !== 'block') return;
+  if (currentQuest.isSubmitting) return;
   const key = e.key.toUpperCase();
   if (key === '1' || key === 'A') selectChoice(0);
   else if (key === '2' || key === 'B') selectChoice(1);
   else if (key === '3' || key === 'C') selectChoice(2);
   else if (key === '4' || key === 'D') selectChoice(3);
-  else if (key === 'ENTER' && !document.getElementById('btnSubmitAnswer').disabled) {
+  else if (key === 'ENTER' && currentQuest.selectedChoice !== null) {
+    if (currentQuest.autoSubmitTimer) {
+      clearTimeout(currentQuest.autoSubmitTimer);
+      currentQuest.autoSubmitTimer = null;
+    }
     submitCurrentAnswer();
   }
 });
