@@ -370,6 +370,281 @@ For full-featured in-browser WebAssembly Tcl 8.6 interpreters and gamified story
     (DOCS / "playground.md").write_text(content, encoding="utf-8")
 
 
+def write_stylesheets() -> None:
+    """Create custom CSS for elevated visual aesthetics, custom color palette, and component cards."""
+    css_dir = DOCS / "stylesheets"
+    css_dir.mkdir(parents=True, exist_ok=True)
+    css_content = """/* Custom styling for Tcl Language Lab inspired by top student educational innovations */
+
+:root {
+  --tcl-teal-dark: #0f766e;
+  --tcl-teal: #14b8a6;
+  --tcl-teal-light: #ccfbf1;
+  --tcl-amber: #f59e0b;
+  --tcl-amber-light: #fef3c7;
+  --tcl-slate-dark: #0f172a;
+  --tcl-slate: #1e293b;
+  --tcl-slate-light: #f8fafc;
+  --tcl-border: #e2e8f0;
+
+  --md-primary-fg-color: #0f766e;
+  --md-primary-fg-color--light: #14b8a6;
+  --md-primary-fg-color--dark: #115e59;
+  --md-accent-fg-color: #f59e0b;
+}
+
+[data-md-color-scheme="slate"] {
+  --md-default-bg-color: #0b1120;
+  --md-default-bg-color--light: #0f172a;
+  --md-default-bg-color--lighter: #1e293b;
+  --md-primary-fg-color: #14b8a6;
+  --md-primary-fg-color--dark: #0f766e;
+  --tcl-border: #334155;
+  --tcl-slate-light: #1e293b;
+}
+
+/* Hero Section */
+.tcl-hero {
+  padding: 30px 0 20px;
+  border-bottom: 1px solid var(--tcl-border);
+  margin-bottom: 24px;
+}
+.tcl-badge-cluster {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-bottom: 14px;
+}
+.tcl-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 10px;
+  border-radius: 9999px;
+  font-size: 12px;
+  font-weight: 600;
+  background: var(--tcl-teal-light);
+  color: var(--tcl-teal-dark);
+  border: 1px solid rgba(15, 118, 110, 0.2);
+}
+[data-md-color-scheme="slate"] .tcl-badge {
+  background: rgba(20, 184, 166, 0.15);
+  color: #5eead4;
+  border-color: rgba(94, 234, 212, 0.3);
+}
+.tcl-badge.amber {
+  background: var(--tcl-amber-light);
+  color: #b45309;
+  border-color: rgba(245, 158, 11, 0.3);
+}
+[data-md-color-scheme="slate"] .tcl-badge.amber {
+  background: rgba(245, 158, 11, 0.15);
+  color: #fcd34d;
+  border-color: rgba(252, 211, 77, 0.3);
+}
+.tcl-hero-title {
+  font-size: 2.2rem;
+  font-weight: 800;
+  line-height: 1.25;
+  margin: 8px 0 14px 0;
+  background: linear-gradient(135deg, #0f766e 0%, #14b8a6 40%, #f59e0b 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+[data-md-color-scheme="slate"] .tcl-hero-title {
+  background: linear-gradient(135deg, #2dd4bf 0%, #38bdf8 50%, #fbbf24 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+.tcl-hero-subtitle {
+  font-size: 1.1rem;
+  line-height: 1.6;
+  color: var(--md-default-fg-color--light);
+  max-width: 860px;
+  margin-bottom: 20px;
+}
+.tcl-cta-group {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin: 18px 0 10px;
+}
+.tcl-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 20px;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 600;
+  text-decoration: none !important;
+  transition: all 0.2s ease;
+}
+.tcl-btn-primary {
+  background: #0f766e;
+  color: #ffffff !important;
+  box-shadow: 0 4px 14px rgba(15, 118, 110, 0.25);
+}
+.tcl-btn-primary:hover {
+  background: #0d9488;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(15, 118, 110, 0.35);
+}
+.tcl-btn-secondary {
+  background: var(--tcl-slate-light);
+  color: var(--md-default-fg-color) !important;
+  border: 1px solid var(--tcl-border);
+}
+.tcl-btn-secondary:hover {
+  border-color: #0f766e;
+  background: rgba(15, 118, 110, 0.08);
+  transform: translateY(-2px);
+}
+
+/* Stats Fact Strip */
+.tcl-fact-strip {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+  gap: 16px;
+  padding: 20px 24px;
+  background: var(--tcl-slate-light);
+  border: 1px solid var(--tcl-border);
+  border-radius: 12px;
+  margin: 24px 0 36px;
+}
+.tcl-fact-item {
+  text-align: center;
+}
+.tcl-fact-val {
+  font-size: 1.85rem;
+  font-weight: 800;
+  color: #0f766e;
+  display: block;
+}
+[data-md-color-scheme="slate"] .tcl-fact-val {
+  color: #2dd4bf;
+}
+.tcl-fact-lbl {
+  font-size: 0.85rem;
+  color: var(--md-default-fg-color--light);
+  font-weight: 500;
+}
+
+/* 3-Column Route Cards */
+.tcl-routes {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
+  gap: 20px;
+  margin: 20px 0 36px;
+}
+.tcl-route-card {
+  padding: 24px;
+  border-radius: 12px;
+  border: 1px solid var(--tcl-border);
+  background: var(--md-default-bg-color);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
+  position: relative;
+  overflow: hidden;
+  transition: all 0.25s ease;
+}
+.tcl-route-card:hover {
+  transform: translateY(-4px);
+  border-color: #0f766e;
+  box-shadow: 0 12px 28px rgba(15, 118, 110, 0.12);
+}
+.tcl-route-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: #0f766e;
+}
+.tcl-route-card.route-exp::before { background: #0284c7; }
+.tcl-route-card.route-vlsi::before { background: #f59e0b; }
+.tcl-route-num {
+  font-size: 12px;
+  font-family: monospace;
+  font-weight: 700;
+  color: #0f766e;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+.tcl-route-card.route-exp .tcl-route-num { color: #0284c7; }
+.tcl-route-card.route-vlsi .tcl-route-num { color: #f59e0b; }
+.tcl-route-title {
+  font-size: 1.25rem;
+  font-weight: 700;
+  margin: 8px 0 10px;
+}
+.tcl-route-desc {
+  font-size: 0.95rem;
+  line-height: 1.6;
+  color: var(--md-default-fg-color--light);
+  margin-bottom: 16px;
+}
+
+/* Feature Pillars Grid */
+.tcl-pillars {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 18px;
+  margin: 20px 0 36px;
+}
+.tcl-pillar-card {
+  padding: 22px;
+  border-radius: 10px;
+  border: 1px solid var(--tcl-border);
+  background: var(--tcl-slate-light);
+  transition: all 0.2s ease;
+}
+.tcl-pillar-card:hover {
+  border-color: #14b8a6;
+  transform: translateY(-2px);
+}
+.tcl-pillar-icon {
+  font-size: 1.7rem;
+  margin-bottom: 8px;
+}
+.tcl-pillar-title {
+  font-size: 1.05rem;
+  font-weight: 700;
+  margin: 4px 0 8px;
+}
+.tcl-pillar-desc {
+  font-size: 0.9rem;
+  line-height: 1.55;
+  color: var(--md-default-fg-color--light);
+}
+
+/* Unit Module Cards */
+.tcl-units-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 20px;
+  margin: 20px 0 30px;
+}
+.tcl-unit-card {
+  border: 1px solid var(--tcl-border);
+  border-radius: 10px;
+  padding: 20px;
+  background: var(--md-default-bg-color);
+}
+.tcl-unit-badge {
+  display: inline-block;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  padding: 2px 8px;
+  border-radius: 4px;
+  background: rgba(15, 118, 110, 0.1);
+  color: #0f766e;
+  margin-bottom: 8px;
+}
+"""
+    (css_dir / "extra.css").write_text(css_content, encoding="utf-8")
+
 
 def write_home() -> None:
     weeks = week_dirs()
@@ -381,41 +656,154 @@ def write_home() -> None:
         zh_h = first_heading((wdir / "lesson_zh.md").read_text(encoding="utf-8"))
         en_short = short_title(en_h, w)
         zh_short = short_title(zh_h, w)
-        en_rows.append(f"| {w} | [{en_short}](en/week{w}/index.md) |")
-        zh_rows.append(f"| {w} | [{zh_short}](zh/week{w}/index.md) |")
+        en_rows.append(f"| Week {w:02d} | [{en_short}](en/week{w}/index.md) | [Examples](en/week{w}/examples.md) |")
+        zh_rows.append(f"| 第 {w:02d} 周 | [{zh_short}](zh/week{w}/index.md) | [示例代码](zh/week{w}/examples.md) |")
 
-    index = f"""# Tcl Language Course
+    index = f"""<div class="tcl-hero">
+  <div class="tcl-badge-cluster">
+    <span class="tcl-badge">CC BY 4.0</span>
+    <span class="tcl-badge">SJTU-YONGFU-RESEARCH-GRP</span>
+    <span class="tcl-badge amber">DRV-Lite Simulator Ready</span>
+    <span class="tcl-badge">STA Timing Sign-Off</span>
+    <span class="tcl-badge">Bilingual EN/ZH</span>
+  </div>
 
-Bilingual Tcl / Calibre layout scripting course from
-[{GITHUB.split('/')[-1]}]({GITHUB}).
+  <h1 class="tcl-hero-title">Tcl for VLSI · 从控制台语法到芯片版图与时序自动化</h1>
 
-## English lessons
+  <div class="tcl-hero-subtitle">
+    从一张控制台打印卡片，到一套完整的工业级芯片版图自动化脚本与静态时序分析流水线。<br>
+    结合 <strong>Brent Welch 三步置换心智模型</strong>、<strong>免商业许可 DRV-Lite 版图仿真器</strong> 与 <strong>STA 时序违规闭环门禁</strong>，让每行 Tcl 代码都能在真实工程场景中高效运行。
+  </div>
 
-| Week | Topic |
-|------|-------|
-{chr(10).join(en_rows)}
+  <div class="tcl-cta-group">
+    <a href="playground/" class="tcl-btn tcl-btn-primary">🚀 进入网页实验室 (Playground)</a>
+    <a href="zh/week1/" class="tcl-btn tcl-btn-secondary">📖 开始第一课 (Week 1)</a>
+    <a href="help/timing_lab/" class="tcl-btn tcl-btn-secondary">⚡ 时序分析实验 (Timing Lab)</a>
+    <a href="help/tcl/" class="tcl-btn tcl-btn-secondary">🧠 三步置换心智模型</a>
+  </div>
+</div>
 
-## 中文课程
+<div class="tcl-fact-strip">
+  <div class="tcl-fact-item">
+    <span class="tcl-fact-val">40 周</span>
+    <span class="tcl-fact-lbl">系统进阶计划</span>
+  </div>
+  <div class="tcl-fact-item">
+    <span class="tcl-fact-val">100+</span>
+    <span class="tcl-fact-lbl">原创可运行范例</span>
+  </div>
+  <div class="tcl-fact-item">
+    <span class="tcl-fact-val">零授权</span>
+    <span class="tcl-fact-lbl">DRV-Lite 版图仿真器</span>
+  </div>
+  <div class="tcl-fact-item">
+    <span class="tcl-fact-val">工业级</span>
+    <span class="tcl-fact-lbl">STA 时序违规门禁</span>
+  </div>
+</div>
 
-| 周 | 主题 |
-|----|------|
+## 🎯 你的学习起点：三种推荐路线
+
+根据你的专业背景与编程经验，选择最契合的学习路径：
+
+<div class="tcl-routes">
+  <div class="tcl-route-card">
+    <span class="tcl-route-num">PATHWAY 01 · 零基础启航</span>
+    <div class="tcl-route-title">第一次学习编程</div>
+    <div class="tcl-route-desc">
+      从 <code>puts</code>、变量与注释入门。通过 Brent Welch 三步置换心智模型（切分 $\to$ 置换 $\to$ 调用），彻底理解大括号 <code>{{}}</code> 与双引号 <code>""</code> 的本质差异，告别初学者易犯的语法迷茫。
+    </div>
+    <a href="zh/week1/" class="tcl-btn tcl-btn-secondary" style="font-size: 13px; padding: 6px 14px;">从第 1 周开始 →</a>
+  </div>
+
+  <div class="tcl-route-card route-exp">
+    <span class="tcl-route-num">PATHWAY 02 · 快速转栈</span>
+    <div class="tcl-route-title">已有 Python / C 经验</div>
+    <div class="tcl-route-desc">
+      聚焦 Tcl 独特机制：大括号延迟求值、<code>expr</code> 严格花括号保护（防注入与字节编译加速）、列表与字典高效操纵、命名空间与 TclOO 面向对象设计。
+    </div>
+    <a href="help/tcl/" class="tcl-btn tcl-btn-secondary" style="font-size: 13px; padding: 6px 14px;">置换心智指南 →</a>
+  </div>
+
+  <div class="tcl-route-card route-vlsi">
+    <span class="tcl-route-num">PATHWAY 03 · 芯片工程</span>
+    <div class="tcl-route-title">VLSI 与物理设计工程师</div>
+    <div class="tcl-route-desc">
+      无需商业 EDA 许可证，直接在标准 <code>tclsh</code> 下使用纯 Tcl DRV-Lite 仿真器操纵多边形、引脚与 GDS 输出；结合静态时序分析实验，解析关键路径报表，计算 WNS/TNS 闭环流片门禁。
+    </div>
+    <a href="help/timing_lab/" class="tcl-btn tcl-btn-secondary" style="font-size: 13px; padding: 6px 14px;">时序分析实战 →</a>
+  </div>
+</div>
+
+---
+
+## 🛠️ 四大核心技术支柱
+
+<div class="tcl-pillars">
+  <div class="tcl-pillar-card">
+    <div class="tcl-pillar-icon">📐</div>
+    <div class="tcl-pillar-title">DRV-Lite 纯 Tcl 版图仿真器</div>
+    <div class="tcl-pillar-desc">
+      突破 Siemens Calibre 商业许可壁垒！纯 Tcl 实现的 <code>layout</code> 对象模型，支持图纸创建、多边形绘制、边界计算与 GDS 导出。
+    </div>
+  </div>
+
+  <div class="tcl-pillar-card">
+    <div class="tcl-pillar-icon">🧠</div>
+    <div class="tcl-pillar-title">Brent Welch 3步求值心智模型</div>
+    <div class="tcl-pillar-desc">
+      严格遵循 Argument Grouping $\to$ Value Substitution $\to$ Command Invocation，彻底规避双重求值与不安全字符串拼接。
+    </div>
+  </div>
+
+  <div class="tcl-pillar-card">
+    <div class="tcl-pillar-icon">⚡</div>
+    <div class="tcl-pillar-title">工业级 STA 静态时序分析门禁</div>
+    <div class="tcl-pillar-desc">
+      真实数字芯片时序报告解析实验，自动提取起点、终点与 Slack，精准计算 Worst Negative Slack (WNS) 与 Total Negative Slack (TNS)。
+    </div>
+  </div>
+
+  <div class="tcl-pillar-card">
+    <div class="tcl-pillar-icon">💻</div>
+    <div class="tcl-pillar-title">免安装交互式 Web Playground</div>
+    <div class="tcl-pillar-desc">
+      内置一键预设代码示例，直接在浏览器中观察标准输出与变量变化，随时随地验证代码逻辑。
+    </div>
+  </div>
+</div>
+
+---
+
+## 📚 课程体系索引 (Curriculum Directory)
+
+### 中文课程导航 (Chinese Lessons)
+
+| 周次 | 课程专题 | 示例代码 |
+| :---: | :--- | :---: |
 {chr(10).join(zh_rows)}
 
-## Help
+---
 
-- [How Tcl help works](help/tcl.md)
-- [Calibre Usage tips](help/calibre.md)
-- [API coverage checklist](help/coverage.md)
-- [Contributors](contributors.md)
-- [Full study plan on GitHub]({GITHUB}/blob/main/PLAN.md)
+### English Lessons Navigation
 
-## Run examples locally
+| Week | Topic | Examples |
+| :---: | :--- | :---: |
+{chr(10).join(en_rows)}
+
+---
+
+## 🚀 本地快速上手 (Quick Start)
 
 ```bash
 git clone {GITHUB}.git
 cd tcl-language
-make week1-01    # tclsh weeks
-make help        # all targets
+
+make check-env        # 检查 tclsh 与 DRV-Lite 仿真器状态
+make drvlite-test     # 运行纯 Tcl 版图仿真器 6 项单元自测
+make timing-demo      # 运行 STA 静态时序分析实验
+make week1-01         # 运行第 1 周第一课范例
+make week21-01        # 运行第 21 周版图范例 (支持 DRV-Lite 仿真)
 ```
 """
     (DOCS / "index.md").write_text(index, encoding="utf-8")
@@ -487,16 +875,19 @@ theme:
   palette:
     - scheme: default
       primary: teal
-      accent: cyan
+      accent: amber
       toggle:
-        icon: material/brightness-7
+        icon: material/weather-night
         name: Switch to dark mode
     - scheme: slate
       primary: teal
-      accent: cyan
+      accent: amber
       toggle:
-        icon: material/brightness-4
+        icon: material/weather-sunny
         name: Switch to light mode
+  font:
+    text: Inter
+    code: Fira Code
   features:
     - navigation.tabs
     - navigation.sections
@@ -505,6 +896,9 @@ theme:
     - search.highlight
     - content.code.copy
     - toc.follow
+
+extra_css:
+  - stylesheets/extra.css
 
 markdown_extensions:
   - admonition
@@ -555,6 +949,7 @@ def main() -> None:
     meta = generate_weeks()
     if not meta:
         raise SystemExit("No lesson weeks found under lessons/")
+    write_stylesheets()
     write_home()
     copy_help_docs()
     write_contributors()
