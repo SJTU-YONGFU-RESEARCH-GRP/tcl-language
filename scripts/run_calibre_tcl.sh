@@ -14,8 +14,15 @@ if DISPLAY=:33 xdpyinfo >/dev/null 2>&1; then
   export DISPLAY=:33
 fi
 
+# Check if calibredrv is available, or if DRV-Lite simulation mode is requested
+USE_SIM=0
+if [[ "${1:-}" == "--sim" ]]; then
+  USE_SIM=1
+  shift
+fi
+
 if [[ $# -lt 1 ]]; then
-  echo "Usage: $0 <script.tcl> [extra calibredrv args...]" >&2
+  echo "Usage: $0 [--sim] <script.tcl> [extra args...]" >&2
   exit 2
 fi
 
@@ -29,6 +36,15 @@ if [[ ! -f "$script" ]]; then
     echo "ERROR: script not found: $script" >&2
     exit 1
   fi
+fi
+
+if [[ "$USE_SIM" -eq 1 ]] || ! command -v calibredrv >/dev/null 2>&1 || [[ "${DRVLITE:-0}" == "1" ]]; then
+  DRVLITE_TCL="$ROOT/../tools/drvlite/drvlite.tcl"
+  if [[ ! -f "$DRVLITE_TCL" ]]; then
+    DRVLITE_TCL="$ROOT/tools/drvlite/drvlite.tcl"
+  fi
+  echo "[DRV-Lite] calibredrv not found (or --sim requested). Running in pure-Tcl simulation mode via tclsh..."
+  exec tclsh <(cat "$DRVLITE_TCL" "$script") "$@"
 fi
 
 echo "DISPLAY=$DISPLAY"

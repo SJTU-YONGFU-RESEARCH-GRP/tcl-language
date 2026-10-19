@@ -25,8 +25,8 @@ Bilingual **Tcl-first** curriculum for learning Tcl syntax, TclOO, and Calibre D
 ## Requirements
 
 - **Weeks 1–20**: [`tclsh`](https://www.tcl.tk/) on your `PATH`
-- **Weeks 21+**: Calibre DESIGNrev (`calibredrv`) via [`scripts/run_calibre_tcl.sh`](scripts/run_calibre_tcl.sh) (see [`scripts/setup_calibredrv.sh`](scripts/setup_calibredrv.sh))
-- **Optional site**: Python + MkDocs (`make site-install`, then `make site` / `make site-serve`)
+- **Weeks 21+**: Calibre DESIGNrev (`calibredrv`) or the pure-Tcl **DRV-Lite Simulator** (automatic fallback, no commercial license required!) via [`scripts/run_calibre_tcl.sh`](scripts/run_calibre_tcl.sh)
+- **Optional site**: Python + MkDocs (`make site-install`, then `make site` / `make site-serve`), with interactive in-browser Tcl Web Playground
 
 ## Quick start
 
@@ -35,15 +35,17 @@ git clone https://github.com/SJTU-YONGFU-RESEARCH-GRP/tcl-language.git
 cd tcl-language
 
 make help              # list targets and milestones
-make check             # verify tclsh
+make check-env         # verify tclsh and calibredrv / DRV-Lite simulator
+make drvlite-test      # test pure-Tcl Calibre DESIGNrev layout simulator
+make timing-demo       # run STA timing slack report analyzer lab
 make week1-01          # first Week 1 example (tclsh)
-make week21-01         # first Calibre week (needs calibredrv)
+make week21-01         # first Calibre layout week (runs on calibredrv or DRV-Lite)
 make milestones        # print roadmap
-make help-tcl          # Tcl discovery tips
+make help-tcl          # Tcl discovery tips and 3-step evaluation mental model
 make help-calibre      # Calibre Usage tips
 ```
 
-Help docs: [docs/TCL_HELP.md](docs/TCL_HELP.md) · [docs/CALIBRE_HELP.md](docs/CALIBRE_HELP.md) · [docs/COVERAGE.md](docs/COVERAGE.md)
+Help docs: [docs/TCL_HELP.md](docs/TCL_HELP.md) · [docs/CALIBRE_HELP.md](docs/CALIBRE_HELP.md) · [docs/COVERAGE.md](docs/COVERAGE.md) · [docs/TIMING_ANALYZER_LAB.md](docs/TIMING_ANALYZER_LAB.md)
 
 ## Project layout
 

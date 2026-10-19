@@ -30,7 +30,22 @@ A computer is like a helpful robot. It does **exactly** what you write — no mo
 | `#` comment | A sticky note for humans; the robot **ignores** it | Leave reminders for yourself |
 | `tclsh my.tcl` | “Robot, please **follow this list**” | Run a whole file in one command |
 
-You do **not** need variables, loops, lists, or Calibre yet. This week is only about speaking: print text, save a script, add comments.
+### The 3-Step Tcl Mental Model (Core Concept)
+
+No matter how large your script becomes, the Tcl interpreter evaluates every line following a strict three-step cycle:
+
+```text
+Step 1: Argument Grouping
+   Split words by whitespace; group tokens using quotes "" or curly braces {}.
+      ↓
+Step 2: Value Substitution
+   If arguments are enclosed in double quotes, evaluate $variables, [commands], and \escapes.
+      ↓
+Step 3: Command Invocation
+   Look up the first word in the command table (e.g. puts) and pass the substituted arguments.
+```
+
+You do **not** need variables, loops, lists, or Calibre yet. This week is only about speaking: print text, understand grouping, save a script, and add comments.
 
 ---
 

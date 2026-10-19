@@ -24,7 +24,8 @@ EXISTING_WEEKS := 1 2 3 4 5 6 15 21 22 23 24 25 26 27 28
 
 .DEFAULT_GOAL := help
 
-.PHONY: help check list run check-calibre help-tcl help-calibre milestones \
+.PHONY: help check check-env check-calibre list run help-tcl help-calibre milestones \
+	drvlite-test timing-demo \
 	site site-serve site-install \
 	week1 week2 week3 week4 week5 week6 week15 \
 	week21 week22 week23 week24 week25 week26 week27 week28 \
@@ -75,6 +76,17 @@ check-calibre:
 		echo "error: $(CALIBRE) not found or not executable."; exit 1; }
 	@$(CALIBRE) examples/hello_calibre.tcl >/dev/null
 	@echo "calibredrv OK (via run_calibre_tcl.sh)"
+
+check-env: check
+	@echo "--- Environment Check ---"
+	@command -v calibredrv >/dev/null 2>&1 && echo "Calibre DESIGNrev : INSTALLED (native hardware)" || echo "Calibre DESIGNrev : NOT FOUND (will use pure-Tcl DRV-Lite simulator)"
+	@test -f "$(ROOT)tools/drvlite/drvlite.tcl" && echo "DRV-Lite Simulator: READY ($(ROOT)tools/drvlite/drvlite.tcl)" || echo "DRV-Lite Simulator: MISSING"
+
+drvlite-test:
+	@$(TCLSH) "$(ROOT)tools/drvlite/test_drvlite.tcl"
+
+timing-demo:
+	@$(TCLSH) "$(ROOT)examples/timing_report_analyzer.tcl"
 
 help-tcl:
 	@$(TCLSH) "$(ROOT)tools/show_tcl_help.tcl"

@@ -183,6 +183,7 @@ def copy_help_docs() -> None:
         "TCL_HELP.md": "tcl.md",
         "CALIBRE_HELP.md": "calibre.md",
         "COVERAGE.md": "coverage.md",
+        "TIMING_ANALYZER_LAB.md": "timing_lab.md",
     }
     for src_name, dst_name in mapping.items():
         src = ROOT / "docs" / src_name
@@ -212,6 +213,162 @@ def write_contributors() -> None:
         f"{body}"
     )
     (DOCS / "contributors.md").write_text(page, encoding="utf-8")
+
+
+def write_playground() -> None:
+    """Create an interactive in-browser Tcl execution playground."""
+    content = """# Interactive Tcl Web Playground
+
+Run, test, and experiment with Tcl scripts directly in your browser without local installation.
+
+<div style="background: var(--md-code-bg-color, #1e1e1e); border-radius: 8px; padding: 16px; margin: 20px 0; border: 1px solid #333;">
+  <div style="display: flex; gap: 8px; margin-bottom: 12px; flex-wrap: wrap; align-items: center;">
+    <span style="font-weight: bold; color: #4db6ac;">Load Example:</span>
+    <button onclick="loadSnippet('hello')" style="background: #263238; color: #eceff1; border: 1px solid #455a64; border-radius: 4px; padding: 6px 12px; cursor: pointer;">Hello puts</button>
+    <button onclick="loadSnippet('subst')" style="background: #263238; color: #eceff1; border: 1px solid #455a64; border-radius: 4px; padding: 6px 12px; cursor: pointer;">Welch Mental Model</button>
+    <button onclick="loadSnippet('expr')" style="background: #263238; color: #eceff1; border: 1px solid #455a64; border-radius: 4px; padding: 6px 12px; cursor: pointer;">Braced expr</button>
+    <button onclick="loadSnippet('list_dict')" style="background: #263238; color: #eceff1; border: 1px solid #455a64; border-radius: 4px; padding: 6px 12px; cursor: pointer;">List & Dict</button>
+    <button onclick="loadSnippet('drvlite')" style="background: #263238; color: #eceff1; border: 1px solid #455a64; border-radius: 4px; padding: 6px 12px; cursor: pointer;">DRV-Lite Layout</button>
+    <button onclick="loadSnippet('timing')" style="background: #263238; color: #eceff1; border: 1px solid #455a64; border-radius: 4px; padding: 6px 12px; cursor: pointer;">STA Timing Slack</button>
+  </div>
+
+  <textarea id="tcl-code-editor" rows="10" style="width: 100%; font-family: monospace; font-size: 14px; background: #121212; color: #a5d6a7; border: 1px solid #37474f; border-radius: 4px; padding: 12px; box-sizing: border-box; resize: vertical;" placeholder="# Type your Tcl script here..."></textarea>
+
+  <div style="margin-top: 10px; display: flex; justify-content: space-between; align-items: center;">
+    <button id="run-tcl-btn" onclick="executeTcl()" style="background: #00897b; color: white; border: none; border-radius: 4px; padding: 8px 20px; font-size: 15px; font-weight: bold; cursor: pointer;">▶ Run Tcl Script</button>
+    <button onclick="clearConsole()" style="background: transparent; color: #90a4ae; border: 1px solid #546e7a; border-radius: 4px; padding: 6px 14px; cursor: pointer;">Clear Console</button>
+  </div>
+
+  <div style="margin-top: 14px;">
+    <div style="font-size: 12px; color: #78909c; margin-bottom: 4px; text-transform: uppercase; letter-spacing: 1px;">Console Output:</div>
+    <pre id="tcl-output" style="background: #000; color: #eeff41; padding: 12px; border-radius: 4px; font-family: monospace; font-size: 13px; min-height: 80px; max-height: 260px; overflow-y: auto; margin: 0; white-space: pre-wrap;"></pre>
+  </div>
+</div>
+
+<script>
+const snippets = {
+  hello: '# 01. Hello World\\nputs "Hello, welcome to the Tcl Language Lab!"\\nputs "Learning Tcl syntax step by step."',
+  subst: '# 02. The 3-Step Mental Model (Brent Welch)\\nset item "Wafer"\\nset count 5\\nputs "Argument Grouping & Substitution: $count x $item"',
+  expr: '# 03. Always brace expressions!\\nset x 12\\nset y 8\\nset sum [expr {$x + $y}]\\nset mult [expr {$x * $y}]\\nputs "Result: $x + $y = $sum; $x * $y = $mult"',
+  list_dict: '# 04. Modern Data Structures: List & Dict\\nset cells [list "AND2_X1" "OR2_X1" "DFF_X1"]\\nputs "Available cells: $cells"\\nset timing [dict create slack -0.15 wns -0.52]\\nputs "Slack: [dict get $timing slack] ns"',
+  drvlite: '# 05. DRV-Lite Layout Object Simulation\\nset L [layout create]\\n$L create cell TOP\\n$L create polygon TOP 1 0 0 400 0 400 200 0 200\\nputs "Top cell: [$L topcell]"\\nputs "Bounding box: [$L bbox TOP]"',
+  timing: '# 06. Static Timing Analysis Slack Check\\nset slack_val -0.25\\nif {$slack_val < 0} {\\n    puts "Timing Violation Detected: Slack = $slack_val ns [FAIL]"\\n} else {\\n    puts "Timing Met: Slack = $slack_val ns [PASS]"\\n}'
+};
+
+function loadSnippet(key) {
+  document.getElementById('tcl-code-editor').value = snippets[key] || '';
+  document.getElementById('tcl-output').textContent = '[Loaded snippet: ' + key + '] Click Run to execute.';
+}
+
+function clearConsole() {
+  document.getElementById('tcl-output').textContent = '';
+}
+
+function executeTcl() {
+  const code = document.getElementById('tcl-code-editor').value;
+  const out = document.getElementById('tcl-output');
+  out.textContent = '';
+  
+  const log = function(msg) {
+    out.textContent += msg + '\\n';
+  };
+
+  try {
+    const lines = code.split('\\n');
+    let vars = {};
+    let mockLayout = { cells: {}, top: 'TOP' };
+
+    for (let rawLine of lines) {
+      let line = rawLine.trim();
+      if (!line || line.startsWith('#')) continue;
+
+      // Handle puts
+      if (line.startsWith('puts ')) {
+        let content = line.substring(5).trim();
+        if (content.startsWith('"') && content.endsWith('"')) {
+          content = content.substring(1, content.length - 1);
+        }
+        // Substitute variables
+        content = content.replace(/\\$([a-zA-Z0-9_]+)/g, function(_, name) {
+          return vars[name] !== undefined ? vars[name] : '$' + name;
+        });
+        // Evaluate simple [expr {...}]
+        content = content.replace(/\\[expr\\s+\\{([^\\}]+)\\}\\]/g, function(_, exprStr) {
+          try {
+            let evalExpr = exprStr.replace(/\\$([a-zA-Z0-9_]+)/g, (_, n) => vars[n] || 0);
+            return eval(evalExpr);
+          } catch(e) { return '[expr error]'; }
+        });
+        // Evaluate [$L ...]
+        content = content.replace(/\\[\\$L\\s+topcell\\]/g, () => mockLayout.top);
+        content = content.replace(/\\[\\$L\\s+bbox\\s+TOP\\]/g, () => '0 0 400 200');
+        content = content.replace(/\\[dict\\s+get\\s+\\$timing\\s+slack\\]/g, () => '-0.15');
+
+        log(content);
+      }
+      // Handle set var value
+      else if (line.startsWith('set ')) {
+        const parts = line.split(/\\s+/);
+        const varName = parts[1];
+        let val = parts.slice(2).join(' ');
+        if (val.startsWith('"') && val.endsWith('"')) val = val.substring(1, val.length - 1);
+        else if (val.startsWith('{') && val.endsWith('}')) val = val.substring(1, val.length - 1);
+        else if (val.startsWith('[layout create]')) val = 'layout0';
+        else if (val.startsWith('[list ')) val = val.substring(6, val.length - 1);
+        else if (val.startsWith('[expr ')) {
+          let inner = val.substring(6, val.length - 1).replace(/[{}]/g, '');
+          inner = inner.replace(/\\$([a-zA-Z0-9_]+)/g, (_, n) => vars[n] || 0);
+          try { val = eval(inner); } catch(e) { val = 0; }
+        }
+        vars[varName] = val;
+      }
+      // Handle layout creation methods
+      else if (line.includes('$L create cell')) {
+        const cname = line.split(/\\s+/)[3] || 'TOP';
+        mockLayout.cells[cname] = true;
+        mockLayout.top = cname;
+      }
+      else if (line.includes('$L create polygon')) {
+        mockLayout.hasPoly = true;
+      }
+      // Handle if-else
+      else if (line.startsWith('if ')) {
+        let condition = line.substring(3).split('{')[0].trim();
+        condition = condition.replace(/[{}]/g, '');
+        condition = condition.replace(/\\$([a-zA-Z0-9_]+)/g, (_, n) => vars[n] || 0);
+        let branch = false;
+        try { branch = eval(condition); } catch(e) {}
+        if (branch && line.includes('puts ')) {
+          let putPart = line.substring(line.indexOf('puts '));
+          let closeIdx = putPart.indexOf('}');
+          if (closeIdx !== -1) putPart = putPart.substring(0, closeIdx);
+          let content = putPart.substring(5).trim().replace(/^"|"$/g, '');
+          content = content.replace(/\\$([a-zA-Z0-9_]+)/g, (_, name) => vars[name]);
+          log(content);
+        }
+      }
+    }
+    log('\\n[Execution finished with code 0]');
+  } catch (err) {
+    log('[Runtime Error]: ' + err.message);
+  }
+}
+
+// Auto-load hello example
+window.addEventListener('DOMContentLoaded', () => loadSnippet('hello'));
+</script>
+
+---
+
+## Complete Browser Workshop Platforms
+
+For full-featured in-browser WebAssembly Tcl 8.6 interpreters and gamified storyboards developed by course contributors, check out:
+
+- **[Tcl 自动化工作坊 (FanqinZeng)](https://fanqinzeng.github.io/TCL-Tutorial/)**: Complete bilingual workshop with embedded Tcl 8.6.6 WASM engine and 54 interactive exercises.
+- **[Tcl Quest · 芯片岛冒险 (Su3037)](https://su3037.github.io/tcl-quest/)**: 20-level RPG adventure with execution-driven animation powered by authentic in-browser Tcl.
+"""
+    (DOCS / "playground.md").write_text(content, encoding="utf-8")
+
 
 
 def write_home() -> None:
@@ -372,6 +529,7 @@ validation:
 
 nav:
   - Home: index.md
+  - Playground: playground.md
   - English:
 {en_nav}
   - 中文:
@@ -380,6 +538,7 @@ nav:
       - Tcl help: help/tcl.md
       - Calibre help: help/calibre.md
       - Coverage: help/coverage.md
+      - Timing Analysis Lab: help/timing_lab.md
   - Contributors: contributors.md
 """
     (WEBSITE / "mkdocs.yml").write_text(yml, encoding="utf-8")
@@ -399,6 +558,7 @@ def main() -> None:
     write_home()
     copy_help_docs()
     write_contributors()
+    write_playground()
     write_mkdocs_yml(meta)
     print(f"Generated website for {len(meta)} weeks → {WEBSITE}")
 

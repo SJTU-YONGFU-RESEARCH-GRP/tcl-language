@@ -25,6 +25,35 @@ exit
 
 ---
 
+## The 3-Step Tcl Evaluation Mental Model
+
+Mastering Tcl requires understanding the interpreter's exact line evaluation cycle (Brent Welch, *Practical Programming in Tcl and Tk*):
+
+```text
+Input Line:  puts "Total is: [expr {$count * 10}]"
+                │
+Step 1: Argument Grouping ──── Splits words by whitespace; groups by quotes "" or braces {}
+                │              → Command: `puts`, Argument 1: `"Total is: [expr {$count * 10}]"`
+Step 2: Value Substitution ─── Evaluates `$var`, `[cmd]`, and `\escape` inside quotes
+                │              → `[expr {$count * 10}]` is evaluated $\to$ `50`
+                │              → Result: `"Total is: 50"`
+Step 3: Command Invocation ─── Looks up `puts` in command table and passes substituted arguments
+```
+
+### The 4 Golden Rules of Tcl Scripting
+
+1. **Braces `{...}` vs Quotes `"..."`**:
+   - Default to `{...}` for code bodies (`if`, `while`, `proc`, `expr`) to **defer substitution** until execution time.
+   - Use `"..."` only when you need **immediate** variable or command substitution before calling the command.
+2. **Always Brace Expressions in `expr`**:
+   - Write `expr {$a + $b}`, **never** `expr $a + $b`. Bracing enables byte-compilation and avoids dangerous double-evaluation security risks.
+3. **Lists Are Not Ordinary Strings**:
+   - A list is a string that follows argument grouping syntax. Always construct lists using `list`, `lappend`, and `concat`—never concatenate strings manually with spaces.
+4. **Guard I/O and Pipelines with `catch`**:
+   - File channels and external process `exec` can fail. Wrap file opens and pipelines in `catch` or `try ... finally` to guarantee channel closing and prevent pipeline deadlocks.
+
+---
+
 ## Three ways to learn a Tcl command
 
 ### 1. Read the error message (best for beginners)
@@ -116,7 +145,7 @@ In interactive mode, type one command, press Enter, see result. Type `exit` to l
 | `wrong # args: should be "..."` | Too few/many arguments | Compare with lesson example |
 | `syntax error in expression` | Bad `expr` or `if` condition | Use `{ $a + 1 }` inside expr |
 | `extra characters after close-quote` | Unmatched `"` | Count quote pairs |
-| `invalid command name "layout"` | Ran Calibre code in `tclsh` | Use `make week21-01` / calibredrv |
+| `invalid command name "layout"` | Ran Calibre code in plain `tclsh` without simulator | Run via `./scripts/run_calibre_tcl.sh` (automatic DRV-Lite simulation) or `make week21-01` |
 
 ---
 
