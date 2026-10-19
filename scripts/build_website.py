@@ -18,6 +18,7 @@ from __future__ import annotations
 import re
 import shutil
 from pathlib import Path
+from quiz_generator import write_quiz_challenge_pages, write_leaderboard_pages
 
 ROOT = Path(__file__).resolve().parents[1]
 LESSONS = ROOT / "lessons"
@@ -1018,22 +1019,22 @@ def write_quiz_pages() -> None:
 <div class="tcl-badge-cluster">
   <span class="tcl-badge">Chapter Quizzes</span>
   <span class="tcl-badge amber">Knowledge Checks</span>
-  <span class="tcl-badge">Instant Feedback</span>
-  <span class="tcl-badge amber">Source: thy031</span>
+  <span class="tcl-badge blue">3-Tier Adaptive Model</span>
+  <span class="tcl-badge purple">Verifiable Certificates</span>
+  <span class="tcl-badge green">Public Leaderboard</span>
 </div>
 
-Curated from thy031's student project, this module provides rapid knowledge-check quizzes across foundational Tcl topics.
+Curated from thy031's student project and expanded into an industrial diagnostic engine, this module provides rapid knowledge checks across foundational Tcl topics.
+
+<div style="margin: 20px 0; display:flex; gap:12px; flex-wrap:wrap;">
+  <a href="../quiz.md" class="tcl-btn tcl-btn-primary">🎯 Launch Adaptive Quiz Challenge →</a>
+  <a href="../leaderboard.md" class="tcl-btn tcl-btn-secondary">🏆 View Public Leaderboard & Certificates →</a>
+</div>
 
 - **Mental Model Checks**: Substitution timing comparison between `set x $a` and `set x {{a}}`.
 - **Evaluation Safety**: Anti-injection checks on braced `expr {{$a + $b}}` vs unquoted variants.
 - **Data Structures**: List boundaries, dictionary value extraction, and nested loops.
 - **Physical Design Basics**: Polygon vertex ordering, pin declarations, and Slack sign rules.
-
-Launch the offline quiz runner locally:
-
-```bash
-cd quiz && python3 -m http.server 8082
-```
 """
     (DOCS / "help" / "quiz.md").write_text(en_page, encoding="utf-8")
 
@@ -1042,11 +1043,17 @@ cd quiz && python3 -m http.server 8082
 <div class="tcl-badge-cluster">
   <span class="tcl-badge">章节自测题库</span>
   <span class="tcl-badge amber">快速检验</span>
-  <span class="tcl-badge">即时反馈</span>
-  <span class="tcl-badge amber">来源：thy031</span>
+  <span class="tcl-badge blue">三阶自适应评测</span>
+  <span class="tcl-badge purple">防伪认证证书</span>
+  <span class="tcl-badge green">荣誉排行榜</span>
 </div>
 
-本测验模块由 thy031 同学设计与开发，包含贯穿各周次知识点的快速小测验。
+本测验模块由 thy031 同学设计与开发，并升级为具备三阶难度阶梯、动态思考计时与防伪认证的完整自适应测评系统。
+
+<div style="margin: 20px 0; display:flex; gap:12px; flex-wrap:wrap;">
+  <a href="../quiz.md" class="tcl-btn tcl-btn-primary">🎯 开启自适应评测挑战 (Adaptive Quiz) →</a>
+  <a href="../leaderboard.md" class="tcl-btn tcl-btn-secondary">🏆 查看全网荣誉排行榜与证书 →</a>
+</div>
 
 - **语法心智自测**：辨析 `set x $a` 与 `set x {{a}}` 的置换时机差异。
 - **求值规则测试**：严格花括号 `expr {{$a + $b}}` 与无保护 `expr $a + $b` 的安全评测。
@@ -1057,15 +1064,19 @@ cd quiz && python3 -m http.server 8082
 
     ms_page = (en_page
         .replace("# Chapter Quizzes & Knowledge Checks", "# Kuiz Bab & Semakan Pengetahuan (Interactive Quizzes)")
-        .replace("Curated from thy031's student project, this module provides rapid knowledge-check quizzes across foundational Tcl topics.",
-                 "Disusun daripada projek pelajar thy031, modul ini menyediakan kuiz semakan pengetahuan pantas merentas topik asas Tcl.")
+        .replace("Curated from thy031's student project and expanded into an industrial diagnostic engine, this module provides rapid knowledge checks across foundational Tcl topics.",
+                 "Disusun daripada projek pelajar thy031 dan dipertingkatkan menjadi enjin diagnostik industri dengan model adaptif 3-tahap, pemasa berfikir dinamik, dan sijil pengesahan digital.")
+        .replace("🎯 Launch Adaptive Quiz Challenge →", "🎯 Lancarkan Cabaran Kuiz Adaptif →")
+        .replace("🏆 View Public Leaderboard & Certificates →", "🏆 Lihat Papan Pendahulu & Sijil →")
     )
     (DOCS / "help" / "quiz.ms.md").write_text(ms_page, encoding="utf-8")
 
     fr_page = (en_page
         .replace("# Chapter Quizzes & Knowledge Checks", "# Quiz de Chapitre & Vérification des Connaissances (Interactive Quizzes)")
-        .replace("Curated from thy031's student project, this module provides rapid knowledge-check quizzes across foundational Tcl topics.",
-                 "Issu du projet étudiant de thy031, ce module propose des quiz rapides de contrôle des connaissances sur les sujets fondamentaux de Tcl.")
+        .replace("Curated from thy031's student project and expanded into an industrial diagnostic engine, this module provides rapid knowledge checks across foundational Tcl topics.",
+                 "Issu du projet étudiant de thy031 et développé en un moteur de diagnostic industriel adaptatif à 3 niveaux de difficulté avec minuteur de réflexion et certificats vérifiables.")
+        .replace("🎯 Launch Adaptive Quiz Challenge →", "🎯 Lancer le Défi Quiz Adaptatif →")
+        .replace("🏆 View Public Leaderboard & Certificates →", "🏆 Voir le Classement & Certificats →")
     )
     (DOCS / "help" / "quiz.fr.md").write_text(fr_page, encoding="utf-8")
 
@@ -2762,8 +2773,8 @@ def write_home_pages(meta: list[tuple[int, str, str]]) -> None:
   <div class="tcl-badge-cluster">
     <span class="tcl-badge">CC BY 4.0</span>
     <span class="tcl-badge">SJTU-YONGFU-RESEARCH-GRP</span>
+    <span class="tcl-badge purple">Adaptive Quiz & Cert</span>
     <span class="tcl-badge blue">WASM Interactive Lab</span>
-    <span class="tcl-badge purple">Tcl Quest (Live RPG)</span>
     <span class="tcl-badge green">DRV-Lite Layout Simulator</span>
     <span class="tcl-badge amber">STA Timing Sign-Off Gate</span>
     <span class="tcl-badge cyan">Multi-Language i18n</span>
@@ -2773,13 +2784,15 @@ def write_home_pages(meta: list[tuple[int, str, str]]) -> None:
 
   <div class="tcl-hero-subtitle">
     From foundational scripting commands to a production-grade IC physical design automation suite.<br>
-    Bridging the <strong>Brent Welch 3-step evaluation mental model</strong>, <strong>in-browser WebAssembly workshop</strong>, <strong>execution-driven RPG quest</strong>, <strong>zero-license DRV-Lite layout simulator</strong>, and <strong>closed-loop STA timing sign-off</strong>.
+    Bridging the <strong>Brent Welch 3-step evaluation mental model</strong>, <strong>adaptive 3-tier quiz & verifiable certification</strong>, <strong>in-browser WebAssembly workshop</strong>, <strong>execution-driven RPG quest</strong>, <strong>zero-license DRV-Lite layout simulator</strong>, and <strong>closed-loop STA timing sign-off</strong>.
   </div>
 
   <div class="tcl-cta-group">
-    <a href="wasm-lab/" target="_blank" class="tcl-btn tcl-btn-primary">🚀 Launch WASM Workshop ↗</a>
-    <a href="quest/" class="tcl-btn tcl-btn-accent">🎮 Tcl Quest (RPG Sandbox)</a>
-    <a href="lessons/week1/" class="tcl-btn tcl-btn-secondary">📖 Start Curriculum (Week 1) →</a>
+    <a href="quiz/" class="tcl-btn tcl-btn-primary" style="background: linear-gradient(135deg, #4f46e5, #7c3aed); border: none;">🎯 Adaptive Quiz & Cert</a>
+    <a href="leaderboard/" class="tcl-btn tcl-btn-accent" style="background: linear-gradient(135deg, #059669, #0d9488); border: none;">🏆 Hall of Fame</a>
+    <a href="wasm-lab/" target="_blank" class="tcl-btn tcl-btn-secondary">🚀 Launch WASM Workshop ↗</a>
+    <a href="quest/" class="tcl-btn tcl-btn-secondary">🎮 Tcl Quest (RPG)</a>
+    <a href="lessons/week1/" class="tcl-btn tcl-btn-secondary">📖 Week 1 →</a>
   </div>
 </div>
 
@@ -2787,6 +2800,10 @@ def write_home_pages(meta: list[tuple[int, str, str]]) -> None:
   <div class="tcl-fact-item">
     <span class="tcl-fact-val">40 Weeks</span>
     <span class="tcl-fact-lbl">Complete Curriculum Plan</span>
+  </div>
+  <div class="tcl-fact-item">
+    <span class="tcl-fact-val">3 Tiers</span>
+    <span class="tcl-fact-lbl">Adaptive VLSI Quiz & Cert</span>
   </div>
   <div class="tcl-fact-item">
     <span class="tcl-fact-val">18 Labs</span>
@@ -2810,9 +2827,27 @@ def write_home_pages(meta: list[tuple[int, str, str]]) -> None:
   </div>
 </div>
 
-<div class="tcl-tools-section-title">⚡ Interactive EDA Lab Tools & Sandboxes</div>
+<div class="tcl-tools-section-title">⚡ Interactive EDA Lab Tools, Adaptive Quizzes & Sandboxes</div>
 
 <div class="tcl-tools-grid">
+  <a href="quiz/" class="tcl-tool-card" style="border-left: 4px solid #6366f1;">
+    <div class="tcl-tool-icon">🎯</div>
+    <div class="tcl-tool-body">
+      <div class="tcl-tool-title">Adaptive Quiz Challenge</div>
+      <div class="tcl-tool-desc">Dynamic 3-tier difficulty pacing (Easy/Medium/Hard), mistake time extensions (+15s), and verifiable completion certificate.</div>
+    </div>
+    <div class="tcl-tool-arrow">→</div>
+  </a>
+
+  <a href="leaderboard/" class="tcl-tool-card" style="border-left: 4px solid #10b981;">
+    <div class="tcl-tool-icon">🏆</div>
+    <div class="tcl-tool-body">
+      <div class="tcl-tool-title">Public Leaderboard & Hall of Fame</div>
+      <div class="tcl-tool-desc">Live cohort rankings, Grand Prix speed benchmarks, instant certificate hash verification, and performance percentiles.</div>
+    </div>
+    <div class="tcl-tool-arrow">→</div>
+  </a>
+
   <a href="help/layout_viewer/" class="tcl-tool-card">
     <div class="tcl-tool-icon">📐</div>
     <div class="tcl-tool-body">
@@ -2832,7 +2867,7 @@ def write_home_pages(meta: list[tuple[int, str, str]]) -> None:
   </a>
 
   <a href="exercises/" class="tcl-tool-card">
-    <div class="tcl-tool-icon">🎯</div>
+    <div class="tcl-tool-icon">📝</div>
     <div class="tcl-tool-body">
       <div class="tcl-tool-title">18 Practice Exercises</div>
       <div class="tcl-tool-desc">Hands-on lab problems parsing real cell libraries, pin mappings, DEF files, and STA timing reports.</div>
@@ -2841,7 +2876,7 @@ def write_home_pages(meta: list[tuple[int, str, str]]) -> None:
   </a>
 
   <a href="capstone/" class="tcl-tool-card">
-    <div class="tcl-tool-icon">🏆</div>
+    <div class="tcl-tool-icon">🛠️</div>
     <div class="tcl-tool-body">
       <div class="tcl-tool-title">6 Capstone Projects</div>
       <div class="tcl-tool-desc">End-to-end industrial mini-projects from routing scrapers to automated ECO wirelength fixers.</div>
@@ -2950,8 +2985,8 @@ make week21-01        # Run Week 21 layout script (DRV-Lite simulation)
   <div class="tcl-badge-cluster">
     <span class="tcl-badge">CC BY 4.0</span>
     <span class="tcl-badge">SJTU-YONGFU-RESEARCH-GRP</span>
+    <span class="tcl-badge purple">自适应闯关与证书认证</span>
     <span class="tcl-badge blue">WASM 交互工作坊</span>
-    <span class="tcl-badge purple">芯片岛闯关冒险 (RPG)</span>
     <span class="tcl-badge green">DRV-Lite 版图仿真器</span>
     <span class="tcl-badge amber">STA 时序门禁计算器</span>
     <span class="tcl-badge cyan">中英双语多语言</span>
@@ -2961,13 +2996,15 @@ make week21-01        # Run Week 21 layout script (DRV-Lite simulation)
 
   <div class="tcl-hero-subtitle">
     从一张控制台打印卡片，到一套完整的工业级芯片版图自动化脚本与静态时序分析流水线。<br>
-    结合 <strong>Brent Welch 三步置换心智模型</strong>、<strong>浏览器纯客户端 WebAssembly 交互工作坊</strong>、<strong>真实代码驱动芯片岛 RPG 冒险</strong>、<strong>免商业许可 DRV-Lite 版图仿真器</strong> 与 <strong>STA 时序违规闭环门禁</strong>。
+    结合 <strong>Brent Welch 三步置换心智模型</strong>、<strong>自适应三阶梯测试与防伪结课证书</strong>、<strong>浏览器纯客户端 WebAssembly 交互工作坊</strong>、<strong>真实代码驱动芯片岛 RPG 冒险</strong>、<strong>免商业许可 DRV-Lite 版图仿真器</strong> 与 <strong>STA 时序违规闭环门禁</strong>。
   </div>
 
   <div class="tcl-cta-group">
-    <a href="wasm-lab/" target="_blank" class="tcl-btn tcl-btn-primary">🚀 进入 WASM 交互工作坊 ↗</a>
-    <a href="quest/" class="tcl-btn tcl-btn-accent">🎮 芯片岛闯关冒险 (RPG)</a>
-    <a href="lessons/week1/" class="tcl-btn tcl-btn-secondary">📖 开始系统学习 (第 1 周) →</a>
+    <a href="quiz/" class="tcl-btn tcl-btn-primary" style="background: linear-gradient(135deg, #4f46e5, #7c3aed); border: none;">🎯 自适应测验与证书认证</a>
+    <a href="leaderboard/" class="tcl-btn tcl-btn-accent" style="background: linear-gradient(135deg, #059669, #0d9488); border: none;">🏆 荣耀榜与防伪校验</a>
+    <a href="wasm-lab/" target="_blank" class="tcl-btn tcl-btn-secondary">🚀 进入 WASM 交互工作坊 ↗</a>
+    <a href="quest/" class="tcl-btn tcl-btn-secondary">🎮 芯片岛 RPG 冒险</a>
+    <a href="lessons/week1/" class="tcl-btn tcl-btn-secondary">📖 开始第 1 周 →</a>
   </div>
 </div>
 
@@ -2975,6 +3012,10 @@ make week21-01        # Run Week 21 layout script (DRV-Lite simulation)
   <div class="tcl-fact-item">
     <span class="tcl-fact-val">40 周</span>
     <span class="tcl-fact-lbl">系统进阶双语课程</span>
+  </div>
+  <div class="tcl-fact-item">
+    <span class="tcl-fact-val">3 级自适应</span>
+    <span class="tcl-fact-lbl">动态时限阶梯与证书认证</span>
   </div>
   <div class="tcl-fact-item">
     <span class="tcl-fact-val">18 项</span>
@@ -2998,9 +3039,27 @@ make week21-01        # Run Week 21 layout script (DRV-Lite simulation)
   </div>
 </div>
 
-<div class="tcl-tools-section-title">⚡ 交互式实验工具与实战演练</div>
+<div class="tcl-tools-section-title">⚡ 交互式实验工具、自适应测验与实战演练</div>
 
 <div class="tcl-tools-grid">
+  <a href="quiz/" class="tcl-tool-card" style="border-left: 4px solid #6366f1;">
+    <div class="tcl-tool-icon">🎯</div>
+    <div class="tcl-tool-body">
+      <div class="tcl-tool-title">自适应测验挑战赛</div>
+      <div class="tcl-tool-desc">三级难度动态进阶 (简单/中等/进阶)、错题容错加时 (+15s) 与带防伪哈希的专属结课证书。</div>
+    </div>
+    <div class="tcl-tool-arrow">→</div>
+  </a>
+
+  <a href="leaderboard/" class="tcl-tool-card" style="border-left: 4px solid #10b981;">
+    <div class="tcl-tool-icon">🏆</div>
+    <div class="tcl-tool-body">
+      <div class="tcl-tool-title">公开荣耀榜与证书校验</div>
+      <div class="tcl-tool-desc">全域排行榜、大奖赛速度基准、证书防伪哈希实时核验与多维度能力诊断雷达。</div>
+    </div>
+    <div class="tcl-tool-arrow">→</div>
+  </a>
+
   <a href="help/layout_viewer/" class="tcl-tool-card">
     <div class="tcl-tool-icon">📐</div>
     <div class="tcl-tool-body">
@@ -3020,7 +3079,7 @@ make week21-01        # Run Week 21 layout script (DRV-Lite simulation)
   </a>
 
   <a href="exercises/" class="tcl-tool-card">
-    <div class="tcl-tool-icon">🎯</div>
+    <div class="tcl-tool-icon">📝</div>
     <div class="tcl-tool-body">
       <div class="tcl-tool-title">18 项实战演练习题</div>
       <div class="tcl-tool-desc">解析标准单元库、引脚映射、DEF 物理版图与真实 STA 时序报告的阶梯式实战任务。</div>
@@ -3029,7 +3088,7 @@ make week21-01        # Run Week 21 layout script (DRV-Lite simulation)
   </a>
 
   <a href="capstone/" class="tcl-tool-card">
-    <div class="tcl-tool-icon">🏆</div>
+    <div class="tcl-tool-icon">🛠️</div>
     <div class="tcl-tool-body">
       <div class="tcl-tool-title">6 大工业级综合项目</div>
       <div class="tcl-tool-desc">从自动走线抓取、DRV 违规收敛到自动化 ECO 线长修复的完整工程级结课项目。</div>
@@ -3139,8 +3198,8 @@ make week21-01        # Run Week 21 layout script (DRV-Lite simulation)
   <div class="tcl-badge-cluster">
     <span class="tcl-badge">CC BY 4.0</span>
     <span class="tcl-badge">SJTU-YONGFU-RESEARCH-GRP</span>
+    <span class="tcl-badge purple">Kuiz Adaptif & Sijil</span>
     <span class="tcl-badge blue">Bengkel Interaktif WASM</span>
-    <span class="tcl-badge purple">Tcl Quest (Pulau Cip RPG)</span>
     <span class="tcl-badge green">Simulator Susun Atur DRV-Lite</span>
     <span class="tcl-badge amber">Pintu Sign-Off Pemasaan STA</span>
     <span class="tcl-badge cyan">Sokongan Pelbagai Bahasa</span>
@@ -3150,13 +3209,15 @@ make week21-01        # Run Week 21 layout script (DRV-Lite simulation)
 
   <div class="tcl-hero-subtitle">
     Daripada perintah skrip asas hingga suite automasi reka bentuk fizikal litar bersepadu gred industri.<br>
-    Menggabungkan <strong>model mental penilaian 3-langkah Brent Welch</strong>, <strong>bengkel WebAssembly dalam pelayar</strong>, <strong>pengembaraan RPG pacuan kod sebenar</strong>, <strong>simulator susun atur DRV-Lite sifar lesen</strong>, dan <strong>pengesahan sign-off pemasaan STA gelung tertutup</strong>.
+    Menggabungkan <strong>model mental penilaian 3-langkah Brent Welch</strong>, <strong>kuiz adaptif 3-peringkat & pensijilan digital</strong>, <strong>bengkel WebAssembly dalam pelayar</strong>, <strong>pengembaraan RPG pacuan kod sebenar</strong>, <strong>simulator susun atur DRV-Lite sifar lesen</strong>, dan <strong>pengesahan sign-off pemasaan STA gelung tertutup</strong>.
   </div>
 
   <div class="tcl-cta-group">
-    <a href="wasm-lab/" target="_blank" class="tcl-btn tcl-btn-primary">🚀 Lancarkan Bengkel WASM ↗</a>
-    <a href="quest/" class="tcl-btn tcl-btn-accent">🎮 Tcl Quest (Pulau Cip RPG)</a>
-    <a href="lessons/week1/" class="tcl-btn tcl-btn-secondary">📖 Mula Belajar (Minggu 1) →</a>
+    <a href="quiz/" class="tcl-btn tcl-btn-primary" style="background: linear-gradient(135deg, #4f46e5, #7c3aed); border: none;">🎯 Cabaran Kuiz Adaptif & Sijil</a>
+    <a href="leaderboard/" class="tcl-btn tcl-btn-accent" style="background: linear-gradient(135deg, #059669, #0d9488); border: none;">🏆 Papan Juara & Pengesahan</a>
+    <a href="wasm-lab/" target="_blank" class="tcl-btn tcl-btn-secondary">🚀 Lancarkan Bengkel WASM ↗</a>
+    <a href="quest/" class="tcl-btn tcl-btn-secondary">🎮 Tcl Quest (Pulau Cip)</a>
+    <a href="lessons/week1/" class="tcl-btn tcl-btn-secondary">📖 Mula Minggu 1 →</a>
   </div>
 </div>
 
@@ -3164,6 +3225,10 @@ make week21-01        # Run Week 21 layout script (DRV-Lite simulation)
   <div class="tcl-fact-item">
     <span class="tcl-fact-val">40 Minggu</span>
     <span class="tcl-fact-lbl">Pelan Kurikulum Lengkap</span>
+  </div>
+  <div class="tcl-fact-item">
+    <span class="tcl-fact-val">3 Peringkat</span>
+    <span class="tcl-fact-lbl">Kuiz Adaptif VLSI & Sijil</span>
   </div>
   <div class="tcl-fact-item">
     <span class="tcl-fact-val">18 Makmal</span>
@@ -3187,9 +3252,27 @@ make week21-01        # Run Week 21 layout script (DRV-Lite simulation)
   </div>
 </div>
 
-<div class="tcl-tools-section-title">⚡ Makmal & Alat EDA Interaktif</div>
+<div class="tcl-tools-section-title">⚡ Makmal & Alat EDA Interaktif, Kuiz Adaptif & Kotak Pasir</div>
 
 <div class="tcl-tools-grid">
+  <a href="quiz/" class="tcl-tool-card" style="border-left: 4px solid #6366f1;">
+    <div class="tcl-tool-icon">🎯</div>
+    <div class="tcl-tool-body">
+      <div class="tcl-tool-title">Cabaran Kuiz Adaptif</div>
+      <div class="tcl-tool-desc">Kemajuan dinamik 3-peringkat kesukaran, peruntukan masa tambahan bagi kesilapan (+15s), dan sijil pengesahan digital.</div>
+    </div>
+    <div class="tcl-tool-arrow">→</div>
+  </a>
+
+  <a href="leaderboard/" class="tcl-tool-card" style="border-left: 4px solid #10b981;">
+    <div class="tcl-tool-icon">🏆</div>
+    <div class="tcl-tool-body">
+      <div class="tcl-tool-title">Papan Juara Awam & Sijil</div>
+      <div class="tcl-tool-desc">Penanda aras kelajuan kohort secara langsung, pengesah cincangan sijil, dan kad laporan diagnostik terperinci.</div>
+    </div>
+    <div class="tcl-tool-arrow">→</div>
+  </a>
+
   <a href="help/layout_viewer/" class="tcl-tool-card">
     <div class="tcl-tool-icon">📐</div>
     <div class="tcl-tool-body">
@@ -3209,7 +3292,7 @@ make week21-01        # Run Week 21 layout script (DRV-Lite simulation)
   </a>
 
   <a href="exercises/" class="tcl-tool-card">
-    <div class="tcl-tool-icon">🎯</div>
+    <div class="tcl-tool-icon">📝</div>
     <div class="tcl-tool-body">
       <div class="tcl-tool-title">18 Latihan Amali</div>
       <div class="tcl-tool-desc">Latihan makmal praktikal menghurai perpustakaan sel sebenar, pemetaan pin, fail DEF, dan laporan pemasaan STA.</div>
@@ -3218,7 +3301,7 @@ make week21-01        # Run Week 21 layout script (DRV-Lite simulation)
   </a>
 
   <a href="capstone/" class="tcl-tool-card">
-    <div class="tcl-tool-icon">🏆</div>
+    <div class="tcl-tool-icon">🛠️</div>
     <div class="tcl-tool-body">
       <div class="tcl-tool-title">6 Projek Capstone Kejuruteraan</div>
       <div class="tcl-tool-desc">Projek mini industri hujung ke hujung daripada pengikis penghalaan hingga pembaikan panjang wayar ECO automatik.</div>
@@ -3327,8 +3410,8 @@ make week21-01        # Jalankan skrip susun atur Minggu 21 (simulasi DRV-Lite)
   <div class="tcl-badge-cluster">
     <span class="tcl-badge">CC BY 4.0</span>
     <span class="tcl-badge">SJTU-YONGFU-RESEARCH-GRP</span>
+    <span class="tcl-badge purple">Quiz Adaptatif & Certificat</span>
     <span class="tcl-badge blue">Atelier Interactif WASM</span>
-    <span class="tcl-badge purple">Tcl Quest (Jeu RPG)</span>
     <span class="tcl-badge green">Simulateur de Layout DRV-Lite</span>
     <span class="tcl-badge amber">Porte de Validation STA</span>
     <span class="tcl-badge cyan">Support Multilingue i18n</span>
@@ -3338,13 +3421,15 @@ make week21-01        # Jalankan skrip susun atur Minggu 21 (simulasi DRV-Lite)
 
   <div class="tcl-hero-subtitle">
     Des commandes fondamentales de script à une suite complète d'automatisation de conception physique de circuits intégrés.<br>
-    Alliant le <strong>modèle mental d'évaluation en 3 étapes de Brent Welch</strong>, l'<strong>atelier WebAssembly dans le navigateur</strong>, la <strong>quête RPG pilotée par code réel</strong>, le <strong>simulateur de layout DRV-Lite sans licence</strong> et la <strong>porte de clôture temporelle STA</strong>.
+    Alliant le <strong>modèle mental d'évaluation en 3 étapes de Brent Welch</strong>, le <strong>quiz adaptatif à 3 niveaux & certification numérique</strong>, l'<strong>atelier WebAssembly dans le navigateur</strong>, la <strong>quête RPG pilotée par code réel</strong>, le <strong>simulateur de layout DRV-Lite sans licence</strong> et la <strong>porte de clôture temporelle STA</strong>.
   </div>
 
   <div class="tcl-cta-group">
-    <a href="wasm-lab/" target="_blank" class="tcl-btn tcl-btn-primary">🚀 Lancer l'Atelier WASM ↗</a>
-    <a href="quest/" class="tcl-btn tcl-btn-accent">🎮 Tcl Quest (Île des Puces RPG)</a>
-    <a href="lessons/week1/" class="tcl-btn tcl-btn-secondary">📖 Démarrer le Cours (Semaine 1) →</a>
+    <a href="quiz/" class="tcl-btn tcl-btn-primary" style="background: linear-gradient(135deg, #4f46e5, #7c3aed); border: none;">🎯 Défi Quiz Adaptatif & Certificat</a>
+    <a href="leaderboard/" class="tcl-btn tcl-btn-accent" style="background: linear-gradient(135deg, #059669, #0d9488); border: none;">🏆 Tableau des Scores & Vérification</a>
+    <a href="wasm-lab/" target="_blank" class="tcl-btn tcl-btn-secondary">🚀 Lancer l'Atelier WASM ↗</a>
+    <a href="quest/" class="tcl-btn tcl-btn-secondary">🎮 Tcl Quest (Île RPG)</a>
+    <a href="lessons/week1/" class="tcl-btn tcl-btn-secondary">📖 Démarrer Semaine 1 →</a>
   </div>
 </div>
 
@@ -3352,6 +3437,10 @@ make week21-01        # Jalankan skrip susun atur Minggu 21 (simulasi DRV-Lite)
   <div class="tcl-fact-item">
     <span class="tcl-fact-val">40 Semaines</span>
     <span class="tcl-fact-lbl">Programme Complet & Progressif</span>
+  </div>
+  <div class="tcl-fact-item">
+    <span class="tcl-fact-val">3 Niveaux</span>
+    <span class="tcl-fact-lbl">Quiz Adaptatif VLSI & Certificat</span>
   </div>
   <div class="tcl-fact-item">
     <span class="tcl-fact-val">18 Labos</span>
@@ -3375,9 +3464,27 @@ make week21-01        # Jalankan skrip susun atur Minggu 21 (simulasi DRV-Lite)
   </div>
 </div>
 
-<div class="tcl-tools-section-title">⚡ Outils & Laboratoires Interactifs EDA</div>
+<div class="tcl-tools-section-title">⚡ Outils & Laboratoires Interactifs EDA, Quiz Adaptatifs & Bacs à Sable</div>
 
 <div class="tcl-tools-grid">
+  <a href="quiz/" class="tcl-tool-card" style="border-left: 4px solid #6366f1;">
+    <div class="tcl-tool-icon">🎯</div>
+    <div class="tcl-tool-body">
+      <div class="tcl-tool-title">Défi Quiz Adaptatif</div>
+      <div class="tcl-tool-desc">Progression dynamique à 3 niveaux (Facile/Moyen/Difficile), tolérance d'erreur (+15s) et certificat numérique vérifiable.</div>
+    </div>
+    <div class="tcl-tool-arrow">→</div>
+  </a>
+
+  <a href="leaderboard/" class="tcl-tool-card" style="border-left: 4px solid #10b981;">
+    <div class="tcl-tool-icon">🏆</div>
+    <div class="tcl-tool-body">
+      <div class="tcl-tool-title">Tableau d'Honneur Public & Certificats</div>
+      <div class="tcl-tool-desc">Classement en direct de la cohorte, vérificateur de certificat par empreinte cryptographique et bilan diagnostique complet.</div>
+    </div>
+    <div class="tcl-tool-arrow">→</div>
+  </a>
+
   <a href="help/layout_viewer/" class="tcl-tool-card">
     <div class="tcl-tool-icon">📐</div>
     <div class="tcl-tool-body">
@@ -3397,7 +3504,7 @@ make week21-01        # Jalankan skrip susun atur Minggu 21 (simulasi DRV-Lite)
   </a>
 
   <a href="exercises/" class="tcl-tool-card">
-    <div class="tcl-tool-icon">🎯</div>
+    <div class="tcl-tool-icon">📝</div>
     <div class="tcl-tool-body">
       <div class="tcl-tool-title">18 Exercices Pratiques</div>
       <div class="tcl-tool-desc">Problèmes de laboratoire analysant des bibliothèques de cellules standard, correspondances de broches, fichiers DEF et rapports STA.</div>
@@ -3406,7 +3513,7 @@ make week21-01        # Jalankan skrip susun atur Minggu 21 (simulasi DRV-Lite)
   </a>
 
   <a href="capstone/" class="tcl-tool-card">
-    <div class="tcl-tool-icon">🏆</div>
+    <div class="tcl-tool-icon">🛠️</div>
     <div class="tcl-tool-body">
       <div class="tcl-tool-title">6 Projets Capstone Industriels</div>
       <div class="tcl-tool-desc">Mini-projets industriels complets, de l'extraction de routage à la correction automatique de longueur de fil ECO.</div>
@@ -3683,6 +3790,9 @@ plugins:
           site_description: 中英双语 Tcl / Calibre 版图自动化与时序分析全体系课程与交互工作坊
           nav_translations:
             Home: 首页
+            Adaptive Quiz & Leaderboard: 自适应测评与排行榜
+            Adaptive Quiz Challenge: 自适应闯关测评 (Adaptive Quiz)
+            Public Leaderboard & Certificate: 荣誉排行榜与认证证书
             Interactive Labs & Tools: 交互实验室与实战工具
             Interactive Workshop (WASM): 交互工作坊 (WASM)
             Tcl Quest (Chip Island RPG): 芯片岛闯关冒险 (RPG)
@@ -3712,6 +3822,9 @@ plugins:
           site_description: Kurikulum Tcl / Calibre, Bengkel Interaktif WASM & Pengembaraan Cip
           nav_translations:
             Home: Laman Utama
+            Adaptive Quiz & Leaderboard: Kuiz Adaptif & Papan Pendahulu
+            Adaptive Quiz Challenge: Cabaran Kuiz Adaptif (Adaptive Quiz)
+            Public Leaderboard & Certificate: Papan Pendahulu & Pensijilan
             Interactive Labs & Tools: Makmal & Alat Interaktif
             Interactive Workshop (WASM): Bengkel Interaktif (WASM)
             Tcl Quest (Chip Island RPG): Tcl Quest (Pengembaraan Pulau Cip)
@@ -3741,6 +3854,9 @@ plugins:
           site_description: Programme Tcl / Calibre, Atelier Interactif WASM & Quête de Puce RPG
           nav_translations:
             Home: Accueil
+            Adaptive Quiz & Leaderboard: Quiz Adaptatif & Classement
+            Adaptive Quiz Challenge: Défi Quiz Adaptatif (Adaptive Quiz)
+            Public Leaderboard & Certificate: Tableau des Scores & Certification
             Interactive Labs & Tools: Labos & Outils Interactifs
             Interactive Workshop (WASM): Atelier Interactif (WASM)
             Tcl Quest (Chip Island RPG): Tcl Quest (Aventure sur l'Île des Puces)
@@ -3771,6 +3887,9 @@ validation:
 
 nav:
   - Home: index.md
+  - Adaptive Quiz & Leaderboard:
+      - Adaptive Quiz Challenge: quiz.md
+      - Public Leaderboard & Certificate: leaderboard.md
   - Interactive Labs & Tools:
       - Interactive Workshop (WASM): workshop.md
       - Tcl Quest (Chip Island RPG): quest.md
@@ -3828,6 +3947,8 @@ def main() -> None:
     copy_help_docs()
     write_homework_pages()
     write_quiz_pages()
+    write_quiz_challenge_pages(DOCS)
+    write_leaderboard_pages(DOCS)
     write_contributors_pages()
     write_home_pages(meta)
     write_mkdocs_yml(meta)
