@@ -1815,21 +1815,38 @@ body, .md-typeset {
   border-color: #334155 !important;
 }
 
-/* High Contrast Links */
-.md-typeset a {
-  color: #2563eb !important;
-  font-weight: 600 !important;
-  text-decoration: none !important;
+/* High Contrast Links - Target standard prose links only */
+.md-typeset p a,
+.md-typeset li a,
+.md-typeset td a,
+.md-typeset dd a {
+  color: #2563eb;
+  font-weight: 500;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  text-decoration-color: rgba(37, 99, 235, 0.35);
+  transition: color 0.15s, text-decoration-color 0.15s;
 }
-.md-typeset a:hover {
-  text-decoration: underline !important;
-  color: #1d4ed8 !important;
+.md-typeset p a:hover,
+.md-typeset li a:hover,
+.md-typeset td a:hover,
+.md-typeset dd a:hover {
+  color: #1d4ed8;
+  text-decoration-color: #1d4ed8;
 }
-[data-md-color-scheme="slate"] .md-typeset a {
-  color: #38bdf8 !important;
+[data-md-color-scheme="slate"] .md-typeset p a,
+[data-md-color-scheme="slate"] .md-typeset li a,
+[data-md-color-scheme="slate"] .md-typeset td a,
+[data-md-color-scheme="slate"] .md-typeset dd a {
+  color: #38bdf8;
+  text-decoration-color: rgba(56, 189, 248, 0.35);
 }
-[data-md-color-scheme="slate"] .md-typeset a:hover {
-  color: #7dd3fc !important;
+[data-md-color-scheme="slate"] .md-typeset p a:hover,
+[data-md-color-scheme="slate"] .md-typeset li a:hover,
+[data-md-color-scheme="slate"] .md-typeset td a:hover,
+[data-md-color-scheme="slate"] .md-typeset dd a:hover {
+  color: #7dd3fc;
+  text-decoration-color: #7dd3fc;
 }
 
 /* Header & Tabs */
@@ -1876,11 +1893,21 @@ body, .md-typeset {
   border-radius: 9999px;
   font-size: 12px;
   font-weight: 600;
-  background: #eff6ff;
-  color: #1e40af;
-  border: 1px solid #bfdbfe;
+  background: #f1f5f9;
+  color: #334155;
+  border: 1px solid #e2e8f0;
 }
 [data-md-color-scheme="slate"] .tcl-badge {
+  background: #1e293b;
+  color: #cbd5e1;
+  border-color: #334155;
+}
+.tcl-badge.blue {
+  background: #eff6ff;
+  color: #1e40af;
+  border-color: #bfdbfe;
+}
+[data-md-color-scheme="slate"] .tcl-badge.blue {
   background: rgba(37, 99, 235, 0.15);
   color: #93c5fd;
   border-color: rgba(96, 165, 250, 0.3);
@@ -1941,43 +1968,119 @@ body, .md-typeset {
   max-width: 880px;
   margin-bottom: 24px;
 }
+
+/* Hero CTA Buttons */
 .tcl-cta-group {
   display: flex;
   gap: 12px;
   flex-wrap: wrap;
-  margin: 20px 0 12px;
+  align-items: center;
+  margin: 24px 0 16px;
 }
+.md-typeset a.tcl-btn,
 .tcl-btn {
   display: inline-flex;
   align-items: center;
   gap: 8px;
   padding: 10px 22px;
   border-radius: 8px;
-  font-size: 14px;
+  font-size: 14.5px;
   font-weight: 600;
+  line-height: 1.4;
   text-decoration: none !important;
-  transition: all 0.2s ease;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  cursor: pointer;
 }
+
+/* Primary Button: High-Contrast Dark Slate */
+.md-typeset a.tcl-btn-primary,
 .tcl-btn-primary {
-  background: linear-gradient(135deg, #2563eb, #1d4ed8);
+  background: #0f172a !important;
   color: #ffffff !important;
-  box-shadow: 0 4px 14px rgba(37, 99, 235, 0.3);
+  border: 1px solid #0f172a !important;
+  box-shadow: 0 4px 14px rgba(15, 23, 42, 0.18);
 }
+.md-typeset a.tcl-btn-primary:hover,
 .tcl-btn-primary:hover {
-  background: linear-gradient(135deg, #1d4ed8, #1e40af);
+  background: #1e293b !important;
+  border-color: #1e293b !important;
+  color: #ffffff !important;
   transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(37, 99, 235, 0.45);
+  box-shadow: 0 6px 20px rgba(15, 23, 42, 0.28);
 }
+[data-md-color-scheme="slate"] .md-typeset a.tcl-btn-primary,
+[data-md-color-scheme="slate"] .tcl-btn-primary {
+  background: #38bdf8 !important;
+  color: #0b0f19 !important;
+  border: 1px solid #38bdf8 !important;
+  box-shadow: 0 4px 14px rgba(56, 189, 248, 0.3);
+}
+[data-md-color-scheme="slate"] .md-typeset a.tcl-btn-primary:hover,
+[data-md-color-scheme="slate"] .tcl-btn-primary:hover {
+  background: #7dd3fc !important;
+  color: #0b0f19 !important;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(56, 189, 248, 0.45);
+}
+
+/* Accent Button (Tcl Quest RPG) */
+.md-typeset a.tcl-btn-accent,
+.tcl-btn-accent {
+  background: #f5f3ff !important;
+  color: #6b21a8 !important;
+  border: 1px solid #ddd6fe !important;
+  box-shadow: 0 2px 6px rgba(107, 33, 168, 0.08);
+}
+.md-typeset a.tcl-btn-accent:hover,
+.tcl-btn-accent:hover {
+  background: #ede9fe !important;
+  border-color: #c4b5fd !important;
+  color: #581c87 !important;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(107, 33, 168, 0.15);
+}
+[data-md-color-scheme="slate"] .md-typeset a.tcl-btn-accent,
+[data-md-color-scheme="slate"] .tcl-btn-accent {
+  background: rgba(168, 85, 247, 0.18) !important;
+  color: #e9d5ff !important;
+  border: 1px solid rgba(192, 132, 252, 0.4) !important;
+}
+[data-md-color-scheme="slate"] .md-typeset a.tcl-btn-accent:hover,
+[data-md-color-scheme="slate"] .tcl-btn-accent:hover {
+  background: rgba(168, 85, 247, 0.28) !important;
+  border-color: rgba(192, 132, 252, 0.6) !important;
+  color: #ffffff !important;
+  transform: translateY(-2px);
+}
+
+/* Secondary Button: Neutral High-End Slate Outline */
+.md-typeset a.tcl-btn-secondary,
 .tcl-btn-secondary {
-  background: var(--tcl-surface-card);
-  color: var(--md-default-fg-color) !important;
-  border: 1px solid var(--tcl-border);
+  background: #ffffff !important;
+  color: #1e293b !important;
+  border: 1px solid #cbd5e1 !important;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
 }
+.md-typeset a.tcl-btn-secondary:hover,
 .tcl-btn-secondary:hover {
-  border-color: var(--tcl-blue-600);
-  background: var(--tcl-surface);
+  background: #f8fafc !important;
+  border-color: #94a3b8 !important;
+  color: #0f172a !important;
   transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+[data-md-color-scheme="slate"] .md-typeset a.tcl-btn-secondary,
+[data-md-color-scheme="slate"] .tcl-btn-secondary {
+  background: #1e293b !important;
+  color: #f1f5f9 !important;
+  border: 1px solid #334155 !important;
+}
+[data-md-color-scheme="slate"] .md-typeset a.tcl-btn-secondary:hover,
+[data-md-color-scheme="slate"] .tcl-btn-secondary:hover {
+  background: #334155 !important;
+  border-color: #475569 !important;
+  color: #ffffff !important;
+  transform: translateY(-2px);
 }
 
 /* Stats Fact Strip */
@@ -1998,7 +2101,7 @@ body, .md-typeset {
   font-family: 'Inter', sans-serif;
   font-size: 2.1rem;
   font-weight: 800;
-  color: #2563eb;
+  color: var(--tcl-heading);
   display: block;
   letter-spacing: -0.02em;
 }
@@ -2010,6 +2113,86 @@ body, .md-typeset {
   color: var(--md-default-fg-color--lighter);
   font-weight: 600;
   margin-top: 4px;
+}
+
+/* Interactive Tools Hub Grid */
+.tcl-tools-section-title {
+  font-size: 1.25rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: var(--tcl-heading);
+  margin: 36px 0 16px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.tcl-tools-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 16px;
+  margin: 0 0 36px;
+}
+.md-typeset a.tcl-tool-card,
+.tcl-tool-card {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  padding: 18px 20px;
+  border-radius: 10px;
+  border: 1px solid var(--tcl-border);
+  background: var(--tcl-surface-card);
+  text-decoration: none !important;
+  color: var(--md-default-fg-color--light) !important;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  position: relative;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.03);
+}
+.md-typeset a.tcl-tool-card:hover,
+.tcl-tool-card:hover {
+  border-color: #2563eb;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(37, 99, 235, 0.08);
+}
+[data-md-color-scheme="slate"] .md-typeset a.tcl-tool-card:hover,
+[data-md-color-scheme="slate"] .tcl-tool-card:hover {
+  border-color: #38bdf8;
+  box-shadow: 0 8px 20px rgba(56, 189, 248, 0.12);
+}
+.tcl-tool-icon {
+  font-size: 1.75rem;
+  line-height: 1;
+  flex-shrink: 0;
+  padding-top: 2px;
+}
+.tcl-tool-body {
+  flex: 1;
+  min-width: 0;
+}
+.tcl-tool-title {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--tcl-heading);
+  margin-bottom: 4px;
+  line-height: 1.35;
+}
+.tcl-tool-desc {
+  font-size: 0.85rem;
+  line-height: 1.5;
+  color: var(--md-default-fg-color--lighter);
+}
+.tcl-tool-arrow {
+  color: var(--md-default-fg-color--lighter);
+  font-size: 1.2rem;
+  font-weight: 600;
+  transition: transform 0.2s ease, color 0.2s ease;
+  flex-shrink: 0;
+}
+.md-typeset a.tcl-tool-card:hover .tcl-tool-arrow {
+  transform: translateX(4px);
+  color: #2563eb;
+}
+[data-md-color-scheme="slate"] .md-typeset a.tcl-tool-card:hover .tcl-tool-arrow {
+  color: #38bdf8;
 }
 
 /* 3-Column Route Cards */
@@ -2147,11 +2330,8 @@ def write_home_pages(meta: list[tuple[int, str, str]]) -> None:
 
   <div class="tcl-cta-group">
     <a href="wasm-lab/" target="_blank" class="tcl-btn tcl-btn-primary">🚀 Launch WASM Workshop ↗</a>
-    <a href="quest/" class="tcl-btn tcl-btn-secondary">🎮 Tcl Quest (RPG Sandbox)</a>
-    <a href="help/layout_viewer/" class="tcl-btn tcl-btn-secondary">📐 Layout Visualizer</a>
-    <a href="help/timing_calculator/" class="tcl-btn tcl-btn-secondary">⚡ Timing Gatekeeper</a>
-    <a href="exercises/" class="tcl-btn tcl-btn-secondary">🎯 18 Practice Exercises</a>
-    <a href="capstone/" class="tcl-btn tcl-btn-secondary">🏆 6 Capstones</a>
+    <a href="quest/" class="tcl-btn tcl-btn-accent">🎮 Tcl Quest (RPG Sandbox)</a>
+    <a href="lessons/week1/" class="tcl-btn tcl-btn-secondary">📖 Start Curriculum (Week 1) →</a>
   </div>
 </div>
 
@@ -2180,6 +2360,46 @@ def write_home_pages(meta: list[tuple[int, str, str]]) -> None:
     <span class="tcl-fact-val">Industrial</span>
     <span class="tcl-fact-lbl">STA Slack Sign-Off Gate</span>
   </div>
+</div>
+
+<div class="tcl-tools-section-title">⚡ Interactive EDA Lab Tools & Sandboxes</div>
+
+<div class="tcl-tools-grid">
+  <a href="help/layout_viewer/" class="tcl-tool-card">
+    <div class="tcl-tool-icon">📐</div>
+    <div class="tcl-tool-body">
+      <div class="tcl-tool-title">DRV-Lite Layout Visualizer</div>
+      <div class="tcl-tool-desc">Zero-license physical design canvas with live cell placement, routing channels, and DRC violation highlighting.</div>
+    </div>
+    <div class="tcl-tool-arrow">→</div>
+  </a>
+
+  <a href="help/timing_calculator/" class="tcl-tool-card">
+    <div class="tcl-tool-icon">⚡</div>
+    <div class="tcl-tool-body">
+      <div class="tcl-tool-title">STA Timing Sign-Off Gate</div>
+      <div class="tcl-tool-desc">Interactive clock period, datapath delay, and setup slack margin gauge with pass/fail decision rules.</div>
+    </div>
+    <div class="tcl-tool-arrow">→</div>
+  </a>
+
+  <a href="exercises/" class="tcl-tool-card">
+    <div class="tcl-tool-icon">🎯</div>
+    <div class="tcl-tool-body">
+      <div class="tcl-tool-title">18 Practice Exercises</div>
+      <div class="tcl-tool-desc">Hands-on lab problems parsing real cell libraries, pin mappings, DEF files, and STA timing reports.</div>
+    </div>
+    <div class="tcl-tool-arrow">→</div>
+  </a>
+
+  <a href="capstone/" class="tcl-tool-card">
+    <div class="tcl-tool-icon">🏆</div>
+    <div class="tcl-tool-body">
+      <div class="tcl-tool-title">6 Capstone Projects</div>
+      <div class="tcl-tool-desc">End-to-end industrial mini-projects from routing scrapers to automated ECO wirelength fixers.</div>
+    </div>
+    <div class="tcl-tool-arrow">→</div>
+  </a>
 </div>
 
 ## 🎯 Recommended Learning Pathways
@@ -2297,12 +2517,9 @@ make week21-01        # Run Week 21 layout script (DRV-Lite simulation)
   </div>
 
   <div class="tcl-cta-group">
-    <a href="wasm-lab/" target="_blank" class="tcl-btn tcl-btn-primary">🚀 交互工作坊 (WASM Lab) ↗</a>
-    <a href="quest/" class="tcl-btn tcl-btn-secondary">🎮 芯片岛闯关冒险 (RPG)</a>
-    <a href="help/layout_viewer/" class="tcl-btn tcl-btn-secondary">📐 版图仿真可视化</a>
-    <a href="help/timing_calculator/" class="tcl-btn tcl-btn-secondary">⚡ 时序门禁计算器</a>
-    <a href="exercises/" class="tcl-btn tcl-btn-secondary">🎯 18 项实战练习</a>
-    <a href="capstone/" class="tcl-btn tcl-btn-secondary">🏆 6 大综合项目</a>
+    <a href="wasm-lab/" target="_blank" class="tcl-btn tcl-btn-primary">🚀 进入 WASM 交互工作坊 ↗</a>
+    <a href="quest/" class="tcl-btn tcl-btn-accent">🎮 芯片岛闯关冒险 (RPG)</a>
+    <a href="lessons/week1/" class="tcl-btn tcl-btn-secondary">📖 开始系统学习 (第 1 周) →</a>
   </div>
 </div>
 
@@ -2331,6 +2548,46 @@ make week21-01        # Run Week 21 layout script (DRV-Lite simulation)
     <span class="tcl-fact-val">工业级</span>
     <span class="tcl-fact-lbl">STA 时序违规闭环门禁</span>
   </div>
+</div>
+
+<div class="tcl-tools-section-title">⚡ 交互式实验工具与实战演练</div>
+
+<div class="tcl-tools-grid">
+  <a href="help/layout_viewer/" class="tcl-tool-card">
+    <div class="tcl-tool-icon">📐</div>
+    <div class="tcl-tool-body">
+      <div class="tcl-tool-title">DRV-Lite 版图仿真可视化</div>
+      <div class="tcl-tool-desc">免商业授权版图仿真画布，支持标准单元摆放、走线通道与 DRC 间距违规实时高亮。</div>
+    </div>
+    <div class="tcl-tool-arrow">→</div>
+  </a>
+
+  <a href="help/timing_calculator/" class="tcl-tool-card">
+    <div class="tcl-tool-icon">⚡</div>
+    <div class="tcl-tool-body">
+      <div class="tcl-tool-title">STA 静态时序门禁计算器</div>
+      <div class="tcl-tool-desc">实时调节时钟周期、数据路径与时序裕量，具备违规判定与多路径关键路径签核表。</div>
+    </div>
+    <div class="tcl-tool-arrow">→</div>
+  </a>
+
+  <a href="exercises/" class="tcl-tool-card">
+    <div class="tcl-tool-icon">🎯</div>
+    <div class="tcl-tool-body">
+      <div class="tcl-tool-title">18 项实战演练习题</div>
+      <div class="tcl-tool-desc">解析标准单元库、引脚映射、DEF 物理版图与真实 STA 时序报告的阶梯式实战任务。</div>
+    </div>
+    <div class="tcl-tool-arrow">→</div>
+  </a>
+
+  <a href="capstone/" class="tcl-tool-card">
+    <div class="tcl-tool-icon">🏆</div>
+    <div class="tcl-tool-body">
+      <div class="tcl-tool-title">6 大工业级综合项目</div>
+      <div class="tcl-tool-desc">从自动走线抓取、DRV 违规收敛到自动化 ECO 线长修复的完整工程级结课项目。</div>
+    </div>
+    <div class="tcl-tool-arrow">→</div>
+  </a>
 </div>
 
 ## 🎯 你的学习起点：三种推荐路线
