@@ -57,8 +57,8 @@ Bilingual, beginner-friendly **Tcl educational platform** for learning modern Tc
 ## 🚀 本地快速上手 (Quick Start)
 
 ### 1. 环境准备
-- **第 1–20 周**: 本地终端安装 [`tclsh`](https://www.tcl.tk/)（Tcl 8.5/8.6/9.0 均可）
-- **第 21–40 周**: 商业版 `calibredrv` **或** 纯 Tcl **DRV-Lite 仿真器**（系统自动回退，无需配置）
+- **第 1–20 课**: 本地终端安装 [`tclsh`](https://www.tcl.tk/)（Tcl 8.5/8.6/9.0 均可）
+- **第 21–40 课**: 商业版 `calibredrv` **或** 纯 Tcl **DRV-Lite 仿真器**（系统自动回退，无需配置）
 
 ### 2. 克隆与常用指令
 
@@ -75,10 +75,10 @@ make drvlite-test
 # 运行 STA 静态时序分析入门实验
 make timing-demo
 
-# 运行第一周范例脚本
+# 运行第 1 课范例脚本
 make week1-01
 
-# 运行第 21 周版图脚本 (自动调用 DRV-Lite 仿真)
+# 运行第 21 课版图脚本 (自动调用 DRV-Lite 仿真)
 make week21-01
 
 # 运行学生练习答案与项目自测
@@ -100,7 +100,7 @@ make site-serve      # 本地预览 http://127.0.0.1:8000
 
 ```text
 tcl-language/
-├── PLAN.md                 # 40 周全体系教学大纲与演进路线
+├── PLAN.md                 # 40 课全体系教学大纲与演进路线
 ├── Makefile                # 课程运行器、自测脚本与站点构建入口
 ├── data/                   # 真实工业场景数据集 (晶圆、服务器日志、时序报告)
 ├── exercises/              # 18 节实战练习起步模版 (54 项编码任务)
@@ -108,7 +108,7 @@ tcl-language/
 ├── capstone/               # 6 大综合数据工程项目 (A–F，附测试用例)
 ├── homework/               # GateUltra 贡献的课后练习题集与验证器
 ├── quiz/                   # thy031 贡献的随堂自测题库
-├── lessons/                # 40 周中英双语课文与 100+ 可执行示例脚本
+├── lessons/                # 40 课中英双语课文与 100+ 可执行示例脚本
 ├── examples/               # 包含 timing_report_analyzer.tcl 等工业范例
 ├── docs/                   # TCL_HELP.md, DRVLITE_HELP.md 等指导文档
 ├── tools/

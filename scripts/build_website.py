@@ -58,8 +58,12 @@ def first_heading(text: str) -> str:
 
 def short_title(heading: str, week: int) -> str:
     patterns = [
+        rf"^Lesson\s+{week}\s*[—–\-:]\s*",
         rf"^Week\s+{week}\s*[—–\-:]\s*",
+        rf"^第\s*{week}\s*课\s*[—–\-:]\s*",
         rf"^第\s*{week}\s*周\s*[—–\-:]\s*",
+        rf"^Pelajaran\s+{week}\s*[—–\-:]\s*",
+        rf"^Leçon\s+{week}\s*[—–\-:]\s*",
     ]
     out = heading
     for pat in patterns:
@@ -152,20 +156,20 @@ def examples_page(week_dir: Path, week: int, lang: str) -> str:
     tcl_files = sorted(week_dir.glob("*.tcl"))
     if lang == "zh":
         lines = [
-            f"# 第 {week} 周 — 示例脚本",
+            f"# 第 {week} 课 — 示例脚本",
             "",
             f"可在本地仓库运行：`make week{week}-NN`（见 [首页](../../index.md)）。",
             "",
         ]
     else:
         lines = [
-            f"# Week {week} — Example Scripts",
+            f"# Lesson {week} — Example Scripts",
             "",
             f"Run locally with `make week{week}-NN` (see [Home](../../index.md)).",
             "",
         ]
     if not tcl_files:
-        lines.append("_No `.tcl` files in this week yet._")
+        lines.append("_No `.tcl` files in this lesson yet._")
         return "\n".join(lines) + "\n"
 
     for path in tcl_files:
@@ -2765,10 +2769,10 @@ def write_home_pages(meta: list[tuple[int, str, str]]) -> None:
     ms_rows = []
     fr_rows = []
     for w, en_short, zh_short in meta:
-        en_rows.append(f"| Week {w:02d} | [{en_short}](lessons/week{w}/index.md) | [Examples](lessons/week{w}/examples.md) |")
-        zh_rows.append(f"| 第 {w:02d} 周 | [{zh_short}](lessons/week{w}/index.md) | [示例代码](lessons/week{w}/examples.md) |")
-        ms_rows.append(f"| Minggu {w:02d} | [{en_short}](lessons/week{w}/index.md) | [Contoh Kod](lessons/week{w}/examples.md) |")
-        fr_rows.append(f"| Semaine {w:02d} | [{en_short}](lessons/week{w}/index.md) | [Exemples de Code](lessons/week{w}/examples.md) |")
+        en_rows.append(f"| Lesson {w:02d} | [{en_short}](lessons/week{w}/index.md) | [Examples](lessons/week{w}/examples.md) |")
+        zh_rows.append(f"| 第 {w:02d} 课 | [{zh_short}](lessons/week{w}/index.md) | [示例代码](lessons/week{w}/examples.md) |")
+        ms_rows.append(f"| Pelajaran {w:02d} | [{en_short}](lessons/week{w}/index.md) | [Contoh Kod](lessons/week{w}/examples.md) |")
+        fr_rows.append(f"| Leçon {w:02d} | [{en_short}](lessons/week{w}/index.md) | [Exemples de Code](lessons/week{w}/examples.md) |")
 
     en_index = f"""<div class="tcl-hero">
   <div class="tcl-badge-cluster">
@@ -2791,13 +2795,13 @@ def write_home_pages(meta: list[tuple[int, str, str]]) -> None:
     <a href="leaderboard/" class="tcl-btn tcl-btn-accent" style="background: linear-gradient(135deg, #059669, #0d9488); border: none;">🏆 Hall of Fame</a>
     <a href="wasm-lab/" target="_blank" class="tcl-btn tcl-btn-secondary">🚀 Launch WASM Workshop ↗</a>
     <a href="quest/" class="tcl-btn tcl-btn-secondary">🎮 Tcl Quest (RPG)</a>
-    <a href="lessons/week1/" class="tcl-btn tcl-btn-secondary">📖 Week 1 →</a>
+    <a href="lessons/week1/" class="tcl-btn tcl-btn-secondary">📖 Lesson 1 →</a>
   </div>
 </div>
 
 <div class="tcl-fact-strip">
   <div class="tcl-fact-item">
-    <span class="tcl-fact-val">40 Weeks</span>
+    <span class="tcl-fact-val">40 Lessons</span>
     <span class="tcl-fact-lbl">Curriculum Plan</span>
   </div>
   <div class="tcl-fact-item">
@@ -2895,7 +2899,7 @@ Choose the path tailored to your background and engineering goals:
     <div class="tcl-route-desc">
       Begin with <code>puts</code>, variables, and comments. Learn the 3-step substitution model (Grouping $\to$ Substitution $\to$ Invocation) to understand curly braces <code>{{}}</code> vs double quotes <code>""</code>.
     </div>
-    <a href="lessons/week1/" class="tcl-btn tcl-btn-secondary" style="font-size: 13px; padding: 6px 14px;">Start Week 1 →</a>
+    <a href="lessons/week1/" class="tcl-btn tcl-btn-secondary" style="font-size: 13px; padding: 6px 14px;">Start Lesson 1 →</a>
   </div>
 
   <div class="tcl-route-card route-exp">
@@ -2957,9 +2961,9 @@ Choose the path tailored to your background and engineering goals:
 
 ---
 
-## 📚 Curriculum Directory (40 Weeks)
+## 📚 Curriculum Directory (40 Lessons)
 
-| Week | Topic | Examples |
+| Lesson | Topic | Examples |
 | :---: | :--- | :---: |
 {chr(10).join(en_rows)}
 
@@ -2974,8 +2978,8 @@ cd tcl-language
 make check-env        # Verify tclsh & DRV-Lite layout simulator
 make drvlite-test     # Run 6 unit tests on pure-Tcl layout simulator
 make timing-demo      # Run STA timing analysis lab
-make week1-01         # Run Week 1 first example
-make week21-01        # Run Week 21 layout script (DRV-Lite simulation)
+make week1-01         # Run Lesson 1 first example
+make week21-01        # Run Lesson 21 layout script (DRV-Lite simulation)
 ```
 """
     (DOCS / "index.md").write_text(en_index, encoding="utf-8")
@@ -3001,13 +3005,13 @@ make week21-01        # Run Week 21 layout script (DRV-Lite simulation)
     <a href="leaderboard/" class="tcl-btn tcl-btn-accent" style="background: linear-gradient(135deg, #059669, #0d9488); border: none;">🏆 荣耀榜与防伪校验</a>
     <a href="wasm-lab/" target="_blank" class="tcl-btn tcl-btn-secondary">🚀 进入 WASM 交互工作坊 ↗</a>
     <a href="quest/" class="tcl-btn tcl-btn-secondary">🎮 芯片岛 RPG 冒险</a>
-    <a href="lessons/week1/" class="tcl-btn tcl-btn-secondary">📖 开始第 1 周 →</a>
+    <a href="lessons/week1/" class="tcl-btn tcl-btn-secondary">📖 开始第 1 课 →</a>
   </div>
 </div>
 
 <div class="tcl-fact-strip">
   <div class="tcl-fact-item">
-    <span class="tcl-fact-val">40 周</span>
+    <span class="tcl-fact-val">40 课</span>
     <span class="tcl-fact-lbl">系统进阶课程</span>
   </div>
   <div class="tcl-fact-item">
@@ -3105,7 +3109,7 @@ make week21-01        # Run Week 21 layout script (DRV-Lite simulation)
     <div class="tcl-route-desc">
       从 <code>puts</code>、变量与注释入门。通过三步置换模型（切分 $\to$ 置换 $\to$ 调用），彻底理解大括号 <code>{{}}</code> 与双引号 <code>""</code> 的本质差异，告别初学者易犯的语法迷茫。
     </div>
-    <a href="lessons/week1/" class="tcl-btn tcl-btn-secondary" style="font-size: 13px; padding: 6px 14px;">从第 1 周开始 →</a>
+    <a href="lessons/week1/" class="tcl-btn tcl-btn-secondary" style="font-size: 13px; padding: 6px 14px;">从第 1 课开始 →</a>
   </div>
 
   <div class="tcl-route-card route-exp">
@@ -3167,28 +3171,27 @@ make week21-01        # Run Week 21 layout script (DRV-Lite simulation)
 
 ---
 
-## 📚 Curriculum Directory (40 Weeks)
+## 📚 课程目录 (40 课)
 
-| Week | Topic | Examples |
+| 课次 | 主题 | 示例代码 |
 | :---: | :--- | :---: |
-{chr(10).join(en_rows)}
+{chr(10).join(zh_rows)}
 
 ---
 
-## 🚀 Quick Start (CLI)
+## 🚀 快速上手 (CLI)
 
 ```bash
 git clone {GITHUB}.git
 cd tcl-language
 
-make check-env        # Verify tclsh & DRV-Lite layout simulator
-make drvlite-test     # Run 6 unit tests on pure-Tcl layout simulator
-make timing-demo      # Run STA timing analysis lab
-make week1-01         # Run Week 1 first example
-make week21-01        # Run Week 21 layout script (DRV-Lite simulation)
+make check-env        # 检查本地环境与 DRV-Lite 状态
+make drvlite-test     # 运行 DRV-Lite 版图仿真器 6 项单元自测
+make timing-demo      # 运行 STA 静态时序分析入门实验
+make week1-01         # 运行第 1 课范例脚本
+make week21-01        # 运行第 21 课版图脚本 (DRV-Lite 仿真)
 ```
 """
-    (DOCS / "index.md").write_text(en_index, encoding="utf-8")
     (DOCS / "index.zh.md").write_text(zh_index, encoding="utf-8")
 
     ms_index = f"""<div class="tcl-hero">
@@ -3212,13 +3215,13 @@ make week21-01        # Run Week 21 layout script (DRV-Lite simulation)
     <a href="leaderboard/" class="tcl-btn tcl-btn-accent" style="background: linear-gradient(135deg, #059669, #0d9488); border: none;">🏆 Papan Juara & Pengesahan</a>
     <a href="wasm-lab/" target="_blank" class="tcl-btn tcl-btn-secondary">🚀 Lancarkan Bengkel WASM ↗</a>
     <a href="quest/" class="tcl-btn tcl-btn-secondary">🎮 Tcl Quest (Pulau Cip)</a>
-    <a href="lessons/week1/" class="tcl-btn tcl-btn-secondary">📖 Mula Minggu 1 →</a>
+    <a href="lessons/week1/" class="tcl-btn tcl-btn-secondary">📖 Mula Pelajaran 1 →</a>
   </div>
 </div>
 
 <div class="tcl-fact-strip">
   <div class="tcl-fact-item">
-    <span class="tcl-fact-val">40 Minggu</span>
+    <span class="tcl-fact-val">40 Pelajaran</span>
     <span class="tcl-fact-lbl">Pelan Kurikulum</span>
   </div>
   <div class="tcl-fact-item">
@@ -3316,7 +3319,7 @@ Pilih laluan pembelajaran yang disesuaikan dengan latar belakang dan matlamat ke
     <div class="tcl-route-desc">
       Bermula dengan <code>puts</code>, pembolehubah, dan ulasan kod. Kuasai model penilaian 3-langkah (Kumpulan $\to$ Penggantian $\to$ Seruan) untuk memahami perbezaan antara kurungan kerinting <code>{{}}</code> dan tanda petikan ganda <code>""</code>.
     </div>
-    <a href="lessons/week1/" class="tcl-btn tcl-btn-secondary" style="font-size: 13px; padding: 6px 14px;">Mula Minggu 1 →</a>
+    <a href="lessons/week1/" class="tcl-btn tcl-btn-secondary" style="font-size: 13px; padding: 6px 14px;">Mula Pelajaran 1 →</a>
   </div>
 
   <div class="tcl-route-card route-exp">
@@ -3378,9 +3381,9 @@ Pilih laluan pembelajaran yang disesuaikan dengan latar belakang dan matlamat ke
 
 ---
 
-## 📚 Direktori Kurikulum (40 Minggu)
+## 📚 Direktori Kurikulum (40 Pelajaran)
 
-| Minggu | Topik | Contoh Kod |
+| Pelajaran | Topik | Contoh Kod |
 | :---: | :--- | :---: |
 {chr(10).join(ms_rows)}
 
@@ -3395,8 +3398,8 @@ cd tcl-language
 make check-env        # Sahkan tclsh & simulator susun atur DRV-Lite
 make drvlite-test     # Jalankan 6 ujian unit pada simulator DRV-Lite
 make timing-demo      # Jalankan makmal analisis pemasaan STA
-make week1-01         # Jalankan contoh pertama Minggu 1
-make week21-01        # Jalankan skrip susun atur Minggu 21 (simulasi DRV-Lite)
+make week1-01         # Jalankan contoh pertama Pelajaran 1
+make week21-01        # Jalankan skrip susun atur Pelajaran 21 (simulasi DRV-Lite)
 ```
 """
     (DOCS / "index.ms.md").write_text(ms_index, encoding="utf-8")
@@ -3422,13 +3425,13 @@ make week21-01        # Jalankan skrip susun atur Minggu 21 (simulasi DRV-Lite)
     <a href="leaderboard/" class="tcl-btn tcl-btn-accent" style="background: linear-gradient(135deg, #059669, #0d9488); border: none;">🏆 Tableau des Scores & Vérification</a>
     <a href="wasm-lab/" target="_blank" class="tcl-btn tcl-btn-secondary">🚀 Lancer l'Atelier WASM ↗</a>
     <a href="quest/" class="tcl-btn tcl-btn-secondary">🎮 Tcl Quest (Île RPG)</a>
-    <a href="lessons/week1/" class="tcl-btn tcl-btn-secondary">📖 Démarrer Semaine 1 →</a>
+    <a href="lessons/week1/" class="tcl-btn tcl-btn-secondary">📖 Démarrer Leçon 1 →</a>
   </div>
 </div>
 
 <div class="tcl-fact-strip">
   <div class="tcl-fact-item">
-    <span class="tcl-fact-val">40 Semaines</span>
+    <span class="tcl-fact-val">40 Leçons</span>
     <span class="tcl-fact-lbl">Programme Complet</span>
   </div>
   <div class="tcl-fact-item">
@@ -3526,7 +3529,7 @@ Choisissez le parcours adapté à votre profil et à vos objectifs d'ingénierie
     <div class="tcl-route-desc">
       Commencez par <code>puts</code>, les variables et les commentaires. Maîtrisez le modèle en 3 étapes (Regroupement $\to$ Substitution $\to$ Évaluation) pour comprendre les accolades <code>{{}}</code> par rapport aux guillemets <code>""</code>.
     </div>
-    <a href="lessons/week1/" class="tcl-btn tcl-btn-secondary" style="font-size: 13px; padding: 6px 14px;">Démarrer Semaine 1 →</a>
+    <a href="lessons/week1/" class="tcl-btn tcl-btn-secondary" style="font-size: 13px; padding: 6px 14px;">Démarrer Leçon 1 →</a>
   </div>
 
   <div class="tcl-route-card route-exp">
@@ -3588,9 +3591,9 @@ Choisissez le parcours adapté à votre profil et à vos objectifs d'ingénierie
 
 ---
 
-## 📚 Programme d'Études (40 Semaines)
+## 📚 Programme d'Études (40 Leçons)
 
-| Semaine | Sujet | Exemples de Code |
+| Leçon | Sujet | Exemples de Code |
 | :---: | :--- | :---: |
 {chr(10).join(fr_rows)}
 
@@ -3605,8 +3608,8 @@ cd tcl-language
 make check-env        # Vérifier tclsh & le simulateur DRV-Lite
 make drvlite-test     # Lancer 6 tests unitaires sur le simulateur DRV-Lite
 make timing-demo      # Lancer le labo de temporisation STA
-make week1-01         # Exécuter le premier exemple de la Semaine 1
-make week21-01        # Exécuter le script de layout de la Semaine 21 (DRV-Lite)
+make week1-01         # Exécuter le premier exemple de la Leçon 1
+make week21-01        # Exécuter le script de layout de la Leçon 21 (DRV-Lite)
 ```
 """
     (DOCS / "index.fr.md").write_text(fr_index, encoding="utf-8")
@@ -3628,6 +3631,8 @@ def generate_weeks() -> list[tuple[int, str, str]]:
 
         en_body = rewrite_lesson_links(en_raw)
         zh_body = rewrite_lesson_links(zh_raw)
+        en_body = re.sub(r"^#\s*Week\s+(\d+)", r"# Lesson \1", en_body, flags=re.MULTILINE)
+        zh_body = re.sub(r"^#\s*第\s*(\d+)\s*周", r"# 第 \1 课", zh_body, flags=re.MULTILINE)
 
         (out_dir / "index.md").write_text(en_body, encoding="utf-8")
         (out_dir / "index.zh.md").write_text(zh_body, encoding="utf-8")
@@ -3645,35 +3650,35 @@ def write_mkdocs_yml(meta: list[tuple[int, str, str]]) -> None:
     fr_nav_trans_weeks = []
 
     m_titles = [
-        ("M10: Tcl Core Syntax (Weeks 01–10)", "M10: Tcl 核心语法 (第 01–10 周)"),
-        ("M20: Fluency & OOP (Weeks 11–20)", "M20: 流畅编程与面向对象 (第 11–20 周)"),
-        ("M30: Calibre Layout Core (Weeks 21–30)", "M30: Calibre 版图核心 (第 21–30 周)"),
-        ("M40: Layout Catalog & Sign-Off (Weeks 31–40)", "M40: 版图全家桶与审计 (第 31–40 周)"),
+        ("M10: Tcl Core Syntax (Lessons 01–10)", "M10: Tcl 核心语法 (第 01–10 课)"),
+        ("M20: Fluency & OOP (Lessons 11–20)", "M20: 流畅编程与面向对象 (第 11–20 课)"),
+        ("M30: Calibre Layout Core (Lessons 21–30)", "M30: Calibre 版图核心 (第 21–30 课)"),
+        ("M40: Layout Catalog & Sign-Off (Lessons 31–40)", "M40: 版图全家桶与审计 (第 31–40 课)"),
     ]
     for en_m, zh_m in m_titles:
         nav_trans_weeks.append(f'            "{en_m}": "{zh_m}"')
 
     ms_m_titles = [
-        ("M10: Tcl Core Syntax (Weeks 01–10)", "M10: Sintaks Teras Tcl (Minggu 01–10)"),
-        ("M20: Fluency & OOP (Weeks 11–20)", "M20: Pengaturcaraan Lancar & OOP (Minggu 11–20)"),
-        ("M30: Calibre Layout Core (Weeks 21–30)", "M30: Teras Susun Atur Calibre (Minggu 21–30)"),
-        ("M40: Layout Catalog & Sign-Off (Weeks 31–40)", "M40: Katalog Susun Atur & Sign-Off (Minggu 31–40)"),
+        ("M10: Tcl Core Syntax (Lessons 01–10)", "M10: Sintaks Teras Tcl (Pelajaran 01–10)"),
+        ("M20: Fluency & OOP (Lessons 11–20)", "M20: Pengaturcaraan Lancar & OOP (Pelajaran 11–20)"),
+        ("M30: Calibre Layout Core (Lessons 21–30)", "M30: Teras Susun Atur Calibre (Pelajaran 21–30)"),
+        ("M40: Layout Catalog & Sign-Off (Lessons 31–40)", "M40: Katalog Susun Atur & Sign-Off (Pelajaran 31–40)"),
     ]
     for en_m, ms_m in ms_m_titles:
         ms_nav_trans_weeks.append(f'            "{en_m}": "{ms_m}"')
 
     fr_m_titles = [
-        ("M10: Tcl Core Syntax (Weeks 01–10)", "M10: Syntaxe de Base Tcl (Semaines 01–10)"),
-        ("M20: Fluency & OOP (Weeks 11–20)", "M20: Fluidité & POO (Semaines 11–20)"),
-        ("M30: Calibre Layout Core (Weeks 21–30)", "M30: Cœur de Layout Calibre (Semaines 21–30)"),
-        ("M40: Layout Catalog & Sign-Off (Weeks 31–40)", "M40: Catalogue Layout & Validation (Semaines 31–40)"),
+        ("M10: Tcl Core Syntax (Lessons 01–10)", "M10: Syntaxe de Base Tcl (Leçons 01–10)"),
+        ("M20: Fluency & OOP (Lessons 11–20)", "M20: Fluidité & POO (Leçons 11–20)"),
+        ("M30: Calibre Layout Core (Lessons 21–30)", "M30: Cœur de Layout Calibre (Leçons 21–30)"),
+        ("M40: Layout Catalog & Sign-Off (Lessons 31–40)", "M40: Catalogue Layout & Validation (Leçons 31–40)"),
     ]
     for en_m, fr_m in fr_m_titles:
         fr_nav_trans_weeks.append(f'            "{en_m}": "{fr_m}"')
 
     for w, en_title, zh_title in meta:
         item = (
-            f'          - "Week {w:02d}: {en_title}":\n'
+            f'          - "Lesson {w:02d}: {en_title}":\n'
             f"              - Lesson: lessons/week{w}/index.md\n"
             f"              - Examples: lessons/week{w}/examples.md"
         )
@@ -3685,9 +3690,9 @@ def write_mkdocs_yml(meta: list[tuple[int, str, str]]) -> None:
             m30_nav.append(item)
         else:
             m40_nav.append(item)
-        nav_trans_weeks.append(f'            "Week {w:02d}: {en_title}": "第 {w:02d} 周: {zh_title}"')
-        ms_nav_trans_weeks.append(f'            "Week {w:02d}: {en_title}": "Minggu {w:02d}: {en_title}"')
-        fr_nav_trans_weeks.append(f'            "Week {w:02d}: {en_title}": "Semaine {w:02d}: {en_title}"')
+        nav_trans_weeks.append(f'            "Lesson {w:02d}: {en_title}": "第 {w:02d} 课: {zh_title}"')
+        ms_nav_trans_weeks.append(f'            "Lesson {w:02d}: {en_title}": "Pelajaran {w:02d}: {en_title}"')
+        fr_nav_trans_weeks.append(f'            "Lesson {w:02d}: {en_title}": "Leçon {w:02d}: {en_title}"')
 
     m10_yaml = "\n".join(m10_nav)
     m20_yaml = "\n".join(m20_nav)
@@ -3797,7 +3802,7 @@ plugins:
             6 Capstone Data Projects: 6 大综合项目
             Homework Assignments: 课后作业
             Chapter Quizzes: 随堂自测
-            Lessons (40 Weeks): 课程体系 (40 周)
+            Lessons (40 Lessons): 课程体系 (40 课)
             EDA Tools & Guides: 工业工具与文档
             DRV-Lite Layout Simulator: DRV-Lite 版图仿真器
             STA Timing Analysis Lab: STA 时序分析门禁
@@ -3829,7 +3834,7 @@ plugins:
             6 Capstone Data Projects: 6 Projek Capstone Data
             Homework Assignments: Tugasan Kerja Rumah
             Chapter Quizzes: Kuiz Bab
-            Lessons (40 Weeks): Sukatan Pelajaran (40 Minggu)
+            Lessons (40 Lessons): Sukatan Pelajaran (40 Pelajaran)
             EDA Tools & Guides: Alat EDA & Panduan
             DRV-Lite Layout Simulator: Simulator Susun Atur DRV-Lite
             STA Timing Analysis Lab: Makmal Analisis Masa STA
@@ -3861,7 +3866,7 @@ plugins:
             6 Capstone Data Projects: 6 Projets Capstone de Données
             Homework Assignments: Devoirs & Exercices
             Chapter Quizzes: Quiz de Chapitre
-            Lessons (40 Weeks): Programme (40 Semaines)
+            Lessons (40 Lessons): Programme (40 Leçons)
             EDA Tools & Guides: Outils EDA & Guides
             DRV-Lite Layout Simulator: Simulateur de Layout DRV-Lite
             STA Timing Analysis Lab: Labo d'Analyse Temporelle STA
@@ -3894,14 +3899,14 @@ nav:
       - 6 Capstone Data Projects: capstone.md
       - Homework Assignments: help/homework.md
       - Chapter Quizzes: help/quiz.md
-  - Lessons (40 Weeks):
-      - "M10: Tcl Core Syntax (Weeks 01–10)":
+  - Lessons (40 Lessons):
+      - "M10: Tcl Core Syntax (Lessons 01–10)":
 {m10_yaml}
-      - "M20: Fluency & OOP (Weeks 11–20)":
+      - "M20: Fluency & OOP (Lessons 11–20)":
 {m20_yaml}
-      - "M30: Calibre Layout Core (Weeks 21–30)":
+      - "M30: Calibre Layout Core (Lessons 21–30)":
 {m30_yaml}
-      - "M40: Layout Catalog & Sign-Off (Weeks 31–40)":
+      - "M40: Layout Catalog & Sign-Off (Lessons 31–40)":
 {m40_yaml}
   - EDA Tools & Guides:
       - DRV-Lite Layout Simulator: help/drvlite.md
