@@ -17,6 +17,7 @@ from __future__ import annotations
 
 import re
 import shutil
+import sys
 from pathlib import Path
 from quiz_generator import write_quiz_challenge_pages, write_leaderboard_pages
 
@@ -1027,8 +1028,8 @@ def write_quiz_pages() -> None:
 Curated from thy031's student project, this module provides rapid knowledge checks across core Tcl syntax, lists, dictionaries, and procedure scripting.
 
 <div style="margin: 20px 0; display:flex; gap:12px; flex-wrap:wrap;">
-  <a href="../quiz.md" class="tcl-btn tcl-btn-primary">🎯 Launch Quiz Challenge →</a>
-  <a href="../leaderboard.md" class="tcl-btn tcl-btn-secondary">🏆 View Public Leaderboard & Certificates →</a>
+  <a href="../../quiz/" class="tcl-btn tcl-btn-primary">🎯 Launch Quiz Challenge →</a>
+  <a href="../../leaderboard/" class="tcl-btn tcl-btn-secondary">🏆 View Public Leaderboard & Certificates →</a>
 </div>
 
 - **Mental Model Checks**: Substitution timing comparison between `set x $a` and `set x {{a}}`.
@@ -1051,8 +1052,8 @@ Curated from thy031's student project, this module provides rapid knowledge chec
 本测验模块源自 thy031 同学的学习项目，提供涵盖 Tcl 基础语法、列表字典、控制流与过程函数等核心主题的交互式知识自测与结课证书。
 
 <div style="margin: 20px 0; display:flex; gap:12px; flex-wrap:wrap;">
-  <a href="../quiz.md" class="tcl-btn tcl-btn-primary">🎯 开启随堂评测挑战 (Quiz Challenge) →</a>
-  <a href="../leaderboard.md" class="tcl-btn tcl-btn-secondary">🏆 查看全网荣誉排行榜与证书 →</a>
+  <a href="../../quiz/" class="tcl-btn tcl-btn-primary">🎯 开启随堂评测挑战 (Quiz Challenge) →</a>
+  <a href="../../leaderboard/" class="tcl-btn tcl-btn-secondary">🏆 查看全网荣誉排行榜与证书 →</a>
 </div>
 
 - **语法心智自测**：辨析 `set x $a` 与 `set x {{a}}` 的置换时机差异。
@@ -3928,7 +3929,40 @@ def clean_docs() -> None:
     (DOCS / "help").mkdir(parents=True, exist_ok=True)
 
 
+def write_redirect_fallbacks() -> None:
+    site = WEBSITE / "site"
+    if not site.exists():
+        return
+    redirect_tmpl = """<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="refresh" content="0; url={target}">
+<script>window.location.replace("{target}");</script>
+<title>Redirecting...</title>
+</head>
+<body>
+<p>Redirecting to <a href="{target}">{target}</a>...</p>
+</body>
+</html>
+"""
+    for lang in ["", "zh", "ms", "fr"]:
+        base_dir = site / lang if lang else site
+        quiz_dir = base_dir / "quiz"
+        lb_dir = base_dir / "leaderboard"
+
+        if quiz_dir.exists():
+            (quiz_dir / "leaderboard.md").write_text(redirect_tmpl.format(target="../leaderboard/"), encoding="utf-8")
+        if lb_dir.exists():
+            (lb_dir / "quiz.md").write_text(redirect_tmpl.format(target="../quiz/"), encoding="utf-8")
+
+
 def main() -> None:
+    if len(sys.argv) > 1 and sys.argv[1] in ("--post-build", "--fallbacks"):
+        write_redirect_fallbacks()
+        print("Redirect fallbacks written successfully.")
+        return
+
     clean_docs()
     meta = generate_weeks()
     if not meta:
@@ -3952,9 +3986,11 @@ def main() -> None:
     write_contributors_pages()
     write_home_pages(meta)
     write_mkdocs_yml(meta)
+    write_redirect_fallbacks()
     print(f"Generated multi-language website for {len(meta)} weeks -> {WEBSITE}")
 
 
 if __name__ == "__main__":
     main()
+
 

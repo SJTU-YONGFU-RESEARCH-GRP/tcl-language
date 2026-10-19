@@ -299,7 +299,7 @@ def _build_quiz_page(lang: str) -> str:
       <div style="display:flex; gap:12px; justify-content:center; flex-wrap:wrap; margin-top:16px;">
         <button onclick="downloadCertificateSVG()" class="tcl-btn tcl-btn-primary" style="padding:9px 20px; font-size:13.5px;">{t["dl_cert"]}</button>
         <button onclick="window.print()" class="tcl-btn tcl-btn-secondary" style="padding:9px 18px; font-size:13.5px;">{t["print_cert"]}</button>
-        <a href="leaderboard.md" class="tcl-btn tcl-btn-accent" style="padding:9px 18px; font-size:13.5px; text-decoration:none;">{t["view_leaderboard"]}</a>
+        <a href="../leaderboard/" class="tcl-btn tcl-btn-accent" style="padding:9px 18px; font-size:13.5px; text-decoration:none;">{t["view_leaderboard"]}</a>
         <button onclick="restartChallenge()" class="tcl-btn tcl-btn-secondary" style="padding:9px 16px; font-size:13.5px;">{t["retake"]}</button>
       </div>
     </div>
@@ -410,7 +410,7 @@ def _build_leaderboard_page(lang: str) -> str:
 {t["desc"]}
 
 <div style="margin: 20px 0;">
-  <a href="quiz.md" class="tcl-btn tcl-btn-primary" style="padding:9px 20px; font-size:14px; text-decoration:none;">{t["take_quiz_btn"]}</a>
+  <a href="../quiz/" class="tcl-btn tcl-btn-primary" style="padding:9px 20px; font-size:14px; text-decoration:none;">{t["take_quiz_btn"]}</a>
 </div>
 
 ---
