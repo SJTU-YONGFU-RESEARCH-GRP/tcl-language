@@ -1735,6 +1735,21 @@ def write_stylesheets() -> None:
   --md-code-bg-color: #0f172a !important;
   --md-code-fg-color: #f8fafc !important;
 
+  /* Code Syntax Highlighting Tokens */
+  --md-code-hl-color: #38bdf8 !important;
+  --md-code-hl-number-color: #fb923c !important;
+  --md-code-hl-special-color: #f87171 !important;
+  --md-code-hl-function-color: #60a5fa !important;
+  --md-code-hl-constant-color: #c084fc !important;
+  --md-code-hl-keyword-color: #818cf8 !important;
+  --md-code-hl-string-color: #4ade80 !important;
+  --md-code-hl-name-color: #f8fafc !important;
+  --md-code-hl-operator-color: #94a3b8 !important;
+  --md-code-hl-punctuation-color: #cbd5e1 !important;
+  --md-code-hl-comment-color: #94a3b8 !important;
+  --md-code-hl-generic-color: #cbd5e1 !important;
+  --md-code-hl-variable-color: #e2e8f0 !important;
+
   --tcl-blue-600: #2563eb;
   --tcl-blue-700: #1d4ed8;
   --tcl-surface: #f8fafc;
@@ -1759,6 +1774,21 @@ def write_stylesheets() -> None:
   --md-accent-fg-color: #38bdf8 !important;        /* Electric Cyan */
   --md-code-bg-color: #070a12 !important;
   --md-code-fg-color: #f1f5f9 !important;
+
+  /* Code Syntax Highlighting Tokens */
+  --md-code-hl-color: #38bdf8 !important;
+  --md-code-hl-number-color: #fb923c !important;
+  --md-code-hl-special-color: #f87171 !important;
+  --md-code-hl-function-color: #60a5fa !important;
+  --md-code-hl-constant-color: #c084fc !important;
+  --md-code-hl-keyword-color: #818cf8 !important;
+  --md-code-hl-string-color: #4ade80 !important;
+  --md-code-hl-name-color: #f1f5f9 !important;
+  --md-code-hl-operator-color: #94a3b8 !important;
+  --md-code-hl-punctuation-color: #cbd5e1 !important;
+  --md-code-hl-comment-color: #94a3b8 !important;
+  --md-code-hl-generic-color: #cbd5e1 !important;
+  --md-code-hl-variable-color: #e2e8f0 !important;
 
   --tcl-blue-600: #38bdf8;
   --tcl-blue-700: #60a5fa;
@@ -1813,6 +1843,89 @@ body, .md-typeset {
   color: #f1f5f9 !important;
   background-color: #1e293b !important;
   border-color: #334155 !important;
+}
+
+/* Code Blocks - High-Contrast Syntax Highlighting */
+.md-typeset pre > code {
+  color: #f8fafc !important;
+  background-color: #0f172a !important;
+}
+
+.md-typeset .highlight pre {
+  background-color: #0f172a !important;
+  border: 1px solid #1e293b !important;
+  border-radius: 8px !important;
+}
+
+/* Crystal-Clear Comments - High Contrast Slate 400 */
+.md-typeset .highlight .c,
+.md-typeset .highlight .c1,
+.md-typeset .highlight .ch,
+.md-typeset .highlight .cm,
+.md-typeset .highlight .cp,
+.md-typeset .highlight .cpf,
+.md-typeset .highlight .cs,
+.md-typeset .highlight .sd {
+  color: #94a3b8 !important; /* Silvery Slate 400 - High Contrast (7:1) */
+  font-style: italic !important;
+}
+
+/* Enhanced Code Tokens */
+.md-typeset .highlight .k,
+.md-typeset .highlight .kd,
+.md-typeset .highlight .kn,
+.md-typeset .highlight .kp,
+.md-typeset .highlight .kr,
+.md-typeset .highlight .kt {
+  color: #c084fc !important; /* Violet Keyword */
+}
+
+.md-typeset .highlight .nb,
+.md-typeset .highlight .bp {
+  color: #818cf8 !important; /* Built-in */
+}
+
+.md-typeset .highlight .nc,
+.md-typeset .highlight .ne,
+.md-typeset .highlight .nf,
+.md-typeset .highlight .nn {
+  color: #60a5fa !important; /* Function name */
+}
+
+.md-typeset .highlight .s,
+.md-typeset .highlight .s1,
+.md-typeset .highlight .s2,
+.md-typeset .highlight .sb,
+.md-typeset .highlight .sc,
+.md-typeset .highlight .si,
+.md-typeset .highlight .sx {
+  color: #4ade80 !important; /* String */
+}
+
+.md-typeset .highlight .m,
+.md-typeset .highlight .mb,
+.md-typeset .highlight .mf,
+.md-typeset .highlight .mh,
+.md-typeset .highlight .mi,
+.md-typeset .highlight .mo {
+  color: #fb923c !important; /* Number */
+}
+
+.md-typeset .highlight .o,
+.md-typeset .highlight .ow {
+  color: #38bdf8 !important; /* Operator */
+}
+
+.md-typeset .highlight .p {
+  color: #cbd5e1 !important; /* Punctuation */
+}
+
+.md-typeset .highlight .na,
+.md-typeset .highlight .nv,
+.md-typeset .highlight .vc,
+.md-typeset .highlight .vg,
+.md-typeset .highlight .vi {
+  color: #f1f5f9 !important; /* Variables */
 }
 
 /* High Contrast Links - Target standard prose links only */
