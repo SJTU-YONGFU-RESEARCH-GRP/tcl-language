@@ -1,0 +1,3 @@
+# 原创教学路径；单位 ns
+PATH a DELAY 8.0
+PATH b DELAY 10.5

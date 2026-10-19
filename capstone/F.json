@@ -1,0 +1,90 @@
+{
+  "id": "F",
+  "title": "可配置的报告生成流程",
+  "summary": "入口读取受信任配置与工具脚本，验证数据，写出摘要和错误记录；配置改变时无需改入口程序。",
+  "requirements": [
+    "入口从 argv 的第一个参数取得配置文件名，配置必须设置 reportConfig 字典。",
+    "配置包含 tools、input、output、errors、minimum；通过 source 加载受信任的配置与工具脚本。",
+    "工具读取 UTF-8 输入，每行格式 name,value；空行和 # 注释跳过，minimum 为有限十进制数。",
+    "合法记录统计总数；value >= minimum 的记录进入摘要；非法行记录原始行号和错误原因。",
+    "分别写出摘要文件和错误文件，使用 try/finally 关闭已打开的文件。",
+    "缺失文件、缺失配置字段和非法阈值必须报错；主入口通过 catch 给出错误信息。",
+    "浏览器文件属于每次运行创建的虚拟目录；本地执行会在当前工作目录创建实际文件。不要 source 来历不明的 Tcl 配置。"
+  ],
+  "input": "虚拟文件包含 config.tcl、tools.tcl、readings.csv。模拟 argv 为 {config.tcl}。本地把这些文件放在同一目录，运行 tclsh solution.tcl config.tcl；CSV 仅采用本项目的两个简单字段，不支持带逗号的名称或通用带引号 CSV。",
+  "files": {
+    "config.tcl": "set reportConfig [dict create tools tools.tcl input readings.csv output summary.txt errors errors.txt minimum 10]\n",
+    "tools.tcl": "namespace eval reportTools {\n    proc decimalNumber {value} {\n        if {![regexp {^[+-]?(?:[0-9]+(?:\\.[0-9]*)?|\\.[0-9]+)(?:[eE][+-]?[0-9]+)?$} $value]} {error \"数值不是有限十进制数\"}\n        set number [scan $value %f]\n        if {![expr {abs($number) < Inf}]} {error \"数值不是有限十进制数\"}\n        return $number\n    }\n    proc readText {path} {\n        set channel [open $path r]\n        fconfigure $channel -encoding utf-8\n        try {return [read $channel]} finally {close $channel}\n    }\n    proc writeText {path text} {\n        set channel [open $path w]\n        fconfigure $channel -encoding utf-8\n        try {puts $channel $text} finally {close $channel}\n    }\n    proc summarize {text minimum} {\n        set minimum [decimalNumber $minimum]\n        set valid 0; set selected {}; set errors {}; set line 0\n        foreach raw [split $text \"\\n\"] {\n            incr line; set raw [string trim $raw]\n            if {$raw eq \"\" || [string match {#*} $raw]} {continue}\n            set fields [split $raw ,]\n            if {[llength $fields] != 2} {lappend errors \"line $line: expected name,value\"; continue}\n            lassign $fields name value\n            set name [string trim $name]; set value [string trim $value]\n            if {$name eq \"\"} {lappend errors \"line $line: empty name\"; continue}\n            if {[catch {decimalNumber $value} number]} {lappend errors \"line $line: invalid number\"; continue}\n            incr valid\n            if {$number >= $minimum} {lappend selected [list $name $number]}\n        }\n        return [dict create valid $valid selected $selected errors $errors minimum $minimum]\n    }\n}\n",
+    "readings.csv": "# original teaching samples\nprobe-a,9.5\nprobe-b,12.0\nprobe-c,oops\nprobe-d,10.0\n"
+  },
+  "argv": [
+    "config.tcl"
+  ],
+  "starter": "proc runReport {configPath} {\n    # source 配置；检查字典及字段；source 工具；读数据；生成两个文件。\n    error \"请实现 runReport\"\n}\nif {$argc != 1} {\n    puts \"error: usage: tclsh solution.tcl config.tcl\"\n} elseif {[catch {runReport [lindex $argv 0]} result]} {\n    puts \"error: $result\"\n} else {\n    puts \"valid=[dict get $result valid]\"\n}",
+  "solution": "proc runReport {configPath} {\n    source -encoding utf-8 $configPath\n    if {![info exists reportConfig]} {error \"配置没有设置 reportConfig\"}\n    if {[catch {dict size $reportConfig}]} {error \"reportConfig 必须是字典\"}\n    foreach key {tools input output errors minimum} {\n        if {![dict exists $reportConfig $key]} {error \"配置缺少字段: $key\"}\n    }\n    source -encoding utf-8 [dict get $reportConfig tools]\n    set minimum [reportTools::decimalNumber [dict get $reportConfig minimum]]\n    set text [reportTools::readText [dict get $reportConfig input]]\n    set result [reportTools::summarize $text $minimum]\n    set selected [dict get $result selected]\n    set summary [list \"Teaching measurement summary\" \"Valid: [dict get $result valid]\" \"Selected: [llength $selected]\" [format \"Minimum: %.2f\" $minimum]]\n    foreach row $selected {\n        lassign $row name value; lappend summary [format \"%s: %.2f\" $name $value]\n    }\n    set errors [dict get $result errors]\n    if {![llength $errors]} {set errors [list \"(none)\"]}\n    reportTools::writeText [dict get $reportConfig output] [join $summary \"\\n\"]\n    reportTools::writeText [dict get $reportConfig errors] [join $errors \"\\n\"]\n    dict set result output [dict get $reportConfig output]\n    dict set result errorFile [dict get $reportConfig errors]\n    return $result\n}\nif {$argc != 1} {\n    puts \"error: usage: tclsh solution.tcl config.tcl\"\n} elseif {[catch {runReport [lindex $argv 0]} result]} {\n    puts \"error: $result\"\n} else {\n    puts \"valid=[dict get $result valid]; selected=[llength [dict get $result selected]]; errors=[llength [dict get $result errors]]\"\n    puts \"--- [dict get $result output] ---\"\n    puts [string trimright [reportTools::readText [dict get $result output]] \"\\n\"]\n    puts \"--- [dict get $result errorFile] ---\"\n    puts [string trimright [reportTools::readText [dict get $result errorFile]] \"\\n\"]\n}",
+  "expected": "valid=3; selected=2; errors=1\n--- summary.txt ---\nTeaching measurement summary\nValid: 3\nSelected: 2\nMinimum: 10.00\nprobe-b: 12.00\nprobe-d: 10.00\n--- errors.txt ---\nline 4: invalid number",
+  "hints": [
+    "source 在当前作用域执行脚本，所以配置可用 set reportConfig ... 为 runReport 的局部变量赋值；检查字典与五个必需字段。",
+    "加载 tools.tcl 后调用 reportTools::readText 和 reportTools::summarize。将 minimum 从配置传入，不要写死为 10。",
+    "使用返回字典生成 summary 与 errors 文本，用 writeText 写出两个文件。测试新阈值、空输入、坏行、缺失文件，关闭文件要放在 finally。"
+  ],
+  "cases": [
+    {
+      "title": "改变配置阈值而不修改入口",
+      "code": "set changed [runReport alternate.tcl]\nputs \"valid=[dict get $changed valid]; selected=[llength [dict get $changed selected]]; errors=[llength [dict get $changed errors]]\"\nputs [string trimright [reportTools::readText alternate-summary.txt] \"\\n\"]",
+      "expected": "valid=3; selected=1; errors=0\nTeaching measurement summary\nValid: 3\nSelected: 1\nMinimum: 15.00\nC: 21.00",
+      "files": {
+        "alternate.tcl": "set reportConfig [dict create tools tools.tcl input alternate.csv output alternate-summary.txt errors alternate-errors.txt minimum 15]\n",
+        "alternate.csv": "A,4\nB,14\nC,21\n"
+      }
+    },
+    {
+      "title": "空文件仍生成两个文件",
+      "code": "set empty [runReport empty.tcl]\nputs [string trimright [reportTools::readText empty-summary.txt] \"\\n\"]\nputs \"Errors: [string trim [reportTools::readText empty-errors.txt]]\"",
+      "expected": "Teaching measurement summary\nValid: 0\nSelected: 0\nMinimum: 0.00\nErrors: (none)",
+      "files": {
+        "empty.tcl": "set reportConfig [dict create tools tools.tcl input empty.csv output empty-summary.txt errors empty-errors.txt minimum 0]\n",
+        "empty.csv": ""
+      }
+    },
+    {
+      "title": "多种坏行与保留原始行号",
+      "code": "set bad [runReport bad.tcl]\nputs \"valid=[dict get $bad valid]; selected=[llength [dict get $bad selected]]\"\nputs [string trimright [reportTools::readText bad-errors.txt] \"\\n\"]",
+      "expected": "valid=1; selected=1\nline 2: expected name,value\nline 3: empty name\nline 4: invalid number",
+      "files": {
+        "bad.tcl": "set reportConfig [dict create tools tools.tcl input bad.csv output bad-summary.txt errors bad-errors.txt minimum 1]\n",
+        "bad.csv": "# input\nonly-one-field\n,12\nprobe,Inf\ngood,1\n"
+      }
+    },
+    {
+      "title": "缺配置字段和缺输入文件",
+      "code": "catch {runReport incomplete.tcl} message; puts $message\nputs \"缺失输入报错: [catch {runReport missing.tcl}]\"",
+      "expected": "配置缺少字段: minimum\n缺失输入报错: 1",
+      "files": {
+        "incomplete.tcl": "set reportConfig [dict create tools tools.tcl input readings.csv output x.txt errors y.txt]\n",
+        "missing.tcl": "set reportConfig [dict create tools tools.tcl input absent.csv output x.txt errors y.txt minimum 1]\n"
+      }
+    }
+  ],
+  "checks": [
+    {
+      "label": "摘要和错误文件真实存在",
+      "script": "expr {[file exists summary.txt] && [file exists errors.txt]}"
+    },
+    {
+      "label": "新阈值改变筛选结果",
+      "script": "expr {[llength [dict get [reportTools::summarize \"x,4\\ny,9\\nz,12\" 8] selected]] == 2}"
+    },
+    {
+      "label": "非法配置阈值被拒绝",
+      "script": "expr {[catch {reportTools::summarize \"x,4\" nope}] == 1}"
+    }
+  ],
+  "extensions": [
+    "增加命令行覆盖 minimum 的选项，并验证 argc 与 argv。",
+    "使用 file join 将配置相对路径定位到配置所在目录，使入口可从其他目录执行。",
+    "为输出使用临时文件后再 rename；注明跨文件的写入仍需设计失败恢复。"
+  ],
+  "view": "pipeline",
+  "diagram": "assets/diagrams/project-F.svg"
+}

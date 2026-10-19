@@ -1,0 +1,207 @@
+单元 2：使用循环处理列表
+
+时长：60 秒。无声原创代码演示，中文字幕已嵌入画面。
+画面为脚本生成的代码工作台，不是浏览器点击操作录像。
+所有代码均由真实本地 Tcl 解释器执行；标准输出与错误直接取自执行结果。
+每个镜头都在新临时目录和新解释器中执行；教学文件随镜头预置。
+源码只有显示折行，执行内容没有改变。文件操作不会访问私人数据。
+
+[00:00:00.000–00:00:05.000] 一组测量，不逐条复制代码
+这组读数里，负数表示采集失败；有效读数需要累计。
+说明：原始数据：18、21、-1、19、23
+代码：
+set count 0
+set total 0
+foreach value {18 21 -1 19 23} {
+    if {$value < 0} {continue}
+    incr count
+    set total [expr {$total + $value}]
+}
+puts "有效次数：$count"
+puts "总和：$total"
+真实 Tcl 9.0.4 标准输出：
+有效次数：4
+总和：81
+
+[00:00:05.000–00:00:10.000] 循环前初始化
+count 与 total 从 0 开始；foreach 每轮取出一个元素。
+代码：
+set count 0
+set total 0
+foreach value {18 21 -1 19 23} {
+    if {$value < 0} {continue}
+    incr count
+    set total [expr {$total + $value}]
+}
+puts "有效次数：$count"
+puts "总和：$total"
+真实 Tcl 9.0.4 标准输出：
+有效次数：4
+总和：81
+
+[00:00:10.000–00:00:15.000] 跳过失败读数
+continue 跳过当前负值，后面的有效测量仍会继续处理。
+代码：
+set count 0
+set total 0
+foreach value {18 21 -1 19 23} {
+    if {$value < 0} {continue}
+    incr count
+    set total [expr {$total + $value}]
+}
+puts "有效次数：$count"
+puts "总和：$total"
+真实 Tcl 9.0.4 标准输出：
+有效次数：4
+总和：81
+
+[00:00:15.000–00:00:20.000] 零值也是一条测量
+把 -1 改为 0：总和相同，但有效次数增加。
+代码：
+set count 0
+set total 0
+foreach value {18 21 0 19 23} {
+    if {$value < 0} {continue}
+    incr count
+    set total [expr {$total + $value}]
+}
+puts "有效次数：$count"
+puts "总和：$total"
+真实 Tcl 9.0.4 标准输出：
+有效次数：5
+总和：81
+
+[00:00:20.000–00:00:25.000] 空输入不执行循环体
+把数据换成空列表：初始化的两个 0 就是结果。
+代码：
+set count 0
+set total 0
+foreach value {} {
+    if {$value < 0} {continue}
+    incr count
+    set total [expr {$total + $value}]
+}
+puts "有效次数：$count"
+puts "总和：$total"
+真实 Tcl 9.0.4 标准输出：
+有效次数：0
+总和：0
+
+[00:00:25.000–00:00:30.000] 有固定次数时使用 for
+for 包含初始化、条件、更新、循环体四个参数。
+代码：
+for {set i 1} {$i <= 3} {incr i} {
+    puts "测量 $i"
+}
+真实 Tcl 9.0.4 标准输出：
+测量 1
+测量 2
+测量 3
+
+[00:00:30.000–00:00:35.000] 检查计数的边界
+把上界由 3 改成 2，输出也减少为两次。
+代码：
+for {set i 1} {$i <= 2} {incr i} {
+    puts "测量 $i"
+}
+真实 Tcl 9.0.4 标准输出：
+测量 1
+测量 2
+
+[00:00:35.000–00:00:40.000] while 每轮先检查条件
+待处理数量在循环体中递减，保证最终能够结束。
+代码：
+set pending 3
+while {$pending > 0} {
+    puts "剩余：$pending"
+    incr pending -1
+}
+foreach value {12 15 31 18} {
+    if {$value > 30} {
+        puts "首个异常：$value"
+        break
+    }
+}
+真实 Tcl 9.0.4 标准输出：
+剩余：3
+剩余：2
+剩余：1
+首个异常：31
+
+[00:00:40.000–00:00:45.000] 找到首个异常就停止
+break 结束整个循环，只保留第一条超过阈值的读数。
+代码：
+set pending 3
+while {$pending > 0} {
+    puts "剩余：$pending"
+    incr pending -1
+}
+foreach value {12 15 31 35} {
+    if {$value > 30} {
+        puts "首个异常：$value"
+        break
+    }
+}
+真实 Tcl 9.0.4 标准输出：
+剩余：3
+剩余：2
+剩余：1
+首个异常：31
+
+[00:00:45.000–00:00:50.000] continue 与 break 不相同
+改为 continue 后，第二条异常也会被看到。
+代码：
+set pending 3
+while {$pending > 0} {
+    puts "剩余：$pending"
+    incr pending -1
+}
+foreach value {12 15 31 35} {
+    if {$value > 30} {
+        puts "首个异常：$value"
+        continue
+    }
+}
+真实 Tcl 9.0.4 标准输出：
+剩余：3
+剩余：2
+剩余：1
+首个异常：31
+首个异常：35
+
+[00:00:50.000–00:00:55.000] 回到任务所需的规则
+需要首个异常时恢复 break；需要所有异常时继续遍历。
+代码：
+set pending 3
+while {$pending > 0} {
+    puts "剩余：$pending"
+    incr pending -1
+}
+foreach value {12 15 31 35} {
+    if {$value > 30} {
+        puts "首个异常：$value"
+        break
+    }
+}
+真实 Tcl 9.0.4 标准输出：
+剩余：3
+剩余：2
+剩余：1
+首个异常：31
+
+[00:00:55.000–00:01:00.000] 用新数据验证
+自己换一组含负数、零值的读数，再试空列表和阈值边界。
+说明：不要只验证一组正常数据。
+代码：
+set count 0
+set total 0
+foreach value {18 21 -1 19 23} {
+    if {$value < 0} {continue}
+    incr count
+    set total [expr {$total + $value}]
+}
+puts "有效次数：$count"
+puts "总和：$total"
+真实 Tcl 9.0.4 标准输出：
+有效次数：4
+总和：81

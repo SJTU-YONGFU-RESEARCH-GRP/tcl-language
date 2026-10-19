@@ -1,0 +1,55 @@
+{
+  "id": "B",
+  "title": "家庭开支摘要",
+  "summary": "用整数“分”记录金额，按类别汇总并单独报告非法记录，避免小数计算掩盖数据问题。",
+  "requirements": [
+    "每条输入是包含 category 和 cents 字段的字典；cents 为非负整数分。",
+    "category 去除首尾空白后不得为空，记录不得缺字段或不是合法字典。",
+    "错误记录保留原序号和原因，跳过其金额；合法记录按类别累加。",
+    "输出合法记录数、类别金额、总额、拒绝记录数和原因；类别按字典顺序排序。",
+    "实现 expenseSummary 返回结构化结果，printExpenses 仅生成报告；空输入仍产生有意义的零摘要。"
+  ],
+  "input": "五条原创教学记录：餐食 1850 分与 650 分，交通 320 分；一条负金额、一条非数字金额。使用整数分表达金额，格式化时才转换为元。",
+  "starter": "proc expenseSummary {records} {\n    # 返回 dict: count total totals rejected。\n    # rejected 是 {序号 原因} 元素的列表。\n    error \"请实现逐条检查和类别累加\"\n}\nproc printExpenses {records} {\n    set result [expenseSummary $records]\n    puts \"合法记录: [dict get $result count]\"\n    dict for {category cents} [dict get $result totals] {puts \"$category: $cents 分\"}\n}\nset records [list [dict create category 餐食 cents 1850] [dict create category 交通 cents 320] [dict create category 餐食 cents 650] [dict create category 日用 cents -100] [dict create category 交通 cents abc]]\nprintExpenses $records",
+  "solution": "proc expenseSummary {records} {\n    set totals {}; set rejected {}; set count 0; set total 0; set index 0\n    foreach row $records {\n        incr index\n        set reason \"\"\n        if {[catch {dict size $row}]} {\n            set reason \"不是合法字典\"\n        } elseif {![dict exists $row category] || ![dict exists $row cents]} {\n            set reason \"缺少 category 或 cents\"\n        } else {\n            set category [string trim [dict get $row category]]\n            set cents [dict get $row cents]\n            if {$category eq \"\"} {\n                set reason \"类别为空\"\n            } elseif {![string is entier -strict $cents] || $cents < 0} {\n                set reason \"金额必须是非负整数分\"\n            }\n        }\n        if {$reason ne \"\"} {lappend rejected [list $index $reason]; continue}\n        dict incr totals $category $cents\n        incr total $cents\n        incr count\n    }\n    return [dict create count $count total $total totals $totals rejected $rejected]\n}\nproc printExpenses {records} {\n    set result [expenseSummary $records]\n    puts \"合法记录: [dict get $result count]\"\n    set totals [dict get $result totals]\n    foreach category [lsort -dictionary [dict keys $totals]] {\n        puts [format \"%s: %.2f 元\" $category [expr {[dict get $totals $category] / 100.0}]]\n    }\n    puts [format \"总额: %.2f 元\" [expr {[dict get $result total] / 100.0}]]\n    puts \"拒绝记录: [llength [dict get $result rejected]]\"\n    foreach item [dict get $result rejected] {\n        lassign $item index reason\n        puts \"记录 $index: $reason\"\n    }\n}\nset records [list [dict create category 餐食 cents 1850] [dict create category 交通 cents 320] [dict create category 餐食 cents 650] [dict create category 日用 cents -100] [dict create category 交通 cents abc]]\nprintExpenses $records",
+  "expected": "合法记录: 3\n交通: 3.20 元\n餐食: 25.00 元\n总额: 28.20 元\n拒绝记录: 2\n记录 4: 金额必须是非负整数分\n记录 5: 金额必须是非负整数分",
+  "hints": [
+    "为 totals、rejected、count、total 建立初始值。检查字典格式和必需字段，再读取金额，才能避免意外中断。",
+    "用 string is entier -strict 检查整数，再用 < 0 检查负数；用 dict incr totals $category $cents 累加。",
+    "将非法记录保存为 [list $index $reason] 并 continue。返回字典，在输出层才将分除以 100.0 并 format %.2f。"
+  ],
+  "cases": [
+    {
+      "title": "换类别且允许零元",
+      "code": "printExpenses [list [dict create category Book cents 1234] [dict create category \" Book \" cents 66] [dict create category Bus cents 0]]",
+      "expected": "合法记录: 3\nBook: 13.00 元\nBus: 0.00 元\n总额: 13.00 元\n拒绝记录: 0"
+    },
+    {
+      "title": "空记录集",
+      "code": "printExpenses {}",
+      "expected": "合法记录: 0\n总额: 0.00 元\n拒绝记录: 0"
+    },
+    {
+      "title": "格式、缺字段、空类别与小数分",
+      "code": "printExpenses [list {category} [dict create category Book] [dict create category \" \" cents 10] [dict create category Book cents 1.5]]",
+      "expected": "合法记录: 0\n总额: 0.00 元\n拒绝记录: 4\n记录 1: 不是合法字典\n记录 2: 缺少 category 或 cents\n记录 3: 类别为空\n记录 4: 金额必须是非负整数分"
+    }
+  ],
+  "checks": [
+    {
+      "label": "未见过的金额正确汇总",
+      "script": "expr {[dict get [expenseSummary [list [dict create category X cents 17] [dict create category X cents 26]]] total] == 43}"
+    },
+    {
+      "label": "非法记录没有进入总额",
+      "script": "expr {[dict get [expenseSummary [list [dict create category X cents -1]]] count] == 0}"
+    }
+  ],
+  "extensions": [
+    "加日期字段，按月份和类别两级分组。",
+    "将拒绝记录写入独立错误文件，保留原始数据。",
+    "给退款设计单独的类型字段，避免悄悄把所有负数当作普通开支。"
+  ],
+  "view": "record",
+  "diagram": "assets/diagrams/project-B.svg"
+}

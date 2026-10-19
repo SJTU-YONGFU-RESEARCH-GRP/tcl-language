@@ -1,0 +1,167 @@
+单元 5：使用过程组织代码
+
+时长：60 秒。无声原创代码演示，中文字幕已嵌入画面。
+画面为脚本生成的代码工作台，不是浏览器点击操作录像。
+所有代码均由真实本地 Tcl 解释器执行；标准输出与错误直接取自执行结果。
+每个镜头都在新临时目录和新解释器中执行；教学文件随镜头预置。
+源码只有显示折行，执行内容没有改变。文件操作不会访问私人数据。
+
+[00:00:00.000–00:00:05.000] 让计算接受不同输入
+过程把费用计算封装成一个可重复调用的工具。
+代码：
+proc fee {quantity price} {
+    return [expr {$quantity * $price}]
+}
+puts [fee 3 12]
+puts [fee 2 8]
+真实 Tcl 9.0.4 标准输出：
+36
+16
+
+[00:00:05.000–00:00:10.000] 参数进入过程
+quantity 和 price 是本次调用的输入；return 返回乘积。
+代码：
+proc fee {quantity price} {
+    return [expr {$quantity * $price}]
+}
+puts [fee 3 12]
+puts [fee 2 8]
+真实 Tcl 9.0.4 标准输出：
+36
+16
+
+[00:00:10.000–00:00:15.000] 同一份逻辑，两张订单
+调用 fee 3 12 和 fee 2 8；结果来自各自的参数。
+代码：
+proc fee {quantity price} {
+    return [expr {$quantity * $price}]
+}
+puts [fee 3 12]
+puts [fee 2 8]
+真实 Tcl 9.0.4 标准输出：
+36
+16
+
+[00:00:15.000–00:00:20.000] 验证零件数边界
+把第一张订单数量改为 0，返回费用 0。
+代码：
+proc fee {quantity price} {
+    return [expr {$quantity * $price}]
+}
+puts [fee 0 12]
+puts [fee 2 8]
+真实 Tcl 9.0.4 标准输出：
+0
+16
+
+[00:00:20.000–00:00:25.000] 再换一张订单
+数量 5、价格 7 也复用同一个过程，避免写死样例结果。
+代码：
+proc fee {quantity price} {
+    return [expr {$quantity * $price}]
+}
+puts [fee 3 12]
+puts [fee 5 7]
+真实 Tcl 9.0.4 标准输出：
+36
+35
+
+[00:00:25.000–00:00:30.000] 为可选参数设置默认值
+delivery 默认是 0；调用者也可以明确传入运费。
+代码：
+proc deliveredFee {quantity price {delivery 0}} {
+    return [expr {$quantity * $price + $delivery}]
+}
+puts [format "自提：%.2f 元" [deliveredFee 2 9.5]]
+puts [format "配送：%.2f 元" [deliveredFee 2 9.5 4]]
+真实 Tcl 9.0.4 标准输出：
+自提：19.00 元
+配送：23.00 元
+
+[00:00:30.000–00:00:35.000] 返回值交给格式化命令
+过程负责计算，format 负责把金额显示为两位小数。
+代码：
+proc deliveredFee {quantity price {delivery 0}} {
+    return [expr {$quantity * $price + $delivery}]
+}
+puts [format "自提：%.2f 元" [deliveredFee 2 9.5]]
+puts [format "配送：%.2f 元" [deliveredFee 2 9.5 4]]
+真实 Tcl 9.0.4 标准输出：
+自提：19.00 元
+配送：23.00 元
+
+[00:00:35.000–00:00:40.000] 局部变量与外部变量
+过程里的 subtotal 是局部变量，不覆盖外部同名变量。
+代码：
+set subtotal 999
+proc discountFee {price} {
+    set subtotal [expr {$price * 0.9}]
+    return $subtotal
+}
+set result [discountFee 20]
+puts [format "返回值：%.2f" $result]
+puts "外部 subtotal：$subtotal"
+真实 Tcl 9.0.4 标准输出：
+返回值：18.00
+外部 subtotal：999
+
+[00:00:40.000–00:00:45.000] 明确传入，明确返回
+用参数和 return 传递数据，减少对隐藏全局状态的依赖。
+代码：
+set subtotal 999
+proc discountFee {price} {
+    set subtotal [expr {$price * 0.9}]
+    return $subtotal
+}
+set result [discountFee 20]
+puts [format "返回值：%.2f" $result]
+puts "外部 subtotal：$subtotal"
+真实 Tcl 9.0.4 标准输出：
+返回值：18.00
+外部 subtotal：999
+
+[00:00:45.000–00:00:50.000] 同名工具放入命名空间
+travel::fee 与 food::fee 组织不同工具，名字不会冲突。
+代码：
+namespace eval travel {
+    proc fee {people} { return [expr {$people * 12}] }
+}
+namespace eval food {
+    proc fee {people} { return [expr {$people * 18}] }
+}
+puts "交通：[::travel::fee 3]"
+puts "餐食：[::food::fee 3]"
+真实 Tcl 9.0.4 标准输出：
+交通：36
+餐食：54
+
+[00:00:50.000–00:00:55.000] 命名空间工具也接受新输入
+把人数从 3 改成 4，两种费用都重新计算。
+代码：
+namespace eval travel {
+    proc fee {people} { return [expr {$people * 12}] }
+}
+namespace eval food {
+    proc fee {people} { return [expr {$people * 18}] }
+}
+puts "交通：[::travel::fee 4]"
+puts "餐食：[::food::fee 4]"
+真实 Tcl 9.0.4 标准输出：
+交通：48
+餐食：72
+
+[00:00:55.000–00:01:00.000] 先用过程，再按需要组织
+小任务用过程已经足够；项目变大时再引入命名空间和脚本文件。
+说明：下一步：source 工具脚本，并传入命令行参数。
+代码：
+namespace eval travel {
+    proc fee {people} { return [expr {$people * 12}] }
+}
+namespace eval food {
+    proc fee {people} { return [expr {$people * 18}] }
+}
+puts "交通：[::travel::fee 3]"
+puts "餐食：[::food::fee 3]"
+真实 Tcl 9.0.4 标准输出：
+交通：36
+餐食：54

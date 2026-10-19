@@ -1,0 +1,19 @@
+WEBVTT
+
+00:00.000 --> 00:10.000
+list preserves item boundaries. The words red apple form one item.
+
+00:10.000 --> 00:20.000
+Indices start at 0, so the second item has index 1.
+
+00:20.000 --> 00:30.000
+foreach puts each list element into item, then executes the script.
+
+00:30.000 --> 00:40.000
+>= includes equality: exactly 10 coins can enter.
+
+00:40.000 --> 00:50.000
+Start total at 0 and add the current number on every turn.
+
+00:50.000 --> 01:00.000
+Collect only names that meet the threshold. What changes if it becomes >=8?

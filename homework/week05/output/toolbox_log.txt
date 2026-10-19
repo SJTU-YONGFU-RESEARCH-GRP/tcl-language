@@ -1,0 +1,7 @@
+Week 5 toolbox results
+Scores below are example data, not real grades.
+Hello, GateUltra!
+add(84, 6) = 90
+Example score 90: Pass
+Example score 60: Pass
+Example score 59: Fail

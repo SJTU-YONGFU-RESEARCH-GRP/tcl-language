@@ -1,0 +1,60 @@
+{
+  "id": "D",
+  "title": "日志诊断助手",
+  "summary": "识别有时间与级别的日志行，统计错误和警告，并在每个问题前后保留指定行数的上下文。",
+  "requirements": [
+    "教学日志格式为 HH:MM:SS LEVEL message，LEVEL 为 INFO、WARN 或 ERROR；校验时间范围。",
+    "保留从 1 开始的原始行号；忽略末尾换行，但不删除中间空行。",
+    "每个 WARN/ERROR 是一个问题，带前后 radius 行原始文本；重叠的上下文可重复出现。",
+    "格式错误的行单独列出行号，不能悄悄当 INFO；仍可作为问题的上下文。",
+    "空日志输出零计数；radius 必须是 0..20 的整数。"
+  ],
+  "input": "六行教学日志：准备、读取文件、警告、重试、错误、结束。默认保留前后各一行。",
+  "starter": "proc diagnoseLog {text {radius 1}} {\n    # 返回 dict: counts incidents invalid。\n    error \"请实现日志解析与上下文收集\"\n}\nproc showDiagnosis {text {radius 1}} {puts [diagnoseLog $text $radius]}\nset log \"09:00:00 INFO start\\n09:00:01 INFO read input\\n09:00:02 WARN slow read\\n09:00:03 INFO retry\\n09:00:04 ERROR missing result\\n09:00:05 INFO stop\"\nshowDiagnosis $log",
+  "solution": "proc diagnoseLog {text {radius 1}} {\n    if {![string is integer -strict $radius] || $radius < 0 || $radius > 20} {error \"上下文行数必须是 0..20 的整数\"}\n    set counts [dict create INFO 0 WARN 0 ERROR 0]\n    set incidents {}; set invalid {}\n    set text [string trimright $text \"\\n\"]\n    if {$text eq \"\"} {return [dict create counts $counts incidents $incidents invalid $invalid]}\n    set lines [split $text \"\\n\"]\n    for {set i 0} {$i < [llength $lines]} {incr i} {\n        set raw [string trimright [lindex $lines $i] \"\\r\"]\n        if {![regexp {^([0-9]{2}):([0-9]{2}):([0-9]{2}) (INFO|WARN|ERROR) (.+)$} $raw whole h m s level message] ||\n            [scan $h %d] > 23 || [scan $m %d] > 59 || [scan $s %d] > 59} {\n            lappend invalid [expr {$i + 1}]; continue\n        }\n        dict incr counts $level\n        if {$level eq \"INFO\"} {continue}\n        set context {}\n        set begin [expr {max(0, $i - $radius)}]\n        set end [expr {min([llength $lines] - 1, $i + $radius)}]\n        for {set j $begin} {$j <= $end} {incr j} {\n            lappend context [list [expr {$j + 1}] [string trimright [lindex $lines $j] \"\\r\"]]\n        }\n        lappend incidents [dict create line [expr {$i + 1}] level $level message $message context $context]\n    }\n    return [dict create counts $counts incidents $incidents invalid $invalid]\n}\nproc showDiagnosis {text {radius 1}} {\n    set result [diagnoseLog $text $radius]\n    puts \"日志诊断 (教学样本)\"\n    puts \"ERROR: [dict get $result counts ERROR]; WARN: [dict get $result counts WARN]\"\n    puts \"格式错误行: [llength [dict get $result invalid]]\"\n    if {[llength [dict get $result invalid]]} {puts \"行号: [join [dict get $result invalid] {, }]\"}\n    foreach item [dict get $result incidents] {\n        puts \"[dict get $item level] L[dict get $item line]: [dict get $item message]\"\n        foreach row [dict get $item context] {\n            lassign $row line raw\n            set marker \" \"\n            if {$line == [dict get $item line]} {set marker \"*\"}\n            puts [format \"%s %d | %s\" $marker $line $raw]\n        }\n    }\n}\nset log \"09:00:00 INFO start\\n09:00:01 INFO read input\\n09:00:02 WARN slow read\\n09:00:03 INFO retry\\n09:00:04 ERROR missing result\\n09:00:05 INFO stop\"\nshowDiagnosis $log",
+  "expected": "日志诊断 (教学样本)\nERROR: 1; WARN: 1\n格式错误行: 0\nWARN L3: slow read\n  2 | 09:00:01 INFO read input\n* 3 | 09:00:02 WARN slow read\n  4 | 09:00:03 INFO retry\nERROR L5: missing result\n  4 | 09:00:03 INFO retry\n* 5 | 09:00:04 ERROR missing result\n  6 | 09:00:05 INFO stop",
+  "hints": [
+    "split 按换行获得原始行列表，用 for 的索引生成行号；不要在开始时过滤 INFO，否则上下文和行号会改变。",
+    "先用一条短 regexp 捕获时、分、秒、级别、消息。用 scan %d 把 08 这样的时间转换为十进制。",
+    "对每个问题计算 max(0,i-radius) 到 min(末索引,i+radius)，把每行的原始文本及行号保存到 context。"
+  ],
+  "cases": [
+    {
+      "title": "相邻问题与零上下文",
+      "code": "showDiagnosis \"10:01:00 ERROR first\\n10:01:01 WARN second\\n10:01:02 ERROR third\\n\" 0",
+      "expected": "日志诊断 (教学样本)\nERROR: 2; WARN: 1\n格式错误行: 0\nERROR L1: first\n* 1 | 10:01:00 ERROR first\nWARN L2: second\n* 2 | 10:01:01 WARN second\nERROR L3: third\n* 3 | 10:01:02 ERROR third"
+    },
+    {
+      "title": "空日志",
+      "code": "showDiagnosis \"\"",
+      "expected": "日志诊断 (教学样本)\nERROR: 0; WARN: 0\n格式错误行: 0"
+    },
+    {
+      "title": "非法行、非法时间和边界上下文",
+      "code": "showDiagnosis \"bad line\\n08:09:02 WARN retry\\n25:00:00 ERROR impossible\" 1",
+      "expected": "日志诊断 (教学样本)\nERROR: 0; WARN: 1\n格式错误行: 2\n行号: 1, 3\nWARN L2: retry\n  1 | bad line\n* 2 | 08:09:02 WARN retry\n  3 | 25:00:00 ERROR impossible"
+    },
+    {
+      "title": "参数错误不隐瞒",
+      "code": "catch {diagnoseLog \"\" -1} message; puts $message",
+      "expected": "上下文行数必须是 0..20 的整数"
+    }
+  ],
+  "checks": [
+    {
+      "label": "级别计数来自新日志",
+      "script": "expr {[dict get [diagnoseLog \"12:00:00 WARN a\\n12:00:01 WARN b\\n12:00:02 INFO c\"] counts WARN] == 2}"
+    },
+    {
+      "label": "上下文在边界正确裁剪",
+      "script": "expr {[llength [dict get [lindex [dict get [diagnoseLog \"12:00:00 ERROR a\\n12:00:01 INFO b\" 20] incidents] 0] context]] == 2}"
+    }
+  ],
+  "extensions": [
+    "支持按时间区间筛选，但保留原始行号。",
+    "把重叠上下文合并成窗口，并分别标注窗口中的问题行。",
+    "支持多种明确版本的日志格式，为每种格式写独立解析过程。"
+  ],
+  "view": "text",
+  "diagram": "assets/diagrams/project-D.svg"
+}

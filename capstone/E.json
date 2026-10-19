@@ -1,0 +1,64 @@
+{
+  "id": "E",
+  "title": "设计路径报告筛选器",
+  "summary": "解析原创教学路径报告，筛出负 slack 并将最严重的路径排在前面；所有数据和公式都是简化教学模型。",
+  "requirements": [
+    "每行格式 path=名称 delay=数值 slack=数值，数值单位 ns；空行及 # 开头的说明行跳过。",
+    "路径名只含字母、数字、下划线、点、冒号、斜线和连字符；delay 非负且有限，slack 有限。",
+    "保存非法行的行号和原因，不把它们当作合法路径。",
+    "默认只筛 slack < 0；按 slack 升序排序，越负越严重；相同 slack 按路径名排序。",
+    "输出教学声明、合法路径数、负 slack 数和结果表；空报告明确显示没有结果。",
+    "本项目不调用商业 EDA 命令，也不能代替真实 STA 的 setup/hold、时钟偏移、角落和不确定性分析。"
+  ],
+  "input": "输入文件 paths.txt 中有 4 条教学路径：P_data 与 P_ctrl 负 slack，P_ok 正 slack，P_edge 为零。报告直接给出 delay/slack，不重新推断真实时序。",
+  "files": {
+    "paths.txt": "# Teaching path report; units: ns\npath=P_data delay=9.25 slack=-1.25\npath=P_ok delay=7.00 slack=1.00\npath=P_ctrl delay=8.20 slack=-0.20\npath=P_edge delay=8.00 slack=0.00\n"
+  },
+  "starter": "proc parsePaths {text} {\n    # 返回 dict: paths、rejected。\n    error \"请实现教学报告解析\"\n}\nproc selectPaths {paths {threshold 0}} {\n    error \"请实现筛选和严重程度排序\"\n}\nproc showPathReport {text} {puts [parsePaths $text]}\nset channel [open paths.txt r]\nset text [read $channel]; close $channel\nshowPathReport $text",
+  "solution": "proc pathNumber {value} {\n    if {![regexp {^[+-]?(?:[0-9]+(?:\\.[0-9]*)?|\\.[0-9]+)(?:[eE][+-]?[0-9]+)?$} $value]} {error \"数值必须是有限十进制数\"}\n    set number [scan $value %f]\n    if {![expr {abs($number) < Inf}]} {error \"数值必须是有限十进制数\"}\n    return $number\n}\nproc parsePaths {text} {\n    set paths {}; set rejected {}; set line 0\n    foreach raw [split $text \"\\n\"] {\n        incr line; set raw [string trim $raw]\n        if {$raw eq \"\" || [string match {#*} $raw]} {continue}\n        set reason \"\"\n        if {![regexp {^path=([A-Za-z0-9_.:/-]+) +delay=(\\S+) +slack=(\\S+)$} $raw full name delay slack]} {\n            set reason \"格式不符\"\n        } elseif {[catch {pathNumber $delay} delayValue] || [catch {pathNumber $slack} slackValue]} {\n            set reason \"数值必须是有限十进制数\"\n        } elseif {$delayValue < 0} {\n            set reason \"delay 不能为负\"\n        }\n        if {$reason ne \"\"} {lappend rejected [list $line $reason]; continue}\n        lappend paths [dict create name $name delay $delayValue slack $slackValue]\n    }\n    return [dict create paths $paths rejected $rejected]\n}\nproc selectPaths {paths {threshold 0}} {\n    set threshold [pathNumber $threshold]\n    set decorated {}\n    foreach path $paths {\n        set slack [dict get $path slack]\n        if {$slack < $threshold} {lappend decorated [list $slack [dict get $path name] $path]}\n    }\n    # lsort 稳定排序：先确定同 slack 时的姓名顺序，再按 slack 排。\n    set decorated [lsort -dictionary -index 1 $decorated]\n    set decorated [lsort -real -index 0 $decorated]\n    set selected {}\n    foreach item $decorated {lappend selected [lindex $item 2]}\n    return $selected\n}\nproc showPathReport {text} {\n    set result [parsePaths $text]\n    set selected [selectPaths [dict get $result paths]]\n    puts \"教学路径报告 / ns / 非真实 STA\"\n    puts \"合法路径: [llength [dict get $result paths]]\"\n    puts \"负 slack 路径: [llength $selected]\"\n    puts \"path | delay | slack\"\n    foreach path $selected {\n        puts [format \"%s | %.2f | %.2f\" [dict get $path name] [dict get $path delay] [dict get $path slack]]\n    }\n    if {![llength $selected]} {puts \"(无负 slack 路径)\"}\n    puts \"非法行: [llength [dict get $result rejected]]\"\n    foreach rejected [dict get $result rejected] {\n        lassign $rejected line reason; puts \"行 $line: $reason\"\n    }\n}\nset channel [open paths.txt r]\nset text [read $channel]; close $channel\nshowPathReport $text",
+  "expected": "教学路径报告 / ns / 非真实 STA\n合法路径: 4\n负 slack 路径: 2\npath | delay | slack\nP_data | 9.25 | -1.25\nP_ctrl | 8.20 | -0.20\n非法行: 0",
+  "hints": [
+    "先按行处理，跳过空行和 # 注释；regexp 只捕获 path、delay、slack 三个字段，数值合法性另写过程判断。",
+    "将合法路径保存为 dict create name ... delay ... slack ...，非法行另存为 {行号 原因}。筛选条件用严格的 <，零 slack 不算负。",
+    "为每个入选记录构造 {slack name record}，先 lsort -dictionary -index 1，再 lsort -real -index 0，最后取 record。"
+  ],
+  "cases": [
+    {
+      "title": "严重程度排序和相同 slack 的顺序",
+      "code": "showPathReport \"path=Z delay=12 slack=-2\\npath=A delay=12 slack=-2\\npath=M delay=10.5 slack=-0.5\\npath=Zero delay=10 slack=0\"",
+      "expected": "教学路径报告 / ns / 非真实 STA\n合法路径: 4\n负 slack 路径: 3\npath | delay | slack\nA | 12.00 | -2.00\nZ | 12.00 | -2.00\nM | 10.50 | -0.50\n非法行: 0"
+    },
+    {
+      "title": "空报告与仅注释",
+      "code": "showPathReport \"# no paths\\n\\n\"",
+      "expected": "教学路径报告 / ns / 非真实 STA\n合法路径: 0\n负 slack 路径: 0\npath | delay | slack\n(无负 slack 路径)\n非法行: 0"
+    },
+    {
+      "title": "格式错误、负 delay 与非有限数",
+      "code": "showPathReport \"bad line\\npath=X delay=-1 slack=-2\\npath=Y delay=2 slack=NaN\\npath=Valid delay=2 slack=3\"",
+      "expected": "教学路径报告 / ns / 非真实 STA\n合法路径: 1\n负 slack 路径: 0\npath | delay | slack\n(无负 slack 路径)\n非法行: 3\n行 1: 格式不符\n行 2: delay 不能为负\n行 3: 数值必须是有限十进制数"
+    },
+    {
+      "title": "可修改阈值但不改变数据",
+      "code": "set parsed [parsePaths \"path=N delay=4 slack=-0.1\\npath=P delay=3 slack=0.4\"]\nputs \"阈值 0.5: [llength [selectPaths [dict get $parsed paths] 0.5]]\"",
+      "expected": "阈值 0.5: 2"
+    }
+  ],
+  "checks": [
+    {
+      "label": "实际按 slack 排序",
+      "script": "expr {[dict get [lindex [selectPaths [dict get [parsePaths \"path=L delay=2 slack=-0.1\\npath=H delay=5 slack=-3\"] paths]] 0] name] eq \"H\"}"
+    },
+    {
+      "label": "零 slack 被排除",
+      "script": "expr {[llength [selectPaths [dict get [parsePaths \"path=Q delay=2 slack=0\"] paths]]] == 0}"
+    }
+  ],
+  "extensions": [
+    "增加按路径名 glob 模式过滤，保留完整输入记录。",
+    "增加明确的教学时钟周期字段，用 slack = period - delay 的简化模型生成样本。",
+    "学习真实 EDA 工具的 collection、报告格式和约束，给真实工具适配器单独编写测试。"
+  ],
+  "view": "paths",
+  "diagram": "assets/diagrams/project-E.svg"
+}

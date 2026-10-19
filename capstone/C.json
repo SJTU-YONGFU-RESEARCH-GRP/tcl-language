@@ -1,0 +1,64 @@
+{
+  "id": "C",
+  "title": "实验测量数据统计",
+  "summary": "计算数量、最小值、最大值、平均值，并按闭区间标记越界数据；先决定空数据和非法输入的处理规则。",
+  "requirements": [
+    "输入是十进制数值列表，可含正负号、小数和科学计数法；拒绝 NaN、Inf、非数字和浮点溢出。",
+    "给定范围 lower..upper 为闭区间，端点本身不算越界；下界不得大于上界。",
+    "返回 count、minimum、maximum、mean、outside；outside 保存原输入的越界值。",
+    "空输入的 count 为 0，minimum、maximum、mean 为空值，报告显示 N/A。",
+    "非法数据指出一开始计数的元素序号，不能默默跳过或算成零。"
+  ],
+  "input": "测量值 {9.5 10 10.5 13}，允许范围 9..12。全部数据是教学样本，无单位；实际实验应先统一单位。",
+  "starter": "proc measurementStats {values lower upper} {\n    # 先检查上下界，再逐项验证和累计；空列表要单独处理。\n    error \"请实现 measurementStats\"\n}\nproc showMeasurements {values lower upper} {\n    puts [measurementStats $values $lower $upper]\n}\nshowMeasurements {9.5 10 10.5 13} 9 12",
+  "solution": "proc measurementNumber {value} {\n    if {![regexp {^[+-]?(?:[0-9]+(?:\\.[0-9]*)?|\\.[0-9]+)(?:[eE][+-]?[0-9]+)?$} $value]} {\n        error \"不是有限十进制数: $value\"\n    }\n    set number [scan $value %f]\n    if {![expr {abs($number) < Inf}]} {error \"不是有限十进制数: $value\"}\n    return $number\n}\nproc measurementStats {values lower upper} {\n    set lower [measurementNumber $lower]; set upper [measurementNumber $upper]\n    if {$lower > $upper} {error \"下界不能大于上界\"}\n    set count 0; set minimum \"\"; set maximum \"\"; set sum 0.0; set outside {}\n    foreach raw $values {\n        incr count\n        if {[catch {measurementNumber $raw} value]} {error \"元素 $count: $value\"}\n        if {$count == 1 || $value < $minimum} {set minimum $value}\n        if {$count == 1 || $value > $maximum} {set maximum $value}\n        set sum [expr {$sum + $value}]\n        if {![expr {abs($sum) < Inf}]} {error \"累计值超出浮点范围\"}\n        if {$value < $lower || $value > $upper} {lappend outside $raw}\n    }\n    set mean \"\"\n    if {$count > 0} {set mean [expr {$sum / $count}]}\n    return [dict create count $count minimum $minimum maximum $maximum mean $mean outside $outside]\n}\nproc showMeasurements {values lower upper} {\n    set result [measurementStats $values $lower $upper]\n    puts \"数量: [dict get $result count]\"\n    foreach {key label} {minimum 最小值 maximum 最大值 mean 平均值} {\n        set value [dict get $result $key]\n        if {$value eq \"\"} {puts \"$label: N/A\"} else {puts [format \"%s: %.2f\" $label $value]}\n    }\n    set outside [dict get $result outside]\n    puts \"越界数: [llength $outside]\"\n    if {[llength $outside]} {puts \"越界值: [join $outside {, }]\"}\n}\nshowMeasurements {9.5 10 10.5 13} 9 12",
+  "expected": "数量: 4\n最小值: 9.50\n最大值: 13.00\n平均值: 10.75\n越界数: 1\n越界值: 13",
+  "hints": [
+    "写一个数值检查过程；先验证 lower 和 upper，空数据的最小值不应该伪造为 0。",
+    "首次读到数值时同时初始化 minimum、maximum；随后逐个比较，用浮点 sum 累积。",
+    "只有 count > 0 才计算 mean。将 < lower 或 > upper 的原值 lappend 到 outside，测试端点和负数。"
+  ],
+  "cases": [
+    {
+      "title": "闭区间端点与极端正负值",
+      "code": "showMeasurements {-1000000 0 1000000} -1000000 1000000",
+      "expected": "数量: 3\n最小值: -1000000.00\n最大值: 1000000.00\n平均值: 0.00\n越界数: 0"
+    },
+    {
+      "title": "空数据",
+      "code": "showMeasurements {} 0 1",
+      "expected": "数量: 0\n最小值: N/A\n最大值: N/A\n平均值: N/A\n越界数: 0"
+    },
+    {
+      "title": "非法值、无穷、上下界反转",
+      "code": "foreach bad {oops NaN Inf 1e999} {\n    catch {measurementStats [list 2 $bad] 0 10} message\n    puts $message\n}\ncatch {measurementStats {1} 5 2} message\nputs $message",
+      "expected": "元素 2: 不是有限十进制数: oops\n元素 2: 不是有限十进制数: NaN\n元素 2: 不是有限十进制数: Inf\n元素 2: 不是有限十进制数: 1e999\n下界不能大于上界"
+    },
+    {
+      "title": "科学计数法与前导零按十进制解析",
+      "code": "showMeasurements {09 1e1 -0.5} 0 10",
+      "expected": "数量: 3\n最小值: -0.50\n最大值: 10.00\n平均值: 6.17\n越界数: 1\n越界值: -0.5"
+    }
+  ],
+  "checks": [
+    {
+      "label": "平均值不是整数除法",
+      "script": "expr {abs([dict get [measurementStats {1 2} 0 3] mean] - 1.5) < 0.000001}"
+    },
+    {
+      "label": "仅区间外的数据被标记",
+      "script": "expr {[dict get [measurementStats {-1 0 2 3} 0 2] outside] eq {-1 3}}"
+    },
+    {
+      "label": "空输入不除零",
+      "script": "expr {[dict get [measurementStats {} 0 1] mean] eq {}}"
+    }
+  ],
+  "extensions": [
+    "增加中位数和样本标准差，先写明统计定义。",
+    "改用增量或补偿求和方法，比较大数量级数据的舍入误差。",
+    "让报告保留测量单位和采样时间，避免不同单位混算。"
+  ],
+  "view": "record",
+  "diagram": "assets/diagrams/project-C.svg"
+}

@@ -1,0 +1,5 @@
+# Teaching path report; units: ns
+path=P_data delay=9.25 slack=-1.25
+path=P_ok delay=7.00 slack=1.00
+path=P_ctrl delay=8.20 slack=-0.20
+path=P_edge delay=8.00 slack=0.00

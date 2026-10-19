@@ -1,0 +1,64 @@
+列表、条件与循环
+原创无配音代码演示 · 每段 10 秒 · 输出来自真实 Tcl
+
+[00–10 秒] 背包里有几个格子
+list 保持每件物品的边界，red apple 是一件物品。
+
+set bag [list key "red apple" map]
+puts [llength $bag]
+
+输出：
+3
+
+[10–20 秒] 找到第二件物品
+索引从 0 开始，所以第二件物品的索引是 1。
+
+set bag [list key "red apple" map]
+puts [lindex $bag 1]
+
+输出：
+red apple
+
+[20–30 秒] 一件一件做相同的事
+foreach 把列表元素依次放入 item，再执行脚本。
+
+foreach item {key apple map} {
+    puts $item
+}
+
+输出：
+key
+apple
+map
+
+[30–40 秒] 让守门人做选择
+>= 也包含等于，10 枚金币可以通过。
+
+set coins 10
+if {$coins >= 10} {puts Enter} else {puts Wait}
+
+输出：
+Enter
+
+[40–50 秒] 用循环完成求和
+total 从 0 开始，每轮把当前数字加进去。
+
+set total 0
+foreach n {2 4 6} {incr total $n}
+puts $total
+
+输出：
+12
+
+[50–60 秒] 把两个本领组合起来
+只收集达到门槛的角色。改成 >=8 会怎样？
+
+set selected {}
+foreach row {{Ada 7} {Bo 2} {Cy 5}} {
+    lassign $row name hunger
+    if {$hunger >= 5} {lappend selected $name}
+}
+puts $selected
+
+输出：
+Ada Cy

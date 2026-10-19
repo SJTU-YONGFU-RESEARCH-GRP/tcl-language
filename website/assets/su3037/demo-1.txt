@@ -1,0 +1,64 @@
+第一行代码与变量
+原创无配音代码演示 · 每段 10 秒 · 输出来自真实 Tcl
+
+[00–10 秒] 让电脑说你好
+puts 像小喇叭，双引号把一句话包在一起。
+
+puts "Hello, Tcl!"
+
+输出：
+Hello, Tcl!
+
+[10–20 秒] 为背包贴上名字
+set 把值放进一个有名字的变量格子里。
+
+set hero Ada
+puts $hero
+
+输出：
+Ada
+
+[20–30 秒] 拿出格子里的内容
+$hero 会替换成变量 hero 里保存的 Ada。
+
+set hero Ada
+puts "Hello $hero"
+
+输出：
+Hello Ada
+
+[30–40 秒] 让计算器加入冒险
+方括号先执行 expr，再把结果交给 set。
+
+set energy [expr {4 * 5}]
+puts $energy
+
+输出：
+20
+
+[40–50 秒] 区别三种括号
+双引号允许替换；花括号保留这段原样文字。
+
+set hero Ada
+puts "Hello $hero"
+puts {Hello $hero}
+
+输出：
+Hello Ada
+Hello $hero
+
+[50–60 秒] 现在去修好信标
+暂停视频，预测输出，再到第 5 关自己试一次。
+
+set hero Ada
+set cells 4
+set each 5
+set energy [expr {$cells * $each}]
+puts "$hero ready"
+puts "Energy: $energy"
+puts {$energy}
+
+输出：
+Ada ready
+Energy: 20
+$energy

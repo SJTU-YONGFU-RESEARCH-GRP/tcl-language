@@ -1,0 +1,91 @@
+One report, one chip adventure
+Original silent demo · 10 seconds per scene · Output from real Tcl
+
+[00–10 seconds] Meet a simplified timing report
+Each record contains a path and slack. Negative slack counts as a violation.
+
+set report {{p1 0.12} {p2 -0.25} {p3 -0.05}}
+foreach row $report {puts $row}
+
+Output:
+p1 0.12
+p2 -0.25
+p3 -0.05
+
+[10–20 seconds] Separate a record's fields
+lassign passes the record fields to path and slack in order.
+
+lassign {p2 -0.25} path slack
+puts "Path: $path"
+puts "Slack: $slack ns"
+
+Output:
+Path: p2
+Slack: -0.25 ns
+
+[20–30 seconds] Count violating paths
+For each slack below 0, increase count by one.
+
+set count 0
+foreach row {{p1 0.12} {p2 -0.25} {p3 -0.05}} {
+    lassign $row path slack
+    if {$slack < 0} {incr count}
+}
+puts "Violations: $count"
+
+Output:
+Violations: 2
+
+[30–40 seconds] Find the worst slack
+Start worst with the first actual record and keep the smaller values.
+
+set worst 0.12
+foreach slack {0.12 -0.25 -0.05} {
+    if {$slack < $worst} {set worst $slack}
+}
+puts "Worst: $worst ns"
+
+Output:
+Worst: -0.25 ns
+
+[40–50 seconds] Deliver the result as a dictionary
+Another Tcl script can continue processing these results.
+
+proc analyze {rows} {
+    set count 0
+    set worst [lindex [lindex $rows 0] 1]
+    foreach row $rows {
+        lassign $row path slack
+        if {$slack < 0} {incr count}
+        if {$slack < $worst} {set worst $slack}
+    }
+    return [dict create violations $count worst $worst]
+}
+set report {{p1 0.12} {p2 -0.25} {p3 -0.05}}
+set result [analyze $report]
+puts $result
+
+Output:
+violations 2 worst -0.25
+
+[50–60 seconds] One last check before graduating
+This demo uses nonempty input. Lesson 20 also requires an empty-report case.
+
+proc analyze {rows} {
+    set count 0
+    set worst [lindex [lindex $rows 0] 1]
+    foreach row $rows {
+        lassign $row path slack
+        if {$slack < 0} {incr count}
+        if {$slack < $worst} {set worst $slack}
+    }
+    return [dict create violations $count worst $worst]
+}
+set report {{p1 0.12} {p2 -0.25} {p3 -0.05}}
+set result [analyze $report]
+puts $result
+puts [dict get $result violations]
+
+Output:
+violations 2 worst -0.25
+2

@@ -1,0 +1,11 @@
+Week 6 string toolkit
+========================================
+Raw: <   VLSI / EDA Tcl FLOW   >
+Trimmed: <VLSI / EDA Tcl FLOW>
+Lowercase: vlsi / eda tcl flow
+Mapped: vlsi and eda tcl flow
+Length of mapped text: 21
+First character: v
+Matches *eda*: 1
+Slug: vlsi_and_eda_tcl_flow
+========================================

@@ -1,0 +1,171 @@
+单元 3：清理文本并观察结果
+
+时长：60 秒。无声原创代码演示，中文字幕已嵌入画面。
+画面为脚本生成的代码工作台，不是浏览器点击操作录像。
+所有代码均由真实本地 Tcl 解释器执行；标准输出与错误直接取自执行结果。
+每个镜头都在新临时目录和新解释器中执行；教学文件随镜头预置。
+源码只有显示折行，执行内容没有改变。文件操作不会访问私人数据。
+
+[00:00:00.000–00:00:05.000] 看清原始联系人文字
+原记录包含两端空格和大写字母；清理规则应明确。
+说明：尖括号帮助看见两端空格。
+代码：
+set raw "  LI.MING@EXAMPLE.ORG  "
+set email [string tolower [string trim $raw]]
+puts "原始：<$raw>"
+puts "清理：<$email>"
+puts [string match {*@example.org} $email]
+真实 Tcl 9.0.4 标准输出：
+原始：<  LI.MING@EXAMPLE.ORG  >
+清理：<li.ming@example.org>
+1
+
+[00:00:05.000–00:00:10.000] 先 trim，再 tolower
+内层命令去掉两端空白；外层命令把结果转成小写。
+代码：
+set raw "  LI.MING@EXAMPLE.ORG  "
+set email [string tolower [string trim $raw]]
+puts "原始：<$raw>"
+puts "清理：<$email>"
+puts [string match {*@example.org} $email]
+真实 Tcl 9.0.4 标准输出：
+原始：<  LI.MING@EXAMPLE.ORG  >
+清理：<li.ming@example.org>
+1
+
+[00:00:10.000–00:00:15.000] 原值与新值分别保存
+raw 保持原始数据；email 保存清理后的返回值。
+代码：
+set raw "  LI.MING@EXAMPLE.ORG  "
+set email [string tolower [string trim $raw]]
+puts "原始：<$raw>"
+puts "清理：<$email>"
+puts [string match {*@example.org} $email]
+真实 Tcl 9.0.4 标准输出：
+原始：<  LI.MING@EXAMPLE.ORG  >
+清理：<li.ming@example.org>
+1
+
+[00:00:15.000–00:00:20.000] 简单后缀检查
+string match 的星号是通配符；这不是完整邮箱合法性验证。
+代码：
+set raw "  LI.MING@EXAMPLE.ORG  "
+set email [string tolower [string trim $raw]]
+puts "原始：<$raw>"
+puts "清理：<$email>"
+puts [string match {*@example.org} $email]
+真实 Tcl 9.0.4 标准输出：
+原始：<  LI.MING@EXAMPLE.ORG  >
+清理：<li.ming@example.org>
+1
+
+[00:00:20.000–00:00:25.000] 换一个域名
+改成 other.org 后，清理仍成功，但指定域名匹配返回 0。
+代码：
+set raw "  LI.MING@OTHER.ORG  "
+set email [string tolower [string trim $raw]]
+puts "原始：<$raw>"
+puts "清理：<$email>"
+puts [string match {*@example.org} $email]
+真实 Tcl 9.0.4 标准输出：
+原始：<  LI.MING@OTHER.ORG  >
+清理：<li.ming@other.org>
+0
+
+[00:00:25.000–00:00:30.000] 只有空白时会怎样
+空白清理成空字符串；不能把它误认为有效地址。
+代码：
+set raw "   "
+set email [string tolower [string trim $raw]]
+puts "原始：<$raw>"
+puts "清理：<$email>"
+puts [string match {*@example.org} $email]
+真实 Tcl 9.0.4 标准输出：
+原始：<   >
+清理：<>
+0
+
+[00:00:30.000–00:00:35.000] 分隔文本转成列表
+split 按分号切分；join 把列表用更可读的分隔文字连接。
+代码：
+set raw "alpha;beta;gamma"
+set groups [split $raw ";"]
+puts "组数：[llength $groups]"
+puts [join $groups " / "]
+puts [string toupper [lindex $groups 0]]
+真实 Tcl 9.0.4 标准输出：
+组数：3
+alpha / beta / gamma
+ALPHA
+
+[00:00:35.000–00:00:40.000] 观察每个元素
+llength 计算元素数，lindex 取出一个完整元素。
+代码：
+set raw "alpha;beta;gamma"
+set groups [split $raw ";"]
+puts "组数：[llength $groups]"
+puts [join $groups " / "]
+puts [string toupper [lindex $groups 0]]
+真实 Tcl 9.0.4 标准输出：
+组数：3
+alpha / beta / gamma
+ALPHA
+
+[00:00:40.000–00:00:45.000] 连续分隔符产生空元素
+甲和乙之间的两个分号保留了一个空段，长度为 0。
+代码：
+set raw {甲;;乙,丙}
+set items [split $raw ",;"]
+puts "分段数：[llength $items]"
+puts [join $items " | "]
+puts "第二段长度：[string length [lindex $items 1]]"
+puts [string trim "  林 雨  "]
+真实 Tcl 9.0.4 标准输出：
+分段数：4
+甲 |  | 乙 | 丙
+第二段长度：0
+林 雨
+
+[00:00:45.000–00:00:50.000] 分隔参数是字符集合
+只按分号切分时，逗号仍留在同一个元素内部。
+代码：
+set raw {甲;;乙,丙}
+set items [split $raw ";"]
+puts "分段数：[llength $items]"
+puts [join $items " | "]
+puts "第二段长度：[string length [lindex $items 1]]"
+puts [string trim "  林 雨  "]
+真实 Tcl 9.0.4 标准输出：
+分段数：3
+甲 |  | 乙,丙
+第二段长度：0
+林 雨
+
+[00:00:50.000–00:00:55.000] 不要删掉姓名内部的空格
+trim 只清除两端空白，林和雨之间有意义的空格被保留。
+代码：
+set raw {甲;;乙,丙}
+set items [split $raw ",;"]
+puts "分段数：[llength $items]"
+puts [join $items " | "]
+puts "第二段长度：[string length [lindex $items 1]]"
+puts [string trim "  林 雨  "]
+真实 Tcl 9.0.4 标准输出：
+分段数：4
+甲 |  | 乙 | 丙
+第二段长度：0
+林 雨
+
+[00:00:55.000–00:01:00.000] 把清理规则写清楚
+接下来可以逐段清理并删除空项，再用字典整理多个字段。
+说明：用空输入、不同大小写和额外分隔符再测试。
+代码：
+set raw "alpha;beta;gamma"
+set groups [split $raw ";"]
+puts "组数：[llength $groups]"
+puts [join $groups " / "]
+puts [string toupper [lindex $groups 0]]
+真实 Tcl 9.0.4 标准输出：
+组数：3
+alpha / beta / gamma
+ALPHA

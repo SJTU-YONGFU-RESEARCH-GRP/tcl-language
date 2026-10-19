@@ -1,0 +1,602 @@
+[
+  {
+    "unit": 1,
+    "title": "运行第一个 Tcl 脚本",
+    "seconds": 60,
+    "shots": [
+      {
+        "shot": 1,
+        "source_sha256": "b56493184621fbe5b5a967ca0f74075ed25f92423a5b8eb26b2052b77746576d",
+        "version": "9.0.4",
+        "output": "活动：周末读书会",
+        "error": null
+      },
+      {
+        "shot": 2,
+        "source_sha256": "b56493184621fbe5b5a967ca0f74075ed25f92423a5b8eb26b2052b77746576d",
+        "version": "9.0.4",
+        "output": "活动：周末读书会",
+        "error": null
+      },
+      {
+        "shot": 3,
+        "source_sha256": "5aa092c507ffee07cbc224b8b1bc173d4e0947df6396fd7515c9a0fc759aee66",
+        "version": "9.0.4",
+        "output": "活动：周末读书会\n时间：周六 14:00\n地点：二楼阅览室",
+        "error": null
+      },
+      {
+        "shot": 4,
+        "source_sha256": "5aa092c507ffee07cbc224b8b1bc173d4e0947df6396fd7515c9a0fc759aee66",
+        "version": "9.0.4",
+        "output": "活动：周末读书会\n时间：周六 14:00\n地点：二楼阅览室",
+        "error": null
+      },
+      {
+        "shot": 5,
+        "source_sha256": "6f72357b5f9186b678ed786fe9cb97c56733549b4bbbbd55f70999f95669d6bc",
+        "version": "9.0.4",
+        "output": "活动：周末读书会\n时间：周日 09:30\n地点：二楼阅览室",
+        "error": null
+      },
+      {
+        "shot": 6,
+        "source_sha256": "6f72357b5f9186b678ed786fe9cb97c56733549b4bbbbd55f70999f95669d6bc",
+        "version": "9.0.4",
+        "output": "活动：周末读书会\n时间：周日 09:30\n地点：二楼阅览室",
+        "error": null
+      },
+      {
+        "shot": 7,
+        "source_sha256": "76ed0ff362f31aa216e12cb8b0929fe0d9b9e3493f380c4b92c2bcd66c3dba48",
+        "version": "9.0.4",
+        "output": "报名截止：周五 18:00",
+        "error": null
+      },
+      {
+        "shot": 8,
+        "source_sha256": "55f04d9becf32688266bbfb9603a7a92fa76d7debb4b8115fd6fa0f8c8c5e635",
+        "version": "9.0.4",
+        "output": "报名截止：\n周五 18:00",
+        "error": null
+      },
+      {
+        "shot": 9,
+        "source_sha256": "0b51eb22b79550bdc995abc01a1eb9b8bbf9144808d9067ba016c2e65ee7a9cb",
+        "version": "9.0.4",
+        "output": "",
+        "error": "wrong # args: should be \"puts ?-nonewline? ?channel? string\""
+      },
+      {
+        "shot": 10,
+        "source_sha256": "5aa092c507ffee07cbc224b8b1bc173d4e0947df6396fd7515c9a0fc759aee66",
+        "version": "9.0.4",
+        "output": "活动：周末读书会\n时间：周六 14:00\n地点：二楼阅览室",
+        "error": null
+      },
+      {
+        "shot": 11,
+        "source_sha256": "9f57eb2e64c033858cb94e943045f09457ba51c0b797ced0125be2603eca7164",
+        "version": "9.0.4",
+        "output": "活动：社区散步\n时间：周六 14:00\n地点：二楼阅览室",
+        "error": null
+      },
+      {
+        "shot": 12,
+        "source_sha256": "9f57eb2e64c033858cb94e943045f09457ba51c0b797ced0125be2603eca7164",
+        "version": "9.0.4",
+        "output": "活动：社区散步\n时间：周六 14:00\n地点：二楼阅览室",
+        "error": null
+      }
+    ],
+    "video": {
+      "bytes": 586301,
+      "file": "unit-1.mp4",
+      "fps": 2,
+      "frames": 120,
+      "height": 720,
+      "seconds": 60,
+      "width": 1280
+    }
+  },
+  {
+    "unit": 2,
+    "title": "使用循环处理列表",
+    "seconds": 60,
+    "shots": [
+      {
+        "shot": 1,
+        "source_sha256": "d70a52b4b049d10a6a84d160332b2053455c0a7e99263cfe58ee534a0b16936d",
+        "version": "9.0.4",
+        "output": "有效次数：4\n总和：81",
+        "error": null
+      },
+      {
+        "shot": 2,
+        "source_sha256": "d70a52b4b049d10a6a84d160332b2053455c0a7e99263cfe58ee534a0b16936d",
+        "version": "9.0.4",
+        "output": "有效次数：4\n总和：81",
+        "error": null
+      },
+      {
+        "shot": 3,
+        "source_sha256": "d70a52b4b049d10a6a84d160332b2053455c0a7e99263cfe58ee534a0b16936d",
+        "version": "9.0.4",
+        "output": "有效次数：4\n总和：81",
+        "error": null
+      },
+      {
+        "shot": 4,
+        "source_sha256": "9e0d2587554dd3a2d5c4235078a465f75c8ec7d33d3a8034bffad7fa321cb7d7",
+        "version": "9.0.4",
+        "output": "有效次数：5\n总和：81",
+        "error": null
+      },
+      {
+        "shot": 5,
+        "source_sha256": "d3cf5c32e26ca58d0bc8c48c0a45d31cab5d770a670d4f05c92c6a9e30cf551a",
+        "version": "9.0.4",
+        "output": "有效次数：0\n总和：0",
+        "error": null
+      },
+      {
+        "shot": 6,
+        "source_sha256": "62c366906dd4ec604f52e10a35f29b52012f19ee70ef2fe0de8d24754c35a903",
+        "version": "9.0.4",
+        "output": "测量 1\n测量 2\n测量 3",
+        "error": null
+      },
+      {
+        "shot": 7,
+        "source_sha256": "c5cfc14231397a97870c1c83ea9c5ffd345ffb86cc8fa49a7e9e6bb374b8219c",
+        "version": "9.0.4",
+        "output": "测量 1\n测量 2",
+        "error": null
+      },
+      {
+        "shot": 8,
+        "source_sha256": "76773262ab1d894d7197d08b9e9907909a7aea1b0de690cc809dbd6186b6dacc",
+        "version": "9.0.4",
+        "output": "剩余：3\n剩余：2\n剩余：1\n首个异常：31",
+        "error": null
+      },
+      {
+        "shot": 9,
+        "source_sha256": "00c05394967955c2403fb80ff6441affd5a6ff38ffcf221b9c5397404bf5cd11",
+        "version": "9.0.4",
+        "output": "剩余：3\n剩余：2\n剩余：1\n首个异常：31",
+        "error": null
+      },
+      {
+        "shot": 10,
+        "source_sha256": "e50a6128339eb768ba23fb4b6bb8c67c58722620d21a6060689ac616e8159fc4",
+        "version": "9.0.4",
+        "output": "剩余：3\n剩余：2\n剩余：1\n首个异常：31\n首个异常：35",
+        "error": null
+      },
+      {
+        "shot": 11,
+        "source_sha256": "00c05394967955c2403fb80ff6441affd5a6ff38ffcf221b9c5397404bf5cd11",
+        "version": "9.0.4",
+        "output": "剩余：3\n剩余：2\n剩余：1\n首个异常：31",
+        "error": null
+      },
+      {
+        "shot": 12,
+        "source_sha256": "d70a52b4b049d10a6a84d160332b2053455c0a7e99263cfe58ee534a0b16936d",
+        "version": "9.0.4",
+        "output": "有效次数：4\n总和：81",
+        "error": null
+      }
+    ],
+    "video": {
+      "bytes": 753506,
+      "file": "unit-2.mp4",
+      "fps": 2,
+      "frames": 120,
+      "height": 720,
+      "seconds": 60,
+      "width": 1280
+    }
+  },
+  {
+    "unit": 3,
+    "title": "清理文本并观察结果",
+    "seconds": 60,
+    "shots": [
+      {
+        "shot": 1,
+        "source_sha256": "3b456e1b9723fd5382175e55471ea6880734d4432a1ae6995f3d90bee3fd5901",
+        "version": "9.0.4",
+        "output": "原始：<  LI.MING@EXAMPLE.ORG  >\n清理：<li.ming@example.org>\n1",
+        "error": null
+      },
+      {
+        "shot": 2,
+        "source_sha256": "3b456e1b9723fd5382175e55471ea6880734d4432a1ae6995f3d90bee3fd5901",
+        "version": "9.0.4",
+        "output": "原始：<  LI.MING@EXAMPLE.ORG  >\n清理：<li.ming@example.org>\n1",
+        "error": null
+      },
+      {
+        "shot": 3,
+        "source_sha256": "3b456e1b9723fd5382175e55471ea6880734d4432a1ae6995f3d90bee3fd5901",
+        "version": "9.0.4",
+        "output": "原始：<  LI.MING@EXAMPLE.ORG  >\n清理：<li.ming@example.org>\n1",
+        "error": null
+      },
+      {
+        "shot": 4,
+        "source_sha256": "3b456e1b9723fd5382175e55471ea6880734d4432a1ae6995f3d90bee3fd5901",
+        "version": "9.0.4",
+        "output": "原始：<  LI.MING@EXAMPLE.ORG  >\n清理：<li.ming@example.org>\n1",
+        "error": null
+      },
+      {
+        "shot": 5,
+        "source_sha256": "bf00387678d943508027e4066c1ef33e3894b7fa49dcff93112212e6ae91f349",
+        "version": "9.0.4",
+        "output": "原始：<  LI.MING@OTHER.ORG  >\n清理：<li.ming@other.org>\n0",
+        "error": null
+      },
+      {
+        "shot": 6,
+        "source_sha256": "019be7e4d76e3f549781cdb9b5351501c20f547609aad540395494810f04344e",
+        "version": "9.0.4",
+        "output": "原始：<   >\n清理：<>\n0",
+        "error": null
+      },
+      {
+        "shot": 7,
+        "source_sha256": "58a5fae3c4305a41e2ad9ef8bdfe4d84498816e72da0e019995c5e1fdfdc39f0",
+        "version": "9.0.4",
+        "output": "组数：3\nalpha / beta / gamma\nALPHA",
+        "error": null
+      },
+      {
+        "shot": 8,
+        "source_sha256": "58a5fae3c4305a41e2ad9ef8bdfe4d84498816e72da0e019995c5e1fdfdc39f0",
+        "version": "9.0.4",
+        "output": "组数：3\nalpha / beta / gamma\nALPHA",
+        "error": null
+      },
+      {
+        "shot": 9,
+        "source_sha256": "313f988962619c4244746de5dffd98dc7e2cd578ab230c6d7051059cfb4aee09",
+        "version": "9.0.4",
+        "output": "分段数：4\n甲 |  | 乙 | 丙\n第二段长度：0\n林 雨",
+        "error": null
+      },
+      {
+        "shot": 10,
+        "source_sha256": "61adf587c0c3fd93d8ca92fcd5ffc81c39d9e20f9453b06e3a2cebd086c3c5cc",
+        "version": "9.0.4",
+        "output": "分段数：3\n甲 |  | 乙,丙\n第二段长度：0\n林 雨",
+        "error": null
+      },
+      {
+        "shot": 11,
+        "source_sha256": "313f988962619c4244746de5dffd98dc7e2cd578ab230c6d7051059cfb4aee09",
+        "version": "9.0.4",
+        "output": "分段数：4\n甲 |  | 乙 | 丙\n第二段长度：0\n林 雨",
+        "error": null
+      },
+      {
+        "shot": 12,
+        "source_sha256": "58a5fae3c4305a41e2ad9ef8bdfe4d84498816e72da0e019995c5e1fdfdc39f0",
+        "version": "9.0.4",
+        "output": "组数：3\nalpha / beta / gamma\nALPHA",
+        "error": null
+      }
+    ],
+    "video": {
+      "bytes": 816433,
+      "file": "unit-3.mp4",
+      "fps": 2,
+      "frames": 120,
+      "height": 720,
+      "seconds": 60,
+      "width": 1280
+    }
+  },
+  {
+    "unit": 4,
+    "title": "读取文件与处理错误",
+    "seconds": 60,
+    "shots": [
+      {
+        "shot": 1,
+        "source_sha256": "69cdfb6fd781abfd1369f50acf7d044e049c158e7c1564f9d6da5fd0d7715c1e",
+        "version": "9.0.4",
+        "output": "1.2\n1.4\n1.6",
+        "error": null
+      },
+      {
+        "shot": 2,
+        "source_sha256": "69cdfb6fd781abfd1369f50acf7d044e049c158e7c1564f9d6da5fd0d7715c1e",
+        "version": "9.0.4",
+        "output": "1.2\n1.4\n1.6",
+        "error": null
+      },
+      {
+        "shot": 3,
+        "source_sha256": "69cdfb6fd781abfd1369f50acf7d044e049c158e7c1564f9d6da5fd0d7715c1e",
+        "version": "9.0.4",
+        "output": "1.2\n1.4\n1.6\n1.8",
+        "error": null
+      },
+      {
+        "shot": 4,
+        "source_sha256": "bb312eed1a17f76a67cf52504cba8210ead518438c5745f1c4cb50949be3f1db",
+        "version": "9.0.4",
+        "output": "1：2 个字符\n2：0 个字符\n3：2 个字符",
+        "error": null
+      },
+      {
+        "shot": 5,
+        "source_sha256": "bb312eed1a17f76a67cf52504cba8210ead518438c5745f1c4cb50949be3f1db",
+        "version": "9.0.4",
+        "output": "1：2 个字符\n2：0 个字符\n3：2 个字符",
+        "error": null
+      },
+      {
+        "shot": 6,
+        "source_sha256": "a010b880f7f79827653531abe11ac1bd2bd6164e9614e0f253493aa73b955545",
+        "version": "9.0.4",
+        "output": "",
+        "error": "couldn't open \"missing.txt\": no such file or directory"
+      },
+      {
+        "shot": 7,
+        "source_sha256": "e63a93793b78411300a01aaf0ee7fdf127684a1c6fff61750e3ad987ad5a5205",
+        "version": "9.0.4",
+        "output": "无法读取文件\ncouldn't open \"missing.txt\": no such file or directory",
+        "error": null
+      },
+      {
+        "shot": 8,
+        "source_sha256": "e63a93793b78411300a01aaf0ee7fdf127684a1c6fff61750e3ad987ad5a5205",
+        "version": "9.0.4",
+        "output": "无法读取文件\ncouldn't open \"missing.txt\": no such file or directory",
+        "error": null
+      },
+      {
+        "shot": 9,
+        "source_sha256": "96dcee5c51707f881119c6468f8382a77578e7ed7f2010f88e11cc709a8f2a2c",
+        "version": "9.0.4",
+        "output": "数量：3\n平均值：1.40",
+        "error": null
+      },
+      {
+        "shot": 10,
+        "source_sha256": "96dcee5c51707f881119c6468f8382a77578e7ed7f2010f88e11cc709a8f2a2c",
+        "version": "9.0.4",
+        "output": "数量：3\n平均值：1.40",
+        "error": null
+      },
+      {
+        "shot": 11,
+        "source_sha256": "96dcee5c51707f881119c6468f8382a77578e7ed7f2010f88e11cc709a8f2a2c",
+        "version": "9.0.4",
+        "output": "数量：3\n平均值：4.00",
+        "error": null
+      },
+      {
+        "shot": 12,
+        "source_sha256": "96dcee5c51707f881119c6468f8382a77578e7ed7f2010f88e11cc709a8f2a2c",
+        "version": "9.0.4",
+        "output": "数量：3\n平均值：1.40",
+        "error": null
+      }
+    ],
+    "video": {
+      "bytes": 878063,
+      "file": "unit-4.mp4",
+      "fps": 2,
+      "frames": 120,
+      "height": 720,
+      "seconds": 60,
+      "width": 1280
+    }
+  },
+  {
+    "unit": 5,
+    "title": "使用过程组织代码",
+    "seconds": 60,
+    "shots": [
+      {
+        "shot": 1,
+        "source_sha256": "d6ddb77d867cc3516469bd24bf87aba57ae0ec6edb8523acd5dfc49411011978",
+        "version": "9.0.4",
+        "output": "36\n16",
+        "error": null
+      },
+      {
+        "shot": 2,
+        "source_sha256": "d6ddb77d867cc3516469bd24bf87aba57ae0ec6edb8523acd5dfc49411011978",
+        "version": "9.0.4",
+        "output": "36\n16",
+        "error": null
+      },
+      {
+        "shot": 3,
+        "source_sha256": "d6ddb77d867cc3516469bd24bf87aba57ae0ec6edb8523acd5dfc49411011978",
+        "version": "9.0.4",
+        "output": "36\n16",
+        "error": null
+      },
+      {
+        "shot": 4,
+        "source_sha256": "622ae530dbb02af38a1475834cde4bb032adedf4dba167ebda020c552bb22f90",
+        "version": "9.0.4",
+        "output": "0\n16",
+        "error": null
+      },
+      {
+        "shot": 5,
+        "source_sha256": "04bdb557c7a6edb90d57294207bd8fb46941ff1f98ba8391997d09ea296d857b",
+        "version": "9.0.4",
+        "output": "36\n35",
+        "error": null
+      },
+      {
+        "shot": 6,
+        "source_sha256": "9737190d292dddab86e283517e6d806cd5bb8a1f62ccf425767b2b2df1ddfd0c",
+        "version": "9.0.4",
+        "output": "自提：19.00 元\n配送：23.00 元",
+        "error": null
+      },
+      {
+        "shot": 7,
+        "source_sha256": "9737190d292dddab86e283517e6d806cd5bb8a1f62ccf425767b2b2df1ddfd0c",
+        "version": "9.0.4",
+        "output": "自提：19.00 元\n配送：23.00 元",
+        "error": null
+      },
+      {
+        "shot": 8,
+        "source_sha256": "728bd03183d774ba28968054ccefad80c9436e8ebda1dd46527ab55918440403",
+        "version": "9.0.4",
+        "output": "返回值：18.00\n外部 subtotal：999",
+        "error": null
+      },
+      {
+        "shot": 9,
+        "source_sha256": "728bd03183d774ba28968054ccefad80c9436e8ebda1dd46527ab55918440403",
+        "version": "9.0.4",
+        "output": "返回值：18.00\n外部 subtotal：999",
+        "error": null
+      },
+      {
+        "shot": 10,
+        "source_sha256": "19364ceab6b7363a54c0f53c7a40212d7af986402ff397f1f8c232e13769b42b",
+        "version": "9.0.4",
+        "output": "交通：36\n餐食：54",
+        "error": null
+      },
+      {
+        "shot": 11,
+        "source_sha256": "cd0ebc756d40c7232a76926ee408720f3972658d2850c6836dff9c65d974c502",
+        "version": "9.0.4",
+        "output": "交通：48\n餐食：72",
+        "error": null
+      },
+      {
+        "shot": 12,
+        "source_sha256": "19364ceab6b7363a54c0f53c7a40212d7af986402ff397f1f8c232e13769b42b",
+        "version": "9.0.4",
+        "output": "交通：36\n餐食：54",
+        "error": null
+      }
+    ],
+    "video": {
+      "bytes": 764203,
+      "file": "unit-5.mp4",
+      "fps": 2,
+      "frames": 120,
+      "height": 720,
+      "seconds": 60,
+      "width": 1280
+    }
+  },
+  {
+    "unit": 6,
+    "title": "分析教学版 VLSI 报告",
+    "seconds": 60,
+    "shots": [
+      {
+        "shot": 1,
+        "source_sha256": "2aea671c957c4b28074889670f8875b746ca3a1258578ecdee1a4e019047e260",
+        "version": "9.0.4",
+        "output": "延迟 8.20 ns → slack 1.80 ns\n延迟 10.80 ns → slack -0.80 ns",
+        "error": null
+      },
+      {
+        "shot": 2,
+        "source_sha256": "2aea671c957c4b28074889670f8875b746ca3a1258578ecdee1a4e019047e260",
+        "version": "9.0.4",
+        "output": "延迟 8.20 ns → slack 1.80 ns\n延迟 10.80 ns → slack -0.80 ns",
+        "error": null
+      },
+      {
+        "shot": 3,
+        "source_sha256": "22de3f26c947b01681f505a33a82e276b13368092ef14a008736d6fa1163f3bb",
+        "version": "9.0.4",
+        "output": "延迟 10.00 ns → slack 0.00 ns\n延迟 10.80 ns → slack -0.80 ns",
+        "error": null
+      },
+      {
+        "shot": 4,
+        "source_sha256": "cc8f0f273a8832d3adff9cef0fd7d68963cd1785d6ae38ff2e86c7160f7a837e",
+        "version": "9.0.4",
+        "output": "延迟 8.20 ns → slack 3.80 ns\n延迟 10.80 ns → slack 1.20 ns",
+        "error": null
+      },
+      {
+        "shot": 5,
+        "source_sha256": "20528efa5c1fa02846eeb39780fe93e165b611c33e0577e817e7a89213345756",
+        "version": "9.0.4",
+        "output": "路径：data_a\nslack：-0.80 ns",
+        "error": null
+      },
+      {
+        "shot": 6,
+        "source_sha256": "20528efa5c1fa02846eeb39780fe93e165b611c33e0577e817e7a89213345756",
+        "version": "9.0.4",
+        "output": "路径：data_a\nslack：-0.80 ns",
+        "error": null
+      },
+      {
+        "shot": 7,
+        "source_sha256": "b13c0cb3a590746659efd7603a00ff44f175309fd2ea14cf765b4487462e0215",
+        "version": "9.0.4",
+        "output": "data_c | -1.50 ns\ndata_b | -0.80 ns",
+        "error": null
+      },
+      {
+        "shot": 8,
+        "source_sha256": "b13c0cb3a590746659efd7603a00ff44f175309fd2ea14cf765b4487462e0215",
+        "version": "9.0.4",
+        "output": "data_c | -1.50 ns\ndata_b | -0.80 ns",
+        "error": null
+      },
+      {
+        "shot": 9,
+        "source_sha256": "6b72e38fc3f312926e98ea6e2c64612811b7fa42f69824f169ab3629c5b283fb",
+        "version": "9.0.4",
+        "output": "",
+        "error": null
+      },
+      {
+        "shot": 10,
+        "source_sha256": "95f3571cd4f481b21025d1e1c9b3afeaee302ee201f80d55e62815ed118ba915",
+        "version": "9.0.4",
+        "output": "教学分析摘要（全部输入已处理）\n路径：4\n负 slack：2\n最差 slack：-1.20 ns",
+        "error": null
+      },
+      {
+        "shot": 11,
+        "source_sha256": "821652a21a457a5513f365b5fa91b87c5679c0a56d375b09680085bf90bf5d85",
+        "version": "9.0.4",
+        "output": "部分结果：成功 1 份，失败 1 份\n有效路径：2\nbad.rpt:2：教学路径格式错误",
+        "error": null
+      },
+      {
+        "shot": 12,
+        "source_sha256": "95f3571cd4f481b21025d1e1c9b3afeaee302ee201f80d55e62815ed118ba915",
+        "version": "9.0.4",
+        "output": "教学分析摘要（全部输入已处理）\n路径：4\n负 slack：2\n最差 slack：-1.20 ns",
+        "error": null
+      }
+    ],
+    "video": {
+      "bytes": 1101891,
+      "file": "unit-6.mp4",
+      "fps": 2,
+      "frames": 120,
+      "height": 720,
+      "seconds": 60,
+      "width": 1280
+    }
+  }
+]

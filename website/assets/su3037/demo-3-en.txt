@@ -1,0 +1,76 @@
+Procedures and safe calculations
+Original silent demo · 10 seconds per scene · Output from real Tcl
+
+[00–10 seconds] Make a reusable skill card
+proc defines a recipe, arguments supply inputs, and return gives a result back.
+
+proc double {n} {return [expr {$n * 2}]}
+puts [double 7]
+
+Output:
+14
+
+[10–20 seconds] Use another input
+Reuse the same procedure instead of copying its code.
+
+proc double {n} {return [expr {$n * 2}]}
+puts [double 3]
+puts [double -2]
+
+Output:
+6
+-4
+
+[20–30 seconds] Notice integer division
+5/2 is 2. Use a decimal or double to preserve the fractional part.
+
+puts [expr {5 / 2}]
+puts [expr {5 / 2.0}]
+
+Output:
+2
+2.5
+
+[30–40 seconds] Protect empty input first
+Return 0 for an empty list to avoid dividing by zero.
+
+proc average {numbers} {
+    if {[llength $numbers] == 0} {return 0}
+    set total 0
+    foreach n $numbers {set total [expr {$total + $n}]}
+    return [expr {double($total) / [llength $numbers]}]
+}
+puts [average {}]
+
+Output:
+0
+
+[40–50 seconds] Add, then divide by the count
+The sum is 15. Dividing by 3 gives an average of 5.0.
+
+proc average {numbers} {
+    if {[llength $numbers] == 0} {return 0}
+    set total 0
+    foreach n $numbers {set total [expr {$total + $n}]}
+    return [expr {double($total) / [llength $numbers]}]
+}
+puts [average {2 4 9}]
+
+Output:
+5.0
+
+[50–60 seconds] Change the data to test the rule
+Try {1 2} and {-2 2} to verify that the procedure is reusable.
+
+proc average {numbers} {
+    if {[llength $numbers] == 0} {return 0}
+    set total 0
+    foreach n $numbers {set total [expr {$total + $n}]}
+    return [expr {double($total) / [llength $numbers]}]
+}
+puts [average {1 2}]
+puts [average {-2 2}]
+
+Output:
+1.5
+0.0

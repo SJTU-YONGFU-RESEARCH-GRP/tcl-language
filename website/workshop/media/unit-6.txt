@@ -1,0 +1,372 @@
+单元 6：分析教学版 VLSI 报告
+
+时长：60 秒。无声原创代码演示，中文字幕已嵌入画面。
+画面为脚本生成的代码工作台，不是浏览器点击操作录像。
+所有代码均由真实本地 Tcl 解释器执行；标准输出与错误直接取自执行结果。
+每个镜头都在新临时目录和新解释器中执行；教学文件随镜头预置。
+源码只有显示折行，执行内容没有改变。文件操作不会访问私人数据。
+
+[00:00:00.000–00:00:05.000] 先明确教学模型
+这里是原创教学路径数据；没有连接商业 EDA 软件。
+说明：简化模型：slack = 周期 − 路径延迟
+代码：
+set period 10.0
+foreach delay {8.2 10.8} {
+    set slack [expr {$period - $delay}]
+    puts [format "延迟 %.2f ns → slack %.2f ns" $delay $slack]
+}
+真实 Tcl 9.0.4 标准输出：
+延迟 8.20 ns → slack 1.80 ns
+延迟 10.80 ns → slack -0.80 ns
+
+[00:00:05.000–00:00:10.000] 看懂正负 slack
+周期 10 ns：延迟小于周期时余量为正，大于周期时余量为负。
+代码：
+set period 10.0
+foreach delay {8.2 10.8} {
+    set slack [expr {$period - $delay}]
+    puts [format "延迟 %.2f ns → slack %.2f ns" $delay $slack]
+}
+真实 Tcl 9.0.4 标准输出：
+延迟 8.20 ns → slack 1.80 ns
+延迟 10.80 ns → slack -0.80 ns
+
+[00:00:10.000–00:00:15.000] 边界值也要检查
+路径延迟恰好等于周期时，教学 slack 为 0。
+代码：
+set period 10.0
+foreach delay {10.0 10.8} {
+    set slack [expr {$period - $delay}]
+    puts [format "延迟 %.2f ns → slack %.2f ns" $delay $slack]
+}
+真实 Tcl 9.0.4 标准输出：
+延迟 10.00 ns → slack 0.00 ns
+延迟 10.80 ns → slack -0.80 ns
+
+[00:00:15.000–00:00:20.000] 改变周期，重新计算
+把周期改为 12 ns，同一组延迟的 slack 随真实运算变化。
+代码：
+set period 12.0
+foreach delay {8.2 10.8} {
+    set slack [expr {$period - $delay}]
+    puts [format "延迟 %.2f ns → slack %.2f ns" $delay $slack]
+}
+真实 Tcl 9.0.4 标准输出：
+延迟 8.20 ns → slack 3.80 ns
+延迟 10.80 ns → slack 1.20 ns
+
+[00:00:20.000–00:00:25.000] 从约定格式提取字段
+regexp 从 PATH 名称和 DELAY 数值构造一条字典记录。
+代码：
+set line "PATH data_a DELAY 10.8"
+if {![regexp {^PATH\s+(\S+)\s+DELAY\s+([0-9]+(?:\.[0-9]+)?)$} $line -> path delay]} {
+    error "不是约定的教学报告格式"
+}
+set record [dict create path $path delay $delay slack [expr {10.0 - $delay}]]
+puts "路径：[dict get $record path]"
+puts [format "slack：%.2f ns" [dict get $record slack]]
+真实 Tcl 9.0.4 标准输出：
+路径：data_a
+slack：-0.80 ns
+
+[00:00:25.000–00:00:30.000] 先检查格式，再使用字段
+解析失败要报告错误；不能把无效行混进统计。
+代码：
+set line "PATH data_a DELAY 10.8"
+if {![regexp {^PATH\s+(\S+)\s+DELAY\s+([0-9]+(?:\.[0-9]+)?)$} $line -> path delay]} {
+    error "不是约定的教学报告格式"
+}
+set record [dict create path $path delay $delay slack [expr {10.0 - $delay}]]
+puts "路径：[dict get $record path]"
+puts [format "slack：%.2f ns" [dict get $record slack]]
+真实 Tcl 9.0.4 标准输出：
+路径：data_a
+slack：-0.80 ns
+
+[00:00:30.000–00:00:35.000] 筛选负 slack
+遍历路径，只收集教学 slack 小于 0 的项。
+代码：
+set period 10.0
+set pairs {}
+foreach {path delay} {data_a 8.2 data_b 10.8 data_c 11.5} {
+    set slack [expr {$period - $delay}]
+    if {$slack < 0} { lappend pairs [list $slack $path] }
+}
+foreach pair [lsort -real -index 0 $pairs] {
+    lassign $pair slack path
+    puts [format "%s | %.2f ns" $path $slack]
+}
+真实 Tcl 9.0.4 标准输出：
+data_c | -1.50 ns
+data_b | -0.80 ns
+
+[00:00:35.000–00:00:40.000] 按严重程度排序
+用数值排序把最负的 slack 放在前面，先关注最紧张的路径。
+代码：
+set period 10.0
+set pairs {}
+foreach {path delay} {data_a 8.2 data_b 10.8 data_c 11.5} {
+    set slack [expr {$period - $delay}]
+    if {$slack < 0} { lappend pairs [list $slack $path] }
+}
+foreach pair [lsort -real -index 0 $pairs] {
+    lassign $pair slack path
+    puts [format "%s | %.2f ns" $path $slack]
+}
+真实 Tcl 9.0.4 标准输出：
+data_c | -1.50 ns
+data_b | -0.80 ns
+
+[00:00:40.000–00:00:45.000] 没有负 slack 的输入
+把周期改为 12 ns，筛选结果为空；空输出是有意义的结果。
+代码：
+set period 12.0
+set pairs {}
+foreach {path delay} {data_a 8.2 data_b 10.8 data_c 11.5} {
+    set slack [expr {$period - $delay}]
+    if {$slack < 0} { lappend pairs [list $slack $path] }
+}
+foreach pair [lsort -real -index 0 $pairs] {
+    lassign $pair slack path
+    puts [format "%s | %.2f ns" $path $slack]
+}
+真实 Tcl 9.0.4 标准输出：
+（无标准输出）
+
+[00:00:45.000–00:00:50.000] 组合多份文件
+第 18 节工具读取两份报告，自动生成路径数和最差 slack 摘要。
+说明：report-tools.tcl 提供已验证的解析与统计过程。
+代码：
+source report-tools.tcl
+set result [collectReports {morning.rpt evening.rpt} 10]
+set summary [summarizeRecords [dict get $result records]]
+set output [open analysis.txt w]
+puts $output "教学分析摘要（全部输入已处理）"
+puts $output "路径：[dict get $summary count]"
+puts $output "负 slack：[dict get $summary negative]"
+puts $output [format "最差 slack：%.2f ns" [dict get $summary worst]]
+close $output
+set input [open analysis.txt r]
+puts [string trim [read $input]]
+close $input
+真实 Tcl 9.0.4 标准输出：
+教学分析摘要（全部输入已处理）
+路径：4
+负 slack：2
+最差 slack：-1.20 ns
+输入教学文件 report-tools.tcl：
+proc parseReport {path period} {
+    if {![regexp {^[0-9]+(?:\.[0-9]+)?$} $period]} {
+        error "周期必须是正十进制数"
+    }
+    scan $period %f period
+    if {$period <= 0 || $period > 1000} { error "周期须满足 0 < period <= 1000 ns" }
+    set ch [open $path r]
+    set status [catch {
+        set records {}
+        set lineNo 0
+        while {[gets $ch line] >= 0} {
+            incr lineNo
+            set line [string trim $line]
+            if {$line eq "" || [string match #* $line]} { continue }
+            if {![regexp {^PATH\s+(\S+)\s+DELAY\s+([0-9]+(?:\.[0-9]+)?)$} $line -> name delay]} {
+                error "$path:$lineNo：教学路径格式错误"
+            }
+            scan $delay %f delay
+            if {$delay > 1000} { error "$path:$lineNo：延迟超出教学范围" }
+            lappend records [dict create source $path line $lineNo path $name delay $delay slack [expr {$period - $delay}]]
+        }
+        set records
+    } result options]
+    close $ch
+    if {$status != 0} { return -options $options $result }
+    return $result
+}
+proc collectReports {paths period} {
+    set records {}
+    set issues {}
+    set loaded 0
+    foreach path $paths {
+        if {[catch {parseReport $path $period} one]} {
+            lappend issues [dict create source $path message $one]
+        } else {
+            incr loaded
+            foreach record $one { lappend records $record }
+        }
+    }
+    return [dict create records $records issues $issues loaded $loaded]
+}
+proc summarizeRecords {records} {
+    set count [llength $records]
+    set negative 0
+    set worst {}
+    foreach record $records {
+        set slack [dict get $record slack]
+        if {$slack < 0} { incr negative }
+        if {$worst eq "" || $slack < $worst} { set worst $slack }
+    }
+    return [dict create count $count negative $negative worst $worst]
+}
+输入教学文件 morning.rpt：
+# 原创教学路径；单位 ns
+PATH a DELAY 8.0
+PATH b DELAY 10.5
+输入教学文件 evening.rpt：
+PATH c DELAY 9.0
+PATH d DELAY 11.2
+
+[00:00:50.000–00:00:55.000] 坏报告明确列出
+坏文件不混入有效统计，输出清楚标注这是部分结果。
+代码：
+source report-tools.tcl
+set result [collectReports {morning.rpt bad.rpt} 10]
+set summary [summarizeRecords [dict get $result records]]
+puts "部分结果：成功 [dict get $result loaded] 份，失败 [llength [dict get $result issues]] 份"
+puts "有效路径：[dict get $summary count]"
+foreach issue [dict get $result issues] { puts [dict get $issue message] }
+真实 Tcl 9.0.4 标准输出：
+部分结果：成功 1 份，失败 1 份
+有效路径：2
+bad.rpt:2：教学路径格式错误
+输入教学文件 report-tools.tcl：
+proc parseReport {path period} {
+    if {![regexp {^[0-9]+(?:\.[0-9]+)?$} $period]} {
+        error "周期必须是正十进制数"
+    }
+    scan $period %f period
+    if {$period <= 0 || $period > 1000} { error "周期须满足 0 < period <= 1000 ns" }
+    set ch [open $path r]
+    set status [catch {
+        set records {}
+        set lineNo 0
+        while {[gets $ch line] >= 0} {
+            incr lineNo
+            set line [string trim $line]
+            if {$line eq "" || [string match #* $line]} { continue }
+            if {![regexp {^PATH\s+(\S+)\s+DELAY\s+([0-9]+(?:\.[0-9]+)?)$} $line -> name delay]} {
+                error "$path:$lineNo：教学路径格式错误"
+            }
+            scan $delay %f delay
+            if {$delay > 1000} { error "$path:$lineNo：延迟超出教学范围" }
+            lappend records [dict create source $path line $lineNo path $name delay $delay slack [expr {$period - $delay}]]
+        }
+        set records
+    } result options]
+    close $ch
+    if {$status != 0} { return -options $options $result }
+    return $result
+}
+proc collectReports {paths period} {
+    set records {}
+    set issues {}
+    set loaded 0
+    foreach path $paths {
+        if {[catch {parseReport $path $period} one]} {
+            lappend issues [dict create source $path message $one]
+        } else {
+            incr loaded
+            foreach record $one { lappend records $record }
+        }
+    }
+    return [dict create records $records issues $issues loaded $loaded]
+}
+proc summarizeRecords {records} {
+    set count [llength $records]
+    set negative 0
+    set worst {}
+    foreach record $records {
+        set slack [dict get $record slack]
+        if {$slack < 0} { incr negative }
+        if {$worst eq "" || $slack < $worst} { set worst $slack }
+    }
+    return [dict create count $count negative $negative worst $worst]
+}
+输入教学文件 morning.rpt：
+# 原创教学路径；单位 ns
+PATH a DELAY 8.0
+PATH b DELAY 10.5
+输入教学文件 bad.rpt：
+PATH x DELAY 7
+无法解析
+
+[00:00:55.000–00:01:00.000] 把简化模型与真实 STA 分清
+真实 STA 还有时钟、建立保持、例外和工具模型；本演示用于学习 Tcl 数据流程。
+说明：输入 → 解析 → 统计 → 写出摘要
+代码：
+source report-tools.tcl
+set result [collectReports {morning.rpt evening.rpt} 10]
+set summary [summarizeRecords [dict get $result records]]
+set output [open analysis.txt w]
+puts $output "教学分析摘要（全部输入已处理）"
+puts $output "路径：[dict get $summary count]"
+puts $output "负 slack：[dict get $summary negative]"
+puts $output [format "最差 slack：%.2f ns" [dict get $summary worst]]
+close $output
+set input [open analysis.txt r]
+puts [string trim [read $input]]
+close $input
+真实 Tcl 9.0.4 标准输出：
+教学分析摘要（全部输入已处理）
+路径：4
+负 slack：2
+最差 slack：-1.20 ns
+输入教学文件 report-tools.tcl：
+proc parseReport {path period} {
+    if {![regexp {^[0-9]+(?:\.[0-9]+)?$} $period]} {
+        error "周期必须是正十进制数"
+    }
+    scan $period %f period
+    if {$period <= 0 || $period > 1000} { error "周期须满足 0 < period <= 1000 ns" }
+    set ch [open $path r]
+    set status [catch {
+        set records {}
+        set lineNo 0
+        while {[gets $ch line] >= 0} {
+            incr lineNo
+            set line [string trim $line]
+            if {$line eq "" || [string match #* $line]} { continue }
+            if {![regexp {^PATH\s+(\S+)\s+DELAY\s+([0-9]+(?:\.[0-9]+)?)$} $line -> name delay]} {
+                error "$path:$lineNo：教学路径格式错误"
+            }
+            scan $delay %f delay
+            if {$delay > 1000} { error "$path:$lineNo：延迟超出教学范围" }
+            lappend records [dict create source $path line $lineNo path $name delay $delay slack [expr {$period - $delay}]]
+        }
+        set records
+    } result options]
+    close $ch
+    if {$status != 0} { return -options $options $result }
+    return $result
+}
+proc collectReports {paths period} {
+    set records {}
+    set issues {}
+    set loaded 0
+    foreach path $paths {
+        if {[catch {parseReport $path $period} one]} {
+            lappend issues [dict create source $path message $one]
+        } else {
+            incr loaded
+            foreach record $one { lappend records $record }
+        }
+    }
+    return [dict create records $records issues $issues loaded $loaded]
+}
+proc summarizeRecords {records} {
+    set count [llength $records]
+    set negative 0
+    set worst {}
+    foreach record $records {
+        set slack [dict get $record slack]
+        if {$slack < 0} { incr negative }
+        if {$worst eq "" || $slack < $worst} { set worst $slack }
+    }
+    return [dict create count $count negative $negative worst $worst]
+}
+输入教学文件 morning.rpt：
+# 原创教学路径；单位 ns
+PATH a DELAY 8.0
+PATH b DELAY 10.5
+输入教学文件 evening.rpt：
+PATH c DELAY 9.0
+PATH d DELAY 11.2

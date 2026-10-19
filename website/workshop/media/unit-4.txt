@@ -1,0 +1,234 @@
+单元 4：读取文件与处理错误
+
+时长：60 秒。无声原创代码演示，中文字幕已嵌入画面。
+画面为脚本生成的代码工作台，不是浏览器点击操作录像。
+所有代码均由真实本地 Tcl 解释器执行；标准输出与错误直接取自执行结果。
+每个镜头都在新临时目录和新解释器中执行；教学文件随镜头预置。
+源码只有显示折行，执行内容没有改变。文件操作不会访问私人数据。
+
+[00:00:00.000–00:00:05.000] 从教学文件读取记录
+本演示文件在临时目录里；网页对应浏览器虚拟文件，不能读取私人磁盘。
+说明：输入文件：readings.txt
+代码：
+set ch [open readings.txt r]
+set text [read $ch]
+close $ch
+puts [string trim $text]
+真实 Tcl 9.0.4 标准输出：
+1.2
+1.4
+1.6
+输入教学文件 readings.txt：
+1.2
+1.4
+1.6
+
+[00:00:05.000–00:00:10.000] 打开、读取、关闭
+open 返回通道；read 取出内容；close 释放文件资源。
+代码：
+set ch [open readings.txt r]
+set text [read $ch]
+close $ch
+puts [string trim $text]
+真实 Tcl 9.0.4 标准输出：
+1.2
+1.4
+1.6
+输入教学文件 readings.txt：
+1.2
+1.4
+1.6
+
+[00:00:10.000–00:00:15.000] 换一份输入文件
+增加一行测量，再运行，标准输出显示新的文件内容。
+说明：输入文件新增 1.8。
+代码：
+set ch [open readings.txt r]
+set text [read $ch]
+close $ch
+puts [string trim $text]
+真实 Tcl 9.0.4 标准输出：
+1.2
+1.4
+1.6
+1.8
+输入教学文件 readings.txt：
+1.2
+1.4
+1.6
+1.8
+
+[00:00:15.000–00:00:20.000] 逐行读取与空白行
+gets 返回读取到的字符数；空白行长度 0 仍然是一行。
+代码：
+set ch [open notes.txt r]
+set count 0
+while {[gets $ch line] >= 0} {
+    incr count
+    puts "$count：[string length $line] 个字符"
+}
+close $ch
+真实 Tcl 9.0.4 标准输出：
+1：2 个字符
+2：0 个字符
+3：2 个字符
+输入教学文件 notes.txt：
+开始
+
+结束
+
+[00:00:20.000–00:00:25.000] 文件末尾的判断
+使用 gets >= 0 判断是否读到一行；不能把空白行当文件末尾。
+说明：开始、空白、结束：共三行。
+代码：
+set ch [open notes.txt r]
+set count 0
+while {[gets $ch line] >= 0} {
+    incr count
+    puts "$count：[string length $line] 个字符"
+}
+close $ch
+真实 Tcl 9.0.4 标准输出：
+1：2 个字符
+2：0 个字符
+3：2 个字符
+输入教学文件 notes.txt：
+开始
+
+结束
+
+[00:00:25.000–00:00:30.000] 缺失文件产生真实错误
+open missing.txt 失败，解释器返回原因；流程没有继续读取。
+说明：当前目录没有 missing.txt。
+代码：
+set ch [open missing.txt r]
+puts [read $ch]
+close $ch
+真实 Tcl 9.0.4 标准输出：
+（无标准输出）
+真实解释器错误：
+couldn't open "missing.txt": no such file or directory
+
+[00:00:30.000–00:00:35.000] 用 catch 处理可预期问题
+catch 返回错误状态，message 保存原因，再输出可理解的提示。
+代码：
+if {[catch {open missing.txt r} message]} {
+    puts "无法读取文件"
+    puts $message
+}
+真实 Tcl 9.0.4 标准输出：
+无法读取文件
+couldn't open "missing.txt": no such file or directory
+
+[00:00:35.000–00:00:40.000] 明确报告失败
+出现提示不等于文件读取成功；保留错误原因便于修正。
+说明：缺失文件仍然缺失。
+代码：
+if {[catch {open missing.txt r} message]} {
+    puts "无法读取文件"
+    puts $message
+}
+真实 Tcl 9.0.4 标准输出：
+无法读取文件
+couldn't open "missing.txt": no such file or directory
+
+[00:00:40.000–00:00:45.000] 生成一份摘要文件
+读取三个值，统计数量与平均数，把结果写入 summary.txt。
+代码：
+set ch [open readings.txt r]
+set values [split [string trim [read $ch]] "
+"]
+close $ch
+set total 0.0
+foreach value $values { set total [expr {$total + $value}] }
+set count [llength $values]
+set out [open summary.txt w]
+puts $out "数量：$count"
+puts $out [format "平均值：%.2f" [expr {$total / $count}]]
+close $out
+set check [open summary.txt r]
+puts [string trim [read $check]]
+close $check
+真实 Tcl 9.0.4 标准输出：
+数量：3
+平均值：1.40
+输入教学文件 readings.txt：
+1.2
+1.4
+1.6
+
+[00:00:45.000–00:00:50.000] 重新读取，验证写入
+摘要写入后关闭通道，再打开文件读取，核对实际保存内容。
+代码：
+set ch [open readings.txt r]
+set values [split [string trim [read $ch]] "
+"]
+close $ch
+set total 0.0
+foreach value $values { set total [expr {$total + $value}] }
+set count [llength $values]
+set out [open summary.txt w]
+puts $out "数量：$count"
+puts $out [format "平均值：%.2f" [expr {$total / $count}]]
+close $out
+set check [open summary.txt r]
+puts [string trim [read $check]]
+close $check
+真实 Tcl 9.0.4 标准输出：
+数量：3
+平均值：1.40
+输入教学文件 readings.txt：
+1.2
+1.4
+1.6
+
+[00:00:50.000–00:00:55.000] 修改输入，摘要随之变化
+把测量改成 2、4、6，平均数来自真正的计算。
+代码：
+set ch [open readings.txt r]
+set values [split [string trim [read $ch]] "
+"]
+close $ch
+set total 0.0
+foreach value $values { set total [expr {$total + $value}] }
+set count [llength $values]
+set out [open summary.txt w]
+puts $out "数量：$count"
+puts $out [format "平均值：%.2f" [expr {$total / $count}]]
+close $out
+set check [open summary.txt r]
+puts [string trim [read $check]]
+close $check
+真实 Tcl 9.0.4 标准输出：
+数量：3
+平均值：4.00
+输入教学文件 readings.txt：
+2.0
+4.0
+6.0
+
+[00:00:55.000–00:01:00.000] 在自己的环境复现
+复制代码与教学数据，用 tclsh 运行；浏览器文件不会自动写到本地磁盘。
+说明：需要文件时，先准备同名教学输入。
+代码：
+set ch [open readings.txt r]
+set values [split [string trim [read $ch]] "
+"]
+close $ch
+set total 0.0
+foreach value $values { set total [expr {$total + $value}] }
+set count [llength $values]
+set out [open summary.txt w]
+puts $out "数量：$count"
+puts $out [format "平均值：%.2f" [expr {$total / $count}]]
+close $out
+set check [open summary.txt r]
+puts [string trim [read $check]]
+close $check
+真实 Tcl 9.0.4 标准输出：
+数量：3
+平均值：1.40
+输入教学文件 readings.txt：
+1.2
+1.4
+1.6

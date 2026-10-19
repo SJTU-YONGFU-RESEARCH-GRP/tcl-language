@@ -1,0 +1,72 @@
+{
+  "id": "A",
+  "title": "报名名单清理器",
+  "summary": "把粘贴来的报名姓名变成可复核的有序名单；保留姓名里的一个空格，移除空行和重复项。",
+  "requirements": [
+    "输入必须是合法 Tcl 列表，每个元素代表一个完整姓名。",
+    "清理元素首尾空白，把连续空格、制表符和换行压成一个空格；空姓名丢弃。",
+    "按清理后的姓名去重；本项目区分大小写，不把不同姓名擅自合并。",
+    "使用 lsort -dictionary 排序，输出人数及每行一个姓名。",
+    "实现可复用过程 cleanRegistrations，让另一份名单也能得到正确结果。"
+  ],
+  "input": "示例使用 list 构造六个完整姓名，包括带空格的英文姓名、重复项和空项。排序采用 Tcl 的 dictionary 顺序，不是汉语拼音排序。",
+  "starter": "proc cleanRegistrations {names} {\n    # 1. 建立空列表；2. foreach 清理；3. 去重并排序。\n    error \"请实现 cleanRegistrations\"\n}\nproc showRegistrations {names} {\n    set clean [cleanRegistrations $names]\n    puts \"人数: [llength $clean]\"\n    foreach name $clean {puts $name}\n}\nset names [list \"  Maya Chen  \" \"Lin Wei\" \"Maya\\tChen\" \"  \" \"Chen Yu\" \"Lin  Wei\"]\nshowRegistrations $names",
+  "solution": "proc cleanRegistrations {names} {\n    set clean {}\n    foreach name $names {\n        set name [string trim $name]\n        regsub -all {[ \\t\\r\\n]+} $name { } name\n        if {$name ne \"\"} {lappend clean $name}\n    }\n    return [lsort -dictionary -unique $clean]\n}\nproc showRegistrations {names} {\n    set clean [cleanRegistrations $names]\n    puts \"人数: [llength $clean]\"\n    foreach name $clean {puts $name}\n}\nset names [list \"  Maya Chen  \" \"Lin Wei\" \"Maya\\tChen\" \"  \" \"Chen Yu\" \"Lin  Wei\"]\nshowRegistrations $names",
+  "expected": "人数: 3\nChen Yu\nLin Wei\nMaya Chen",
+  "hints": [
+    "先用 foreach 遍历姓名，用 string trim 去掉首尾空白。不要 split 整份名单，否则带空格的姓名会被拆开。",
+    "regsub -all {[ \\t\\r\\n]+} $name { } name 可把连续空白替换成一个普通空格；清理后为空的项不要加入列表。",
+    "把累积列表交给 lsort -dictionary -unique；showRegistrations 只负责输出，cleanRegistrations 负责返回列表。"
+  ],
+  "cases": [
+    {
+      "title": "另一份名单与姓名中的空格",
+      "code": "showRegistrations [list \" Zoe Li \" \"Ana  Park\" \"Zoe Li\" \"Ana\\tPark\" \"Kai\"]",
+      "expected": "人数: 3\nAna Park\nKai\nZoe Li",
+      "checks": [
+        {
+          "label": "完整姓名仍是一个元素",
+          "script": "expr {[cleanRegistrations [list \" A B \" \"A  B\"]] eq [list \"A B\"]}"
+        }
+      ]
+    },
+    {
+      "title": "空列表和全部空白",
+      "code": "showRegistrations {}; showRegistrations [list \" \" \"\\t\\n\"]",
+      "expected": "人数: 0\n人数: 0"
+    },
+    {
+      "title": "非法列表明确报错",
+      "code": "set malformed [format %c 123]\nputs \"非法列表: [catch {cleanRegistrations $malformed}]\"",
+      "expected": "非法列表: 1"
+    },
+    {
+      "title": "大小写规则透明",
+      "code": "showRegistrations [list \"Alex\" \"alex\" \"Alex\"]",
+      "expected": "人数: 2\nAlex\nalex",
+      "checks": [
+        {
+          "label": "区分大小写",
+          "script": "expr {[llength [cleanRegistrations {Alex alex Alex}]] == 2}"
+        }
+      ]
+    }
+  ],
+  "checks": [
+    {
+      "label": "多输入去重排序",
+      "script": "expr {[cleanRegistrations {z b z a}] eq {a b z}}"
+    },
+    {
+      "label": "空输入有空结果",
+      "script": "expr {[cleanRegistrations {}] eq {}}"
+    }
+  ],
+  "extensions": [
+    "增加人工确认的大小写合并开关，先展示可能冲突的姓名。",
+    "读取每行一个姓名的 UTF-8 文件，写出清理结果和被丢弃行号。",
+    "保留原始姓名到规范姓名的对照表，方便核对。"
+  ],
+  "view": "list",
+  "diagram": "assets/diagrams/project-A.svg"
+}

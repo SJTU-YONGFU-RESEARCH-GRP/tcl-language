@@ -1,0 +1,64 @@
+First lines of code and variables
+Original silent demo · 10 seconds per scene · Output from real Tcl
+
+[00–10 seconds] Ask the computer to say hello
+puts is a little loudspeaker. Double quotes keep a message together.
+
+puts "Hello, Tcl!"
+
+Output:
+Hello, Tcl!
+
+[10–20 seconds] Give a backpack pocket a name
+set stores a value in a variable with a name.
+
+set hero Ada
+puts $hero
+
+Output:
+Ada
+
+[20–30 seconds] Read what is in the pocket
+$hero is replaced with the Ada value stored in hero.
+
+set hero Ada
+puts "Hello $hero"
+
+Output:
+Hello Ada
+
+[30–40 seconds] Invite a calculator along
+Brackets run expr first and give its result to set.
+
+set energy [expr {4 * 5}]
+puts $energy
+
+Output:
+20
+
+[40–50 seconds] Three kinds of grouping
+Double quotes allow substitution; braces preserve this text literally.
+
+set hero Ada
+puts "Hello $hero"
+puts {Hello $hero}
+
+Output:
+Hello Ada
+Hello $hero
+
+[50–60 seconds] Repair the launch beacon
+Pause, predict the output and try the mission in lesson 5.
+
+set hero Ada
+set cells 4
+set each 5
+set energy [expr {$cells * $each}]
+puts "$hero ready"
+puts "Energy: $energy"
+puts {$energy}
+
+Output:
+Ada ready
+Energy: 20
+$energy
