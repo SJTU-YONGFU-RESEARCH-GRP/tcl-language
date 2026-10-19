@@ -41,7 +41,12 @@ def _build_quiz_page(lang: str) -> str:
             "title": "🎯 Tcl Quiz Challenge & Certification",
             "badges": ["Tcl Knowledge Assessment", "Verifiable Certificate", "Public Leaderboard"],
             "desc": "Test your Tcl scripting knowledge. Answer multiple-choice questions covering core syntax, command substitution, lists, dictionaries, procedures, and script automation.",
-            "mode_select": "Choose Assessment Mode & Candidate Name",
+            "mode_select": "Candidate Registration & Assessment Mode",
+            "name_label": "Candidate Name / Callsign",
+            "email_label": "User Email",
+            "email_placeholder": "engineer@institution.edu",
+            "email_hint": "Recorded in GitHub issue submission for verification and certificate registry.",
+            "mode_label": "Assessment Mode",
             "full_mode": "Full Assessment (All 4 Modules)",
             "sprint_mode": "Quick Assessment (6 Questions)",
             "candidate_placeholder": "Enter your name or callsign...",
@@ -55,6 +60,7 @@ def _build_quiz_page(lang: str) -> str:
             "thinking_bonus": "Thinking Time Allowance Granted",
             "report_title": "📊 Tcl Quiz Results & Summary",
             "cert_title": "🎓 Claim Your Certificate of Completion",
+            "submit_github_btn": "📤 Submit Result to GitHub Leaderboard",
             "dl_cert": "📥 Download Certificate (SVG)",
             "print_cert": "🖨️ Print Certificate",
             "view_leaderboard": "🏆 View Standing on Public Leaderboard →",
@@ -64,7 +70,12 @@ def _build_quiz_page(lang: str) -> str:
             "title": "🎯 Tcl 随堂测验与技能认证",
             "badges": ["Tcl 语法知识测验", "防伪完成证书", "全网排行榜"],
             "desc": "测试您的 Tcl 编程与脚本掌握程度。题目涵盖核心语法、置换规则、列表与字典、过程封装及常用自动化脚本操作。",
-            "mode_select": "选择测验模式与考生姓名",
+            "mode_select": "考生信息登记与测验模式选择",
+            "name_label": "考生姓名 / 代号",
+            "email_label": "电子邮箱",
+            "email_placeholder": "engineer@university.edu.cn",
+            "email_hint": "用于写入 GitHub Issue 记录以供证书核验与排名登记。",
+            "mode_label": "测验模式",
             "full_mode": "完整测验 (覆盖全部 4 个模块)",
             "sprint_mode": "快速自测 (精选 6 道题)",
             "candidate_placeholder": "请输入您的姓名或代号...",
@@ -78,6 +89,7 @@ def _build_quiz_page(lang: str) -> str:
             "thinking_bonus": "已追加思考保护时间",
             "report_title": "📊 Tcl 测验成绩与掌握度评估",
             "cert_title": "🎓 领取 Tcl 编程完成证书",
+            "submit_github_btn": "📤 提交成绩至 GitHub 荣誉榜",
             "dl_cert": "📥 下载防伪认证证书 (SVG)",
             "print_cert": "🖨️ 打印 / 导出 PDF",
             "view_leaderboard": "🏆 前往全网排行榜查看名次 →",
@@ -87,7 +99,12 @@ def _build_quiz_page(lang: str) -> str:
             "title": "🎯 Cabaran Kuiz Tcl & Pensijilan",
             "badges": ["Penilaian Penskripan Tcl", "Sijil Sah Digital", "Papan Pendahulu"],
             "desc": "Uji pengetahuan penskripan Tcl anda. Jawab soalan pilihan berganda yang merangkumi sintaks teras, penggantian perintah, senarai, kamus, dan automasi skrip.",
-            "mode_select": "Pilih Mod Penilaian & Nama Calon",
+            "mode_select": "Pendaftaran Calon & Pilihan Mod",
+            "name_label": "Nama / Panggilan Calon",
+            "email_label": "Emel Pengguna",
+            "email_placeholder": "jurutera@universiti.edu.my",
+            "email_hint": "Direkodkan dalam isu GitHub untuk pengesahan sijil dan pendaftaran.",
+            "mode_label": "Mod Penilaian",
             "full_mode": "Penilaian Penuh (Semua 4 Modul)",
             "sprint_mode": "Penilaian Pantas (6 Soalan)",
             "candidate_placeholder": "Masukkan nama atau alias anda...",
@@ -101,6 +118,7 @@ def _build_quiz_page(lang: str) -> str:
             "thinking_bonus": "Masa Berfikir Tambahan Diberikan",
             "report_title": "📊 Keputusan & Ringkasan Kuiz Tcl",
             "cert_title": "🎓 Tuntut Sijil Tamat Tcl Anda",
+            "submit_github_btn": "📤 Hantar Keputusan ke Papan Juara GitHub",
             "dl_cert": "📥 Muat Turun Sijil (SVG)",
             "print_cert": "🖨️ Cetak Sijil",
             "view_leaderboard": "🏆 Lihat Kedudukan di Papan Pendahulu →",
@@ -110,7 +128,12 @@ def _build_quiz_page(lang: str) -> str:
             "title": "🎯 Défi Quiz Tcl & Certification",
             "badges": ["Évaluation Tcl", "Certificat Vérifiable", "Classement Public"],
             "desc": "Testez vos connaissances en programmation Tcl. Répondez aux questions à choix multiples couvrant la syntaxe, la substitution, les listes, les dictionnaires et l'automatisation.",
-            "mode_select": "Choisissez le Mode & Nom du Candidat",
+            "mode_select": "Inscription du Candidat & Choix du Mode",
+            "name_label": "Nom du Candidat / Indicatif",
+            "email_label": "Adresse E-mail",
+            "email_placeholder": "ingenieur@ecole.fr",
+            "email_hint": "Enregistré dans l'issue GitHub pour la vérification et l'attribution.",
+            "mode_label": "Mode d'Évaluation",
             "full_mode": "Évaluation Complète (4 Modules)",
             "sprint_mode": "Évaluation Rapide (6 Questions)",
             "candidate_placeholder": "Entrez votre nom ou pseudonyme...",
@@ -124,6 +147,7 @@ def _build_quiz_page(lang: str) -> str:
             "thinking_bonus": "Temps de Réflexion Supplémentaire Accordé",
             "report_title": "📊 Résultats & Bilan du Quiz Tcl",
             "cert_title": "🎓 Obtenez Votre Certificat Tcl",
+            "submit_github_btn": "📤 Soumettre le Résultat au Classement GitHub",
             "dl_cert": "📥 Télécharger le Certificat (SVG)",
             "print_cert": "🖨️ Imprimer le Certificat",
             "view_leaderboard": "🏆 Voir Votre Rang au Classement Public →",
@@ -149,13 +173,20 @@ def _build_quiz_page(lang: str) -> str:
   <div id="quiz-start-screen">
     <h3 style="margin-top:0; font-size:1.15rem; color:var(--tcl-heading);">⚙️ {t["mode_select"]}</h3>
     
-    <div style="margin: 16px 0;">
-      <label style="display:block; font-size:13px; font-weight:700; margin-bottom:8px; color:var(--tcl-heading);">Candidate Name / Callsign:</label>
-      <input type="text" id="candidateNameInput" placeholder="{t["candidate_placeholder"]}" style="width:100%; max-width:420px; padding:10px 14px; font-size:14px; border:1px solid var(--tcl-border); border-radius:8px; background:var(--md-default-bg-color); color:var(--tcl-heading); outline:none; box-sizing:border-box;">
+    <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(260px, 1fr)); gap:16px; margin: 16px 0;">
+      <div>
+        <label style="display:block; font-size:13px; font-weight:700; margin-bottom:8px; color:var(--tcl-heading);">{t["name_label"]} <span style="color:#ef4444;">*</span></label>
+        <input type="text" id="candidateNameInput" placeholder="{t["candidate_placeholder"]}" style="width:100%; padding:10px 14px; font-size:14px; border:1px solid var(--tcl-border); border-radius:8px; background:var(--md-default-bg-color); color:var(--tcl-heading); outline:none; box-sizing:border-box;">
+      </div>
+      <div>
+        <label style="display:block; font-size:13px; font-weight:700; margin-bottom:8px; color:var(--tcl-heading);">{t["email_label"]} <span style="color:#ef4444;">*</span></label>
+        <input type="email" id="candidateEmailInput" placeholder="{t["email_placeholder"]}" style="width:100%; padding:10px 14px; font-size:14px; border:1px solid var(--tcl-border); border-radius:8px; background:var(--md-default-bg-color); color:var(--tcl-heading); outline:none; box-sizing:border-box;">
+      </div>
     </div>
+    <div style="font-size:11.5px; color:var(--md-default-fg-color--lighter); margin-top:-8px; margin-bottom:14px;">{t["email_hint"]}</div>
 
     <div style="margin: 18px 0;">
-      <label style="display:block; font-size:13px; font-weight:700; margin-bottom:8px; color:var(--tcl-heading);">Quest Mode:</label>
+      <label style="display:block; font-size:13px; font-weight:700; margin-bottom:8px; color:var(--tcl-heading);">{t["mode_label"]}:</label>
       <div style="display:flex; gap:12px; flex-wrap:wrap;">
         <label style="display:flex; align-items:center; gap:8px; background:var(--tcl-surface-card); border:1px solid var(--tcl-border); padding:10px 16px; border-radius:8px; cursor:pointer;">
           <input type="radio" name="questMode" value="full" checked style="cursor:pointer;">
@@ -166,6 +197,12 @@ def _build_quiz_page(lang: str) -> str:
           <span style="font-size:13.5px; font-weight:600; color:var(--tcl-heading);">{t["sprint_mode"]}</span>
         </label>
       </div>
+    </div>
+
+    <!-- Live Telemetry Status -->
+    <div style="font-size:12px; color:var(--md-default-fg-color--lighter); display:flex; align-items:center; gap:8px; margin: 10px 0 18px;">
+      <span style="display:inline-block; width:8px; height:8px; border-radius:50%; background:#10b981;"></span>
+      <span id="telemetryLocationText">Detecting network telemetry & IP...</span>
     </div>
 
     <div style="margin-top: 24px;">
@@ -297,8 +334,9 @@ def _build_quiz_page(lang: str) -> str:
 
       <!-- Action Buttons -->
       <div style="display:flex; gap:12px; justify-content:center; flex-wrap:wrap; margin-top:16px;">
-        <button onclick="downloadCertificateSVG()" class="tcl-btn tcl-btn-primary" style="padding:9px 20px; font-size:13.5px;">{t["dl_cert"]}</button>
-        <button onclick="window.print()" class="tcl-btn tcl-btn-secondary" style="padding:9px 18px; font-size:13.5px;">{t["print_cert"]}</button>
+        <button onclick="submitToGithubIssue()" class="tcl-btn tcl-btn-primary" style="background: linear-gradient(135deg, #10b981, #059669); border:none; padding:9px 20px; font-size:13.5px; box-shadow: 0 4px 14px rgba(16,185,129,0.3);">{t["submit_github_btn"]}</button>
+        <button onclick="downloadCertificateSVG()" class="tcl-btn tcl-btn-secondary" style="padding:9px 18px; font-size:13.5px;">{t["dl_cert"]}</button>
+        <button onclick="window.print()" class="tcl-btn tcl-btn-secondary" style="padding:9px 16px; font-size:13.5px;">{t["print_cert"]}</button>
         <a href="../leaderboard/" class="tcl-btn tcl-btn-accent" style="padding:9px 18px; font-size:13.5px; text-decoration:none;">{t["view_leaderboard"]}</a>
         <button onclick="restartChallenge()" class="tcl-btn tcl-btn-secondary" style="padding:9px 16px; font-size:13.5px;">{t["retake"]}</button>
       </div>
@@ -315,9 +353,9 @@ def _build_leaderboard_page(lang: str) -> str:
     i18n_strings = {
         "en": {
             "title": "🏆 Tcl Quiz Leaderboard & Verified Certificates",
-            "badges": ["Live Rankings", "Verified Certificates", "Score & Accuracy"],
-            "desc": "Real-time ranking table of students and engineers who completed the Tcl Quiz Challenge. Sorted by score, accuracy, and elapsed time.",
-            "search_ph": "Search candidate name or callsign...",
+            "badges": ["Live GitHub Submissions", "Verified Certificates", "Score & Telemetry"],
+            "desc": "Real-time ranking of students and engineers who completed the Tcl Quiz Challenge. Submissions are cryptographically hashed and verified via public GitHub Issues.",
+            "search_ph": "Search candidate name, callsign, or location...",
             "all_mode": "All Modes",
             "full_mode": "Full Assessment",
             "sprint_mode": "Quick Assessment",
@@ -328,17 +366,19 @@ def _build_leaderboard_page(lang: str) -> str:
             "col_acc": "Accuracy",
             "col_time": "Time",
             "col_emh": "Completed",
-            "col_date": "Date",
+            "col_loc": "Location",
+            "col_issue": "Verification Evidence",
+            "sync_connecting": "Connecting to GitHub Issues repository...",
             "verify_title": "🔍 Instant Certificate Verification",
-            "verify_ph": "Enter Certificate Hash (e.g. TCL-VLSI-2026-X89F)...",
+            "verify_ph": "Enter Certificate Hash (e.g. TCL-CERT-2026-X89F)...",
             "verify_btn": "Verify Credential",
             "take_quiz_btn": "🎯 Take the Quiz Challenge →"
         },
         "zh": {
             "title": "🏆 Tcl 测验排行榜与证书核验中心",
-            "badges": ["实时排名", "防伪证书", "得分与正确率"],
-            "desc": "汇聚完成 Tcl 随堂测验的成绩榜单。按得分、答题正确率与耗时进行综合排位。",
-            "search_ph": "搜索考生姓名或代号...",
+            "badges": ["GitHub Issue 实时公示", "防伪认证证书", "真实成绩与地域"],
+            "desc": "汇聚完成 Tcl 随堂测验的成绩榜单。所有成绩均通过公开 GitHub Issues 提交与存证，附带防伪哈希及网络遥测认证。",
+            "search_ph": "搜索考生姓名、代号或地域...",
             "all_mode": "全部模式",
             "full_mode": "完整测验",
             "sprint_mode": "快速自测",
@@ -349,17 +389,19 @@ def _build_leaderboard_page(lang: str) -> str:
             "col_acc": "正确率",
             "col_time": "耗时",
             "col_emh": "完成进度",
-            "col_date": "完成日期",
+            "col_loc": "地理位置",
+            "col_issue": "认证证据 / 日期",
+            "sync_connecting": "正在连接 GitHub Issues 公开记录库...",
             "verify_title": "🔍 认证证书真伪即时核验",
-            "verify_ph": "输入证书凭证编号 (例如: TCL-VLSI-2026-X89F)...",
+            "verify_ph": "输入证书凭证编号 (例如: TCL-CERT-2026-X89F)...",
             "verify_btn": "立即核验凭证",
             "take_quiz_btn": "🎯 参与随堂测验 →"
         },
         "ms": {
             "title": "🏆 Papan Pendahulu Kuiz Tcl & Pengesahan Sijil",
-            "badges": ["Kedudukan Langsung", "Sijil Sah Digital", "Skor & Ketepatan"],
-            "desc": "Jadual kedudukan masa nyata pelajar dan jurutera yang menyelesaikan Cabaran Kuiz Tcl. Disusun mengikut skor, ketepatan, dan masa diambil.",
-            "search_ph": "Cari nama calon atau alias...",
+            "badges": ["Penyerahan Isu GitHub", "Sijil Sah Digital", "Skor & Telemetri"],
+            "desc": "Jadual kedudukan masa nyata pelajar dan jurutera yang menyelesaikan Cabaran Kuiz Tcl. Penyerahan disahkan secara telus melalui Isu GitHub awam.",
+            "search_ph": "Cari nama calon, alias, atau lokasi...",
             "all_mode": "Semua Mod",
             "full_mode": "Penilaian Penuh",
             "sprint_mode": "Penilaian Pantas",
@@ -370,17 +412,19 @@ def _build_leaderboard_page(lang: str) -> str:
             "col_acc": "Ketepatan",
             "col_time": "Masa",
             "col_emh": "Kemajuan",
-            "col_date": "Tarikh",
+            "col_loc": "Lokasi",
+            "col_issue": "Bukti Pengesahan",
+            "sync_connecting": "Menyambung ke repositori Isu GitHub...",
             "verify_title": "🔍 Pengesahan Sijil Segera",
-            "verify_ph": "Masukkan Kod Sijil (cth: TCL-VLSI-2026-X89F)...",
+            "verify_ph": "Masukkan Kod Sijil (cth: TCL-CERT-2026-X89F)...",
             "verify_btn": "Sahkan Sijil",
             "take_quiz_btn": "🎯 Ambil Cabaran Kuiz →"
         },
         "fr": {
             "title": "🏆 Classement du Quiz Tcl & Vérification de Certificat",
-            "badges": ["Classement en Direct", "Certificats Vérifiés", "Score & Précision"],
-            "desc": "Classement en temps réel des candidats ayant complété le Défi Quiz Tcl. Trié par score, précision et temps écoulé.",
-            "search_ph": "Rechercher un candidat ou pseudo...",
+            "badges": ["Soumissions Issues GitHub", "Certificats Vérifiés", "Score & Télémétrie"],
+            "desc": "Classement en direct des ingénieurs ayant complété le Défi Quiz Tcl. Les résultats sont enregistrés et certifiés publiquement via les issues GitHub.",
+            "search_ph": "Rechercher un candidat, pseudo ou lieu...",
             "all_mode": "Tous les Modes",
             "full_mode": "Évaluation Complète",
             "sprint_mode": "Évaluation Rapide",
@@ -391,9 +435,11 @@ def _build_leaderboard_page(lang: str) -> str:
             "col_acc": "Précision",
             "col_time": "Temps",
             "col_emh": "Complété",
-            "col_date": "Date",
+            "col_loc": "Localisation",
+            "col_issue": "Preuve de Validation",
+            "sync_connecting": "Connexion au registre d'issues GitHub...",
             "verify_title": "🔍 Vérification Instantanée de Certificat",
-            "verify_ph": "Entrez le Hash du Certificat (ex: TCL-VLSI-2026-X89F)...",
+            "verify_ph": "Entrez le Hash du Certificat (ex: TCL-CERT-2026-X89F)...",
             "verify_btn": "Vérifier le Certificat",
             "take_quiz_btn": "🎯 Participer au Défi Quiz →"
         }
@@ -417,6 +463,12 @@ def _build_leaderboard_page(lang: str) -> str:
 
 <div class="leaderboard-container" style="background: var(--tcl-surface); border: 1px solid var(--tcl-border); border-radius: 12px; padding: 24px; margin: 24px 0; box-shadow: 0 4px 20px rgba(0,0,0,0.06);">
   
+  <!-- Live Sync Status Banner -->
+  <div id="boardSyncStatus" style="font-size:12.5px; color:var(--tcl-blue-600); font-weight:600; margin-bottom:16px; display:flex; align-items:center; gap:8px;">
+    <span style="display:inline-block; width:8px; height:8px; border-radius:50%; background:#10b981;"></span>
+    <span id="boardSyncText">{t["sync_connecting"]}</span>
+  </div>
+
   <!-- Search & Filter Controls -->
   <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:14px; margin-bottom:20px;">
     <input type="text" id="boardSearchInput" oninput="filterLeaderboard()" placeholder="{t["search_ph"]}" style="padding:8px 14px; border:1px solid var(--tcl-border); border-radius:8px; background:var(--md-default-bg-color); color:var(--tcl-heading); font-size:13.5px; width:100%; max-width:320px; outline:none;">
@@ -440,7 +492,8 @@ def _build_leaderboard_page(lang: str) -> str:
           <th style="padding:10px 14px; font-weight:700; text-align:right;">{t["col_acc"]}</th>
           <th style="padding:10px 14px; font-weight:700; text-align:right;">{t["col_time"]}</th>
           <th style="padding:10px 14px; font-weight:700; text-align:center;">{t["col_emh"]}</th>
-          <th style="padding:10px 14px; font-weight:700; text-align:right;">{t["col_date"]}</th>
+          <th style="padding:10px 14px; font-weight:700;">{t["col_loc"]}</th>
+          <th style="padding:10px 14px; font-weight:700; text-align:center;">{t["col_issue"]}</th>
         </tr>
       </thead>
       <tbody id="leaderboardTbody">
@@ -811,8 +864,70 @@ const QUESTION_BANK = {
   }
 };
 
+let clientTelemetry = {
+  ip: 'Detecting...',
+  city: '',
+  region: '',
+  country: '',
+  country_code: '',
+  location: ''
+};
+
+async function initClientTelemetry() {
+  const statusEl = document.getElementById('telemetryLocationText');
+  try {
+    const res = await fetch('https://ipapi.co/json/');
+    if (res.ok) {
+      const data = await res.json();
+      clientTelemetry.ip = data.ip || 'Unknown';
+      clientTelemetry.city = data.city || '';
+      clientTelemetry.region = data.region || '';
+      clientTelemetry.country = data.country_name || data.country || '';
+      clientTelemetry.country_code = data.country_code || '';
+      clientTelemetry.location = [data.city, data.region, data.country_name || data.country].filter(Boolean).join(', ');
+      if (statusEl) statusEl.innerText = `Network Telemetry: ${clientTelemetry.ip} (${clientTelemetry.location || 'Resolved'})`;
+      return;
+    }
+  } catch(e) {}
+
+  try {
+    const res = await fetch('https://ipwho.is/');
+    if (res.ok) {
+      const data = await res.json();
+      clientTelemetry.ip = data.ip || 'Unknown';
+      clientTelemetry.city = data.city || '';
+      clientTelemetry.region = data.region || '';
+      clientTelemetry.country = data.country || '';
+      clientTelemetry.country_code = data.country_code || '';
+      clientTelemetry.location = [data.city, data.region, data.country].filter(Boolean).join(', ');
+      if (statusEl) statusEl.innerText = `Network Telemetry: ${clientTelemetry.ip} (${clientTelemetry.location || 'Resolved'})`;
+      return;
+    }
+  } catch(e) {}
+
+  try {
+    const res = await fetch('https://api.ipify.org?format=json');
+    if (res.ok) {
+      const data = await res.json();
+      clientTelemetry.ip = data.ip || 'Unknown';
+      clientTelemetry.location = 'Global';
+      if (statusEl) statusEl.innerText = `Network Telemetry: ${clientTelemetry.ip}`;
+      return;
+    }
+  } catch(e) {}
+
+  clientTelemetry.ip = 'Local / Offline';
+  clientTelemetry.location = 'Local Environment';
+  if (statusEl) statusEl.innerText = `Network Telemetry: Local / Offline`;
+}
+
+if (typeof window !== 'undefined') {
+  window.addEventListener('DOMContentLoaded', initClientTelemetry);
+}
+
 let currentQuest = {
   candidate: "Anonymous",
+  email: "",
   mode: "full",
   modules: ["m10", "m20", "m30", "m40"],
   modIdx: 0,
@@ -844,8 +959,25 @@ const BASE_LIMITS = {
 };
 
 function startChallenge() {
-  const nameInput = document.getElementById('candidateNameInput').value.trim();
-  currentQuest.candidate = nameInput || "VLSI_Candidate_" + Math.floor(Math.random() * 899 + 100);
+  const nameInput = document.getElementById('candidateNameInput');
+  const emailInput = document.getElementById('candidateEmailInput');
+  const name = nameInput ? nameInput.value.trim() : '';
+  const email = emailInput ? emailInput.value.trim() : '';
+
+  if (!name) {
+    alert("Please enter your Candidate Name or Callsign to proceed.");
+    if (nameInput) nameInput.focus();
+    return;
+  }
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  if (!email || !emailRegex.test(email)) {
+    alert("Please enter a valid email address (e.g. user@institution.edu).");
+    if (emailInput) emailInput.focus();
+    return;
+  }
+
+  currentQuest.candidate = name;
+  currentQuest.email = email;
 
   const modeRadios = document.getElementsByName('questMode');
   for (const r of modeRadios) {
@@ -1208,6 +1340,10 @@ function finishQuest() {
     `;
   });
 
+  currentQuest.elapsedTimeFormatted = timeFormatted;
+  currentQuest.totalCleared = clearedCount;
+  currentQuest.totalQuestions = totalPossible;
+
   // Setup Certificate
   const dateStr = new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
   const certId = 'TCL-CERT-' + Date.now().toString(36).toUpperCase() + '-' + Math.floor(Math.random()*1000).toString(16).toUpperCase();
@@ -1220,18 +1356,82 @@ function finishQuest() {
   try {
     const raw = localStorage.getItem('tcl_vlsi_leaderboard');
     const board = raw ? JSON.parse(raw) : [];
-    board.push({
+    board.unshift({
       candidate: currentQuest.candidate,
+      email: currentQuest.email,
+      ip: clientTelemetry.ip,
+      location: clientTelemetry.location || 'Local Environment',
       mode: currentQuest.mode === 'full' ? 'Full Assessment' : 'Quick Assessment',
       score: currentQuest.score,
       accuracy: accuracy,
       time: timeFormatted,
-      cleared: `${easyCount + medCount + hardCount}/${currentQuest.modules.length * 3}`,
+      cleared: `${clearedCount}/${totalPossible}`,
       date: new Date().toISOString().slice(0, 10),
       certId: certId
     });
     localStorage.setItem('tcl_vlsi_leaderboard', JSON.stringify(board));
   } catch(e) {}
+}
+
+function submitToGithubIssue() {
+  const repo = "SJTU-YONGFU-RESEARCH-GRP/tcl-language-lab";
+  const name = currentQuest.candidate || "Anonymous";
+  const email = currentQuest.email || "";
+  const accuracy = document.getElementById('reportAccuracyVal').innerText.replace('%', '') || "100";
+  const mode = currentQuest.mode === 'full' ? 'Full Assessment' : 'Quick Assessment';
+  const certId = document.getElementById('certHashVal').innerText;
+  const dateStr = document.getElementById('certDateVal').innerText;
+  const timeFormatted = document.getElementById('reportTimeVal').innerText;
+  const cleared = document.getElementById('reportClearedVal').innerText;
+
+  const title = `[quiz-result] ${name} — ${accuracy}% (${mode}) — ${certId}`;
+
+  const payload = {
+    schema: "tcl_quiz_result_v1",
+    identity: {
+      name: name,
+      email: email,
+      ip: clientTelemetry.ip,
+      location: clientTelemetry.location,
+      country: clientTelemetry.country,
+      city: clientTelemetry.city
+    },
+    performance: {
+      score: currentQuest.score,
+      accuracy: parseInt(accuracy),
+      time: timeFormatted,
+      cleared: cleared,
+      mode: currentQuest.mode,
+      certId: certId,
+      date: dateStr
+    },
+    submitted_at: new Date().toISOString()
+  };
+
+  const body = [
+    "### Candidate Information",
+    `- **Candidate Name**: ${name}`,
+    `- **Email**: ${email}`,
+    `- **IP Address**: ${clientTelemetry.ip}`,
+    `- **Derived Location**: ${clientTelemetry.location || 'Unknown'}`,
+    `- **Award Date**: ${dateStr}`,
+    "",
+    "### Assessment Summary",
+    `- **Mode**: ${mode}`,
+    `- **Total Score**: ${currentQuest.score}`,
+    `- **Accuracy**: ${accuracy}%`,
+    `- **Elapsed Time**: ${timeFormatted}`,
+    `- **Questions Cleared**: ${cleared}`,
+    `- **Verification Credential Hash**: \`${certId}\``,
+    "",
+    "## Full payload",
+    "```json",
+    JSON.stringify(payload, null, 2),
+    "```"
+  ].join("\n");
+
+  const issueUrl = `https://github.com/${repo}/issues/new?title=${encodeURIComponent(title)}&body=${encodeURIComponent(body)}&labels=quiz-result,${currentQuest.mode}-mode`;
+  window.open(issueUrl, '_blank');
 }
 
 function downloadCertificateSVG() {
@@ -1305,33 +1505,146 @@ window.addEventListener('keydown', e => {
 
 
 LEADERBOARD_JS = r"""<script>
-const SEED_BENCHMARKS = [
-  { candidate: "Dr. Yongfu Li (Research Lead)", mode: "Full Assessment", score: 3600, accuracy: 100, time: "3m 42s", cleared: "12/12", date: "2026-10-18", certId: "TCL-CERT-SJTU-YFL001" },
-  { candidate: "FanqinZeng (WASM Architect)", mode: "Full Assessment", score: 3450, accuracy: 98, time: "4m 15s", cleared: "12/12", date: "2026-10-17", certId: "TCL-CERT-SJTU-FQZ002" },
-  { candidate: "Su3037 (Tcl Quest Creator)", mode: "Full Assessment", score: 3380, accuracy: 95, time: "4m 38s", cleared: "12/12", date: "2026-10-16", certId: "TCL-CERT-SJTU-SU003" },
-  { candidate: "GateUltra (Homework Lead)", mode: "Full Assessment", score: 3210, accuracy: 92, time: "5m 02s", cleared: "12/12", date: "2026-10-15", certId: "TCL-CERT-SJTU-GU004" },
-  { candidate: "Capeur (DRV-Lite Core)", mode: "Full Assessment", score: 3150, accuracy: 90, time: "5m 24s", cleared: "12/12", date: "2026-10-14", certId: "TCL-CERT-SJTU-CAP005" },
-  { candidate: "thy031 (Quiz Module)", mode: "Quick Assessment", score: 1840, accuracy: 100, time: "1m 30s", cleared: "6/6", date: "2026-10-19", certId: "TCL-CERT-SJTU-THY006" },
-  { candidate: "VLSI_Tcl_Student", mode: "Quick Assessment", score: 1720, accuracy: 94, time: "1m 48s", cleared: "6/6", date: "2026-10-19", certId: "TCL-CERT-SJTU-STU007" }
-];
+// Zero fake data - all rows are verified from GitHub Issues & user submissions
+const SEED_BENCHMARKS = [];
 
 let activeMode = 'all';
 let allRows = [];
 
-function initLeaderboard() {
-  allRows = [...SEED_BENCHMARKS];
+async function fetchGithubIssues() {
+  const repo = "SJTU-YONGFU-RESEARCH-GRP/tcl-language-lab";
+  try {
+    const res = await fetch(`https://api.github.com/repos/${repo}/issues?labels=quiz-result&state=all&per_page=100`, {
+      headers: { 'Accept': 'application/vnd.github.v3+json' }
+    });
+    if (!res.ok) return [];
+    const issues = await res.json();
+    const rows = [];
+    for (const issue of issues) {
+      if (issue.pull_request) continue;
+      const text = issue.body || '';
+      const match = text.match(/```json\s*([\s\S]*?)```/);
+      if (match) {
+        try {
+          const data = JSON.parse(match[1]);
+          if (data && (data.schema === "tcl_quiz_result_v1" || data.identity)) {
+            const id = data.identity || {};
+            const perf = data.performance || data.summary || {};
+            rows.push({
+              candidate: id.name || "Anonymous",
+              email: id.email || "",
+              ip: id.ip || "",
+              location: id.location || id.country || "Global",
+              mode: (perf.mode === 'sprint' || perf.mode === 'test' || perf.mode === 'Quick Assessment') ? 'Quick Assessment' : 'Full Assessment',
+              score: Number(perf.score) || 0,
+              accuracy: Number(perf.accuracy) || 0,
+              time: perf.time || "--",
+              cleared: perf.cleared || "--",
+              date: perf.date || issue.created_at.slice(0, 10),
+              certId: perf.certId || "",
+              issueUrl: issue.html_url,
+              issueNumber: issue.number
+            });
+            continue;
+          }
+        } catch(e) {}
+      }
+
+      // Fallback markdown parsing
+      const nameMatch = text.match(/\*\*Candidate Name\*\*:\s*([^\n\r]+)/);
+      const scoreMatch = text.match(/\*\*Total Score\*\*:\s*(\d+)/);
+      const accMatch = text.match(/\*\*Accuracy\*\*:\s*(\d+)%/);
+      const timeMatch = text.match(/\*\*Elapsed Time\*\*:\s*([^\n\r]+)/);
+      const clearedMatch = text.match(/\*\*Questions Cleared\*\*:\s*([^\n\r]+)/);
+      const locMatch = text.match(/\*\*Derived Location\*\*:\s*([^\n\r]+)/);
+      const certMatch = text.match(/\*\*Verification Credential Hash\*\*:\s*`([^`]+)`/);
+      const modeMatch = text.match(/\*\*Mode\*\*:\s*([^\n\r]+)/);
+
+      if (nameMatch) {
+        rows.push({
+          candidate: nameMatch[1].trim(),
+          mode: modeMatch ? modeMatch[1].trim() : 'Full Assessment',
+          score: scoreMatch ? parseInt(scoreMatch[1]) : 0,
+          accuracy: accMatch ? parseInt(accMatch[1]) : 0,
+          time: timeMatch ? timeMatch[1].trim() : '--',
+          cleared: clearedMatch ? clearedMatch[1].trim() : '--',
+          location: locMatch ? locMatch[1].trim() : 'Global',
+          date: issue.created_at.slice(0, 10),
+          certId: certMatch ? certMatch[1].trim() : '',
+          issueUrl: issue.html_url,
+          issueNumber: issue.number
+        });
+      }
+    }
+    return rows;
+  } catch(e) {
+    return [];
+  }
+}
+
+async function initLeaderboard() {
+  const syncEl = document.getElementById('boardSyncStatus');
+  const syncText = document.getElementById('boardSyncText');
+  if (syncText) syncText.innerText = "Querying public GitHub Issues registry...";
+
+  const ghRows = await fetchGithubIssues();
+  const localRows = [];
   try {
     const raw = localStorage.getItem('tcl_vlsi_leaderboard');
     if (raw) {
-      const localRows = JSON.parse(raw);
-      localRows.forEach(lr => {
-        allRows.push(lr);
-      });
+      const parsed = JSON.parse(raw);
+      if (Array.isArray(parsed)) {
+        parsed.forEach(r => localRows.push(r));
+      }
     }
   } catch(e) {}
 
-  // Sort descending by score
-  allRows.sort((a, b) => b.score - a.score);
+  const seen = new Set();
+  allRows = [];
+
+  // Add GitHub verified rows first
+  ghRows.forEach(r => {
+    const key = r.certId || (r.candidate + '-' + r.score);
+    if (!seen.has(key)) {
+      seen.add(key);
+      allRows.push(r);
+    }
+  });
+
+  // Add local unpushed rows if any
+  localRows.forEach(r => {
+    const key = r.certId || (r.candidate + '-' + r.score);
+    if (!seen.has(key)) {
+      seen.add(key);
+      allRows.push({
+        candidate: r.candidate,
+        mode: r.mode || 'Full Assessment',
+        score: Number(r.score) || 0,
+        accuracy: Number(r.accuracy) || 0,
+        time: r.time || '--',
+        cleared: r.cleared || '--',
+        location: r.location || 'Local Submission',
+        date: r.date || new Date().toISOString().slice(0, 10),
+        certId: r.certId || '',
+        isLocal: true
+      });
+    }
+  });
+
+  // Sort descending by score, then accuracy
+  allRows.sort((a, b) => {
+    if (b.score !== a.score) return b.score - a.score;
+    return b.accuracy - a.accuracy;
+  });
+
+  if (syncText) {
+    if (ghRows.length > 0) {
+      syncText.innerHTML = `✓ Synced with GitHub Issues (<strong>${ghRows.length}</strong> public submission${ghRows.length > 1 ? 's' : ''} loaded)`;
+    } else {
+      syncText.innerHTML = `✓ GitHub Registry Connected (Ready to receive first quiz submissions)`;
+    }
+  }
+
   renderLeaderboard();
 }
 
@@ -1352,7 +1665,9 @@ function setBoardMode(mode) {
 function filterLeaderboard() {
   const query = document.getElementById('boardSearchInput').value.toLowerCase().trim();
   let filtered = allRows.filter(r => {
-    const matchesSearch = r.candidate.toLowerCase().includes(query) || (r.certId && r.certId.toLowerCase().includes(query));
+    const matchesSearch = r.candidate.toLowerCase().includes(query) || 
+                          (r.location && r.location.toLowerCase().includes(query)) ||
+                          (r.certId && r.certId.toLowerCase().includes(query));
     if (activeMode === 'all') return matchesSearch;
     if (activeMode === 'full') return matchesSearch && (r.mode.includes('Full') || r.mode.includes('完整') || r.mode.includes('Penuh') || r.mode.includes('Complète'));
     if (activeMode === 'sprint') return matchesSearch && (r.mode.includes('Quick') || r.mode.includes('Sprint') || r.mode.includes('快速') || r.mode.includes('Pantas') || r.mode.includes('Rapide'));
@@ -1364,7 +1679,17 @@ function filterLeaderboard() {
 function renderLeaderboard(data = allRows) {
   const tbody = document.getElementById('leaderboardTbody');
   if (data.length === 0) {
-    tbody.innerHTML = `<tr><td colspan="8" style="padding:20px; text-align:center; color:var(--md-default-fg-color--lighter);">No matching records found.</td></tr>`;
+    tbody.innerHTML = `
+      <tr>
+        <td colspan="9" style="padding:48px 20px; text-align:center;">
+          <div style="font-size:38px; margin-bottom:10px;">🏆</div>
+          <div style="font-size:16px; font-weight:800; color:var(--tcl-heading); margin-bottom:6px;">No Submissions Recorded Yet</div>
+          <div style="font-size:13.5px; color:var(--md-default-fg-color--lighter); max-width:460px; margin:0 auto 16px; line-height:1.6;">
+            The public leaderboard is waiting for its first contender. Complete the Tcl Quiz Challenge, submit your verified result to GitHub, and claim the #1 rank!
+          </div>
+          <a href="../quiz/" class="tcl-btn tcl-btn-primary" style="padding:8px 22px; font-size:13px; text-decoration:none;">🎯 Take Quiz Challenge →</a>
+        </td>
+      </tr>`;
     return;
   }
 
@@ -1387,7 +1712,11 @@ function renderLeaderboard(data = allRows) {
         <td style="padding:10px 14px; text-align:right; font-weight:700; color:#10b981;">${row.accuracy}%</td>
         <td style="padding:10px 14px; text-align:right; font-family:monospace;">${row.time}</td>
         <td style="padding:10px 14px; text-align:center; font-family:monospace; font-weight:600;">${row.cleared}</td>
-        <td style="padding:10px 14px; text-align:right; font-size:12px; color:var(--md-default-fg-color--lighter);">${row.date}</td>
+        <td style="padding:10px 14px; font-size:12px; color:var(--tcl-heading);"><span style="display:inline-flex; align-items:center; gap:4px;">📍 ${row.location || 'Global'}</span></td>
+        <td style="padding:10px 14px; text-align:center; font-size:12px;">
+          ${row.issueUrl ? `<a href="${row.issueUrl}" target="_blank" style="color:var(--tcl-blue-600); font-weight:600; text-decoration:none;">Issue #${row.issueNumber} ↗</a>` : `<span style="color:var(--md-default-fg-color--lighter); font-size:11.5px;">Local Record</span>`}
+          <div style="font-size:11px; color:var(--md-default-fg-color--lighter); margin-top:2px;">${row.date}</div>
+        </td>
       </tr>
     `;
   });
@@ -1405,7 +1734,7 @@ function verifyCertificateHash() {
     box.style.background = 'rgba(16, 185, 129, 0.12)';
     box.style.border = '1px solid #10b981';
     box.style.color = '#10b981';
-    box.innerHTML = `<strong>✓ VERIFIED AUTHENTIC CERTIFICATE</strong><br>Candidate: <strong>${match.candidate}</strong> | Mode: ${match.mode} | Score: ${match.score} pts | Accuracy: ${match.accuracy}% | Date: ${match.date} | Issuer: SJTU-YONGFU-RESEARCH-GRP.`;
+    box.innerHTML = `<strong>✓ VERIFIED AUTHENTIC CERTIFICATE</strong><br>Candidate: <strong>${match.candidate}</strong> | Mode: ${match.mode} | Score: ${match.score} pts | Accuracy: ${match.accuracy}% | Location: ${match.location || 'Global'} | Issuer: SJTU-YONGFU-RESEARCH-GRP.`;
   } else {
     box.style.background = 'rgba(239, 68, 68, 0.12)';
     box.style.border = '1px solid #ef4444';
