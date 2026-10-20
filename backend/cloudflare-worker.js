@@ -129,11 +129,8 @@ async function buildLeaderboard(env, mode) {
       accuracy,
       time,
       cleared,
-      location,
       date,
       certId,
-      issue_number: iss.number,
-      issue_url: iss.html_url,
       mode: wantMode === "quick" ? "Quick Assessment" : "Full Assessment",
     };
 
@@ -201,8 +198,6 @@ async function handlePost(request, env) {
     "### Candidate Information",
     `- **Candidate Name**: ${name}`,
     `- **Email**: ${email ? email.replace(/(.{2})(.*)(@.*)/, "$1***$3") : "_none_"}`,
-    `- **IP Address**: ${ident.ip || "Protected"}`,
-    `- **Derived Location**: ${ident.location || "Global"}`,
     `- **Award Date**: ${dateStr}`,
     "",
     "### Assessment Summary",

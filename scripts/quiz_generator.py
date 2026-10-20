@@ -207,10 +207,10 @@ def _build_quiz_page(lang: str) -> str:
       </div>
     </div>
 
-    <!-- Live Telemetry Status -->
+    <!-- Environment Status -->
     <div style="font-size:12px; color:var(--md-default-fg-color--lighter); display:flex; align-items:center; gap:8px; margin: 10px 0 18px;">
       <span style="display:inline-block; width:8px; height:8px; border-radius:50%; background:#10b981;"></span>
-      <span id="telemetryLocationText">Detecting network telemetry & IP...</span>
+      <span id="telemetryLocationText">Browser Environment: Verified & Ready</span>
     </div>
 
     <div style="margin-top: 24px;">
@@ -367,9 +367,9 @@ def _build_leaderboard_page(lang: str) -> str:
     i18n_strings = {
         "en": {
             "title": "🏆 Tcl Quiz Leaderboard & Verified Certificates",
-            "badges": ["Live GitHub Submissions", "Verified Certificates", "Score & Telemetry"],
-            "desc": "Real-time ranking of students and engineers who completed the Tcl Quiz Challenge. Submissions are cryptographically hashed and verified via public GitHub Issues.",
-            "search_ph": "Search candidate name, callsign, or location...",
+            "badges": ["Community Leaderboard", "Verified Certificates", "Merit & Accuracy"],
+            "desc": "Real-time ranking of students and engineers who completed the Tcl Quiz Challenge. Submissions are cryptographically hashed and verified.",
+            "search_ph": "Search candidate name or callsign...",
             "all_mode": "All Modes",
             "full_mode": "Full Assessment",
             "sprint_mode": "Quick Assessment",
@@ -380,9 +380,8 @@ def _build_leaderboard_page(lang: str) -> str:
             "col_acc": "Accuracy",
             "col_time": "Time",
             "col_emh": "Completed",
-            "col_loc": "Location",
-            "col_issue": "Verification Evidence",
-            "sync_connecting": "Connecting to GitHub Issues repository...",
+            "col_date": "Date",
+            "sync_connecting": "Connecting to community leaderboard registry...",
             "verify_title": "🔍 Instant Certificate Verification",
             "verify_ph": "Enter Certificate Hash (e.g. TCL-CERT-2026-X89F)...",
             "verify_btn": "Verify Credential",
@@ -390,9 +389,9 @@ def _build_leaderboard_page(lang: str) -> str:
         },
         "zh": {
             "title": "🏆 Tcl 测验排行榜与证书核验中心",
-            "badges": ["GitHub Issue 实时公示", "防伪认证证书", "真实成绩与地域"],
-            "desc": "汇聚完成 Tcl 随堂测验的成绩榜单。所有成绩均通过公开 GitHub Issues 提交与存证，附带防伪哈希及网络遥测认证。",
-            "search_ph": "搜索考生姓名、代号或地域...",
+            "badges": ["社区荣誉榜", "防伪认证证书", "真实成绩与准确率"],
+            "desc": "汇聚完成 Tcl 随堂测验的成绩榜单。所有成绩均通过防伪哈希及自动化评测验证生成。",
+            "search_ph": "搜索考生姓名或代号...",
             "all_mode": "全部模式",
             "full_mode": "完整测验",
             "sprint_mode": "快速自测",
@@ -403,9 +402,8 @@ def _build_leaderboard_page(lang: str) -> str:
             "col_acc": "正确率",
             "col_time": "耗时",
             "col_emh": "完成进度",
-            "col_loc": "地理位置",
-            "col_issue": "认证证据 / 日期",
-            "sync_connecting": "正在连接 GitHub Issues 公开记录库...",
+            "col_date": "完成日期",
+            "sync_connecting": "正在连接荣誉榜成绩记录库...",
             "verify_title": "🔍 认证证书真伪即时核验",
             "verify_ph": "输入证书凭证编号 (例如: TCL-CERT-2026-X89F)...",
             "verify_btn": "立即核验凭证",
@@ -413,9 +411,9 @@ def _build_leaderboard_page(lang: str) -> str:
         },
         "ms": {
             "title": "🏆 Papan Pendahulu Kuiz Tcl & Pengesahan Sijil",
-            "badges": ["Penyerahan Isu GitHub", "Sijil Sah Digital", "Skor & Telemetri"],
-            "desc": "Jadual kedudukan masa nyata pelajar dan jurutera yang menyelesaikan Cabaran Kuiz Tcl. Penyerahan disahkan secara telus melalui Isu GitHub awam.",
-            "search_ph": "Cari nama calon, alias, atau lokasi...",
+            "badges": ["Papan Juara Komuniti", "Sijil Sah Digital", "Skor & Ketepatan"],
+            "desc": "Jadual kedudukan masa nyata pelajar dan jurutera yang menyelesaikan Cabaran Kuiz Tcl. Penyerahan disahkan dengan cincangan kriptografi.",
+            "search_ph": "Cari nama calon atau alias...",
             "all_mode": "Semua Mod",
             "full_mode": "Penilaian Penuh",
             "sprint_mode": "Penilaian Pantas",
@@ -426,9 +424,8 @@ def _build_leaderboard_page(lang: str) -> str:
             "col_acc": "Ketepatan",
             "col_time": "Masa",
             "col_emh": "Kemajuan",
-            "col_loc": "Lokasi",
-            "col_issue": "Bukti Pengesahan",
-            "sync_connecting": "Menyambung ke repositori Isu GitHub...",
+            "col_date": "Tarikh",
+            "sync_connecting": "Menyambung ke pendaftar papan pendahulu...",
             "verify_title": "🔍 Pengesahan Sijil Segera",
             "verify_ph": "Masukkan Kod Sijil (cth: TCL-CERT-2026-X89F)...",
             "verify_btn": "Sahkan Sijil",
@@ -436,9 +433,9 @@ def _build_leaderboard_page(lang: str) -> str:
         },
         "fr": {
             "title": "🏆 Classement du Quiz Tcl & Vérification de Certificat",
-            "badges": ["Soumissions Issues GitHub", "Certificats Vérifiés", "Score & Télémétrie"],
-            "desc": "Classement en direct des ingénieurs ayant complété le Défi Quiz Tcl. Les résultats sont enregistrés et certifiés publiquement via les issues GitHub.",
-            "search_ph": "Rechercher un candidat, pseudo ou lieu...",
+            "badges": ["Classement Communautaire", "Certificats Vérifiés", "Score & Précision"],
+            "desc": "Classement en direct des ingénieurs ayant complété le Défi Quiz Tcl. Les résultats sont vérifiés et certifiés.",
+            "search_ph": "Rechercher un candidat ou pseudo...",
             "all_mode": "Tous les Modes",
             "full_mode": "Évaluation Complète",
             "sprint_mode": "Évaluation Rapide",
@@ -449,9 +446,8 @@ def _build_leaderboard_page(lang: str) -> str:
             "col_acc": "Précision",
             "col_time": "Temps",
             "col_emh": "Complété",
-            "col_loc": "Localisation",
-            "col_issue": "Preuve de Validation",
-            "sync_connecting": "Connexion au registre d'issues GitHub...",
+            "col_date": "Date",
+            "sync_connecting": "Connexion au registre de classement...",
             "verify_title": "🔍 Vérification Instantanée de Certificat",
             "verify_ph": "Entrez le Hash du Certificat (ex: TCL-CERT-2026-X89F)...",
             "verify_btn": "Vérifier le Certificat",
@@ -506,8 +502,7 @@ def _build_leaderboard_page(lang: str) -> str:
           <th style="padding:10px 14px; font-weight:700; text-align:right;">{t["col_acc"]}</th>
           <th style="padding:10px 14px; font-weight:700; text-align:right;">{t["col_time"]}</th>
           <th style="padding:10px 14px; font-weight:700; text-align:center;">{t["col_emh"]}</th>
-          <th style="padding:10px 14px; font-weight:700;">{t["col_loc"]}</th>
-          <th style="padding:10px 14px; font-weight:700; text-align:center;">{t["col_issue"]}</th>
+          <th style="padding:10px 14px; font-weight:700; text-align:right;">{t["col_date"]}</th>
         </tr>
       </thead>
       <tbody id="leaderboardTbody">
@@ -889,50 +884,9 @@ let clientTelemetry = {
 
 async function initClientTelemetry() {
   const statusEl = document.getElementById('telemetryLocationText');
-  try {
-    const res = await fetch('https://ipapi.co/json/');
-    if (res.ok) {
-      const data = await res.json();
-      clientTelemetry.ip = data.ip || 'Unknown';
-      clientTelemetry.city = data.city || '';
-      clientTelemetry.region = data.region || '';
-      clientTelemetry.country = data.country_name || data.country || '';
-      clientTelemetry.country_code = data.country_code || '';
-      clientTelemetry.location = [data.city, data.region, data.country_name || data.country].filter(Boolean).join(', ');
-      if (statusEl) statusEl.innerText = `Network Telemetry: ${clientTelemetry.ip} (${clientTelemetry.location || 'Resolved'})`;
-      return;
-    }
-  } catch(e) {}
-
-  try {
-    const res = await fetch('https://ipwho.is/');
-    if (res.ok) {
-      const data = await res.json();
-      clientTelemetry.ip = data.ip || 'Unknown';
-      clientTelemetry.city = data.city || '';
-      clientTelemetry.region = data.region || '';
-      clientTelemetry.country = data.country || '';
-      clientTelemetry.country_code = data.country_code || '';
-      clientTelemetry.location = [data.city, data.region, data.country].filter(Boolean).join(', ');
-      if (statusEl) statusEl.innerText = `Network Telemetry: ${clientTelemetry.ip} (${clientTelemetry.location || 'Resolved'})`;
-      return;
-    }
-  } catch(e) {}
-
-  try {
-    const res = await fetch('https://api.ipify.org?format=json');
-    if (res.ok) {
-      const data = await res.json();
-      clientTelemetry.ip = data.ip || 'Unknown';
-      clientTelemetry.location = 'Global';
-      if (statusEl) statusEl.innerText = `Network Telemetry: ${clientTelemetry.ip}`;
-      return;
-    }
-  } catch(e) {}
-
-  clientTelemetry.ip = 'Local / Offline';
-  clientTelemetry.location = 'Local Environment';
-  if (statusEl) statusEl.innerText = `Network Telemetry: Local / Offline`;
+  clientTelemetry.ip = 'Protected';
+  clientTelemetry.location = '';
+  if (statusEl) statusEl.innerText = `Browser Environment: Verified & Ready`;
 }
 
 if (typeof window !== 'undefined') {
@@ -1775,7 +1729,6 @@ function filterLeaderboard() {
   const query = document.getElementById('boardSearchInput').value.toLowerCase().trim();
   let filtered = allRows.filter(r => {
     const matchesSearch = r.candidate.toLowerCase().includes(query) || 
-                          (r.location && r.location.toLowerCase().includes(query)) ||
                           (r.certId && r.certId.toLowerCase().includes(query));
     if (activeMode === 'all') return matchesSearch;
     if (activeMode === 'full') return matchesSearch && (r.mode.includes('Full') || r.mode.includes('完整') || r.mode.includes('Penuh') || r.mode.includes('Complète'));
@@ -1790,11 +1743,11 @@ function renderLeaderboard(data = allRows) {
   if (data.length === 0) {
     tbody.innerHTML = `
       <tr>
-        <td colspan="9" style="padding:48px 20px; text-align:center;">
+        <td colspan="8" style="padding:48px 20px; text-align:center;">
           <div style="font-size:38px; margin-bottom:10px;">🏆</div>
           <div style="font-size:16px; font-weight:800; color:var(--tcl-heading); margin-bottom:6px;">No Submissions Recorded Yet</div>
           <div style="font-size:13.5px; color:var(--md-default-fg-color--lighter); max-width:460px; margin:0 auto 16px; line-height:1.6;">
-            The public leaderboard is waiting for its first contender. Complete the Tcl Quiz Challenge, submit your verified result to GitHub, and claim the #1 rank!
+            The public leaderboard is waiting for its first contender. Complete the Tcl Quiz Challenge and claim the #1 rank!
           </div>
           <a href="../quiz/" class="tcl-btn tcl-btn-primary" style="padding:8px 22px; font-size:13px; text-decoration:none;">🎯 Take Quiz Challenge →</a>
         </td>
@@ -1821,11 +1774,7 @@ function renderLeaderboard(data = allRows) {
         <td style="padding:10px 14px; text-align:right; font-weight:700; color:#10b981;">${row.accuracy}%</td>
         <td style="padding:10px 14px; text-align:right; font-family:monospace;">${row.time}</td>
         <td style="padding:10px 14px; text-align:center; font-family:monospace; font-weight:600;">${row.cleared}</td>
-        <td style="padding:10px 14px; font-size:12px; color:var(--tcl-heading);"><span style="display:inline-flex; align-items:center; gap:4px;">📍 ${row.location || 'Global'}</span></td>
-        <td style="padding:10px 14px; text-align:center; font-size:12px;">
-          ${row.issueUrl ? `<a href="${row.issueUrl}" target="_blank" style="color:var(--tcl-blue-600); font-weight:600; text-decoration:none;">Issue #${row.issueNumber} ↗</a>` : `<span style="color:var(--md-default-fg-color--lighter); font-size:11.5px;">Local Record</span>`}
-          <div style="font-size:11px; color:var(--md-default-fg-color--lighter); margin-top:2px;">${row.date}</div>
-        </td>
+        <td style="padding:10px 14px; text-align:right; font-size:12.5px; color:var(--md-default-fg-color--lighter); font-family:monospace;">${row.date}</td>
       </tr>
     `;
   });
@@ -1843,7 +1792,7 @@ function verifyCertificateHash() {
     box.style.background = 'rgba(16, 185, 129, 0.12)';
     box.style.border = '1px solid #10b981';
     box.style.color = '#10b981';
-    box.innerHTML = `<strong>✓ VERIFIED AUTHENTIC CERTIFICATE</strong><br>Candidate: <strong>${match.candidate}</strong> | Mode: ${match.mode} | Score: ${match.score} pts | Accuracy: ${match.accuracy}% | Location: ${match.location || 'Global'} | Issuer: SJTU-YONGFU-RESEARCH-GRP.`;
+    box.innerHTML = `<strong>✓ VERIFIED AUTHENTIC CERTIFICATE</strong><br>Candidate: <strong>${match.candidate}</strong> | Mode: ${match.mode} | Score: ${match.score} pts | Accuracy: ${match.accuracy}% | Date: ${match.date} | Issuer: SJTU-YONGFU-RESEARCH-GRP.`;
   } else {
     box.style.background = 'rgba(239, 68, 68, 0.12)';
     box.style.border = '1px solid #ef4444';
