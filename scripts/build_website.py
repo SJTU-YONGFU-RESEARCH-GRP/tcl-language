@@ -3747,21 +3747,6 @@ theme:
 extra_css:
   - stylesheets/extra.css
 
-extra:
-  alternate:
-    - name: English
-      link: /
-      lang: en
-    - name: 简体中文
-      link: /zh/
-      lang: zh
-    - name: Bahasa Melayu
-      link: /ms/
-      lang: ms
-    - name: Français
-      link: /fr/
-      lang: fr
-
 markdown_extensions:
   - admonition
   - pymdownx.details
