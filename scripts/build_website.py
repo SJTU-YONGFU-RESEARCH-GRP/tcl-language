@@ -3198,9 +3198,19 @@ body, .md-typeset {
   color: #d8b4fe;
   border-color: rgba(216, 180, 254, 0.3);
 }
+.tcl-badge.gold {
+  background: #fef3c7;
+  color: #b45309;
+  border-color: #fde68a;
+}
+[data-md-color-scheme="slate"] .tcl-badge.gold {
+  background: rgba(245, 158, 11, 0.2);
+  color: #fbbf24;
+  border-color: rgba(251, 191, 36, 0.4);
+}
 .tcl-badge.cyan {
   background: #ecfeff;
-  color: #155e75;
+  color: #0e7490;
   border-color: #a5f3fc;
 }
 [data-md-color-scheme="slate"] .tcl-badge.cyan {
@@ -3225,7 +3235,7 @@ body, .md-typeset {
   margin-bottom: 24px;
 }
 
-/* Hero CTA Buttons */
+/* Hero CTA Buttons - Universal Base */
 .tcl-cta-group {
   display: flex;
   gap: 12px;
@@ -3239,22 +3249,87 @@ body, .md-typeset {
   align-items: center;
   gap: 8px;
   padding: 10px 22px;
-  border-radius: 8px;
+  border-radius: 9px;
   font-size: 14.5px;
   font-weight: 600;
   line-height: 1.4;
   text-decoration: none !important;
-  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: all 0.22s cubic-bezier(0.16, 1, 0.3, 1);
   cursor: pointer;
+  white-space: nowrap;
 }
 
-/* Primary Button: High-Contrast Dark Slate */
+/* 1. RPG Quest Button - Sunset Amber / Warm Gold */
+.md-typeset a.tcl-btn-quest,
+.tcl-btn-quest {
+  background: linear-gradient(135deg, #f59e0b, #d97706) !important;
+  color: #ffffff !important;
+  border: 1px solid #d97706 !important;
+  box-shadow: 0 4px 14px rgba(217, 119, 6, 0.28) !important;
+}
+.md-typeset a.tcl-btn-quest:hover,
+.tcl-btn-quest:hover {
+  background: linear-gradient(135deg, #fbbf24, #b45309) !important;
+  color: #ffffff !important;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(217, 119, 6, 0.42) !important;
+}
+
+/* 2. Web Playground Button - Electric Blue / Azure */
+.md-typeset a.tcl-btn-playground,
+.tcl-btn-playground {
+  background: linear-gradient(135deg, #0284c7, #2563eb) !important;
+  color: #ffffff !important;
+  border: 1px solid #2563eb !important;
+  box-shadow: 0 4px 14px rgba(37, 99, 235, 0.25) !important;
+}
+.md-typeset a.tcl-btn-playground:hover,
+.tcl-btn-playground:hover {
+  background: linear-gradient(135deg, #38bdf8, #1d4ed8) !important;
+  color: #ffffff !important;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(37, 99, 235, 0.38) !important;
+}
+
+/* 3. Tcl Quiz & Cert Button - Royal Indigo / Purple */
+.md-typeset a.tcl-btn-quiz,
+.tcl-btn-quiz {
+  background: linear-gradient(135deg, #6366f1, #4f46e5) !important;
+  color: #ffffff !important;
+  border: 1px solid #4f46e5 !important;
+  box-shadow: 0 4px 14px rgba(99, 102, 241, 0.25) !important;
+}
+.md-typeset a.tcl-btn-quiz:hover,
+.tcl-btn-quiz:hover {
+  background: linear-gradient(135deg, #818cf8, #4338ca) !important;
+  color: #ffffff !important;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(99, 102, 241, 0.38) !important;
+}
+
+/* 4. Hall of Fame Button - Emerald / Forest Teal */
+.md-typeset a.tcl-btn-fame,
+.tcl-btn-fame {
+  background: linear-gradient(135deg, #059669, #0d9488) !important;
+  color: #ffffff !important;
+  border: 1px solid #0d9488 !important;
+  box-shadow: 0 4px 14px rgba(13, 148, 136, 0.25) !important;
+}
+.md-typeset a.tcl-btn-fame:hover,
+.tcl-btn-fame:hover {
+  background: linear-gradient(135deg, #10b981, #0f766e) !important;
+  color: #ffffff !important;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(13, 148, 136, 0.38) !important;
+}
+
+/* 5. General Primary Action Button */
 .md-typeset a.tcl-btn-primary,
 .tcl-btn-primary {
   background: #0f172a !important;
   color: #ffffff !important;
   border: 1px solid #0f172a !important;
-  box-shadow: 0 4px 14px rgba(15, 23, 42, 0.18);
+  box-shadow: 0 3px 10px rgba(15, 23, 42, 0.16) !important;
 }
 .md-typeset a.tcl-btn-primary:hover,
 .tcl-btn-primary:hover {
@@ -3262,38 +3337,69 @@ body, .md-typeset {
   border-color: #1e293b !important;
   color: #ffffff !important;
   transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(15, 23, 42, 0.28);
+  box-shadow: 0 6px 18px rgba(15, 23, 42, 0.25) !important;
 }
 [data-md-color-scheme="slate"] .md-typeset a.tcl-btn-primary,
 [data-md-color-scheme="slate"] .tcl-btn-primary {
   background: #38bdf8 !important;
   color: #0b0f19 !important;
   border: 1px solid #38bdf8 !important;
-  box-shadow: 0 4px 14px rgba(56, 189, 248, 0.3);
+  box-shadow: 0 3px 10px rgba(56, 189, 248, 0.25) !important;
 }
 [data-md-color-scheme="slate"] .md-typeset a.tcl-btn-primary:hover,
 [data-md-color-scheme="slate"] .tcl-btn-primary:hover {
   background: #7dd3fc !important;
   color: #0b0f19 !important;
   transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(56, 189, 248, 0.45);
 }
 
-/* Accent Button */
+/* 6. Secondary / Outline Button: Clean Elevated Surface */
+.md-typeset a.tcl-btn-secondary,
+.tcl-btn-secondary {
+  background: #ffffff !important;
+  color: #0f172a !important;
+  border: 1.5px solid #cbd5e1 !important;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05) !important;
+}
+.md-typeset a.tcl-btn-secondary:hover,
+.tcl-btn-secondary:hover {
+  background: #f8fafc !important;
+  border-color: #2563eb !important;
+  color: #2563eb !important;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(37, 99, 235, 0.12) !important;
+}
+[data-md-color-scheme="slate"] .md-typeset a.tcl-btn-secondary,
+[data-md-color-scheme="slate"] .tcl-btn-secondary {
+  background: #1e293b !important;
+  color: #f8fafc !important;
+  border: 1.5px solid #334155 !important;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2) !important;
+}
+[data-md-color-scheme="slate"] .md-typeset a.tcl-btn-secondary:hover,
+[data-md-color-scheme="slate"] .tcl-btn-secondary:hover {
+  background: #334155 !important;
+  border-color: #38bdf8 !important;
+  color: #38bdf8 !important;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(56, 189, 248, 0.2) !important;
+}
+
+/* Accent Tag Button */
 .md-typeset a.tcl-btn-accent,
 .tcl-btn-accent {
-  background: #f5f3ff !important;
-  color: #6b21a8 !important;
-  border: 1px solid #ddd6fe !important;
-  box-shadow: 0 2px 6px rgba(107, 33, 168, 0.08);
+  background: #ede9fe !important;
+  color: #581c87 !important;
+  border: 1px solid #c4b5fd !important;
+  box-shadow: 0 2px 6px rgba(107, 33, 168, 0.08) !important;
 }
 .md-typeset a.tcl-btn-accent:hover,
 .tcl-btn-accent:hover {
-  background: #ede9fe !important;
-  border-color: #c4b5fd !important;
-  color: #581c87 !important;
+  background: #ddd6fe !important;
+  border-color: #a78bfa !important;
+  color: #4c1d95 !important;
   transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(107, 33, 168, 0.15);
+  box-shadow: 0 4px 12px rgba(107, 33, 168, 0.15) !important;
 }
 [data-md-color-scheme="slate"] .md-typeset a.tcl-btn-accent,
 [data-md-color-scheme="slate"] .tcl-btn-accent {
@@ -3309,49 +3415,30 @@ body, .md-typeset {
   transform: translateY(-2px);
 }
 
-/* Secondary Button: Neutral High-End Slate Outline */
-.md-typeset a.tcl-btn-secondary,
-.tcl-btn-secondary {
-  background: #ffffff !important;
-  color: #1e293b !important;
-  border: 1px solid #cbd5e1 !important;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
-}
-.md-typeset a.tcl-btn-secondary:hover,
-.tcl-btn-secondary:hover {
-  background: #f8fafc !important;
-  border-color: #94a3b8 !important;
-  color: #0f172a !important;
-  transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-}
-[data-md-color-scheme="slate"] .md-typeset a.tcl-btn-secondary,
-[data-md-color-scheme="slate"] .tcl-btn-secondary {
-  background: #1e293b !important;
-  color: #f1f5f9 !important;
-  border: 1px solid #334155 !important;
-}
-[data-md-color-scheme="slate"] .md-typeset a.tcl-btn-secondary:hover,
-[data-md-color-scheme="slate"] .tcl-btn-secondary:hover {
-  background: #334155 !important;
-  border-color: #475569 !important;
-  color: #ffffff !important;
-  transform: translateY(-2px);
-}
-
 /* Stats Fact Strip */
 .tcl-fact-strip {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
   gap: 16px;
-  padding: 22px 26px;
-  background: var(--tcl-surface);
+  padding: 24px 28px;
+  background: var(--tcl-surface-card);
   border: 1px solid var(--tcl-border);
-  border-radius: 12px;
-  margin: 24px 0 36px;
+  border-radius: 14px;
+  margin: 28px 0 38px;
+  box-shadow: 0 4px 18px rgba(15, 23, 42, 0.04);
+}
+[data-md-color-scheme="slate"] .tcl-fact-strip {
+  background: #111827;
+  border-color: #1e293b;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);
 }
 .tcl-fact-item {
   text-align: center;
+  padding: 8px 6px;
+  transition: transform 0.2s ease;
+}
+.tcl-fact-item:hover {
+  transform: translateY(-2px);
 }
 .tcl-fact-val {
   font-family: 'Inter', sans-serif;
@@ -3359,16 +3446,19 @@ body, .md-typeset {
   font-weight: 800;
   color: var(--tcl-heading);
   display: block;
-  letter-spacing: -0.02em;
+  letter-spacing: -0.03em;
+  line-height: 1.2;
 }
 [data-md-color-scheme="slate"] .tcl-fact-val {
   color: #38bdf8;
 }
 .tcl-fact-lbl {
-  font-size: 0.85rem;
+  font-size: 0.8rem;
   color: var(--md-default-fg-color--lighter);
   font-weight: 600;
-  margin-top: 4px;
+  margin-top: 6px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
 }
 
 /* Interactive Tools Hub Grid */
@@ -3392,33 +3482,49 @@ body, .md-typeset {
 .tcl-tool-card {
   display: flex;
   align-items: flex-start;
-  gap: 14px;
+  gap: 16px;
   padding: 18px 20px;
-  border-radius: 10px;
+  border-radius: 12px;
   border: 1px solid var(--tcl-border);
   background: var(--tcl-surface-card);
   text-decoration: none !important;
   color: var(--md-default-fg-color--light) !important;
-  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: all 0.22s cubic-bezier(0.16, 1, 0.3, 1);
   position: relative;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.03);
+  box-shadow: 0 2px 8px rgba(15, 23, 42, 0.04);
 }
 .md-typeset a.tcl-tool-card:hover,
 .tcl-tool-card:hover {
-  border-color: #2563eb;
-  transform: translateY(-2px);
-  box-shadow: 0 8px 20px rgba(37, 99, 235, 0.08);
+  transform: translateY(-3px);
+  box-shadow: 0 10px 24px rgba(15, 23, 42, 0.09);
+}
+[data-md-color-scheme="slate"] .md-typeset a.tcl-tool-card,
+[data-md-color-scheme="slate"] .tcl-tool-card {
+  background: #1e293b;
+  border-color: #334155;
+  color: #cbd5e1 !important;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
 }
 [data-md-color-scheme="slate"] .md-typeset a.tcl-tool-card:hover,
 [data-md-color-scheme="slate"] .tcl-tool-card:hover {
-  border-color: #38bdf8;
-  box-shadow: 0 8px 20px rgba(56, 189, 248, 0.12);
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.4);
 }
 .tcl-tool-icon {
-  font-size: 1.75rem;
+  font-size: 1.55rem;
   line-height: 1;
   flex-shrink: 0;
-  padding-top: 2px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 10px;
+  background: var(--tcl-surface);
+  border: 1px solid var(--tcl-border);
+}
+[data-md-color-scheme="slate"] .tcl-tool-icon {
+  background: #111827;
+  border-color: #334155;
 }
 .tcl-tool-body {
   flex: 1;
@@ -3432,8 +3538,8 @@ body, .md-typeset {
   line-height: 1.35;
 }
 .tcl-tool-desc {
-  font-size: 0.85rem;
-  line-height: 1.5;
+  font-size: 0.86rem;
+  line-height: 1.55;
   color: var(--md-default-fg-color--lighter);
 }
 .tcl-tool-arrow {
@@ -3478,19 +3584,19 @@ body, .md-typeset {
   position: absolute;
   top: 0; left: 0; right: 0;
   height: 4px;
-  background: #2563eb;
+  background: #f59e0b;
 }
-.tcl-route-card.route-exp::before { background: #f59e0b; }
+.tcl-route-card.route-exp::before { background: #2563eb; }
 .tcl-route-card.route-vlsi::before { background: #06b6d4; }
 .tcl-route-num {
   font-size: 11px;
   font-family: monospace;
   font-weight: 700;
-  color: #2563eb;
+  color: #d97706;
   text-transform: uppercase;
   letter-spacing: 1px;
 }
-.tcl-route-card.route-exp .tcl-route-num { color: #d97706; }
+.tcl-route-card.route-exp .tcl-route-num { color: #2563eb; }
 .tcl-route-card.route-vlsi .tcl-route-num { color: #0891b2; }
 .tcl-route-title {
   font-size: 1.25rem;
@@ -3579,15 +3685,53 @@ body, .md-typeset {
 }
 .md-typeset a.tcl-module-card:hover,
 .tcl-module-card:hover {
-  border-color: #2563eb;
   transform: translateY(-2px);
-  box-shadow: 0 10px 24px rgba(37, 99, 235, 0.1);
+  box-shadow: 0 10px 24px rgba(15, 23, 42, 0.08);
+}
+[data-md-color-scheme="slate"] .md-typeset a.tcl-module-card,
+[data-md-color-scheme="slate"] .tcl-module-card {
+  background: #1e293b;
+  border-color: #334155;
+  color: #cbd5e1 !important;
 }
 [data-md-color-scheme="slate"] .md-typeset a.tcl-module-card:hover,
 [data-md-color-scheme="slate"] .tcl-module-card:hover {
-  border-color: #38bdf8;
-  box-shadow: 0 10px 24px rgba(56, 189, 248, 0.14);
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.4);
 }
+
+/* Module Individual Palettes */
+.tcl-module-card.m10 { border-top: 3.5px solid #0284c7; }
+.tcl-module-card.m10 .tcl-module-badge { background: #eff6ff; color: #0284c7; border: 1px solid #bfdbfe; }
+.tcl-module-card.m10 .tcl-module-link { color: #0284c7; }
+.tcl-module-card.m10:hover { border-color: #0284c7; }
+
+.tcl-module-card.m20 { border-top: 3.5px solid #7c3aed; }
+.tcl-module-card.m20 .tcl-module-badge { background: #faf5ff; color: #7c3aed; border: 1px solid #ddd6fe; }
+.tcl-module-card.m20 .tcl-module-link { color: #7c3aed; }
+.tcl-module-card.m20:hover { border-color: #7c3aed; }
+
+.tcl-module-card.m30 { border-top: 3.5px solid #d97706; }
+.tcl-module-card.m30 .tcl-module-badge { background: #fffbeb; color: #d97706; border: 1px solid #fde68a; }
+.tcl-module-card.m30 .tcl-module-link { color: #d97706; }
+.tcl-module-card.m30:hover { border-color: #d97706; }
+
+.tcl-module-card.m40 { border-top: 3.5px solid #059669; }
+.tcl-module-card.m40 .tcl-module-badge { background: #ecfdf5; color: #059669; border: 1px solid #a7f3d0; }
+.tcl-module-card.m40 .tcl-module-link { color: #059669; }
+.tcl-module-card.m40:hover { border-color: #059669; }
+
+[data-md-color-scheme="slate"] .tcl-module-card.m10 .tcl-module-badge { background: rgba(2, 132, 199, 0.2); color: #38bdf8; border-color: rgba(56, 189, 248, 0.4); }
+[data-md-color-scheme="slate"] .tcl-module-card.m10 .tcl-module-link { color: #38bdf8; }
+
+[data-md-color-scheme="slate"] .tcl-module-card.m20 .tcl-module-badge { background: rgba(124, 58, 237, 0.2); color: #c084fc; border-color: rgba(192, 132, 252, 0.4); }
+[data-md-color-scheme="slate"] .tcl-module-card.m20 .tcl-module-link { color: #c084fc; }
+
+[data-md-color-scheme="slate"] .tcl-module-card.m30 .tcl-module-badge { background: rgba(217, 119, 6, 0.2); color: #fbbf24; border-color: rgba(251, 191, 36, 0.4); }
+[data-md-color-scheme="slate"] .tcl-module-card.m30 .tcl-module-link { color: #fbbf24; }
+
+[data-md-color-scheme="slate"] .tcl-module-card.m40 .tcl-module-badge { background: rgba(5, 150, 105, 0.2); color: #34d399; border-color: rgba(52, 211, 153, 0.4); }
+[data-md-color-scheme="slate"] .tcl-module-card.m40 .tcl-module-link { color: #34d399; }
+
 .tcl-module-badge {
   display: inline-block;
   align-self: flex-start;
@@ -3596,13 +3740,7 @@ body, .md-typeset {
   font-weight: 700;
   padding: 3px 10px;
   border-radius: 6px;
-  background: rgba(37, 99, 235, 0.1);
-  color: #2563eb;
   margin-bottom: 10px;
-}
-[data-md-color-scheme="slate"] .tcl-module-badge {
-  background: rgba(56, 189, 248, 0.15);
-  color: #38bdf8;
 }
 .tcl-module-title {
   font-size: 1.05rem;
@@ -3621,33 +3759,47 @@ body, .md-typeset {
 .tcl-module-link {
   font-size: 0.85rem;
   font-weight: 600;
-  color: #2563eb;
   display: flex;
   align-items: center;
   gap: 4px;
-}
-[data-md-color-scheme="slate"] .tcl-module-link {
-  color: #38bdf8;
 }
 
 /* Expandable Syllabus Details */
 .tcl-syllabus-details {
   border: 1px solid var(--tcl-border);
-  border-radius: 10px;
-  padding: 14px 18px;
+  border-radius: 12px;
+  padding: 16px 20px;
   background: var(--tcl-surface);
-  margin: 16px 0 32px;
+  margin: 20px 0 36px;
+  box-shadow: 0 2px 8px rgba(15, 23, 42, 0.03);
+  transition: all 0.2s ease;
+}
+.tcl-syllabus-details[open] {
+  background: var(--md-default-bg-color);
+  box-shadow: 0 6px 20px rgba(15, 23, 42, 0.06);
 }
 .tcl-syllabus-details summary {
-  font-size: 0.95rem;
-  font-weight: 600;
+  font-size: 1rem;
+  font-weight: 700;
   cursor: pointer;
   color: var(--tcl-heading);
   user-select: none;
   outline: none;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.tcl-syllabus-details summary:hover {
+  color: #2563eb;
+}
+[data-md-color-scheme="slate"] .tcl-syllabus-details summary:hover {
+  color: #38bdf8;
 }
 .tcl-syllabus-details[open] summary {
-  margin-bottom: 16px;
+  margin-bottom: 20px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--tcl-border);
+}
 }
 """
     (css_dir / "extra.css").write_text(css_content, encoding="utf-8")
@@ -3682,10 +3834,10 @@ def write_home_pages(meta: list[tuple[int, str, str]]) -> None:
   </div>
 
   <div class="tcl-cta-group">
-    <a href="quest/" class="tcl-btn tcl-btn-accent" style="background: linear-gradient(135deg, #f59e0b, #d97706); color: #ffffff !important; border: none; box-shadow: 0 4px 14px rgba(217, 119, 6, 0.35);">🎮 Chip Island RPG Quest</a>
-    <a href="playground/" class="tcl-btn tcl-btn-primary" style="background: linear-gradient(135deg, #0284c7, #2563eb); border: none;">⚡ Web Playground</a>
-    <a href="quiz/" class="tcl-btn tcl-btn-primary" style="background: linear-gradient(135deg, #4f46e5, #7c3aed); border: none;">🎯 Tcl Quiz & Cert</a>
-    <a href="leaderboard/" class="tcl-btn tcl-btn-accent" style="background: linear-gradient(135deg, #059669, #0d9488); border: none;">🏆 Hall of Fame</a>
+    <a href="quest/" class="tcl-btn tcl-btn-quest">🎮 Chip Island RPG Quest</a>
+    <a href="playground/" class="tcl-btn tcl-btn-playground">⚡ Web Playground</a>
+    <a href="quiz/" class="tcl-btn tcl-btn-quiz">🎯 Tcl Quiz & Cert</a>
+    <a href="leaderboard/" class="tcl-btn tcl-btn-fame">🏆 Hall of Fame</a>
     <a href="help/layout_viewer/" class="tcl-btn tcl-btn-secondary">📐 Layout Visualizer</a>
     <a href="lessons/week1/" class="tcl-btn tcl-btn-secondary">📖 Lesson 1 →</a>
   </div>
@@ -3814,7 +3966,7 @@ Choose the path tailored to your background and engineering goals:
       Begin with <code>puts</code>, variables, and comments. Master the 3-step substitution model. Or start with our <a href="quest/" style="font-weight:700; color:#d97706;">🎮 Chip Island RPG Quest</a> (20 animated levels) to build muscle memory before Lesson 1!
     </div>
     <div style="display:flex; gap:8px; flex-wrap:wrap; margin-top:8px;">
-      <a href="quest/" class="tcl-btn tcl-btn-primary" style="font-size: 13px; padding: 6px 14px; background: #d97706 !important;">Play RPG Quest →</a>
+      <a href="quest/" class="tcl-btn tcl-btn-quest" style="font-size: 13px; padding: 6px 14px;">Play RPG Quest →</a>
       <a href="lessons/week1/" class="tcl-btn tcl-btn-secondary" style="font-size: 13px; padding: 6px 14px;">Start Lesson 1 →</a>
     </div>
   </div>
@@ -3845,28 +3997,28 @@ Choose the path tailored to your background and engineering goals:
 The 40 lessons are divided into four sequential progression modules:
 
 <div class="tcl-modules-grid">
-  <a href="lessons/week1/" class="tcl-module-card">
+  <a href="lessons/week1/" class="tcl-module-card m10">
     <div class="tcl-module-badge">M10 · Lessons 01–10</div>
     <div class="tcl-module-title">Tcl Core Syntax & Mental Model</div>
     <div class="tcl-module-desc">Master the 3-step evaluation model (Grouping &rarr; Substitution &rarr; Invocation), braced expr arithmetic, lists, control flow, and procedure abstractions.</div>
     <div class="tcl-module-link">Start Module 10 →</div>
   </a>
 
-  <a href="lessons/week11/" class="tcl-module-card">
+  <a href="lessons/week11/" class="tcl-module-card m20">
     <div class="tcl-module-badge">M20 · Lessons 11–20</div>
     <div class="tcl-module-title">Fluency, Data Structures & Automation</div>
     <div class="tcl-module-desc">Deep-dive into high-performance dictionaries, regular expressions, namespaces, file I/O streams, and error handling for robust tooling.</div>
     <div class="tcl-module-link">Start Module 20 →</div>
   </a>
 
-  <a href="lessons/week21/" class="tcl-module-card">
+  <a href="lessons/week21/" class="tcl-module-card m30">
     <div class="tcl-module-badge">M30 · Lessons 21–30</div>
     <div class="tcl-module-title">Calibre Layout Core & Physical Design</div>
     <div class="tcl-module-desc">Interact with semiconductor layouts using DRV-Lite: cells, layers, bounding boxes, polygons, and layout object model manipulation.</div>
     <div class="tcl-module-link">Start Module 30 →</div>
   </a>
 
-  <a href="lessons/week31/" class="tcl-module-card">
+  <a href="lessons/week31/" class="tcl-module-card m40">
     <div class="tcl-module-badge">M40 · Lessons 31–40</div>
     <div class="tcl-module-title">Layout Catalog & Sign-Off Automation</div>
     <div class="tcl-module-desc">Automated design rule checking (DRC) convergence, antenna/density rule scripts, ECO wirelength fixers, and tapeout sign-off pipelines.</div>
@@ -3918,10 +4070,10 @@ make week21-01        # Run Lesson 21 layout script (DRV-Lite simulation)
   </div>
 
   <div class="tcl-cta-group">
-    <a href="quest/" class="tcl-btn tcl-btn-accent" style="background: linear-gradient(135deg, #f59e0b, #d97706); color: #ffffff !important; border: none; box-shadow: 0 4px 14px rgba(217, 119, 6, 0.35);">🎮 芯片岛 RPG 冒险闯关</a>
-    <a href="playground/" class="tcl-btn tcl-btn-primary" style="background: linear-gradient(135deg, #0284c7, #2563eb); border: none;">⚡ 免安装演练台</a>
-    <a href="quiz/" class="tcl-btn tcl-btn-primary" style="background: linear-gradient(135deg, #4f46e5, #7c3aed); border: none;">🎯 随堂测验与证书认证</a>
-    <a href="leaderboard/" class="tcl-btn tcl-btn-accent" style="background: linear-gradient(135deg, #059669, #0d9488); border: none;">🏆 荣耀榜与防伪校验</a>
+    <a href="quest/" class="tcl-btn tcl-btn-quest">🎮 芯片岛 RPG 冒险闯关</a>
+    <a href="playground/" class="tcl-btn tcl-btn-playground">⚡ 免安装演练台</a>
+    <a href="quiz/" class="tcl-btn tcl-btn-quiz">🎯 随堂测验与证书认证</a>
+    <a href="leaderboard/" class="tcl-btn tcl-btn-fame">🏆 荣耀榜与防伪校验</a>
     <a href="help/layout_viewer/" class="tcl-btn tcl-btn-secondary">📐 版图仿真器</a>
     <a href="lessons/week1/" class="tcl-btn tcl-btn-secondary">📖 开始第 1 课 →</a>
   </div>
@@ -4050,7 +4202,7 @@ make week21-01        # Run Lesson 21 layout script (DRV-Lite simulation)
       从 <code>puts</code>、变量与注释入门。通过三步置换模型彻底理解大括号 <code>{{}}</code> 与双引号 <code>""</code> 的本质差异。零基础推荐先玩 <a href="quest/" style="font-weight:700; color:#d97706;">🎮 芯片岛 RPG 冒险</a> 建立代码直觉！
     </div>
     <div style="display:flex; gap:8px; flex-wrap:wrap; margin-top:8px;">
-      <a href="quest/" class="tcl-btn tcl-btn-primary" style="font-size: 13px; padding: 6px 14px; background: #d97706 !important;">进入芯片岛冒险 →</a>
+      <a href="quest/" class="tcl-btn tcl-btn-quest" style="font-size: 13px; padding: 6px 14px;">进入芯片岛冒险 →</a>
       <a href="lessons/week1/" class="tcl-btn tcl-btn-secondary" style="font-size: 13px; padding: 6px 14px;">从第 1 课开始 →</a>
     </div>
   </div>
@@ -4081,28 +4233,28 @@ make week21-01        # Run Lesson 21 layout script (DRV-Lite simulation)
 全套 40 节课程由浅入深划分为四大进阶模块：
 
 <div class="tcl-modules-grid">
-  <a href="lessons/week1/" class="tcl-module-card">
+  <a href="lessons/week1/" class="tcl-module-card m10">
     <div class="tcl-module-badge">M10 · 第 01–10 课</div>
     <div class="tcl-module-title">Tcl 核心语法与置换心智</div>
     <div class="tcl-module-desc">掌握三步求值模型（分组 &rarr; 置换 &rarr; 执行）、严格花括号 expr 算术、列表结构、分支循环与过程封装。</div>
     <div class="tcl-module-link">进入阶段一学习 →</div>
   </a>
 
-  <a href="lessons/week11/" class="tcl-module-card">
+  <a href="lessons/week11/" class="tcl-module-card m20">
     <div class="tcl-module-badge">M20 · 第 11–20 课</div>
     <div class="tcl-module-title">语言进阶、数据结构与自动化</div>
     <div class="tcl-module-desc">深入高效字典 (dict)、正则表达式文本解析、命名空间隔离、文件 I/O 流与健壮错误处理。</div>
     <div class="tcl-module-link">进入阶段二学习 →</div>
   </a>
 
-  <a href="lessons/week21/" class="tcl-module-card">
+  <a href="lessons/week21/" class="tcl-module-card m30">
     <div class="tcl-module-badge">M30 · 第 21–30 课</div>
     <div class="tcl-module-title">Calibre 版图核心与物理设计</div>
     <div class="tcl-module-desc">通过纯 Tcl DRV-Lite 引擎操作版图数据：单元层级、图层掩膜、包围盒、多边形几何体与对象命令模型。</div>
     <div class="tcl-module-link">进入阶段三学习 →</div>
   </a>
 
-  <a href="lessons/week31/" class="tcl-module-card">
+  <a href="lessons/week31/" class="tcl-module-card m40">
     <div class="tcl-module-badge">M40 · 第 31–40 课</div>
     <div class="tcl-module-title">版图分析与签核自动化</div>
     <div class="tcl-module-desc">自动化 DRC 间距与天线违规收敛、密度平坦化脚本、ECO 自动线长修复与芯片流片签核自动化门禁。</div>
@@ -4154,10 +4306,10 @@ make week21-01        # 运行第 21 课版图脚本 (DRV-Lite 仿真)
   </div>
 
   <div class="tcl-cta-group">
-    <a href="quest/" class="tcl-btn tcl-btn-accent" style="background: linear-gradient(135deg, #f59e0b, #d97706); color: #ffffff !important; border: none; box-shadow: 0 4px 14px rgba(217, 119, 6, 0.35);">🎮 RPG Pengembaraan Pulau Cip</a>
-    <a href="playground/" class="tcl-btn tcl-btn-primary" style="background: linear-gradient(135deg, #0284c7, #2563eb); border: none;">⚡ Taman Permainan Kod</a>
-    <a href="quiz/" class="tcl-btn tcl-btn-primary" style="background: linear-gradient(135deg, #4f46e5, #7c3aed); border: none;">🎯 Kuiz Tcl & Sijil</a>
-    <a href="leaderboard/" class="tcl-btn tcl-btn-accent" style="background: linear-gradient(135deg, #059669, #0d9488); border: none;">🏆 Papan Juara & Pengesahan</a>
+    <a href="quest/" class="tcl-btn tcl-btn-quest">🎮 RPG Pengembaraan Pulau Cip</a>
+    <a href="playground/" class="tcl-btn tcl-btn-playground">⚡ Taman Permainan Kod</a>
+    <a href="quiz/" class="tcl-btn tcl-btn-quiz">🎯 Kuiz Tcl & Sijil</a>
+    <a href="leaderboard/" class="tcl-btn tcl-btn-fame">🏆 Papan Juara & Pengesahan</a>
     <a href="help/layout_viewer/" class="tcl-btn tcl-btn-secondary">📐 Visualiser Susun Atur</a>
     <a href="lessons/week1/" class="tcl-btn tcl-btn-secondary">📖 Mula Pelajaran 1 →</a>
   </div>
@@ -4286,7 +4438,7 @@ Pilih laluan pembelajaran yang disesuaikan dengan latar belakang dan matlamat ke
       Bermula dengan <code>puts</code>, pembolehubah, dan ulasan kod. Kuasai model penilaian 3-langkah (Kumpulan $\to$ Penggantian $\to$ Seruan) untuk memahami perbezaan antara kurungan kerinting <code>{{}}</code> dan tanda petikan ganda <code>""</code>. Pemula disyorkan bermain <a href="quest/" style="font-weight:700; color:#d97706;">🎮 RPG Pengembaraan Pulau Cip</a> untuk membina gerak hati kod!
     </div>
     <div style="display:flex; gap:8px; flex-wrap:wrap; margin-top:8px;">
-      <a href="quest/" class="tcl-btn tcl-btn-primary" style="font-size: 13px; padding: 6px 14px; background: #d97706 !important;">Masuk Pengembaraan Pulau Cip →</a>
+      <a href="quest/" class="tcl-btn tcl-btn-quest" style="font-size: 13px; padding: 6px 14px;">Masuk Pengembaraan Pulau Cip →</a>
       <a href="lessons/week1/" class="tcl-btn tcl-btn-secondary" style="font-size: 13px; padding: 6px 14px;">Mula Pelajaran 1 →</a>
     </div>
   </div>
@@ -4317,28 +4469,28 @@ Pilih laluan pembelajaran yang disesuaikan dengan latar belakang dan matlamat ke
 40 pelajaran disusun dalam empat modul perkembangan berturutan:
 
 <div class="tcl-modules-grid">
-  <a href="lessons/week1/" class="tcl-module-card">
+  <a href="lessons/week1/" class="tcl-module-card m10">
     <div class="tcl-module-badge">M10 · Pelajaran 01–10</div>
     <div class="tcl-module-title">Sintaks Teras Tcl & Model Mental</div>
     <div class="tcl-module-desc">Kuasai model penilaian 3-langkah (Kumpulan &rarr; Penggantian &rarr; Seruan), aritmetik expr berkurung, senarai, kawalan aliran dan prosedur.</div>
     <div class="tcl-module-link">Mula Modul 10 →</div>
   </a>
 
-  <a href="lessons/week11/" class="tcl-module-card">
+  <a href="lessons/week11/" class="tcl-module-card m20">
     <div class="tcl-module-badge">M20 · Pelajaran 11–20</div>
     <div class="tcl-module-title">Kefasihan, Struktur Data & Automasi</div>
     <div class="tcl-module-desc">Mendalami kamus (dict) berprestasi tinggi, ungkapan nalar (regexp), ruang nama, aliran I/O fail dan pengendalian ralat.</div>
     <div class="tcl-module-link">Mula Modul 20 →</div>
   </a>
 
-  <a href="lessons/week21/" class="tcl-module-card">
+  <a href="lessons/week21/" class="tcl-module-card m30">
     <div class="tcl-module-badge">M30 · Pelajaran 21–30</div>
     <div class="tcl-module-title">Teras Susun Atur Calibre & Reka Bentuk Fizikal</div>
     <div class="tcl-module-desc">Berinteraksi dengan susun atur semikonduktor menggunakan DRV-Lite: sel, lapisan, kotak sempadan, poligon dan manipulasi objek.</div>
     <div class="tcl-module-link">Mula Modul 30 →</div>
   </a>
 
-  <a href="lessons/week31/" class="tcl-module-card">
+  <a href="lessons/week31/" class="tcl-module-card m40">
     <div class="tcl-module-badge">M40 · Pelajaran 31–40</div>
     <div class="tcl-module-title">Katalog Susun Atur & Automasi Sign-Off</div>
     <div class="tcl-module-desc">Pemeriksaan peraturan reka bentuk (DRC) automatik, peraturan antena/ketumpatan, pembaikan ECO wayar dan aliran sign-off.</div>
@@ -4390,10 +4542,10 @@ make week21-01        # Jalankan skrip susun atur Pelajaran 21 (simulasi DRV-Lit
   </div>
 
   <div class="tcl-cta-group">
-    <a href="quest/" class="tcl-btn tcl-btn-accent" style="background: linear-gradient(135deg, #f59e0b, #d97706); color: #ffffff !important; border: none; box-shadow: 0 4px 14px rgba(217, 119, 6, 0.35);">🎮 Quête RPG Île des Puces</a>
-    <a href="playground/" class="tcl-btn tcl-btn-primary" style="background: linear-gradient(135deg, #0284c7, #2563eb); border: none;">⚡ Web Playground</a>
-    <a href="quiz/" class="tcl-btn tcl-btn-primary" style="background: linear-gradient(135deg, #4f46e5, #7c3aed); border: none;">🎯 Quiz Tcl & Certificat</a>
-    <a href="leaderboard/" class="tcl-btn tcl-btn-accent" style="background: linear-gradient(135deg, #059669, #0d9488); border: none;">🏆 Tableau des Scores & Vérification</a>
+    <a href="quest/" class="tcl-btn tcl-btn-quest">🎮 Quête RPG Île des Puces</a>
+    <a href="playground/" class="tcl-btn tcl-btn-playground">⚡ Web Playground</a>
+    <a href="quiz/" class="tcl-btn tcl-btn-quiz">🎯 Quiz Tcl & Certificat</a>
+    <a href="leaderboard/" class="tcl-btn tcl-btn-fame">🏆 Tableau des Scores</a>
     <a href="help/layout_viewer/" class="tcl-btn tcl-btn-secondary">📐 Visualiseur de Layout</a>
     <a href="lessons/week1/" class="tcl-btn tcl-btn-secondary">📖 Démarrer Leçon 1 →</a>
   </div>
@@ -4522,7 +4674,7 @@ Choisissez le parcours adapté à votre profil et à vos objectifs d'ingénierie
       Commencez par <code>puts</code>, les variables et les commentaires. Maîtrisez le modèle en 3 étapes (Regroupement $\to$ Substitution $\to$ Évaluation) pour comprendre les accolades <code>{{}}</code> par rapport aux guillemets <code>""</code>. Pour les débutants complets, nous recommandons de commencer par <a href="quest/" style="font-weight:700; color:#d97706;">🎮 la Quête RPG Île des Puces</a> pour développer vos réflexes de code !
     </div>
     <div style="display:flex; gap:8px; flex-wrap:wrap; margin-top:8px;">
-      <a href="quest/" class="tcl-btn tcl-btn-primary" style="font-size: 13px; padding: 6px 14px; background: #d97706 !important;">Lancer la Quête RPG →</a>
+      <a href="quest/" class="tcl-btn tcl-btn-quest" style="font-size: 13px; padding: 6px 14px;">Lancer la Quête RPG →</a>
       <a href="lessons/week1/" class="tcl-btn tcl-btn-secondary" style="font-size: 13px; padding: 6px 14px;">Démarrer Leçon 1 →</a>
     </div>
   </div>
@@ -4553,28 +4705,28 @@ Choisissez le parcours adapté à votre profil et à vos objectifs d'ingénierie
 Les 40 leçons sont réparties en quatre modules de progression séquentiels :
 
 <div class="tcl-modules-grid">
-  <a href="lessons/week1/" class="tcl-module-card">
+  <a href="lessons/week1/" class="tcl-module-card m10">
     <div class="tcl-module-badge">M10 · Leçons 01–10</div>
     <div class="tcl-module-title">Syntaxe de Base Tcl & Modèle Mental</div>
     <div class="tcl-module-desc">Maîtrisez le modèle d'évaluation en 3 étapes (Regroupement &rarr; Substitution &rarr; Exécution), expr avec accolades, listes, structures de contrôle et procédures.</div>
     <div class="tcl-module-link">Démarrer Module 10 →</div>
   </a>
 
-  <a href="lessons/week11/" class="tcl-module-card">
+  <a href="lessons/week11/" class="tcl-module-card m20">
     <div class="tcl-module-badge">M20 · Leçons 11–20</div>
     <div class="tcl-module-title">Aisance, Structures de Données & Automatisation</div>
     <div class="tcl-module-desc">Approfondissez les dictionnaires performants, les expressions régulières, les espaces de noms, les flux I/O de fichiers et la gestion d'erreurs robuste.</div>
     <div class="tcl-module-link">Démarrer Module 20 →</div>
   </a>
 
-  <a href="lessons/week21/" class="tcl-module-card">
+  <a href="lessons/week21/" class="tcl-module-card m30">
     <div class="tcl-module-badge">M30 · Leçons 21–30</div>
     <div class="tcl-module-title">Cœur de Layout Calibre & Conception Physique</div>
     <div class="tcl-module-desc">Interagissez avec des layouts de semi-conducteurs via DRV-Lite : cellules, couches, boîtes englobantes, polygones et modèles d'objets.</div>
     <div class="tcl-module-link">Démarrer Module 30 →</div>
   </a>
 
-  <a href="lessons/week31/" class="tcl-module-card">
+  <a href="lessons/week31/" class="tcl-module-card m40">
     <div class="tcl-module-badge">M40 · Leçons 31–40</div>
     <div class="tcl-module-title">Catalogue de Layout & Automatisation Sign-Off</div>
     <div class="tcl-module-desc">Convergence automatique des règles DRC, scripts de règles d'antenne/densité, correcteurs ECO de longueur de fil et flux de signature tapeout.</div>
