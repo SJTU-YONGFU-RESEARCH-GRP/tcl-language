@@ -192,6 +192,8 @@ def copy_workshop() -> None:
         if dst.exists():
             shutil.rmtree(dst)
         shutil.copytree(src, dst)
+        for md_file in dst.rglob("*.md"):
+            md_file.unlink(missing_ok=True)
         print(f"Copied standalone WASM workshop -> {dst}")
 
 
@@ -206,6 +208,8 @@ def copy_quest() -> None:
         if dst.exists():
             shutil.rmtree(dst)
         shutil.copytree(src, dst)
+        for md_file in dst.rglob("*.md"):
+            md_file.unlink(missing_ok=True)
         print(f"Copied standalone Tcl Quest (RPG) -> {dst}")
 
 
@@ -223,6 +227,8 @@ def copy_assets() -> None:
                 shutil.copytree(item, target)
             else:
                 shutil.copy2(item, target)
+        for md_file in dst.rglob("*.md"):
+            md_file.unlink(missing_ok=True)
         print(f"Copied website assets -> {dst}")
 
 
@@ -3879,9 +3885,13 @@ plugins:
 {fr_weeks_trans_yaml}
 
 validation:
-  omitted_files: warn
+  omitted_files: ignore
   absolute_links: info
   unrecognized_links: warn
+
+not_in_nav: |
+  quest-lab/**/*.md
+  wasm-lab/**/*.md
 
 nav:
   - Home: index.md

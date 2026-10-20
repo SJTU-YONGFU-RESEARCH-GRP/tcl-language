@@ -43,6 +43,9 @@ jobs:
         working-directory: website
         run: mkdocs build --strict
 
+      - name: Generate redirect fallbacks
+        run: python3 scripts/build_website.py --post-build
+
       - uses: actions/upload-pages-artifact@v3
         with:
           path: website/site

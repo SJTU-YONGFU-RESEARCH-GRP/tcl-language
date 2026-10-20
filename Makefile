@@ -231,6 +231,7 @@ site-install:
 site:
 	python3 $(ROOT)scripts/build_website.py
 	cd $(ROOT)website && mkdocs build --strict
+	python3 $(ROOT)scripts/build_website.py --post-build
 
 site-serve:
 	python3 $(ROOT)scripts/build_website.py
