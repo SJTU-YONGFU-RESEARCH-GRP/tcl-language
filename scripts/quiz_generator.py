@@ -625,6 +625,42 @@ const QUESTION_BANK = {
           "Syntax error: -nobackslashes is invalid"
         ],
         answer: 0
+      },
+      {
+        id: "m10_subst_math",
+        prompt: "You run: set x 2; puts \"$x + 2\". What is printed, and why?",
+        code: "set x 2\nputs \"$x + 2\"",
+        choices: [
+          "2 + 2, because double quotes perform substitution but do NOT execute expr",
+          "4, because Tcl evaluates math expressions automatically inside double quotes",
+          "An error, because + is illegal in quoted strings",
+          "4, because command substitution triggers automatically"
+        ],
+        answer: 0
+      },
+      {
+        id: "m10_while_braces",
+        prompt: "Why should 'while {$x < 10} { incr x }' use braces around both the test and the body?",
+        code: "while {$x < 10} { incr x }",
+        choices: [
+          "So while sees unevaluated scripts and can re-evaluate them on each iteration",
+          "Braces turn the test into a boolean data type",
+          "Braces are needed so incr is loaded into memory",
+          "Without braces, while runs in parallel threads"
+        ],
+        answer: 0
+      },
+      {
+        id: "m10_string_vs_expr",
+        prompt: "What is the conceptual difference between 'string equal $a $b' and 'expr {$a == $b}'?",
+        code: "string equal $a $b\nexpr {$a == $b}",
+        choices: [
+          "expr == may coerce strings to numbers; string equal strictly compares character by character",
+          "They are identical in all circumstances",
+          "expr cannot compare strings at all",
+          "string equal always converts operands to integers"
+        ],
+        answer: 0
       }
     ]
   },
@@ -704,6 +740,42 @@ const QUESTION_BANK = {
           "Disables file read permissions",
           "Sets binary transfer mode with 1MB blocks",
           "Forces synchronous write locks on the file"
+        ],
+        answer: 0
+      },
+      {
+        id: "m20_lappend_grouping",
+        prompt: "Why is list-aware 'lappend a $b' safer for list creation than string concatenation 'set a \"$a $b\"'?",
+        code: "set a {one two}\nset b {three four}\nlappend a $b",
+        choices: [
+          "String concatenation breaks command grouping if elements contain spaces; lappend preserves list structure",
+          "lappend is the only way to grow strings in Tcl",
+          "set a \"$a $b\" produces an unrecoverable syntax error",
+          "lappend copies associative arrays, not lists"
+        ],
+        answer: 0
+      },
+      {
+        id: "m20_upvar_call_by_name",
+        prompt: "Why is 'upvar' used when a procedure updates an array passed by the caller?",
+        code: "proc update_state {arr_name} {\n    upvar 1 $arr_name state\n    set state(count) 1\n}",
+        choices: [
+          "Call-by-name lets the proc modify the caller's array in-place without serializing or copying it",
+          "upvar is required for all Tcl variables",
+          "upvar converts lists into arrays",
+          "Returning strings from procs is forbidden in Tcl"
+        ],
+        answer: 0
+      },
+      {
+        id: "m20_pipeline_close",
+        prompt: "A pipeline opened with 'open |cmd r' works, but 'close $ch' throws an error. Why?",
+        code: "set ch [open |cmd r]\n# ... read channel ...\nclose $ch",
+        choices: [
+          "Tcl surfaces child process stderr and non-zero exit codes when the channel is closed",
+          "close always throws errors in Tcl 8.6",
+          "The file descriptor table was corrupted",
+          "glob failed in the parent process"
         ],
         answer: 0
       }
@@ -1038,16 +1110,29 @@ function loadNextQuestion() {
     codeBox.style.display = 'none';
   }
 
+  // Shuffle choices so the correct answer is randomized across A, B, C, D
+  const shuffledChoices = q.choices.map((text, origIdx) => ({
+    text: text,
+    isCorrect: (origIdx === q.answer)
+  }));
+  for (let i = shuffledChoices.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    const temp = shuffledChoices[i];
+    shuffledChoices[i] = shuffledChoices[j];
+    shuffledChoices[j] = temp;
+  }
+  currentQuest.correctChoiceIdx = shuffledChoices.findIndex(c => c.isCorrect);
+
   // Render Choices
   const grid = document.getElementById('choicesGrid');
   grid.innerHTML = '';
   const letters = ['A', 'B', 'C', 'D'];
-  q.choices.forEach((choiceText, idx) => {
+  shuffledChoices.forEach((choiceObj, displayIdx) => {
     const btn = document.createElement('div');
     btn.className = 'choice-item';
     btn.style.cssText = 'background:var(--md-default-bg-color); border:1px solid var(--tcl-border); border-radius:8px; padding:12px 16px; cursor:pointer; display:flex; align-items:center; gap:12px; transition:all 0.15s ease;';
-    btn.innerHTML = `<span style="display:inline-block; width:26px; height:26px; line-height:26px; text-align:center; border-radius:50%; background:var(--tcl-surface); border:1px solid var(--tcl-border); font-weight:800; font-size:12px; color:var(--tcl-heading);">${letters[idx]}</span><span style="font-size:13.5px; color:var(--tcl-heading);">${choiceText}</span>`;
-    btn.onclick = () => selectChoice(idx);
+    btn.innerHTML = `<span style="display:inline-block; width:26px; height:26px; line-height:26px; text-align:center; border-radius:50%; background:var(--tcl-surface); border:1px solid var(--tcl-border); font-weight:800; font-size:12px; color:var(--tcl-heading);">${letters[displayIdx]}</span><span style="font-size:13.5px; color:var(--tcl-heading);">${choiceObj.text}</span>`;
+    btn.onclick = () => selectChoice(displayIdx);
     grid.appendChild(btn);
   });
 
@@ -1172,7 +1257,7 @@ function submitCurrentAnswer() {
   }
 
   currentQuest.totalAttempts++;
-  const isCorrect = (currentQuest.selectedChoice === currentQuest.currentQuestion.answer);
+  const isCorrect = (currentQuest.selectedChoice === currentQuest.correctChoiceIdx);
   const modKey = currentQuest.modules[currentQuest.modIdx];
   const diffKey = currentQuest.diffTiers[currentQuest.tierIdx];
 
@@ -1180,6 +1265,10 @@ function submitCurrentAnswer() {
   toast.style.display = 'block';
 
   if (isCorrect) {
+    if (items[currentQuest.selectedChoice]) {
+      items[currentQuest.selectedChoice].style.borderColor = '#10b981';
+      items[currentQuest.selectedChoice].style.background = 'rgba(16, 185, 129, 0.15)';
+    }
     currentQuest.correctAttempts++;
     const points = (diffKey === 'easy' ? 100 : (diffKey === 'medium' ? 200 : 300)) + Math.round(currentQuest.timeLeft * 2);
     currentQuest.score += points;
@@ -1209,7 +1298,16 @@ function submitCurrentAnswer() {
     }, 900);
 
   } else {
-    // Mistake made: dynamic branching!
+    // Mistake made: highlight wrong choice in red and reveal correct answer in green
+    if (currentQuest.selectedChoice !== null && items[currentQuest.selectedChoice]) {
+      items[currentQuest.selectedChoice].style.borderColor = '#ef4444';
+      items[currentQuest.selectedChoice].style.background = 'rgba(239, 68, 68, 0.15)';
+    }
+    if (items[currentQuest.correctChoiceIdx]) {
+      items[currentQuest.correctChoiceIdx].style.borderColor = '#10b981';
+      items[currentQuest.correctChoiceIdx].style.background = 'rgba(16, 185, 129, 0.15)';
+    }
+
     currentQuest.mistakesAtTier++;
     currentQuest.score = Math.max(0, currentQuest.score - 20);
     // Non-accumulative: allowance is brought forward to the immediate next question only
@@ -1238,6 +1336,11 @@ function handleTimeout() {
     item.style.pointerEvents = 'none';
     item.style.cursor = 'default';
   });
+
+  if (items[currentQuest.correctChoiceIdx]) {
+    items[currentQuest.correctChoiceIdx].style.borderColor = '#10b981';
+    items[currentQuest.correctChoiceIdx].style.background = 'rgba(16, 185, 129, 0.15)';
+  }
 
   currentQuest.totalAttempts++;
   currentQuest.mistakesAtTier++;

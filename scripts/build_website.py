@@ -20,6 +20,7 @@ import shutil
 import sys
 from pathlib import Path
 from quiz_generator import write_quiz_challenge_pages, write_leaderboard_pages
+from glossary_generator import write_glossary_pages
 
 ROOT = Path(__file__).resolve().parents[1]
 LESSONS = ROOT / "lessons"
@@ -197,6 +198,22 @@ def copy_workshop() -> None:
         print(f"Copied standalone WASM workshop -> {dst}")
 
 
+def copy_quest() -> None:
+    src = WEBSITE / "quest"
+    if not src.exists():
+        src_alt = ROOT.parent / "projects" / "su3037" / "site"
+        if src_alt.exists():
+            src = src_alt
+    dst = DOCS / "quest-lab"
+    if src.exists():
+        if dst.exists():
+            shutil.rmtree(dst)
+        shutil.copytree(src, dst)
+        for md_file in dst.rglob("*.md"):
+            md_file.unlink(missing_ok=True)
+        print(f"Copied standalone Tcl Quest (RPG) -> {dst}")
+
+
 def copy_assets() -> None:
     src = WEBSITE / "assets"
     dst = DOCS / "assets"
@@ -214,6 +231,17 @@ def copy_assets() -> None:
         for md_file in dst.rglob("*.md"):
             md_file.unlink(missing_ok=True)
         print(f"Copied website assets -> {dst}")
+
+    # Copy FanqinZeng's 24 architectural SVG diagrams into DOCS / assets / diagrams
+    diagrams_src = WEBSITE / "workshop" / "assets" / "diagrams"
+    if not diagrams_src.exists():
+        diagrams_src = ROOT.parent / "projects" / "fanqinzeng" / "site" / "assets" / "diagrams"
+    if diagrams_src.exists():
+        diagrams_dst = dst / "diagrams"
+        diagrams_dst.mkdir(parents=True, exist_ok=True)
+        for item in diagrams_src.glob("*.svg"):
+            shutil.copy2(item, diagrams_dst / item.name)
+        print(f"Copied 24 architectural SVG diagrams -> {diagrams_dst}")
 
 
 def copy_help_docs() -> None:
@@ -491,9 +519,10 @@ def write_exercises_pages() -> None:
   <span class="tcl-badge amber">54 Structured Tasks</span>
   <span class="tcl-badge">Starters & Solutions</span>
   <span class="tcl-badge amber">Source: FanqinZeng</span>
+  <span class="tcl-badge blue">18 Visual Concept Diagrams</span>
 </div>
 
-Curated from FanqinZeng's top-ranked educational project (Audit Score 98/100), this suite provides **18 modular practice units** (comprising 54 graduated tasks). Each module features authentic engineering data, starter code templates, test criteria, and verified reference solutions.
+Curated from FanqinZeng's top-ranked educational project (Audit Score 98/100), this suite provides **18 modular practice units** (comprising 54 graduated tasks). Each module features authentic engineering data, starter code templates, test criteria, verified reference solutions, and architectural concept diagrams.
 
 Execute them directly in our [⚡ Interactive Web Playground](playground.md) or clone locally to run under standard `tclsh`.
 
@@ -501,26 +530,26 @@ Execute them directly in our [⚡ Interactive Web Playground](playground.md) or 
 
 ## 📋 Exercise Directory
 
-| # | Topic | Key Skills & Tasks | Dataset | Starter | Solution |
-| :---: | :--- | :--- | :--- | :---: | :---: |
-| **01** | `01-hello` | `puts` standard output & command dispatch | — | [`01.tcl`]({GITHUB}/blob/main/exercises/01/01.tcl) | [`01.tcl`]({GITHUB}/blob/main/solutions/01/01.tcl) |
-| **02** | `02-vars-and-puts` | Variable assignment & string concatenation | — | [`01.tcl`]({GITHUB}/blob/main/exercises/02/01.tcl) | [`01.tcl`]({GITHUB}/blob/main/solutions/02/01.tcl) |
-| **03** | `03-math-expressions` | Braced `expr`, integer & float arithmetic | — | [`01.tcl`]({GITHUB}/blob/main/exercises/03/01.tcl) | [`01.tcl`]({GITHUB}/blob/main/solutions/03/01.tcl) |
-| **04** | `04-condition-branch` | `if` / `elseif` / `else` conditional logic | — | [`01.tcl`]({GITHUB}/blob/main/exercises/04/01.tcl) | [`01.tcl`]({GITHUB}/blob/main/solutions/04/01.tcl) |
-| **05** | `05-loops-foreach-while` | Iteration with `foreach` and `while` | — | [`01.tcl`]({GITHUB}/blob/main/exercises/05/01.tcl) | [`01.tcl`]({GITHUB}/blob/main/solutions/05/01.tcl) |
-| **06** | `06-procedures` | Custom `proc` definitions, args & return | — | [`01.tcl`]({GITHUB}/blob/main/exercises/06/01.tcl) | [`01.tcl`]({GITHUB}/blob/main/solutions/06/01.tcl) |
-| **07** | `07-list-basics` | `list`, `lindex`, `llength`, `lappend` | — | [`01.tcl`]({GITHUB}/blob/main/exercises/07/01.tcl) | [`01.tcl`]({GITHUB}/blob/main/solutions/07/01.tcl) |
-| **08** | `08-list-filter-sort` | Sorting with `lsort`, filtering, reversing | `top10_servers.tsv` | [`01.tcl`]({GITHUB}/blob/main/exercises/08/01.tcl) | [`01.tcl`]({GITHUB}/blob/main/solutions/08/01.tcl) |
-| **09** | `09-dict-basics` | `dict create`, `dict get`, `dict set` | — | [`01.tcl`]({GITHUB}/blob/main/exercises/09/01.tcl) | [`01.tcl`]({GITHUB}/blob/main/solutions/09/01.tcl) |
-| **10** | `10-dict-nested` | Hierarchical configuration & chip specs | `chip_runs.csv` | [`01.tcl`]({GITHUB}/blob/main/exercises/10/01.tcl) | [`01.tcl`]({GITHUB}/blob/main/solutions/10/01.tcl) |
-| **11** | `11-string-operations` | String range, indexing, trim & replace | — | [`01.tcl`]({GITHUB}/blob/main/exercises/11/01.tcl) | [`01.tcl`]({GITHUB}/blob/main/solutions/11/01.tcl) |
-| **12** | `12-regex-matching` | Regular expressions with `regexp` | — | [`01.tcl`]({GITHUB}/blob/main/exercises/12/01.tcl) | [`01.tcl`]({GITHUB}/blob/main/solutions/12/01.tcl) |
-| **13** | `13-file-read-lines` | File stream handles, `open`, line-by-line | `sales_raw.csv` | [`01.tcl`]({GITHUB}/blob/main/exercises/13/01.tcl) | [`01.tcl`]({GITHUB}/blob/main/solutions/13/01.tcl) |
-| **14** | `14-csv-parsing` | CSV splitting, header alignment & nulls | `wafers.csv` | [`01.tcl`]({GITHUB}/blob/main/exercises/14/01.tcl) | [`01.tcl`]({GITHUB}/blob/main/solutions/14/01.tcl) |
-| **15** | `15-json-parsing` | JSON key-value extraction & serialization | `weather_beijing.json` | [`01.tcl`]({GITHUB}/blob/main/exercises/15/01.tcl) | [`01.tcl`]({GITHUB}/blob/main/solutions/15/01.tcl) |
-| **16** | `16-error-handling` | Robust scripts with `catch` & `try ... trap` | — | [`01.tcl`]({GITHUB}/blob/main/exercises/16/01.tcl) | [`01.tcl`]({GITHUB}/blob/main/solutions/16/01.tcl) |
-| **17** | `17-data-aggregation` | Multi-field grouping & yield percentage | `chip_runs.csv` | [`01.tcl`]({GITHUB}/blob/main/exercises/17/01.tcl) | [`01.tcl`]({GITHUB}/blob/main/solutions/17/01.tcl) |
-| **18** | `18-timing-report` | Industrial STA timing Slack & WNS check | `sample_timing.rpt` | [`01.tcl`]({GITHUB}/blob/main/exercises/18/01.tcl) | [`01.tcl`]({GITHUB}/blob/main/solutions/18/01.tcl) |
+| # | Topic | Key Skills & Tasks | Dataset | Starter | Solution | Diagram |
+| :---: | :--- | :--- | :--- | :---: | :---: | :---: |
+| **01** | `01-hello` | `puts` standard output & command dispatch | — | [`01.tcl`]({GITHUB}/blob/main/exercises/01/01.tcl) | [`01.tcl`]({GITHUB}/blob/main/solutions/01/01.tcl) | [🖼️ 01.svg](assets/diagrams/01.svg) |
+| **02** | `02-vars-and-puts` | Variable assignment & string concatenation | — | [`01.tcl`]({GITHUB}/blob/main/exercises/02/01.tcl) | [`01.tcl`]({GITHUB}/blob/main/solutions/02/01.tcl) | [🖼️ 02.svg](assets/diagrams/02.svg) |
+| **03** | `03-math-expressions` | Braced `expr`, integer & float arithmetic | — | [`01.tcl`]({GITHUB}/blob/main/exercises/03/01.tcl) | [`01.tcl`]({GITHUB}/blob/main/solutions/03/01.tcl) | [🖼️ 03.svg](assets/diagrams/03.svg) |
+| **04** | `04-condition-branch` | `if` / `elseif` / `else` conditional logic | — | [`01.tcl`]({GITHUB}/blob/main/exercises/04/01.tcl) | [`01.tcl`]({GITHUB}/blob/main/solutions/04/01.tcl) | [🖼️ 04.svg](assets/diagrams/04.svg) |
+| **05** | `05-loops-foreach-while` | Iteration with `foreach` and `while` | — | [`01.tcl`]({GITHUB}/blob/main/exercises/05/01.tcl) | [`01.tcl`]({GITHUB}/blob/main/solutions/05/01.tcl) | [🖼️ 05.svg](assets/diagrams/05.svg) |
+| **06** | `06-procedures` | Custom `proc` definitions, args & return | — | [`01.tcl`]({GITHUB}/blob/main/exercises/06/01.tcl) | [`01.tcl`]({GITHUB}/blob/main/solutions/06/01.tcl) | [🖼️ 06.svg](assets/diagrams/06.svg) |
+| **07** | `07-list-basics` | `list`, `lindex`, `llength`, `lappend` | — | [`01.tcl`]({GITHUB}/blob/main/exercises/07/01.tcl) | [`01.tcl`]({GITHUB}/blob/main/solutions/07/01.tcl) | [🖼️ 07.svg](assets/diagrams/07.svg) |
+| **08** | `08-list-filter-sort` | Sorting with `lsort`, filtering, reversing | `top10_servers.tsv` | [`01.tcl`]({GITHUB}/blob/main/exercises/08/01.tcl) | [`01.tcl`]({GITHUB}/blob/main/solutions/08/01.tcl) | [🖼️ 08.svg](assets/diagrams/08.svg) |
+| **09** | `09-dict-basics` | `dict create`, `dict get`, `dict set` | — | [`01.tcl`]({GITHUB}/blob/main/exercises/09/01.tcl) | [`01.tcl`]({GITHUB}/blob/main/solutions/09/01.tcl) | [🖼️ 09.svg](assets/diagrams/09.svg) |
+| **10** | `10-dict-nested` | Hierarchical configuration & chip specs | `chip_runs.csv` | [`01.tcl`]({GITHUB}/blob/main/exercises/10/01.tcl) | [`01.tcl`]({GITHUB}/blob/main/solutions/10/01.tcl) | [🖼️ 10.svg](assets/diagrams/10.svg) |
+| **11** | `11-string-operations` | String range, indexing, trim & replace | — | [`01.tcl`]({GITHUB}/blob/main/exercises/11/01.tcl) | [`01.tcl`]({GITHUB}/blob/main/solutions/11/01.tcl) | [🖼️ 11.svg](assets/diagrams/11.svg) |
+| **12** | `12-regex-matching` | Regular expressions with `regexp` | — | [`01.tcl`]({GITHUB}/blob/main/exercises/12/01.tcl) | [`01.tcl`]({GITHUB}/blob/main/solutions/12/01.tcl) | [🖼️ 12.svg](assets/diagrams/12.svg) |
+| **13** | `13-file-read-lines` | File stream handles, `open`, line-by-line | `sales_raw.csv` | [`01.tcl`]({GITHUB}/blob/main/exercises/13/01.tcl) | [`01.tcl`]({GITHUB}/blob/main/solutions/13/01.tcl) | [🖼️ 13.svg](assets/diagrams/13.svg) |
+| **14** | `14-csv-parsing` | CSV splitting, header alignment & nulls | `wafers.csv` | [`01.tcl`]({GITHUB}/blob/main/exercises/14/01.tcl) | [`01.tcl`]({GITHUB}/blob/main/solutions/14/01.tcl) | [🖼️ 14.svg](assets/diagrams/14.svg) |
+| **15** | `15-json-parsing` | JSON key-value extraction & serialization | `weather_beijing.json` | [`01.tcl`]({GITHUB}/blob/main/exercises/15/01.tcl) | [`01.tcl`]({GITHUB}/blob/main/solutions/15/01.tcl) | [🖼️ 15.svg](assets/diagrams/15.svg) |
+| **16** | `16-error-handling` | Robust scripts with `catch` & `try ... trap` | — | [`01.tcl`]({GITHUB}/blob/main/exercises/16/01.tcl) | [`01.tcl`]({GITHUB}/blob/main/solutions/16/01.tcl) | [🖼️ 16.svg](assets/diagrams/16.svg) |
+| **17** | `17-data-aggregation` | Multi-field grouping & yield percentage | `chip_runs.csv` | [`01.tcl`]({GITHUB}/blob/main/exercises/17/01.tcl) | [`01.tcl`]({GITHUB}/blob/main/solutions/17/01.tcl) | [🖼️ 17.svg](assets/diagrams/17.svg) |
+| **18** | `18-timing-report` | Industrial STA timing Slack & WNS check | `sample_timing.rpt` | [`01.tcl`]({GITHUB}/blob/main/exercises/18/01.tcl) | [`01.tcl`]({GITHUB}/blob/main/solutions/18/01.tcl) | [🖼️ 18.svg](assets/diagrams/18.svg) |
 
 ---
 
@@ -543,9 +572,10 @@ tclsh solutions/01/01.tcl
   <span class="tcl-badge amber">54 个阶梯任务</span>
   <span class="tcl-badge">起步模版与标准答案</span>
   <span class="tcl-badge amber">来源：FanqinZeng</span>
+  <span class="tcl-badge blue">18 幅矢量架构图解</span>
 </div>
 
-整合来自顶级优秀项目（FanqinZeng，评分 98/100）的 **18 节体系化实战练习**（共 54 个阶梯任务）。每项练习均基于真实工程与业务数据，提供起步代码模版（`exercises/NN/01.tcl`）、检验标准与参考实现（`solutions/NN/01.tcl`）。
+整合来自顶级优秀项目（FanqinZeng，评分 98/100）的 **18 节体系化实战练习**（共 54 个阶梯任务）。每项练习均基于真实工程与业务数据，提供起步代码模版（`exercises/NN/01.tcl`）、检验标准、参考实现（`solutions/NN/01.tcl`）以及直观概念架构图。
 
 可在 [⚡ 在线演练台 (Playground)](playground.md) 中直接在浏览器运行，亦可在本地克隆仓库后使用标准 `tclsh` 执行。
 
@@ -553,52 +583,54 @@ tclsh solutions/01/01.tcl
 
 ## 📋 练习索引总览 (Exercise Directory)
 
-| 编号 | 练习主题 | 涵盖知识点与核心任务 | 关联数据集 | 起步模版 | 标准答案 |
-| :---: | :--- | :--- | :--- | :---: | :---: |
-| **01** | `01-hello` | `puts` 标准输出与基础命令结构 | — | [`01.tcl`]({GITHUB}/blob/main/exercises/01/01.tcl) | [`01.tcl`]({GITHUB}/blob/main/solutions/01/01.tcl) |
-| **02** | `02-vars-and-puts` | 变量定义、字符串连接与标点格式化 | — | [`01.tcl`]({GITHUB}/blob/main/exercises/02/01.tcl) | [`01.tcl`]({GITHUB}/blob/main/solutions/02/01.tcl) |
-| **03** | `03-math-expressions` | `expr` 花括号防护、浮点与整数运算 | — | [`01.tcl`]({GITHUB}/blob/main/exercises/03/01.tcl) | [`01.tcl`]({GITHUB}/blob/main/solutions/03/01.tcl) |
-| **04** | `04-condition-branch` | `if` / `elseif` / `else` 多分支判定 | — | [`01.tcl`]({GITHUB}/blob/main/exercises/04/01.tcl) | [`01.tcl`]({GITHUB}/blob/main/solutions/04/01.tcl) |
-| **05** | `05-loops-foreach-while` | `foreach` 与 `while` 迭代集合与步进 | — | [`01.tcl`]({GITHUB}/blob/main/exercises/05/01.tcl) | [`01.tcl`]({GITHUB}/blob/main/solutions/05/01.tcl) |
-| **06** | `06-procedures` | 自定义过程 `proc`、形参与返回值处理 | — | [`01.tcl`]({GITHUB}/blob/main/exercises/06/01.tcl) | [`01.tcl`]({GITHUB}/blob/main/solutions/06/01.tcl) |
-| **07** | `07-list-basics` | `list`、`lindex`、`llength`、`lappend` | — | [`01.tcl`]({GITHUB}/blob/main/exercises/07/01.tcl) | [`01.tcl`]({GITHUB}/blob/main/solutions/07/01.tcl) |
-| **08** | `08-list-filter-sort` | 列表排序 `lsort`、过滤与倒序变换 | `top10_servers.tsv` | [`01.tcl`]({GITHUB}/blob/main/exercises/08/01.tcl) | [`01.tcl`]({GITHUB}/blob/main/solutions/08/01.tcl) |
-| **09** | `09-dict-basics` | 字典 `dict create`、`dict get`、`dict set` | — | [`01.tcl`]({GITHUB}/blob/main/exercises/09/01.tcl) | [`01.tcl`]({GITHUB}/blob/main/solutions/09/01.tcl) |
-| **10** | `10-dict-nested` | 嵌套字典建模复杂配置与芯片规格 | `chip_runs.csv` | [`01.tcl`]({GITHUB}/blob/main/exercises/10/01.tcl) | [`01.tcl`]({GITHUB}/blob/main/solutions/10/01.tcl) |
-| **11** | `11-string-operations` | 字符串截取、匹配、替换与修剪 | — | [`01.tcl`]({GITHUB}/blob/main/exercises/11/01.tcl) | [`01.tcl`]({GITHUB}/blob/main/solutions/11/01.tcl) |
-| **12** | `12-regex-matching` | 正则表达式 `regexp` 提取关键字与数值 | — | [`01.tcl`]({GITHUB}/blob/main/exercises/12/01.tcl) | [`01.tcl`]({GITHUB}/blob/main/solutions/12/01.tcl) |
-| **13** | `13-file-read-lines` | 文件流句柄 `open`、`gets`、逐行解析 | `sales_raw.csv` | [`01.tcl`]({GITHUB}/blob/main/exercises/13/01.tcl) | [`01.tcl`]({GITHUB}/blob/main/solutions/13/01.tcl) |
-| **14** | `14-csv-parsing` | CSV 表格分割、表头对齐与空值填补 | `wafers.csv` | [`01.tcl`]({GITHUB}/blob/main/exercises/14/01.tcl) | [`01.tcl`]({GITHUB}/blob/main/solutions/14/01.tcl) |
-| **15** | `15-json-parsing` | JSON 结构化数据提取与属性转换 | `weather_beijing.json` | [`01.tcl`]({GITHUB}/blob/main/exercises/15/01.tcl) | [`01.tcl`]({GITHUB}/blob/main/solutions/15/01.tcl) |
-| **16** | `16-error-handling` | `catch` 与 `try ... trap ... finally` 健壮性 | — | [`01.tcl`]({GITHUB}/blob/main/exercises/16/01.tcl) | [`01.tcl`]({GITHUB}/blob/main/solutions/16/01.tcl) |
-| **17** | `17-data-aggregation` | 多字段分组统计、良率计算与汇总表 | `chip_runs.csv` | [`01.tcl`]({GITHUB}/blob/main/exercises/17/01.tcl) | [`01.tcl`]({GITHUB}/blob/main/solutions/17/01.tcl) |
-| **18** | `18-timing-report` | STA 时序分析报告解析与 WNS 门禁判定 | `sample_timing.rpt` | [`01.tcl`]({GITHUB}/blob/main/exercises/18/01.tcl) | [`01.tcl`]({GITHUB}/blob/main/solutions/18/01.tcl) |
+| 编号 | 练习主题 | 涵盖知识点与核心任务 | 关联数据集 | 起步模版 | 标准答案 | 概念图解 |
+| :---: | :--- | :--- | :--- | :---: | :---: | :---: |
+| **01** | `01-hello` | `puts` 标准输出与基础命令结构 | — | [`01.tcl`]({GITHUB}/blob/main/exercises/01/01.tcl) | [`01.tcl`]({GITHUB}/blob/main/solutions/01/01.tcl) | [🖼️ 01.svg](assets/diagrams/01.svg) |
+| **02** | `02-vars-and-puts` | 变量定义、字符串连接与标点格式化 | — | [`01.tcl`]({GITHUB}/blob/main/exercises/02/01.tcl) | [`01.tcl`]({GITHUB}/blob/main/solutions/02/01.tcl) | [🖼️ 02.svg](assets/diagrams/02.svg) |
+| **03** | `03-math-expressions` | `expr` 花括号防护、浮点与整数运算 | — | [`01.tcl`]({GITHUB}/blob/main/exercises/03/01.tcl) | [`01.tcl`]({GITHUB}/blob/main/solutions/03/01.tcl) | [🖼️ 03.svg](assets/diagrams/03.svg) |
+| **04** | `04-condition-branch` | `if` / `elseif` / `else` 多分支判定 | — | [`01.tcl`]({GITHUB}/blob/main/exercises/04/01.tcl) | [`01.tcl`]({GITHUB}/blob/main/solutions/04/01.tcl) | [🖼️ 04.svg](assets/diagrams/04.svg) |
+| **05** | `05-loops-foreach-while` | `foreach` 与 `while` 迭代集合与步进 | — | [`01.tcl`]({GITHUB}/blob/main/exercises/05/01.tcl) | [`01.tcl`]({GITHUB}/blob/main/solutions/05/01.tcl) | [🖼️ 05.svg](assets/diagrams/05.svg) |
+| **06** | `06-procedures` | 自定义过程 `proc`、形参与返回值处理 | — | [`01.tcl`]({GITHUB}/blob/main/exercises/06/01.tcl) | [`01.tcl`]({GITHUB}/blob/main/solutions/06/01.tcl) | [🖼️ 06.svg](assets/diagrams/06.svg) |
+| **07** | `07-list-basics` | `list`、`lindex`、`llength`、`lappend` | — | [`01.tcl`]({GITHUB}/blob/main/exercises/07/01.tcl) | [`01.tcl`]({GITHUB}/blob/main/solutions/07/01.tcl) | [🖼️ 07.svg](assets/diagrams/07.svg) |
+| **08** | `08-list-filter-sort` | 列表排序 `lsort`、过滤与倒序变换 | `top10_servers.tsv` | [`01.tcl`]({GITHUB}/blob/main/exercises/08/01.tcl) | [`01.tcl`]({GITHUB}/blob/main/solutions/08/01.tcl) | [🖼️ 08.svg](assets/diagrams/08.svg) |
+| **09** | `09-dict-basics` | 字典 `dict create`、`dict get`、`dict set` | — | [`01.tcl`]({GITHUB}/blob/main/exercises/09/01.tcl) | [`01.tcl`]({GITHUB}/blob/main/solutions/09/01.tcl) | [🖼️ 09.svg](assets/diagrams/09.svg) |
+| **10** | `10-dict-nested` | 嵌套字典建模复杂配置与芯片规格 | `chip_runs.csv` | [`01.tcl`]({GITHUB}/blob/main/exercises/10/01.tcl) | [`01.tcl`]({GITHUB}/blob/main/solutions/10/01.tcl) | [🖼️ 10.svg](assets/diagrams/10.svg) |
+| **11** | `11-string-operations` | 字符串截取、匹配、替换与修剪 | — | [`01.tcl`]({GITHUB}/blob/main/exercises/11/01.tcl) | [`01.tcl`]({GITHUB}/blob/main/solutions/11/01.tcl) | [🖼️ 11.svg](assets/diagrams/11.svg) |
+| **12** | `12-regex-matching` | 正则表达式 `regexp` 提取关键字与数值 | — | [`01.tcl`]({GITHUB}/blob/main/exercises/12/01.tcl) | [`01.tcl`]({GITHUB}/blob/main/solutions/12/01.tcl) | [🖼️ 12.svg](assets/diagrams/12.svg) |
+| **13** | `13-file-read-lines` | 文件流句柄 `open`、`gets`、逐行解析 | `sales_raw.csv` | [`01.tcl`]({GITHUB}/blob/main/exercises/13/01.tcl) | [`01.tcl`]({GITHUB}/blob/main/solutions/13/01.tcl) | [🖼️ 13.svg](assets/diagrams/13.svg) |
+| **14** | `14-csv-parsing` | CSV 表格分割、表头对齐与空值填补 | `wafers.csv` | [`01.tcl`]({GITHUB}/blob/main/exercises/14/01.tcl) | [`01.tcl`]({GITHUB}/blob/main/solutions/14/01.tcl) | [🖼️ 14.svg](assets/diagrams/14.svg) |
+| **15** | `15-json-parsing` | JSON 结构化数据提取与属性转换 | `weather_beijing.json` | [`01.tcl`]({GITHUB}/blob/main/exercises/15/01.tcl) | [`01.tcl`]({GITHUB}/blob/main/solutions/15/01.tcl) | [🖼️ 15.svg](assets/diagrams/15.svg) |
+| **16** | `16-error-handling` | `catch` 与 `try ... trap ... finally` 健壮性 | — | [`01.tcl`]({GITHUB}/blob/main/exercises/16/01.tcl) | [`01.tcl`]({GITHUB}/blob/main/solutions/16/01.tcl) | [🖼️ 16.svg](assets/diagrams/16.svg) |
+| **17** | `17-data-aggregation` | 多字段分组统计、良率计算与汇总表 | `chip_runs.csv` | [`01.tcl`]({GITHUB}/blob/main/exercises/17/01.tcl) | [`01.tcl`]({GITHUB}/blob/main/solutions/17/01.tcl) | [🖼️ 17.svg](assets/diagrams/17.svg) |
+| **18** | `18-timing-report` | STA 时序分析报告解析与 WNS 门禁判定 | `sample_timing.rpt` | [`01.tcl`]({GITHUB}/blob/main/exercises/18/01.tcl) | [`01.tcl`]({GITHUB}/blob/main/solutions/18/01.tcl) | [🖼️ 18.svg](assets/diagrams/18.svg) |
 """
     (DOCS / "exercises.zh.md").write_text(zh_content, encoding="utf-8")
 
     ms_content = (en_content
         .replace("# 🎯 18 Practical Exercises (54 Coding Tasks)", "# 🎯 18 Latihan Amali (54 Tugasan Pengekodan)")
-        .replace("Curated from FanqinZeng's top-ranked educational project (Audit Score 98/100), this suite provides **18 modular practice units** (comprising 54 graduated tasks). Each module features authentic engineering data, starter code templates, test criteria, and verified reference solutions.",
-                 "Disusun daripada projek pendidikan terbaik FanqinZeng (Skor Audit 98/100), suite ini menyediakan **18 unit latihan modular** (merangkumi 54 tugasan bertahap). Setiap modul menampilkan data kejuruteraan tulen, templat kod permulaan, kriteria ujian, dan penyelesaian rujukan yang disahkan.")
+        .replace("Curated from FanqinZeng's top-ranked educational project (Audit Score 98/100), this suite provides **18 modular practice units** (comprising 54 graduated tasks). Each module features authentic engineering data, starter code templates, test criteria, verified reference solutions, and architectural concept diagrams.",
+                 "Disusun daripada projek pendidikan terbaik FanqinZeng (Skor Audit 98/100), suite ini menyediakan **18 unit latihan modular** (merangkumi 54 tugasan bertahap). Setiap modul menampilkan data kejuruteraan tulen, templat kod permulaan, kriteria ujian, penyelesaian rujukan yang disahkan, dan rajah konsep seni bina.")
         .replace("Execute them directly in our [⚡ Interactive Web Playground](playground.md) or clone locally to run under standard `tclsh`.",
                  "Laksanakannya secara langsung dalam [⚡ Taman Kod Web](playground.md) kami atau klon secara tempatan untuk dijalankan di bawah `tclsh` standard.")
         .replace("## 📋 Exercise Directory", "## 📋 Direktori Latihan")
         .replace("Key Skills & Tasks", "Kemahiran Utama & Tugasan")
         .replace("Starter", "Permulaan")
         .replace("Solution", "Penyelesaian")
+        .replace("Diagram", "Rajah")
     )
     (DOCS / "exercises.ms.md").write_text(ms_content, encoding="utf-8")
 
     fr_content = (en_content
         .replace("# 🎯 18 Practical Exercises (54 Coding Tasks)", "# 🎯 18 Exercices Pratiques (54 Tâches de Code)")
-        .replace("Curated from FanqinZeng's top-ranked educational project (Audit Score 98/100), this suite provides **18 modular practice units** (comprising 54 graduated tasks). Each module features authentic engineering data, starter code templates, test criteria, and verified reference solutions.",
-                 "Issu du projet éducatif d'excellence de FanqinZeng (Score d'audit 98/100), cet ensemble propose **18 unités de pratique modulaire** (54 tâches progressives). Chaque module intègre des données d'ingénierie authentiques, des modèles de code de départ, des critères de test et des solutions de référence vérifiées.")
+        .replace("Curated from FanqinZeng's top-ranked educational project (Audit Score 98/100), this suite provides **18 modular practice units** (comprising 54 graduated tasks). Each module features authentic engineering data, starter code templates, test criteria, verified reference solutions, and architectural concept diagrams.",
+                 "Issu du projet éducatif d'excellence de FanqinZeng (Score d'audit 98/100), cet ensemble propose **18 unités de pratique modulaire** (54 tâches progressives). Chaque module intègre des données d'ingénierie authentiques, des modèles de code de départ, des critères de test, des solutions de référence vérifiées et des schémas de concept architectural.")
         .replace("Execute them directly in our [⚡ Interactive Web Playground](playground.md) or clone locally to run under standard `tclsh`.",
                  "Exécutez-les directement dans notre [⚡ Bac à Sable Web](playground.md) ou clonez localement sous un interpréteur `tclsh` standard.")
         .replace("## 📋 Exercise Directory", "## 📋 Répertoire des Exercices")
         .replace("Key Skills & Tasks", "Compétences Clés & Tâches")
         .replace("Starter", "Départ")
         .replace("Solution", "Solution")
+        .replace("Diagram", "Schéma")
     )
     (DOCS / "exercises.fr.md").write_text(fr_content, encoding="utf-8")
 
@@ -624,9 +656,13 @@ In addition to foundational exercises, this curriculum incorporates 6 major caps
     <span class="tcl-unit-badge">PROJECT A · Telemetry</span>
     <h3>Server Access Log Statistics & Alert Filtering</h3>
     <p>Parse Nginx/Apache logs, compute top IP frequencies, identify HTTP 4xx/5xx error anomalies, and generate structured health audit reports.</p>
+    <div style="margin: 14px 0;">
+      <a href="../assets/diagrams/project-A.svg" target="_blank" title="View Architecture Diagram"><img src="../assets/diagrams/project-A.svg" alt="Project A Architecture Diagram" style="width: 100%; border-radius: 6px; border: 1px solid var(--tcl-border); display: block;" /></a>
+    </div>
     <div style="font-size: 13px; margin-top: 10px;">
       <a href="{GITHUB}/blob/main/capstone/A/README.md">View Project Spec →</a> · 
-      <a href="{GITHUB}/blob/main/capstone/A/solution.tcl">Solution Source</a>
+      <a href="{GITHUB}/blob/main/capstone/A/solution.tcl">Solution Source</a> · 
+      <a href="../assets/diagrams/project-A.svg" target="_blank">Diagram (SVG) ↗</a>
     </div>
   </div>
 
@@ -634,9 +670,13 @@ In addition to foundational exercises, this curriculum incorporates 6 major caps
     <span class="tcl-unit-badge">PROJECT B · Semiconductor</span>
     <h3>Wafer Yield Testing & Defect Clustering</h3>
     <p>Process <code>wafers.csv</code> telemetry streams, compute batch yield rates, calculate edge defect densities, and group Bin 9 failures into sign-off dashboards.</p>
+    <div style="margin: 14px 0;">
+      <a href="../assets/diagrams/project-B.svg" target="_blank" title="View Architecture Diagram"><img src="../assets/diagrams/project-B.svg" alt="Project B Architecture Diagram" style="width: 100%; border-radius: 6px; border: 1px solid var(--tcl-border); display: block;" /></a>
+    </div>
     <div style="font-size: 13px; margin-top: 10px;">
       <a href="{GITHUB}/blob/main/capstone/B/README.md">View Project Spec →</a> · 
-      <a href="{GITHUB}/blob/main/capstone/B/solution.tcl">Solution Source</a>
+      <a href="{GITHUB}/blob/main/capstone/B/solution.tcl">Solution Source</a> · 
+      <a href="../assets/diagrams/project-B.svg" target="_blank">Diagram (SVG) ↗</a>
     </div>
   </div>
 
@@ -644,9 +684,13 @@ In addition to foundational exercises, this curriculum incorporates 6 major caps
     <span class="tcl-unit-badge">PROJECT C · DevOps</span>
     <h3>Git Commit Metrics & Productivity Reports</h3>
     <p>Parse Git commit logs and <code>git_metrics.json</code>, aggregate author churn, merge intervals, and hotspot file distributions.</p>
+    <div style="margin: 14px 0;">
+      <a href="../assets/diagrams/project-C.svg" target="_blank" title="View Architecture Diagram"><img src="../assets/diagrams/project-C.svg" alt="Project C Architecture Diagram" style="width: 100%; border-radius: 6px; border: 1px solid var(--tcl-border); display: block;" /></a>
+    </div>
     <div style="font-size: 13px; margin-top: 10px;">
       <a href="{GITHUB}/blob/main/capstone/C/README.md">View Project Spec →</a> · 
-      <a href="{GITHUB}/blob/main/capstone/C/solution.tcl">Solution Source</a>
+      <a href="{GITHUB}/blob/main/capstone/C/solution.tcl">Solution Source</a> · 
+      <a href="../assets/diagrams/project-C.svg" target="_blank">Diagram (SVG) ↗</a>
     </div>
   </div>
 
@@ -654,9 +698,13 @@ In addition to foundational exercises, this curriculum incorporates 6 major caps
     <span class="tcl-unit-badge">PROJECT D · Enterprise</span>
     <h3>Multi-Table Sales & Inventory Reconciliation</h3>
     <p>Reconcile multi-source CSV transaction logs, adjust for timezones and currency conversions, handle missing lines, and generate variance audits.</p>
+    <div style="margin: 14px 0;">
+      <a href="../assets/diagrams/project-D.svg" target="_blank" title="View Architecture Diagram"><img src="../assets/diagrams/project-D.svg" alt="Project D Architecture Diagram" style="width: 100%; border-radius: 6px; border: 1px solid var(--tcl-border); display: block;" /></a>
+    </div>
     <div style="font-size: 13px; margin-top: 10px;">
       <a href="{GITHUB}/blob/main/capstone/D/README.md">View Project Spec →</a> · 
-      <a href="{GITHUB}/blob/main/capstone/D/solution.tcl">Solution Source</a>
+      <a href="{GITHUB}/blob/main/capstone/D/solution.tcl">Solution Source</a> · 
+      <a href="../assets/diagrams/project-D.svg" target="_blank">Diagram (SVG) ↗</a>
     </div>
   </div>
 
@@ -664,9 +712,13 @@ In addition to foundational exercises, this curriculum incorporates 6 major caps
     <span class="tcl-unit-badge">PROJECT E · Data Cleaning</span>
     <h3>Multi-Source JSON/CSV ETL Pipeline</h3>
     <p>Architect configurable data cleaning pipelines with field mapping, schema type coercion, default fallback imputation, and output stream normalization.</p>
+    <div style="margin: 14px 0;">
+      <a href="../assets/diagrams/project-E.svg" target="_blank" title="View Architecture Diagram"><img src="../assets/diagrams/project-E.svg" alt="Project E Architecture Diagram" style="width: 100%; border-radius: 6px; border: 1px solid var(--tcl-border); display: block;" /></a>
+    </div>
     <div style="font-size: 13px; margin-top: 10px;">
       <a href="{GITHUB}/blob/main/capstone/E/README.md">View Project Spec →</a> · 
-      <a href="{GITHUB}/blob/main/capstone/E/solution.tcl">Solution Source</a>
+      <a href="{GITHUB}/blob/main/capstone/E/solution.tcl">Solution Source</a> · 
+      <a href="../assets/diagrams/project-E.svg" target="_blank">Diagram (SVG) ↗</a>
     </div>
   </div>
 
@@ -674,9 +726,13 @@ In addition to foundational exercises, this curriculum incorporates 6 major caps
     <span class="tcl-unit-badge">PROJECT F · VLSI EDA</span>
     <h3>STA Timing Report Parser & Layout Sign-Off Gate</h3>
     <p>Deep physical design integration: parse critical timing paths, calculate WNS/TNS, correlate with layout polygon coordinates, and enforce sign-off closure.</p>
+    <div style="margin: 14px 0;">
+      <a href="../assets/diagrams/project-F.svg" target="_blank" title="View Architecture Diagram"><img src="../assets/diagrams/project-F.svg" alt="Project F Architecture Diagram" style="width: 100%; border-radius: 6px; border: 1px solid var(--tcl-border); display: block;" /></a>
+    </div>
     <div style="font-size: 13px; margin-top: 10px;">
       <a href="{GITHUB}/blob/main/capstone/F/README.md">View Project Spec →</a> · 
-      <a href="{GITHUB}/blob/main/capstone/F/solution.tcl">Solution Source</a>
+      <a href="{GITHUB}/blob/main/capstone/F/solution.tcl">Solution Source</a> · 
+      <a href="../assets/diagrams/project-F.svg" target="_blank">Diagram (SVG) ↗</a>
     </div>
   </div>
 </div>
@@ -705,9 +761,10 @@ tclsh solution.tcl
   <span class="tcl-badge amber">完整自动化测试集</span>
   <span class="tcl-badge">工业实战场景</span>
   <span class="tcl-badge amber">来源：FanqinZeng</span>
+  <span class="tcl-badge blue">6 幅全流程矢量架构图</span>
 </div>
 
-除基础练习外，本课程还收录了 6 个大型综合数据工程 Capstone 项目（Projects A–F）。每个项目都模拟了芯片研发、服务器运维或企业业务中的真实场景，包含完整的测试用例矩阵（`case-1.tcl` 到 `case-4.tcl`）、起步模版（`starter.tcl`）与满分参考解答（`solution.tcl`）。
+除基础练习外，本课程还收录了 6 个大型综合数据工程 Capstone 项目（Projects A–F）。每个项目都模拟了芯片研发、服务器运维或企业业务中的真实场景，包含完整的测试用例矩阵（`case-1.tcl` 到 `case-4.tcl`）、起步模版（`starter.tcl`）、满分参考解答（`solution.tcl`）与全流程架构图解。
 
 ---
 
@@ -718,9 +775,13 @@ tclsh solution.tcl
     <span class="tcl-unit-badge">PROJECT A · 运维分析</span>
     <h3>服务器日志统计与告警过滤</h3>
     <p>解析 Nginx/Apache 访问日志，统计高频 IP、HTTP 4xx/5xx 错误分布与请求响应延迟异常，输出格式化健康巡检报告。</p>
+    <div style="margin: 14px 0;">
+      <a href="../../assets/diagrams/project-A.svg" target="_blank" title="查看矢量架构图"><img src="../../assets/diagrams/project-A.svg" alt="项目 A 架构图" style="width: 100%; border-radius: 6px; border: 1px solid var(--tcl-border); display: block;" /></a>
+    </div>
     <div style="font-size: 13px; margin-top: 10px;">
       <a href="{GITHUB}/blob/main/capstone/A/README.md">查看项目文档 →</a> · 
-      <a href="{GITHUB}/blob/main/capstone/A/solution.tcl">参考源码</a>
+      <a href="{GITHUB}/blob/main/capstone/A/solution.tcl">参考源码</a> · 
+      <a href="../../assets/diagrams/project-A.svg" target="_blank">架构图解 (SVG) ↗</a>
     </div>
   </div>
 
@@ -728,9 +789,13 @@ tclsh solution.tcl
     <span class="tcl-unit-badge">PROJECT B · 芯片测试</span>
     <h3>晶圆测试机台良率聚合与缺陷分类</h3>
     <p>处理 <code>wafers.csv</code> 与机台测试流，计算各批次平均良率（Yield Rate）、边缘缺陷密度与 Bin 9 失效聚类，生成测试闭环看板。</p>
+    <div style="margin: 14px 0;">
+      <a href="../../assets/diagrams/project-B.svg" target="_blank" title="查看矢量架构图"><img src="../../assets/diagrams/project-B.svg" alt="项目 B 架构图" style="width: 100%; border-radius: 6px; border: 1px solid var(--tcl-border); display: block;" /></a>
+    </div>
     <div style="font-size: 13px; margin-top: 10px;">
       <a href="{GITHUB}/blob/main/capstone/B/README.md">查看项目文档 →</a> · 
-      <a href="{GITHUB}/blob/main/capstone/B/solution.tcl">参考源码</a>
+      <a href="{GITHUB}/blob/main/capstone/B/solution.tcl">参考源码</a> · 
+      <a href="../../assets/diagrams/project-B.svg" target="_blank">架构图解 (SVG) ↗</a>
     </div>
   </div>
 
@@ -738,9 +803,13 @@ tclsh solution.tcl
     <span class="tcl-unit-badge">PROJECT C · 敏捷研发</span>
     <h3>Git 提交历史度量与研发效能报告</h3>
     <p>解析 Git 提交日志与 <code>git_metrics.json</code>，按作者、分支与模块聚合代码变更量（Churn）、合并周期与热点文件分布。</p>
+    <div style="margin: 14px 0;">
+      <a href="../../assets/diagrams/project-C.svg" target="_blank" title="查看矢量架构图"><img src="../../assets/diagrams/project-C.svg" alt="项目 C 架构图" style="width: 100%; border-radius: 6px; border: 1px solid var(--tcl-border); display: block;" /></a>
+    </div>
     <div style="font-size: 13px; margin-top: 10px;">
       <a href="{GITHUB}/blob/main/capstone/C/README.md">查看项目文档 →</a> · 
-      <a href="{GITHUB}/blob/main/capstone/C/solution.tcl">参考源码</a>
+      <a href="{GITHUB}/blob/main/capstone/C/solution.tcl">参考源码</a> · 
+      <a href="../../assets/diagrams/project-C.svg" target="_blank">架构图解 (SVG) ↗</a>
     </div>
   </div>
 
@@ -748,9 +817,13 @@ tclsh solution.tcl
     <span class="tcl-unit-badge">PROJECT D · 企业系统</span>
     <h3>销售与库存多表自动化流水对账</h3>
     <p>多源 CSV 账目对齐，处理时区差异、货币单位换算与缺失条目重试，自动发现财务不平账项并输出差异清单。</p>
+    <div style="margin: 14px 0;">
+      <a href="../../assets/diagrams/project-D.svg" target="_blank" title="查看矢量架构图"><img src="../../assets/diagrams/project-D.svg" alt="项目 D 架构图" style="width: 100%; border-radius: 6px; border: 1px solid var(--tcl-border); display: block;" /></a>
+    </div>
     <div style="font-size: 13px; margin-top: 10px;">
       <a href="{GITHUB}/blob/main/capstone/D/README.md">查看项目文档 →</a> · 
-      <a href="{GITHUB}/blob/main/capstone/D/solution.tcl">参考源码</a>
+      <a href="{GITHUB}/blob/main/capstone/D/solution.tcl">参考源码</a> · 
+      <a href="../../assets/diagrams/project-D.svg" target="_blank">架构图解 (SVG) ↗</a>
     </div>
   </div>
 
@@ -758,9 +831,13 @@ tclsh solution.tcl
     <span class="tcl-unit-badge">PROJECT E · 数据清洗</span>
     <h3>多源 JSON/CSV 跨格式清洗与转换管道</h3>
     <p>构建可配置的数据清洗流水线，支持自定义字段映射、类型推断、缺省值填补与非法字符过滤，输出规范化数据流。</p>
+    <div style="margin: 14px 0;">
+      <a href="../../assets/diagrams/project-E.svg" target="_blank" title="查看矢量架构图"><img src="../../assets/diagrams/project-E.svg" alt="项目 E 架构图" style="width: 100%; border-radius: 6px; border: 1px solid var(--tcl-border); display: block;" /></a>
+    </div>
     <div style="font-size: 13px; margin-top: 10px;">
       <a href="{GITHUB}/blob/main/capstone/E/README.md">查看项目文档 →</a> · 
-      <a href="{GITHUB}/blob/main/capstone/E/solution.tcl">参考源码</a>
+      <a href="{GITHUB}/blob/main/capstone/E/solution.tcl">参考源码</a> · 
+      <a href="../../assets/diagrams/project-E.svg" target="_blank">架构图解 (SVG) ↗</a>
     </div>
   </div>
 
@@ -768,9 +845,13 @@ tclsh solution.tcl
     <span class="tcl-unit-badge">PROJECT F · EDA 进阶</span>
     <h3>EDA 时序报告与版图违规闭环门禁</h3>
     <p>深入集成 VLSI 后端设计流程，自动解析 STA 报告提取关键路径，与版图违规坐标对齐，形成自动化签核决策报告。</p>
+    <div style="margin: 14px 0;">
+      <a href="../../assets/diagrams/project-F.svg" target="_blank" title="查看矢量架构图"><img src="../../assets/diagrams/project-F.svg" alt="项目 F 架构图" style="width: 100%; border-radius: 6px; border: 1px solid var(--tcl-border); display: block;" /></a>
+    </div>
     <div style="font-size: 13px; margin-top: 10px;">
       <a href="{GITHUB}/blob/main/capstone/F/README.md">查看项目文档 →</a> · 
-      <a href="{GITHUB}/blob/main/capstone/F/solution.tcl">参考源码</a>
+      <a href="{GITHUB}/blob/main/capstone/F/solution.tcl">参考源码</a> · 
+      <a href="../../assets/diagrams/project-F.svg" target="_blank">架构图解 (SVG) ↗</a>
     </div>
   </div>
 </div>
@@ -781,6 +862,7 @@ tclsh solution.tcl
         .replace("# 🏆 6 Capstone Data Engineering Projects", "# 🏆 6 Projek Capstone Kejuruteraan Data")
         .replace("In addition to foundational exercises, this curriculum incorporates 6 major capstone data engineering projects (Projects A–F). Each project models real-world chip development, server administration, or enterprise data workflows, complete with automated test suites (`case-1.tcl` through `case-4.tcl`), starter templates, and reference implementations.",
                  "Selain latihan asas, kurikulum ini menggabungkan 6 projek kejuruteraan data capstone utama (Projek A–F). Setiap projek memodelkan pembangunan cip dunia sebenar, pentadbiran pelayan, atau aliran kerja data perusahaan, lengkap dengan suite ujian automatik (`case-1.tcl` hingga `case-4.tcl`), templat permulaan, dan pelaksanaan rujukan.")
+        .replace("../assets/diagrams/", "../../assets/diagrams/")
         .replace("## 📁 Project Matrix", "## 📁 Matriks Projek")
         .replace("View Project Spec →", "Lihat Spesifikasi Projek →")
         .replace("Solution Source", "Kod Sumber Penyelesaian")
@@ -791,6 +873,7 @@ tclsh solution.tcl
         .replace("# 🏆 6 Capstone Data Engineering Projects", "# 🏆 6 Projets Capstone d'Ingénierie des Données")
         .replace("In addition to foundational exercises, this curriculum incorporates 6 major capstone data engineering projects (Projects A–F). Each project models real-world chip development, server administration, or enterprise data workflows, complete with automated test suites (`case-1.tcl` through `case-4.tcl`), starter templates, and reference implementations.",
                  "En plus des exercices de base, ce programme intègre 6 grands projets d'ingénierie des données (Projets A–F). Chaque projet modélise le développement de puces réelles, l'administration de serveurs ou des flux de données d'entreprise, avec suites de tests automatisés (`case-1.tcl` à `case-4.tcl`), modèles de démarrage et implémentations de référence.")
+        .replace("../assets/diagrams/", "../../assets/diagrams/")
         .replace("## 📁 Project Matrix", "## 📁 Matrice des Projets")
         .replace("View Project Spec →", "Voir la Spécification du Projet →")
         .replace("Solution Source", "Code Source de la Solution")
@@ -887,17 +970,150 @@ Curated from thy031's student project, this module provides rapid knowledge chec
     (DOCS / "help" / "quiz.fr.md").write_text(fr_page, encoding="utf-8")
 
 
+def write_quest_pages() -> None:
+    en_content = f"""# 🎮 Tcl Quest — Chip Island Adventure
+
+<div class="tcl-badge-cluster">
+  <span class="tcl-badge purple">Execution-Driven RPG Sandbox</span>
+  <span class="tcl-badge blue">WASM Tcl Engine</span>
+  <span class="tcl-badge green">20 Graduated Levels</span>
+  <span class="tcl-badge amber">Created by Su3037</span>
+</div>
+
+A groundbreaking gamified Tcl adventure created by **@Su3037** (rated **93/100 A+**). Code execution directly drives real-time character animations, visual level progression, interactive dialogues, and boss battles!
+
+<div class="tcl-cta-group" style="margin: 20px 0 28px;">
+  <a href="../quest-lab/index.html" target="_blank" class="tcl-btn tcl-btn-primary" style="font-size: 15px; padding: 12px 24px;">
+    🚀 Launch Fullscreen Quest (Chip Island) ↗
+  </a>
+  <a href="../playground/" class="tcl-btn tcl-btn-secondary" style="font-size: 15px; padding: 12px 24px;">
+    ⚡ Web Playground →
+  </a>
+  <a href="../exercises/" class="tcl-btn tcl-btn-secondary" style="font-size: 15px; padding: 12px 24px;">
+    🎯 18 Hands-on Exercises →
+  </a>
+</div>
+
+---
+
+## 🗺️ The Four Thematic Worlds
+
+<div class="tcl-pillars">
+  <div class="tcl-pillar-card">
+    <div class="tcl-pillar-icon">🏡</div>
+    <div class="tcl-pillar-title">World 01: Newbie Village (Levels 01–05)</div>
+    <div class="tcl-pillar-desc">
+      Awaken on Chip Island! Master <code>puts</code>, comments, variables, mathematical calculations, and string greetings.
+    </div>
+  </div>
+
+  <div class="tcl-pillar-card">
+    <div class="tcl-pillar-icon">🌲</div>
+    <div class="tcl-pillar-title">World 02: Logic Forest (Levels 06–10)</div>
+    <div class="tcl-pillar-desc">
+      Navigate logic branches with <code>if/else</code>, <code>while</code>, <code>for</code> loops, lists, and procedures.
+    </div>
+  </div>
+
+  <div class="tcl-pillar-card">
+    <div class="tcl-pillar-icon">🔨</div>
+    <div class="tcl-pillar-title">World 03: Tool Workshop (Levels 11–15)</div>
+    <div class="tcl-pillar-desc">
+      Harness industrial tool glue: dictionaries, file streams, regular expressions, namespaces, and runtime introspection.
+    </div>
+  </div>
+
+  <div class="tcl-pillar-card">
+    <div class="tcl-pillar-icon">🏙️</div>
+    <div class="tcl-pillar-title">World 04: Chip City (Levels 16–20)</div>
+    <div class="tcl-pillar-desc">
+      Confront the final Boss! Build an automated digital IC static timing analysis (STA) report parser.
+    </div>
+  </div>
+</div>
+
+---
+
+## 🕹️ Embedded Live Adventure
+
+<div style="margin-top: 20px; border: 1px solid var(--tcl-border); border-radius: 12px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.06);">
+  <div style="background: var(--tcl-surface); padding: 12px 18px; border-bottom: 1px solid var(--tcl-border); display: flex; justify-content: space-between; align-items: center; font-size: 13px;">
+    <span><strong>Tcl Quest Sandbox</strong> · Powered by Su3037 Execution-Driven RPG Engine</span>
+    <a href="../quest-lab/index.html" target="_blank" style="color: var(--tcl-blue-600); font-weight: 600; text-decoration: none;">Launch Fullscreen ↗</a>
+  </div>
+  <iframe src="../quest-lab/index.html" style="width: 100%; height: 860px; border: 0;" title="Tcl Quest Adventure"></iframe>
+</div>
+"""
+    (DOCS / "quest.md").write_text(en_content, encoding="utf-8")
+
+    zh_content = (en_content
+        .replace("# 🎮 Tcl Quest — Chip Island Adventure", "# 🎮 Tcl Quest — 芯片岛实时闯关冒险")
+        .replace("Execution-Driven RPG Sandbox", "真实代码驱动 live 剧情")
+        .replace("WASM Tcl Engine", "WASM Tcl 8.6 原生沙箱")
+        .replace("20 Graduated Levels", "20 个渐进冒险关卡")
+        .replace("Created by Su3037", "开发者：Su3037 (93分 A+)")
+        .replace("A groundbreaking gamified Tcl adventure created by **@Su3037** (rated **93/100 A+**). Code execution directly drives real-time character animations, visual level progression, interactive dialogues, and boss battles!",
+                 "整合来自 **@Su3037** 的 93 分 A+ 顶级教学创新：**真实 Tcl 代码执行驱动剧情动画**。用户在浏览器中编写并运行的每行代码、每个变量变化，都会实时触发角色走动、对话推进、Boss 挑战与关卡结算！")
+        .replace("🚀 Launch Fullscreen Quest (Chip Island) ↗", "🚀 在新标签页全屏开启芯片岛冒险 ↗")
+        .replace("⚡ Web Playground →", "⚡ 打开在线演练台 (Playground) →")
+        .replace("🎯 18 Hands-on Exercises →", "🎯 浏览 18 项实战练习 →")
+        .replace("## 🗺️ The Four Thematic Worlds", "## 🗺️ 四大主题冒险世界")
+        .replace("World 01: Newbie Village (Levels 01–05)", "第一世界 · 新手村 (第 01–05 关)")
+        .replace("Awaken on Chip Island! Master <code>puts</code>, comments, variables, mathematical calculations, and string greetings.",
+                 "在芯片岛醒来！从 <code>puts</code> 打印、注释、变量赋值、数学计算到格式化输出，迈出 Tcl 第一步。")
+        .replace("World 02: Logic Forest (Levels 06–10)", "第二世界 · 逻辑森林 (第 06–10 关)")
+        .replace("Navigate logic branches with <code>if/else</code>, <code>while</code>, <code>for</code> loops, lists, and procedures.",
+                 "穿越迷宫般的条件分支：<code>if/else</code>、<code>while</code>、<code>for</code> 循环、列表构建与自定义过程。")
+        .replace("World 03: Tool Workshop (Levels 11–15)", "第三世界 · 工具工坊 (第 11–15 关)")
+        .replace("Harness industrial tool glue: dictionaries, file streams, regular expressions, namespaces, and runtime introspection.",
+                 "掌握芯片胶水语言核心：字典映射、文件 I/O 流、正则表达式提取、命名空间与自省。")
+        .replace("World 04: Chip City (Levels 16–20)", "第四世界 · 芯片城 (第 16–20 关)")
+        .replace("Confront the final Boss! Build an automated digital IC static timing analysis (STA) report parser.",
+                 "迎战终极四大 Boss！亲手搭建数字芯片静态时序分析 (STA) 违规报表自动化分析器。")
+        .replace("## 🕹️ Embedded Live Adventure", "## 🕹️ 嵌入式实时冒险沙箱 (Embedded Sandbox)")
+        .replace("<span><strong>Tcl Quest Sandbox</strong> · Powered by Su3037 Execution-Driven RPG Engine</span>",
+                 "<span><strong>芯片岛闯关沙箱</strong> · 真实代码驱动剧情 · 进度保存在此浏览器</span>")
+        .replace("Launch Fullscreen ↗", "新标签页全屏打开 ↗")
+        .replace("../quest-lab/", "../../quest-lab/")
+    )
+    (DOCS / "quest.zh.md").write_text(zh_content, encoding="utf-8")
+
+    ms_content = (en_content
+        .replace("# 🎮 Tcl Quest — Chip Island Adventure", "# 🎮 Tcl Quest — Pengembaraan Pulau Cip")
+        .replace("A groundbreaking gamified Tcl adventure created by", "Pengembaraan Tcl gamifikasi cemerlang yang dicipta oleh")
+        .replace("Code execution directly drives real-time character animations, visual level progression, interactive dialogues, and boss battles!",
+                 "Pelaksanaan kod secara langsung menggerakkan animasi watak masa nyata, kemajuan tahap visual, dialog interaktif, dan pertempuran boss!")
+        .replace("🚀 Launch Fullscreen Quest (Chip Island) ↗", "🚀 Buka Tcl Quest Skrin Penuh ↗")
+        .replace("⚡ Web Playground →", "⚡ Taman Kod Web →")
+        .replace("🎯 18 Hands-on Exercises →", "🎯 18 Latihan Amali →")
+        .replace("../quest-lab/", "../../quest-lab/")
+    )
+    (DOCS / "quest.ms.md").write_text(ms_content, encoding="utf-8")
+
+    fr_content = (en_content
+        .replace("# 🎮 Tcl Quest — Chip Island Adventure", "# 🎮 Tcl Quest — Aventure sur l'Île des Puces")
+        .replace("A groundbreaking gamified Tcl adventure created by", "Une aventure Tcl ludifiée révolutionnaire créée par")
+        .replace("Code execution directly drives real-time character animations, visual level progression, interactive dialogues, and boss battles!",
+                 "L'exécution du code pilote directement les animations des personnages, la progression des niveaux, les dialogues et les combats de boss!")
+        .replace("🚀 Launch Fullscreen Quest (Chip Island) ↗", "🚀 Lancer Tcl Quest Plein Écran ↗")
+        .replace("⚡ Web Playground →", "⚡ Bac à Sable Web →")
+        .replace("🎯 18 Hands-on Exercises →", "🎯 18 Exercices Pratiques →")
+        .replace("../quest-lab/", "../../quest-lab/")
+    )
+    (DOCS / "quest.fr.md").write_text(fr_content, encoding="utf-8")
+
+
 def write_playground_pages() -> None:
     en_header = """# ⚡ Interactive Tcl Web Playground
 
 <div class="tcl-badge-cluster">
   <span class="tcl-badge blue">Zero-Install Runtime</span>
-  <span class="tcl-badge green">Pure JavaScript Engine</span>
+  <span class="tcl-badge green" id="engine-mode-badge">⚡ Real Tcl 8.6.6 WebAssembly (WASM)</span>
   <span class="tcl-badge purple">Live Syntax Checks</span>
   <span class="tcl-badge amber">Preset Code Examples</span>
 </div>
 
-Test, experiment, and run Tcl scripts directly in your browser without local installation. Load presets below or write custom scripts.
+Test, experiment, and run Tcl scripts directly in your browser without local installation. Powered by WebAssembly (WASM) running real native Tcl 8.6.6. Load presets below or write custom scripts.
 
 <div style="background: var(--tcl-surface); border: 1px solid var(--tcl-border); border-radius: 12px; padding: 20px; margin: 20px 0; box-shadow: 0 4px 20px rgba(0,0,0,0.06);">
   <div style="display: flex; gap: 8px; margin-bottom: 14px; flex-wrap: wrap; align-items: center;">
@@ -917,12 +1133,16 @@ Test, experiment, and run Tcl scripts directly in your browser without local ins
       <button onclick="runTclCode()" class="tcl-btn tcl-btn-primary" style="padding: 8px 20px; font-size: 13px;">▶ Run Script (Ctrl+Enter)</button>
       <button onclick="clearOutput()" class="tcl-btn tcl-btn-secondary" style="padding: 8px 14px; font-size: 13px;">Clear Console</button>
     </div>
-    <span id="tcl-status" style="font-size: 12px; color: #10b981; font-weight: 600;">Ready</span>
+    <span id="tcl-status" style="font-size: 12px; color: #10b981; font-weight: 600;">Initializing...</span>
   </div>
 
   <div style="margin-top: 16px;">
     <div style="font-size: 12px; color: var(--md-default-fg-color--lighter); margin-bottom: 6px; font-weight: 700;">Standard Console Output:</div>
     <pre id="tcl-output" style="background: #020617; color: #34d399; border: 1px solid #1e293b; border-radius: 8px; padding: 14px; min-height: 90px; max-height: 250px; overflow-y: auto; font-family: 'JetBrains Mono', monospace; font-size: 13px; margin: 0; white-space: pre-wrap; line-height: 1.5;"></pre>
+  </div>
+  <div style="margin-top: 12px; font-size: 12.5px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px;">
+    <a href="../wasm-lab/index.html" target="_blank" style="color: var(--tcl-blue-600); font-weight: 600; text-decoration: none;">🚀 Launch Fullscreen Tcl WASM Workshop (18 Units & Virtual File Inspector) ↗</a>
+    <span style="color: var(--md-default-fg-color--lighter);">Hotkeys: Ctrl+Enter to run</span>
   </div>
 </div>
 """
@@ -990,6 +1210,46 @@ function loadSnippet(name) {
   }
 }
 
+let tclWorker = null;
+let isWorkerReady = false;
+
+function initTclWorker() {
+  try {
+    const workerUrl = new URL('../wasm-lab/worker.js', window.location.href);
+    tclWorker = new Worker(workerUrl);
+    tclWorker.onmessage = function(e) {
+      const m = e.data;
+      if (m.type === 'ready') {
+        isWorkerReady = true;
+        const b = document.getElementById('engine-mode-badge');
+        if (b) {
+          b.innerText = '⚡ Tcl ' + (m.version || '8.6.6') + ' WASM Active';
+          b.style.background = 'rgba(16, 185, 129, 0.2)';
+          b.style.color = '#10b981';
+        }
+        document.getElementById('tcl-status').innerText = 'Tcl ' + (m.version || '8.6.6') + ' WASM ready';
+      } else if (m.type === 'result') {
+        document.getElementById('tcl-status').innerText = 'Finished successfully (WASM)';
+        const out = document.getElementById('tcl-output');
+        out.innerText = m.output || '';
+        if (m.result && m.result !== '') {
+          out.innerText += (out.innerText ? '\n' : '') + '=> ' + m.result;
+        }
+      } else if (m.type === 'failure') {
+        document.getElementById('tcl-status').innerText = 'Runtime error';
+        document.getElementById('tcl-output').innerText = '[Error]: ' + m.message;
+      }
+    };
+    tclWorker.onerror = function() {
+      isWorkerReady = false;
+      const b = document.getElementById('engine-mode-badge');
+      if (b) b.innerText = 'Fast Simulation Mode';
+    };
+  } catch(e) {
+    isWorkerReady = false;
+  }
+}
+
 function clearOutput() {
   document.getElementById('tcl-output').innerText = '';
   document.getElementById('tcl-status').innerText = 'Output cleared';
@@ -1000,7 +1260,14 @@ function runTclCode() {
   const out = document.getElementById('tcl-output');
   const status = document.getElementById('tcl-status');
   out.innerText = '';
-  status.innerText = 'Executing...';
+
+  if (isWorkerReady && tclWorker) {
+    status.innerText = 'Executing in Tcl 8.6.6 WASM...';
+    tclWorker.postMessage({ code: code, trace: false });
+    return;
+  }
+
+  status.innerText = 'Executing in simulation...';
 
   try {
     const lines = code.split('\\n');
@@ -1110,14 +1377,17 @@ function runTclCode() {
         }
       }
     }
-    status.innerText = 'Finished successfully';
+    status.innerText = 'Finished successfully (simulation)';
   } catch (err) {
     status.innerText = 'Runtime error';
     log('[Error]: ' + err.message);
   }
 }
 
-window.addEventListener('DOMContentLoaded', () => loadSnippet('hello'));
+window.addEventListener('DOMContentLoaded', () => {
+  loadSnippet('hello');
+  initTclWorker();
+});
 </script>
 """
     zh_header = """# ⚡ Tcl 在线快速演练台 (Interactive Playground)
@@ -3285,6 +3555,100 @@ body, .md-typeset {
 .md-typeset table:not([class]) td {
   border-bottom: 1px solid var(--tcl-border) !important;
 }
+
+/* 4-Module Roadmap Grid */
+.tcl-modules-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 16px;
+  margin: 20px 0 24px;
+}
+.md-typeset a.tcl-module-card,
+.tcl-module-card {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 22px 20px;
+  border-radius: 12px;
+  border: 1px solid var(--tcl-border);
+  background: var(--tcl-surface-card);
+  text-decoration: none !important;
+  color: var(--md-default-fg-color--light) !important;
+  transition: all 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.03);
+}
+.md-typeset a.tcl-module-card:hover,
+.tcl-module-card:hover {
+  border-color: #2563eb;
+  transform: translateY(-2px);
+  box-shadow: 0 10px 24px rgba(37, 99, 235, 0.1);
+}
+[data-md-color-scheme="slate"] .md-typeset a.tcl-module-card:hover,
+[data-md-color-scheme="slate"] .tcl-module-card:hover {
+  border-color: #38bdf8;
+  box-shadow: 0 10px 24px rgba(56, 189, 248, 0.14);
+}
+.tcl-module-badge {
+  display: inline-block;
+  align-self: flex-start;
+  font-size: 11px;
+  font-family: monospace;
+  font-weight: 700;
+  padding: 3px 10px;
+  border-radius: 6px;
+  background: rgba(37, 99, 235, 0.1);
+  color: #2563eb;
+  margin-bottom: 10px;
+}
+[data-md-color-scheme="slate"] .tcl-module-badge {
+  background: rgba(56, 189, 248, 0.15);
+  color: #38bdf8;
+}
+.tcl-module-title {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--tcl-heading);
+  margin-bottom: 8px;
+  line-height: 1.35;
+}
+.tcl-module-desc {
+  font-size: 0.86rem;
+  line-height: 1.55;
+  color: var(--md-default-fg-color--lighter);
+  flex-grow: 1;
+  margin-bottom: 14px;
+}
+.tcl-module-link {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #2563eb;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+[data-md-color-scheme="slate"] .tcl-module-link {
+  color: #38bdf8;
+}
+
+/* Expandable Syllabus Details */
+.tcl-syllabus-details {
+  border: 1px solid var(--tcl-border);
+  border-radius: 10px;
+  padding: 14px 18px;
+  background: var(--tcl-surface);
+  margin: 16px 0 32px;
+}
+.tcl-syllabus-details summary {
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  color: var(--tcl-heading);
+  user-select: none;
+  outline: none;
+}
+.tcl-syllabus-details[open] summary {
+  margin-bottom: 16px;
+}
 """
     (css_dir / "extra.css").write_text(css_content, encoding="utf-8")
 
@@ -3307,6 +3671,7 @@ def write_home_pages(meta: list[tuple[int, str, str]]) -> None:
     <span class="tcl-badge purple">Tcl Quiz & Practice</span>
     <span class="tcl-badge blue">Interactive WASM Lab</span>
     <span class="tcl-badge green">DRV Layout Practice</span>
+    <span class="tcl-badge gold">🎮 20-Level RPG Quest</span>
     <span class="tcl-badge cyan">Multi-Language i18n</span>
   </div>
 
@@ -3317,9 +3682,10 @@ def write_home_pages(meta: list[tuple[int, str, str]]) -> None:
   </div>
 
   <div class="tcl-cta-group">
+    <a href="quest/" class="tcl-btn tcl-btn-accent" style="background: linear-gradient(135deg, #f59e0b, #d97706); color: #ffffff !important; border: none; box-shadow: 0 4px 14px rgba(217, 119, 6, 0.35);">🎮 Chip Island RPG Quest</a>
+    <a href="playground/" class="tcl-btn tcl-btn-primary" style="background: linear-gradient(135deg, #0284c7, #2563eb); border: none;">⚡ Web Playground</a>
     <a href="quiz/" class="tcl-btn tcl-btn-primary" style="background: linear-gradient(135deg, #4f46e5, #7c3aed); border: none;">🎯 Tcl Quiz & Cert</a>
     <a href="leaderboard/" class="tcl-btn tcl-btn-accent" style="background: linear-gradient(135deg, #059669, #0d9488); border: none;">🏆 Hall of Fame</a>
-    <a href="playground/" class="tcl-btn tcl-btn-secondary">⚡ Web Playground</a>
     <a href="help/layout_viewer/" class="tcl-btn tcl-btn-secondary">📐 Layout Visualizer</a>
     <a href="lessons/week1/" class="tcl-btn tcl-btn-secondary">📖 Lesson 1 →</a>
   </div>
@@ -3329,6 +3695,10 @@ def write_home_pages(meta: list[tuple[int, str, str]]) -> None:
   <div class="tcl-fact-item">
     <span class="tcl-fact-val">40 Lessons</span>
     <span class="tcl-fact-lbl">Curriculum Plan</span>
+  </div>
+  <div class="tcl-fact-item">
+    <span class="tcl-fact-val">20 Levels</span>
+    <span class="tcl-fact-lbl">Chip Island RPG</span>
   </div>
   <div class="tcl-fact-item">
     <span class="tcl-fact-val">4 Modules</span>
@@ -3359,6 +3729,24 @@ def write_home_pages(meta: list[tuple[int, str, str]]) -> None:
 <div class="tcl-tools-section-title">⚡ Interactive EDA Lab Tools, Quizzes & Sandboxes</div>
 
 <div class="tcl-tools-grid">
+  <a href="quest/" class="tcl-tool-card" style="border-left: 4px solid #f59e0b;">
+    <div class="tcl-tool-icon">🎮</div>
+    <div class="tcl-tool-body">
+      <div class="tcl-tool-title">Tcl Quest · Chip Island RPG</div>
+      <div class="tcl-tool-desc">20-level gamified zero-foundation learning adventure with animated character, map progression, live Tcl execution, and boss battles.</div>
+    </div>
+    <div class="tcl-tool-arrow">→</div>
+  </a>
+
+  <a href="playground/" class="tcl-tool-card" style="border-left: 4px solid #0284c7;">
+    <div class="tcl-tool-icon">⚡</div>
+    <div class="tcl-tool-body">
+      <div class="tcl-tool-title">Interactive Web Playground</div>
+      <div class="tcl-tool-desc">In-browser execution sandbox powered by WebAssembly (WASM) running real native Tcl 8.6 with live console output and presets.</div>
+    </div>
+    <div class="tcl-tool-arrow">→</div>
+  </a>
+
   <a href="quiz/" class="tcl-tool-card" style="border-left: 4px solid #6366f1;">
     <div class="tcl-tool-icon">🎯</div>
     <div class="tcl-tool-body">
@@ -3377,7 +3765,7 @@ def write_home_pages(meta: list[tuple[int, str, str]]) -> None:
     <div class="tcl-tool-arrow">→</div>
   </a>
 
-  <a href="help/layout_viewer/" class="tcl-tool-card">
+  <a href="help/layout_viewer/" class="tcl-tool-card" style="border-left: 4px solid #ec4899;">
     <div class="tcl-tool-icon">📐</div>
     <div class="tcl-tool-body">
       <div class="tcl-tool-title">DRV-Lite Layout Visualizer</div>
@@ -3386,29 +3774,29 @@ def write_home_pages(meta: list[tuple[int, str, str]]) -> None:
     <div class="tcl-tool-arrow">→</div>
   </a>
 
-  <a href="help/timing_calculator/" class="tcl-tool-card">
-    <div class="tcl-tool-icon">⚡</div>
+  <a href="help/timing_calculator/" class="tcl-tool-card" style="border-left: 4px solid #f97316;">
+    <div class="tcl-tool-icon">⏱️</div>
     <div class="tcl-tool-body">
-      <div class="tcl-tool-title">STA Timing Analysis Lab</div>
-      <div class="tcl-tool-desc">Beginner-friendly clock period, datapath delay, and setup slack margin calculator with visual feedback.</div>
+      <div class="tcl-tool-title">STA Timing Analysis Gatekeeper</div>
+      <div class="tcl-tool-desc">Beginner-friendly clock period, datapath delay, and setup slack margin calculator with real-time pass/fail tapeout criteria.</div>
     </div>
     <div class="tcl-tool-arrow">→</div>
   </a>
 
-  <a href="exercises/" class="tcl-tool-card">
+  <a href="exercises/" class="tcl-tool-card" style="border-left: 4px solid #8b5cf6;">
     <div class="tcl-tool-icon">📝</div>
     <div class="tcl-tool-body">
       <div class="tcl-tool-title">18 Practice Exercises</div>
-      <div class="tcl-tool-desc">Hands-on lab problems parsing cell libraries, pin mappings, DEF files, and basic timing reports.</div>
+      <div class="tcl-tool-desc">Hands-on lab problems parsing cell libraries, pin mappings, DEF files, and basic timing reports (54 guided tasks).</div>
     </div>
     <div class="tcl-tool-arrow">→</div>
   </a>
 
-  <a href="capstone/" class="tcl-tool-card">
+  <a href="capstone/" class="tcl-tool-card" style="border-left: 4px solid #14b8a6;">
     <div class="tcl-tool-icon">🛠️</div>
     <div class="tcl-tool-body">
-      <div class="tcl-tool-title">6 Capstone Projects</div>
-      <div class="tcl-tool-desc">Practical mini-projects from routing scrapers to automated ECO wirelength fixers.</div>
+      <div class="tcl-tool-title">6 Capstone Data Projects</div>
+      <div class="tcl-tool-desc">Industrial mini-projects from routing scrapers and DRV convergence to automated ECO wirelength fixers.</div>
     </div>
     <div class="tcl-tool-arrow">→</div>
   </a>
@@ -3423,9 +3811,12 @@ Choose the path tailored to your background and engineering goals:
     <span class="tcl-route-num">PATHWAY 01 · First Steps</span>
     <div class="tcl-route-title">New to Scripting</div>
     <div class="tcl-route-desc">
-      Begin with <code>puts</code>, variables, and comments. Learn the 3-step substitution model (Grouping $\to$ Substitution $\to$ Invocation) to understand curly braces <code>{{}}</code> vs double quotes <code>""</code>.
+      Begin with <code>puts</code>, variables, and comments. Master the 3-step substitution model. Or start with our <a href="quest/" style="font-weight:700; color:#d97706;">🎮 Chip Island RPG Quest</a> (20 animated levels) to build muscle memory before Lesson 1!
     </div>
-    <a href="lessons/week1/" class="tcl-btn tcl-btn-secondary" style="font-size: 13px; padding: 6px 14px;">Start Lesson 1 →</a>
+    <div style="display:flex; gap:8px; flex-wrap:wrap; margin-top:8px;">
+      <a href="quest/" class="tcl-btn tcl-btn-primary" style="font-size: 13px; padding: 6px 14px; background: #d97706 !important;">Play RPG Quest →</a>
+      <a href="lessons/week1/" class="tcl-btn tcl-btn-secondary" style="font-size: 13px; padding: 6px 14px;">Start Lesson 1 →</a>
+    </div>
   </div>
 
   <div class="tcl-route-card route-exp">
@@ -3449,49 +3840,48 @@ Choose the path tailored to your background and engineering goals:
 
 ---
 
-## 🛠️ Four Core Technological Pillars
+## 📚 Curriculum Roadmap (40 Lessons)
 
-<div class="tcl-pillars">
-  <div class="tcl-pillar-card">
-    <div class="tcl-pillar-icon">💻</div>
-    <div class="tcl-pillar-title">Interactive Web Playground</div>
-    <div class="tcl-pillar-desc">
-      In-browser execution sandbox with preset code templates: Welch substitution model, safe braced expr, lists, dictionaries, STA timing parsing, and DRV-Lite layout scripts.
-    </div>
-  </div>
+The 40 lessons are divided into four sequential progression modules:
 
-  <div class="tcl-pillar-card">
-    <div class="tcl-pillar-icon">🛠️</div>
-    <div class="tcl-pillar-title">18 Practice Labs & Capstones</div>
-    <div class="tcl-pillar-desc">
-      Hands-on practical challenges from parsing cell libraries and DEF physical design files to automated ECO fixers and STA reports.
-    </div>
-  </div>
+<div class="tcl-modules-grid">
+  <a href="lessons/week1/" class="tcl-module-card">
+    <div class="tcl-module-badge">M10 · Lessons 01–10</div>
+    <div class="tcl-module-title">Tcl Core Syntax & Mental Model</div>
+    <div class="tcl-module-desc">Master the 3-step evaluation model (Grouping &rarr; Substitution &rarr; Invocation), braced expr arithmetic, lists, control flow, and procedure abstractions.</div>
+    <div class="tcl-module-link">Start Module 10 →</div>
+  </a>
 
-  <div class="tcl-pillar-card">
-    <div class="tcl-pillar-icon">📐</div>
-    <div class="tcl-pillar-title">DRV-Lite Layout Simulator</div>
-    <div class="tcl-pillar-desc">
-      Zero commercial EDA licenses required. Pure-Tcl layout object model helping beginners inspect cell hierarchy, polygons, and understand DRV design rule concepts.
-    </div>
-  </div>
+  <a href="lessons/week11/" class="tcl-module-card">
+    <div class="tcl-module-badge">M20 · Lessons 11–20</div>
+    <div class="tcl-module-title">Fluency, Data Structures & Automation</div>
+    <div class="tcl-module-desc">Deep-dive into high-performance dictionaries, regular expressions, namespaces, file I/O streams, and error handling for robust tooling.</div>
+    <div class="tcl-module-link">Start Module 20 →</div>
+  </a>
 
-  <div class="tcl-pillar-card">
-    <div class="tcl-pillar-icon">⚡</div>
-    <div class="tcl-pillar-title">STA Timing Analysis Lab</div>
-    <div class="tcl-pillar-desc">
-      Beginner-friendly timing report parser: understand setup slacks, startpoints, endpoints, and learn how Tcl scripts process EDA text outputs.
-    </div>
-  </div>
+  <a href="lessons/week21/" class="tcl-module-card">
+    <div class="tcl-module-badge">M30 · Lessons 21–30</div>
+    <div class="tcl-module-title">Calibre Layout Core & Physical Design</div>
+    <div class="tcl-module-desc">Interact with semiconductor layouts using DRV-Lite: cells, layers, bounding boxes, polygons, and layout object model manipulation.</div>
+    <div class="tcl-module-link">Start Module 30 →</div>
+  </a>
+
+  <a href="lessons/week31/" class="tcl-module-card">
+    <div class="tcl-module-badge">M40 · Lessons 31–40</div>
+    <div class="tcl-module-title">Layout Catalog & Sign-Off Automation</div>
+    <div class="tcl-module-desc">Automated design rule checking (DRC) convergence, antenna/density rule scripts, ECO wirelength fixers, and tapeout sign-off pipelines.</div>
+    <div class="tcl-module-link">Start Module 40 →</div>
+  </a>
 </div>
 
----
-
-## 📚 Curriculum Directory (40 Lessons)
+<details class="tcl-syllabus-details">
+<summary>📋 Click to Expand Full 40-Lesson Syllabus Table</summary>
 
 | Lesson | Topic | Examples |
 | :---: | :--- | :---: |
 {chr(10).join(en_rows)}
+
+</details>
 
 ---
 
@@ -3517,6 +3907,7 @@ make week21-01        # Run Lesson 21 layout script (DRV-Lite simulation)
     <span class="tcl-badge purple">随堂测验与结业证书</span>
     <span class="tcl-badge blue">WASM 交互工作坊</span>
     <span class="tcl-badge green">DRV-Lite 版图实战</span>
+    <span class="tcl-badge gold">🎮 20 关芯片岛 RPG 冒险</span>
     <span class="tcl-badge cyan">中英双语多语言</span>
   </div>
 
@@ -3527,9 +3918,10 @@ make week21-01        # Run Lesson 21 layout script (DRV-Lite simulation)
   </div>
 
   <div class="tcl-cta-group">
+    <a href="quest/" class="tcl-btn tcl-btn-accent" style="background: linear-gradient(135deg, #f59e0b, #d97706); color: #ffffff !important; border: none; box-shadow: 0 4px 14px rgba(217, 119, 6, 0.35);">🎮 芯片岛 RPG 冒险闯关</a>
+    <a href="playground/" class="tcl-btn tcl-btn-primary" style="background: linear-gradient(135deg, #0284c7, #2563eb); border: none;">⚡ 免安装演练台</a>
     <a href="quiz/" class="tcl-btn tcl-btn-primary" style="background: linear-gradient(135deg, #4f46e5, #7c3aed); border: none;">🎯 随堂测验与证书认证</a>
     <a href="leaderboard/" class="tcl-btn tcl-btn-accent" style="background: linear-gradient(135deg, #059669, #0d9488); border: none;">🏆 荣耀榜与防伪校验</a>
-    <a href="playground/" class="tcl-btn tcl-btn-secondary">⚡ 免安装演练台</a>
     <a href="help/layout_viewer/" class="tcl-btn tcl-btn-secondary">📐 版图仿真器</a>
     <a href="lessons/week1/" class="tcl-btn tcl-btn-secondary">📖 开始第 1 课 →</a>
   </div>
@@ -3539,6 +3931,10 @@ make week21-01        # Run Lesson 21 layout script (DRV-Lite simulation)
   <div class="tcl-fact-item">
     <span class="tcl-fact-val">40 课</span>
     <span class="tcl-fact-lbl">系统进阶课程</span>
+  </div>
+  <div class="tcl-fact-item">
+    <span class="tcl-fact-val">20 关</span>
+    <span class="tcl-fact-lbl">芯片岛 RPG 冒险</span>
   </div>
   <div class="tcl-fact-item">
     <span class="tcl-fact-val">4 大模块</span>
@@ -3569,6 +3965,24 @@ make week21-01        # Run Lesson 21 layout script (DRV-Lite simulation)
 <div class="tcl-tools-section-title">⚡ 交互式实验工具、随堂测验与实战演练</div>
 
 <div class="tcl-tools-grid">
+  <a href="quest/" class="tcl-tool-card" style="border-left: 4px solid #f59e0b;">
+    <div class="tcl-tool-icon">🎮</div>
+    <div class="tcl-tool-body">
+      <div class="tcl-tool-title">Tcl Quest · 芯片岛 RPG 冒险闯关</div>
+      <div class="tcl-tool-desc">Su3037 原创 20 关游戏化趣味闯关：真实 Tcl 代码执行驱动角色走动、地图探索、关卡结算与终极 Boss 挑战。</div>
+    </div>
+    <div class="tcl-tool-arrow">→</div>
+  </a>
+
+  <a href="playground/" class="tcl-tool-card" style="border-left: 4px solid #0284c7;">
+    <div class="tcl-tool-icon">⚡</div>
+    <div class="tcl-tool-body">
+      <div class="tcl-tool-title">免安装交互演练台 (Playground)</div>
+      <div class="tcl-tool-desc">纯浏览器 WebAssembly 原生 Tcl 8.6 即开即测：预置 Welch 置换三部曲、安全 expr、列表字典与版图实例。</div>
+    </div>
+    <div class="tcl-tool-arrow">→</div>
+  </a>
+
   <a href="quiz/" class="tcl-tool-card" style="border-left: 4px solid #6366f1;">
     <div class="tcl-tool-icon">🎯</div>
     <div class="tcl-tool-body">
@@ -3587,7 +4001,7 @@ make week21-01        # Run Lesson 21 layout script (DRV-Lite simulation)
     <div class="tcl-tool-arrow">→</div>
   </a>
 
-  <a href="help/layout_viewer/" class="tcl-tool-card">
+  <a href="help/layout_viewer/" class="tcl-tool-card" style="border-left: 4px solid #ec4899;">
     <div class="tcl-tool-icon">📐</div>
     <div class="tcl-tool-body">
       <div class="tcl-tool-title">DRV-Lite 版图仿真可视化</div>
@@ -3596,8 +4010,8 @@ make week21-01        # Run Lesson 21 layout script (DRV-Lite simulation)
     <div class="tcl-tool-arrow">→</div>
   </a>
 
-  <a href="help/timing_calculator/" class="tcl-tool-card">
-    <div class="tcl-tool-icon">⚡</div>
+  <a href="help/timing_calculator/" class="tcl-tool-card" style="border-left: 4px solid #f97316;">
+    <div class="tcl-tool-icon">⏱️</div>
     <div class="tcl-tool-body">
       <div class="tcl-tool-title">STA 时序分析入门计算器</div>
       <div class="tcl-tool-desc">直观调节时钟周期、数据路径与时序裕量（Slack），掌握 EDA 文本报表与裕量分析的基本概念。</div>
@@ -3605,20 +4019,20 @@ make week21-01        # Run Lesson 21 layout script (DRV-Lite simulation)
     <div class="tcl-tool-arrow">→</div>
   </a>
 
-  <a href="exercises/" class="tcl-tool-card">
+  <a href="exercises/" class="tcl-tool-card" style="border-left: 4px solid #8b5cf6;">
     <div class="tcl-tool-icon">📝</div>
     <div class="tcl-tool-body">
       <div class="tcl-tool-title">18 项实战演练习题</div>
-      <div class="tcl-tool-desc">解析标准单元库、引脚映射、DEF 物理版图与真实 STA 时序报告的阶梯式实战任务。</div>
+      <div class="tcl-tool-desc">解析标准单元库、引脚映射、DEF 物理版图与真实 STA 时序报告的阶梯式实战任务（54 项实战任务）。</div>
     </div>
     <div class="tcl-tool-arrow">→</div>
   </a>
 
-  <a href="capstone/" class="tcl-tool-card">
+  <a href="capstone/" class="tcl-tool-card" style="border-left: 4px solid #14b8a6;">
     <div class="tcl-tool-icon">🛠️</div>
     <div class="tcl-tool-body">
       <div class="tcl-tool-title">6 大综合实践项目</div>
-      <div class="tcl-tool-desc">从自动走线抓取、DRV 违规收敛到自动化 ECO 线长修复的实战项目。</div>
+      <div class="tcl-tool-desc">从自动走线抓取、DRV 违规收敛到自动化 ECO 线长修复的工业级综合工程项目。</div>
     </div>
     <div class="tcl-tool-arrow">→</div>
   </a>
@@ -3633,9 +4047,12 @@ make week21-01        # Run Lesson 21 layout script (DRV-Lite simulation)
     <span class="tcl-route-num">PATHWAY 01 · 零基础启航</span>
     <div class="tcl-route-title">第一次学习编程</div>
     <div class="tcl-route-desc">
-      从 <code>puts</code>、变量与注释入门。通过三步置换模型（切分 $\to$ 置换 $\to$ 调用），彻底理解大括号 <code>{{}}</code> 与双引号 <code>""</code> 的本质差异，告别初学者易犯的语法迷茫。
+      从 <code>puts</code>、变量与注释入门。通过三步置换模型彻底理解大括号 <code>{{}}</code> 与双引号 <code>""</code> 的本质差异。零基础推荐先玩 <a href="quest/" style="font-weight:700; color:#d97706;">🎮 芯片岛 RPG 冒险</a> 建立代码直觉！
     </div>
-    <a href="lessons/week1/" class="tcl-btn tcl-btn-secondary" style="font-size: 13px; padding: 6px 14px;">从第 1 课开始 →</a>
+    <div style="display:flex; gap:8px; flex-wrap:wrap; margin-top:8px;">
+      <a href="quest/" class="tcl-btn tcl-btn-primary" style="font-size: 13px; padding: 6px 14px; background: #d97706 !important;">进入芯片岛冒险 →</a>
+      <a href="lessons/week1/" class="tcl-btn tcl-btn-secondary" style="font-size: 13px; padding: 6px 14px;">从第 1 课开始 →</a>
+    </div>
   </div>
 
   <div class="tcl-route-card route-exp">
@@ -3659,49 +4076,48 @@ make week21-01        # Run Lesson 21 layout script (DRV-Lite simulation)
 
 ---
 
-## 🛠️ 四大核心技术支柱
+## 📚 体系化进阶路线与课程大纲 (40 课)
 
-<div class="tcl-pillars">
-  <div class="tcl-pillar-card">
-    <div class="tcl-pillar-icon">💻</div>
-    <div class="tcl-pillar-title">免安装交互演练台 (Playground)</div>
-    <div class="tcl-pillar-desc">
-      纯浏览器即开即测：预置 Welch 置换三部曲、安全 expr、列表字典、STA 时序门禁解析与 DRV-Lite 版图实例，实时控制台输出。
-    </div>
-  </div>
+全套 40 节课程由浅入深划分为四大进阶模块：
 
-  <div class="tcl-pillar-card">
-    <div class="tcl-pillar-icon">🛠️</div>
-    <div class="tcl-pillar-title">18 项实战演练与综合项目</div>
-    <div class="tcl-pillar-desc">
-      解析标准单元库、引脚映射、DEF 物理版图通道与真实 EDA 文本报表，循序渐进掌握芯片工业脚本。
-    </div>
-  </div>
+<div class="tcl-modules-grid">
+  <a href="lessons/week1/" class="tcl-module-card">
+    <div class="tcl-module-badge">M10 · 第 01–10 课</div>
+    <div class="tcl-module-title">Tcl 核心语法与置换心智</div>
+    <div class="tcl-module-desc">掌握三步求值模型（分组 &rarr; 置换 &rarr; 执行）、严格花括号 expr 算术、列表结构、分支循环与过程封装。</div>
+    <div class="tcl-module-link">进入阶段一学习 →</div>
+  </a>
 
-  <div class="tcl-pillar-card">
-    <div class="tcl-pillar-icon">📐</div>
-    <div class="tcl-pillar-title">DRV-Lite 纯 Tcl 版图轻量仿真</div>
-    <div class="tcl-pillar-desc">
-      无需商业许可证即可入门。纯 Tcl 实现的 <code>layout</code> 对象结构，帮助初学者直观理解单元层级、多边形坐标以及 DRV 设计规则违规的基本原理。
-    </div>
-  </div>
+  <a href="lessons/week11/" class="tcl-module-card">
+    <div class="tcl-module-badge">M20 · 第 11–20 课</div>
+    <div class="tcl-module-title">语言进阶、数据结构与自动化</div>
+    <div class="tcl-module-desc">深入高效字典 (dict)、正则表达式文本解析、命名空间隔离、文件 I/O 流与健壮错误处理。</div>
+    <div class="tcl-module-link">进入阶段二学习 →</div>
+  </a>
 
-  <div class="tcl-pillar-card">
-    <div class="tcl-pillar-icon">⚡</div>
-    <div class="tcl-pillar-title">STA 时序分析入门实验</div>
-    <div class="tcl-pillar-desc">
-      面向初学者的时序文本解析练习，理解时序裕量（Slack）计算，掌握 Tcl 处理 EDA 报表的基本方法。
-    </div>
-  </div>
+  <a href="lessons/week21/" class="tcl-module-card">
+    <div class="tcl-module-badge">M30 · 第 21–30 课</div>
+    <div class="tcl-module-title">Calibre 版图核心与物理设计</div>
+    <div class="tcl-module-desc">通过纯 Tcl DRV-Lite 引擎操作版图数据：单元层级、图层掩膜、包围盒、多边形几何体与对象命令模型。</div>
+    <div class="tcl-module-link">进入阶段三学习 →</div>
+  </a>
+
+  <a href="lessons/week31/" class="tcl-module-card">
+    <div class="tcl-module-badge">M40 · 第 31–40 课</div>
+    <div class="tcl-module-title">版图分析与签核自动化</div>
+    <div class="tcl-module-desc">自动化 DRC 间距与天线违规收敛、密度平坦化脚本、ECO 自动线长修复与芯片流片签核自动化门禁。</div>
+    <div class="tcl-module-link">进入阶段四学习 →</div>
+  </a>
 </div>
 
----
-
-## 📚 课程目录 (40 课)
+<details class="tcl-syllabus-details">
+<summary>📋 点击展开 40 课完整大纲速查表</summary>
 
 | 课次 | 主题 | 示例代码 |
 | :---: | :--- | :---: |
 {chr(10).join(zh_rows)}
+
+</details>
 
 ---
 
@@ -3727,6 +4143,7 @@ make week21-01        # 运行第 21 课版图脚本 (DRV-Lite 仿真)
     <span class="tcl-badge purple">Kuiz Tcl & Latihan</span>
     <span class="tcl-badge blue">Bengkel Interaktif WASM</span>
     <span class="tcl-badge green">Amalan Susun Atur DRV</span>
+    <span class="tcl-badge gold">🎮 20 Tahap RPG Pulau Cip</span>
     <span class="tcl-badge cyan">Sokongan Pelbagai Bahasa</span>
   </div>
 
@@ -3737,9 +4154,10 @@ make week21-01        # 运行第 21 课版图脚本 (DRV-Lite 仿真)
   </div>
 
   <div class="tcl-cta-group">
+    <a href="quest/" class="tcl-btn tcl-btn-accent" style="background: linear-gradient(135deg, #f59e0b, #d97706); color: #ffffff !important; border: none; box-shadow: 0 4px 14px rgba(217, 119, 6, 0.35);">🎮 RPG Pengembaraan Pulau Cip</a>
+    <a href="playground/" class="tcl-btn tcl-btn-primary" style="background: linear-gradient(135deg, #0284c7, #2563eb); border: none;">⚡ Taman Permainan Kod</a>
     <a href="quiz/" class="tcl-btn tcl-btn-primary" style="background: linear-gradient(135deg, #4f46e5, #7c3aed); border: none;">🎯 Kuiz Tcl & Sijil</a>
     <a href="leaderboard/" class="tcl-btn tcl-btn-accent" style="background: linear-gradient(135deg, #059669, #0d9488); border: none;">🏆 Papan Juara & Pengesahan</a>
-    <a href="playground/" class="tcl-btn tcl-btn-secondary">⚡ Taman Permainan Kod</a>
     <a href="help/layout_viewer/" class="tcl-btn tcl-btn-secondary">📐 Visualiser Susun Atur</a>
     <a href="lessons/week1/" class="tcl-btn tcl-btn-secondary">📖 Mula Pelajaran 1 →</a>
   </div>
@@ -3749,6 +4167,10 @@ make week21-01        # 运行第 21 课版图脚本 (DRV-Lite 仿真)
   <div class="tcl-fact-item">
     <span class="tcl-fact-val">40 Pelajaran</span>
     <span class="tcl-fact-lbl">Pelan Kurikulum</span>
+  </div>
+  <div class="tcl-fact-item">
+    <span class="tcl-fact-val">20 Tahap</span>
+    <span class="tcl-fact-lbl">RPG Pulau Cip</span>
   </div>
   <div class="tcl-fact-item">
     <span class="tcl-fact-val">4 Modul</span>
@@ -3779,6 +4201,24 @@ make week21-01        # 运行第 21 课版图脚本 (DRV-Lite 仿真)
 <div class="tcl-tools-section-title">⚡ Makmal & Alat EDA Interaktif, Kuiz & Kotak Pasir</div>
 
 <div class="tcl-tools-grid">
+  <a href="quest/" class="tcl-tool-card" style="border-left: 4px solid #f59e0b;">
+    <div class="tcl-tool-icon">🎮</div>
+    <div class="tcl-tool-body">
+      <div class="tcl-tool-title">Tcl Quest · RPG Pengembaraan Pulau Cip</div>
+      <div class="tcl-tool-desc">Pengembaraan interaktif 20 tahap dengan watak animasi, penjelajahan peta, pelaksanaan Tcl masa nyata, dan pertarungan Bos.</div>
+    </div>
+    <div class="tcl-tool-arrow">→</div>
+  </a>
+
+  <a href="playground/" class="tcl-tool-card" style="border-left: 4px solid #0284c7;">
+    <div class="tcl-tool-icon">⚡</div>
+    <div class="tcl-tool-body">
+      <div class="tcl-tool-title">Taman Permainan Kod Interaktif (Playground)</div>
+      <div class="tcl-tool-desc">Kotak pasir dalam pelayar berasaskan WebAssembly (WASM) menjalankan Tcl 8.6 sebenar dengan paparan konsol langsung.</div>
+    </div>
+    <div class="tcl-tool-arrow">→</div>
+  </a>
+
   <a href="quiz/" class="tcl-tool-card" style="border-left: 4px solid #6366f1;">
     <div class="tcl-tool-icon">🎯</div>
     <div class="tcl-tool-body">
@@ -3797,7 +4237,7 @@ make week21-01        # 运行第 21 课版图脚本 (DRV-Lite 仿真)
     <div class="tcl-tool-arrow">→</div>
   </a>
 
-  <a href="help/layout_viewer/" class="tcl-tool-card">
+  <a href="help/layout_viewer/" class="tcl-tool-card" style="border-left: 4px solid #ec4899;">
     <div class="tcl-tool-icon">📐</div>
     <div class="tcl-tool-body">
       <div class="tcl-tool-title">Visualiser Susun Atur DRV-Lite</div>
@@ -3806,29 +4246,29 @@ make week21-01        # 运行第 21 课版图脚本 (DRV-Lite 仿真)
     <div class="tcl-tool-arrow">→</div>
   </a>
 
-  <a href="help/timing_calculator/" class="tcl-tool-card">
-    <div class="tcl-tool-icon">⚡</div>
+  <a href="help/timing_calculator/" class="tcl-tool-card" style="border-left: 4px solid #f97316;">
+    <div class="tcl-tool-icon">⏱️</div>
     <div class="tcl-tool-body">
-      <div class="tcl-tool-title">Makmal Analisis Pemasaan STA</div>
-      <div class="tcl-tool-desc">Tolok margin persediaan masa interaktif, tempoh jam, kelewatan laluan data dengan visualisasi mudah difahami.</div>
+      <div class="tcl-tool-title">Penjaga Masa STA (Slack & WNS/TNS)</div>
+      <div class="tcl-tool-desc">Tolok margin persediaan masa interaktif, tempoh jam, kelewatan laluan data dengan visualisasi kriteria tapeout masa nyata.</div>
     </div>
     <div class="tcl-tool-arrow">→</div>
   </a>
 
-  <a href="exercises/" class="tcl-tool-card">
+  <a href="exercises/" class="tcl-tool-card" style="border-left: 4px solid #8b5cf6;">
     <div class="tcl-tool-icon">📝</div>
     <div class="tcl-tool-body">
       <div class="tcl-tool-title">18 Latihan Amali</div>
-      <div class="tcl-tool-desc">Latihan makmal praktikal menghurai perpustakaan sel, pemetaan pin, fail DEF, dan laporan pemasaan asas.</div>
+      <div class="tcl-tool-desc">Latihan makmal praktikal menghurai perpustakaan sel, pemetaan pin, fail DEF, dan laporan pemasaan asas (54 tugasan).</div>
     </div>
     <div class="tcl-tool-arrow">→</div>
   </a>
 
-  <a href="capstone/" class="tcl-tool-card">
+  <a href="capstone/" class="tcl-tool-card" style="border-left: 4px solid #14b8a6;">
     <div class="tcl-tool-icon">🛠️</div>
     <div class="tcl-tool-body">
       <div class="tcl-tool-title">6 Projek Capstone Praktikal</div>
-      <div class="tcl-tool-desc">Projek mini praktikal daripada pengikis penghalaan hingga pembaikan panjang wayar ECO automatik.</div>
+      <div class="tcl-tool-desc">Projek mini industri daripada pengikis penghalaan hingga pembaikan panjang wayar ECO automatik.</div>
     </div>
     <div class="tcl-tool-arrow">→</div>
   </a>
@@ -3843,9 +4283,12 @@ Pilih laluan pembelajaran yang disesuaikan dengan latar belakang dan matlamat ke
     <span class="tcl-route-num">LALUAN 01 · Langkah Pertama</span>
     <div class="tcl-route-title">Baharu dalam Pengaturcaraan</div>
     <div class="tcl-route-desc">
-      Bermula dengan <code>puts</code>, pembolehubah, dan ulasan kod. Kuasai model penilaian 3-langkah (Kumpulan $\to$ Penggantian $\to$ Seruan) untuk memahami perbezaan antara kurungan kerinting <code>{{}}</code> dan tanda petikan ganda <code>""</code>.
+      Bermula dengan <code>puts</code>, pembolehubah, dan ulasan kod. Kuasai model penilaian 3-langkah (Kumpulan $\to$ Penggantian $\to$ Seruan) untuk memahami perbezaan antara kurungan kerinting <code>{{}}</code> dan tanda petikan ganda <code>""</code>. Pemula disyorkan bermain <a href="quest/" style="font-weight:700; color:#d97706;">🎮 RPG Pengembaraan Pulau Cip</a> untuk membina gerak hati kod!
     </div>
-    <a href="lessons/week1/" class="tcl-btn tcl-btn-secondary" style="font-size: 13px; padding: 6px 14px;">Mula Pelajaran 1 →</a>
+    <div style="display:flex; gap:8px; flex-wrap:wrap; margin-top:8px;">
+      <a href="quest/" class="tcl-btn tcl-btn-primary" style="font-size: 13px; padding: 6px 14px; background: #d97706 !important;">Masuk Pengembaraan Pulau Cip →</a>
+      <a href="lessons/week1/" class="tcl-btn tcl-btn-secondary" style="font-size: 13px; padding: 6px 14px;">Mula Pelajaran 1 →</a>
+    </div>
   </div>
 
   <div class="tcl-route-card route-exp">
@@ -3869,49 +4312,48 @@ Pilih laluan pembelajaran yang disesuaikan dengan latar belakang dan matlamat ke
 
 ---
 
-## 🛠️ Empat Tonggak Teknologi Utama
+## 📚 Pelan Hala Tuju Sukatan Pelajaran (40 Pelajaran)
 
-<div class="tcl-pillars">
-  <div class="tcl-pillar-card">
-    <div class="tcl-pillar-icon">💻</div>
-    <div class="tcl-pillar-title">Taman Permainan Kod Interaktif</div>
-    <div class="tcl-pillar-desc">
-      Kotak pasir pelaksanaan dalam pelayar dengan templat pratetap: model penggantian Welch, expr berkurung selamat, senarai, kamus, penguraian masa STA, dan skrip susun atur DRV-Lite.
-    </div>
-  </div>
+40 pelajaran disusun dalam empat modul perkembangan berturutan:
 
-  <div class="tcl-pillar-card">
-    <div class="tcl-pillar-icon">📝</div>
-    <div class="tcl-pillar-title">18 Latihan Amali & Projek Capstone</div>
-    <div class="tcl-pillar-desc">
-      Latihan pengaturcaraan VLSI praktikal merangkumi pengekstrakan perpustakaan sel, pengesahan peraturan reka bentuk, dan aliran automasi ECO sebenar.
-    </div>
-  </div>
+<div class="tcl-modules-grid">
+  <a href="lessons/week1/" class="tcl-module-card">
+    <div class="tcl-module-badge">M10 · Pelajaran 01–10</div>
+    <div class="tcl-module-title">Sintaks Teras Tcl & Model Mental</div>
+    <div class="tcl-module-desc">Kuasai model penilaian 3-langkah (Kumpulan &rarr; Penggantian &rarr; Seruan), aritmetik expr berkurung, senarai, kawalan aliran dan prosedur.</div>
+    <div class="tcl-module-link">Mula Modul 10 →</div>
+  </a>
 
-  <div class="tcl-pillar-card">
-    <div class="tcl-pillar-icon">📐</div>
-    <div class="tcl-pillar-title">Simulator Susun Atur DRV-Lite</div>
-    <div class="tcl-pillar-desc">
-      Sifar lesen komersial diperlukan. Model objek tulin Tcl untuk membantu pemula memahami hierarki sel, poligon, dan konsep peraturan reka bentuk DRV.
-    </div>
-  </div>
+  <a href="lessons/week11/" class="tcl-module-card">
+    <div class="tcl-module-badge">M20 · Pelajaran 11–20</div>
+    <div class="tcl-module-title">Kefasihan, Struktur Data & Automasi</div>
+    <div class="tcl-module-desc">Mendalami kamus (dict) berprestasi tinggi, ungkapan nalar (regexp), ruang nama, aliran I/O fail dan pengendalian ralat.</div>
+    <div class="tcl-module-link">Mula Modul 20 →</div>
+  </a>
 
-  <div class="tcl-pillar-card">
-    <div class="tcl-pillar-icon">⚡</div>
-    <div class="tcl-pillar-title">Makmal Analisis Pemasaan STA</div>
-    <div class="tcl-pillar-desc">
-      Penghurai laporan pemasaan mesra pemula: memahami slack persediaan dan mempelajari cara skrip Tcl memproses output teks EDA.
-    </div>
-  </div>
+  <a href="lessons/week21/" class="tcl-module-card">
+    <div class="tcl-module-badge">M30 · Pelajaran 21–30</div>
+    <div class="tcl-module-title">Teras Susun Atur Calibre & Reka Bentuk Fizikal</div>
+    <div class="tcl-module-desc">Berinteraksi dengan susun atur semikonduktor menggunakan DRV-Lite: sel, lapisan, kotak sempadan, poligon dan manipulasi objek.</div>
+    <div class="tcl-module-link">Mula Modul 30 →</div>
+  </a>
+
+  <a href="lessons/week31/" class="tcl-module-card">
+    <div class="tcl-module-badge">M40 · Pelajaran 31–40</div>
+    <div class="tcl-module-title">Katalog Susun Atur & Automasi Sign-Off</div>
+    <div class="tcl-module-desc">Pemeriksaan peraturan reka bentuk (DRC) automatik, peraturan antena/ketumpatan, pembaikan ECO wayar dan aliran sign-off.</div>
+    <div class="tcl-module-link">Mula Modul 40 →</div>
+  </a>
 </div>
 
----
-
-## 📚 Direktori Kurikulum (40 Pelajaran)
+<details class="tcl-syllabus-details">
+<summary>📋 Klik untuk Membuka Jadual Penuh 40 Pelajaran</summary>
 
 | Pelajaran | Topik | Contoh Kod |
 | :---: | :--- | :---: |
 {chr(10).join(ms_rows)}
+
+</details>
 
 ---
 
@@ -3937,6 +4379,7 @@ make week21-01        # Jalankan skrip susun atur Pelajaran 21 (simulasi DRV-Lit
     <span class="tcl-badge purple">Quiz Tcl & Pratique</span>
     <span class="tcl-badge blue">Atelier Interactif WASM</span>
     <span class="tcl-badge green">Pratique de Layout DRV</span>
+    <span class="tcl-badge gold">🎮 Quête RPG Île des Puces (20 Niveaux)</span>
     <span class="tcl-badge cyan">Support Multilingue i18n</span>
   </div>
 
@@ -3947,9 +4390,10 @@ make week21-01        # Jalankan skrip susun atur Pelajaran 21 (simulasi DRV-Lit
   </div>
 
   <div class="tcl-cta-group">
+    <a href="quest/" class="tcl-btn tcl-btn-accent" style="background: linear-gradient(135deg, #f59e0b, #d97706); color: #ffffff !important; border: none; box-shadow: 0 4px 14px rgba(217, 119, 6, 0.35);">🎮 Quête RPG Île des Puces</a>
+    <a href="playground/" class="tcl-btn tcl-btn-primary" style="background: linear-gradient(135deg, #0284c7, #2563eb); border: none;">⚡ Web Playground</a>
     <a href="quiz/" class="tcl-btn tcl-btn-primary" style="background: linear-gradient(135deg, #4f46e5, #7c3aed); border: none;">🎯 Quiz Tcl & Certificat</a>
     <a href="leaderboard/" class="tcl-btn tcl-btn-accent" style="background: linear-gradient(135deg, #059669, #0d9488); border: none;">🏆 Tableau des Scores & Vérification</a>
-    <a href="playground/" class="tcl-btn tcl-btn-secondary">⚡ Web Playground</a>
     <a href="help/layout_viewer/" class="tcl-btn tcl-btn-secondary">📐 Visualiseur de Layout</a>
     <a href="lessons/week1/" class="tcl-btn tcl-btn-secondary">📖 Démarrer Leçon 1 →</a>
   </div>
@@ -3959,6 +4403,10 @@ make week21-01        # Jalankan skrip susun atur Pelajaran 21 (simulasi DRV-Lit
   <div class="tcl-fact-item">
     <span class="tcl-fact-val">40 Leçons</span>
     <span class="tcl-fact-lbl">Programme Complet</span>
+  </div>
+  <div class="tcl-fact-item">
+    <span class="tcl-fact-val">20 Niveaux</span>
+    <span class="tcl-fact-lbl">Quête RPG Île des Puces</span>
   </div>
   <div class="tcl-fact-item">
     <span class="tcl-fact-val">4 Modules</span>
@@ -3989,6 +4437,24 @@ make week21-01        # Jalankan skrip susun atur Pelajaran 21 (simulasi DRV-Lit
 <div class="tcl-tools-section-title">⚡ Outils & Laboratoires Interactifs EDA, Quiz & Bacs à Sable</div>
 
 <div class="tcl-tools-grid">
+  <a href="quest/" class="tcl-tool-card" style="border-left: 4px solid #f59e0b;">
+    <div class="tcl-tool-icon">🎮</div>
+    <div class="tcl-tool-body">
+      <div class="tcl-tool-title">Tcl Quest · Aventure RPG sur l'Île des Puces</div>
+      <div class="tcl-tool-desc">Aventure d'apprentissage ludifiée en 20 niveaux avec personnage animé, progression sur carte, exécution Tcl en direct et combat de Boss.</div>
+    </div>
+    <div class="tcl-tool-arrow">→</div>
+  </a>
+
+  <a href="playground/" class="tcl-tool-card" style="border-left: 4px solid #0284c7;">
+    <div class="tcl-tool-icon">⚡</div>
+    <div class="tcl-tool-body">
+      <div class="tcl-tool-title">Bac à Sable Web Interactif (Playground)</div>
+      <div class="tcl-tool-desc">Bac à sable d'exécution dans le navigateur propulsé par WebAssembly (WASM) exécutant le vrai Tcl 8.6 natif.</div>
+    </div>
+    <div class="tcl-tool-arrow">→</div>
+  </a>
+
   <a href="quiz/" class="tcl-tool-card" style="border-left: 4px solid #6366f1;">
     <div class="tcl-tool-icon">🎯</div>
     <div class="tcl-tool-body">
@@ -4007,7 +4473,7 @@ make week21-01        # Jalankan skrip susun atur Pelajaran 21 (simulasi DRV-Lit
     <div class="tcl-tool-arrow">→</div>
   </a>
 
-  <a href="help/layout_viewer/" class="tcl-tool-card">
+  <a href="help/layout_viewer/" class="tcl-tool-card" style="border-left: 4px solid #ec4899;">
     <div class="tcl-tool-icon">📐</div>
     <div class="tcl-tool-body">
       <div class="tcl-tool-title">Visualiseur de Layout DRV-Lite</div>
@@ -4016,29 +4482,29 @@ make week21-01        # Jalankan skrip susun atur Pelajaran 21 (simulasi DRV-Lit
     <div class="tcl-tool-arrow">→</div>
   </a>
 
-  <a href="help/timing_calculator/" class="tcl-tool-card">
-    <div class="tcl-tool-icon">⚡</div>
+  <a href="help/timing_calculator/" class="tcl-tool-card" style="border-left: 4px solid #f97316;">
+    <div class="tcl-tool-icon">⏱️</div>
     <div class="tcl-tool-body">
-      <div class="tcl-tool-title">Labo d'Analyse Temporelle STA</div>
-      <div class="tcl-tool-desc">Calculateur interactif de marge temporelle, période d'horloge et délai de trajet pour comprendre les concepts de base du timing EDA.</div>
+      <div class="tcl-tool-title">Contrôleur Temporel STA (Slack & WNS/TNS)</div>
+      <div class="tcl-tool-desc">Calculateur interactif de marge temporelle, période d'horloge et délai de trajet avec critères de validation tapeout en temps réel.</div>
     </div>
     <div class="tcl-tool-arrow">→</div>
   </a>
 
-  <a href="exercises/" class="tcl-tool-card">
+  <a href="exercises/" class="tcl-tool-card" style="border-left: 4px solid #8b5cf6;">
     <div class="tcl-tool-icon">📝</div>
     <div class="tcl-tool-body">
       <div class="tcl-tool-title">18 Exercices Pratiques</div>
-      <div class="tcl-tool-desc">Problèmes de laboratoire analysant des bibliothèques de cellules, correspondances de broches, fichiers DEF et rapports temporels de base.</div>
+      <div class="tcl-tool-desc">Problèmes de laboratoire analysant des bibliothèques de cellules, correspondances de broches, fichiers DEF et rapports temporels (54 tâches).</div>
     </div>
     <div class="tcl-tool-arrow">→</div>
   </a>
 
-  <a href="capstone/" class="tcl-tool-card">
+  <a href="capstone/" class="tcl-tool-card" style="border-left: 4px solid #14b8a6;">
     <div class="tcl-tool-icon">🛠️</div>
     <div class="tcl-tool-body">
       <div class="tcl-tool-title">6 Projets Capstone Pratiques</div>
-      <div class="tcl-tool-desc">Mini-projets pratiques, de l'extraction de routage à la correction automatique de longueur de fil ECO.</div>
+      <div class="tcl-tool-desc">Mini-projets industriels, de l'extraction de routage à la correction automatique de longueur de fil ECO.</div>
     </div>
     <div class="tcl-tool-arrow">→</div>
   </a>
@@ -4053,9 +4519,12 @@ Choisissez le parcours adapté à votre profil et à vos objectifs d'ingénierie
     <span class="tcl-route-num">PARCOURS 01 · Premiers Pas</span>
     <div class="tcl-route-title">Débutant en Programmation</div>
     <div class="tcl-route-desc">
-      Commencez par <code>puts</code>, les variables et les commentaires. Maîtrisez le modèle en 3 étapes (Regroupement $\to$ Substitution $\to$ Évaluation) pour comprendre les accolades <code>{{}}</code> par rapport aux guillemets <code>""</code>.
+      Commencez par <code>puts</code>, les variables et les commentaires. Maîtrisez le modèle en 3 étapes (Regroupement $\to$ Substitution $\to$ Évaluation) pour comprendre les accolades <code>{{}}</code> par rapport aux guillemets <code>""</code>. Pour les débutants complets, nous recommandons de commencer par <a href="quest/" style="font-weight:700; color:#d97706;">🎮 la Quête RPG Île des Puces</a> pour développer vos réflexes de code !
     </div>
-    <a href="lessons/week1/" class="tcl-btn tcl-btn-secondary" style="font-size: 13px; padding: 6px 14px;">Démarrer Leçon 1 →</a>
+    <div style="display:flex; gap:8px; flex-wrap:wrap; margin-top:8px;">
+      <a href="quest/" class="tcl-btn tcl-btn-primary" style="font-size: 13px; padding: 6px 14px; background: #d97706 !important;">Lancer la Quête RPG →</a>
+      <a href="lessons/week1/" class="tcl-btn tcl-btn-secondary" style="font-size: 13px; padding: 6px 14px;">Démarrer Leçon 1 →</a>
+    </div>
   </div>
 
   <div class="tcl-route-card route-exp">
@@ -4079,49 +4548,48 @@ Choisissez le parcours adapté à votre profil et à vos objectifs d'ingénierie
 
 ---
 
-## 🛠️ Quatre Piliers Technologiques Majeurs
+## 📚 Feuille de Route & Programme (40 Leçons)
 
-<div class="tcl-pillars">
-  <div class="tcl-pillar-card">
-    <div class="tcl-pillar-icon">💻</div>
-    <div class="tcl-pillar-title">Bac à Sable Web Interactif (Playground)</div>
-    <div class="tcl-pillar-desc">
-      Bac à sable d'exécution dans le navigateur avec modèles préréglés : modèle de substitution de Welch, expr sécurisé avec accolades, listes, dictionnaires, analyse de timing STA et scripts de layout DRV-Lite.
-    </div>
-  </div>
+Les 40 leçons sont réparties en quatre modules de progression séquentiels :
 
-  <div class="tcl-pillar-card">
-    <div class="tcl-pillar-icon">📝</div>
-    <div class="tcl-pillar-title">18 Exercices Pratiques & Capstones</div>
-    <div class="tcl-pillar-desc">
-      Pratique approfondie du script VLSI : extraction de bibliothèques, règles de conception géométrique et flux réels d'automatisation ECO.
-    </div>
-  </div>
+<div class="tcl-modules-grid">
+  <a href="lessons/week1/" class="tcl-module-card">
+    <div class="tcl-module-badge">M10 · Leçons 01–10</div>
+    <div class="tcl-module-title">Syntaxe de Base Tcl & Modèle Mental</div>
+    <div class="tcl-module-desc">Maîtrisez le modèle d'évaluation en 3 étapes (Regroupement &rarr; Substitution &rarr; Exécution), expr avec accolades, listes, structures de contrôle et procédures.</div>
+    <div class="tcl-module-link">Démarrer Module 10 →</div>
+  </a>
 
-  <div class="tcl-pillar-card">
-    <div class="tcl-pillar-icon">📐</div>
-    <div class="tcl-pillar-title">Simulateur de Layout DRV-Lite</div>
-    <div class="tcl-pillar-desc">
-      Aucune licence commerciale requise. Modèle d'objets en pur Tcl aidant les débutants à comprendre la hiérarchie de cellules, les polygones et les règles DRV.
-    </div>
-  </div>
+  <a href="lessons/week11/" class="tcl-module-card">
+    <div class="tcl-module-badge">M20 · Leçons 11–20</div>
+    <div class="tcl-module-title">Aisance, Structures de Données & Automatisation</div>
+    <div class="tcl-module-desc">Approfondissez les dictionnaires performants, les expressions régulières, les espaces de noms, les flux I/O de fichiers et la gestion d'erreurs robuste.</div>
+    <div class="tcl-module-link">Démarrer Module 20 →</div>
+  </a>
 
-  <div class="tcl-pillar-card">
-    <div class="tcl-pillar-icon">⚡</div>
-    <div class="tcl-pillar-title">Labo d'Analyse Temporelle STA</div>
-    <div class="tcl-pillar-desc">
-      Analyseur de rapports temporels pour débutants : comprenez la marge temporelle (slack) et découvrez comment les scripts Tcl traitent les rapports EDA.
-    </div>
-  </div>
+  <a href="lessons/week21/" class="tcl-module-card">
+    <div class="tcl-module-badge">M30 · Leçons 21–30</div>
+    <div class="tcl-module-title">Cœur de Layout Calibre & Conception Physique</div>
+    <div class="tcl-module-desc">Interagissez avec des layouts de semi-conducteurs via DRV-Lite : cellules, couches, boîtes englobantes, polygones et modèles d'objets.</div>
+    <div class="tcl-module-link">Démarrer Module 30 →</div>
+  </a>
+
+  <a href="lessons/week31/" class="tcl-module-card">
+    <div class="tcl-module-badge">M40 · Leçons 31–40</div>
+    <div class="tcl-module-title">Catalogue de Layout & Automatisation Sign-Off</div>
+    <div class="tcl-module-desc">Convergence automatique des règles DRC, scripts de règles d'antenne/densité, correcteurs ECO de longueur de fil et flux de signature tapeout.</div>
+    <div class="tcl-module-link">Démarrer Module 40 →</div>
+  </a>
 </div>
 
----
-
-## 📚 Programme d'Études (40 Leçons)
+<details class="tcl-syllabus-details">
+<summary>📋 Cliquez pour Déplier le Tableau Complet des 40 Leçons</summary>
 
 | Leçon | Sujet | Exemples de Code |
 | :---: | :--- | :---: |
 {chr(10).join(fr_rows)}
+
+</details>
 
 ---
 
@@ -4303,6 +4771,7 @@ plugins:
             Quiz Challenge & Certification: 随堂测评挑战与认证
             Public Leaderboard & Certificate: 荣誉排行榜与认证证书
             Interactive Labs & Tools: 交互实验室与实战工具
+            Tcl Quest (Chip Island RPG): 芯片岛实时闯关 (RPG)
             Web Playground: 演练台 (Playground)
             VLSI Layout Visualizer: VLSI 版图仿真可视化 (DRV-Lite)
             STA Timing Gatekeeper: STA 时序门禁计算器
@@ -4315,6 +4784,7 @@ plugins:
             EDA Tools & Guides: 工业工具与文档
             DRV-Lite Layout Simulator: DRV-Lite 版图仿真器
             STA Timing Analysis Lab: STA 时序分析门禁
+            VLSI & Tcl Terminology Glossary: 芯片与 Tcl 术语词典
             Tcl Mental Model Guide: Tcl 置换心智指南
             Calibre Command Reference: Calibre 常用命令速查
             Knowledge Graph Coverage: 知识图谱覆盖率
@@ -4333,6 +4803,7 @@ plugins:
             Quiz Challenge & Certification: Cabaran Kuiz & Pensijilan
             Public Leaderboard & Certificate: Papan Pendahulu & Pensijilan
             Interactive Labs & Tools: Makmal & Alat Interaktif
+            Tcl Quest (Chip Island RPG): Tcl Quest (Pengembaraan Pulau Cip)
             Web Playground: Taman Permainan Kod (Playground)
             VLSI Layout Visualizer: Visualiser Susun Atur VLSI (DRV-Lite)
             STA Timing Gatekeeper: Penjaga Masa STA (Slack & WNS/TNS)
@@ -4345,6 +4816,7 @@ plugins:
             EDA Tools & Guides: Alat EDA & Panduan
             DRV-Lite Layout Simulator: Simulator Susun Atur DRV-Lite
             STA Timing Analysis Lab: Makmal Analisis Masa STA
+            VLSI & Tcl Terminology Glossary: Glosari Istilah VLSI & Tcl
             Tcl Mental Model Guide: Panduan Model Mental Tcl
             Calibre Command Reference: Rujukan Perintah Calibre
             Knowledge Graph Coverage: Liputan Graf Pengetahuan
@@ -4363,6 +4835,7 @@ plugins:
             Quiz Challenge & Certification: Défi Quiz & Certification
             Public Leaderboard & Certificate: Tableau des Scores & Certification
             Interactive Labs & Tools: Labos & Outils Interactifs
+            Tcl Quest (Chip Island RPG): Tcl Quest (Aventure sur l'Île des Puces)
             Web Playground: Bac à Sable Web (Playground)
             VLSI Layout Visualizer: Visualiseur de Layout VLSI (DRV-Lite)
             STA Timing Gatekeeper: Contrôleur Temporel STA (Slack & WNS/TNS)
@@ -4375,6 +4848,7 @@ plugins:
             EDA Tools & Guides: Outils EDA & Guides
             DRV-Lite Layout Simulator: Simulateur de Layout DRV-Lite
             STA Timing Analysis Lab: Labo d'Analyse Temporelle STA
+            VLSI & Tcl Terminology Glossary: Glossaire Terminologique VLSI & Tcl
             Tcl Mental Model Guide: Guide du Modèle Mental Tcl
             Calibre Command Reference: Référence des Commandes Calibre
             Knowledge Graph Coverage: Couverture du Graphe de Connaissances
@@ -4394,6 +4868,7 @@ nav:
       - Quiz Challenge & Certification: quiz.md
       - Public Leaderboard & Certificate: leaderboard.md
   - Interactive Labs & Tools:
+      - Tcl Quest (Chip Island RPG): quest.md
       - Web Playground: playground.md
       - VLSI Layout Visualizer: help/layout_viewer.md
       - STA Timing Gatekeeper: help/timing_calculator.md
@@ -4414,6 +4889,7 @@ nav:
   - EDA Tools & Guides:
       - DRV-Lite Layout Simulator: help/drvlite.md
       - STA Timing Analysis Lab: help/timing_lab.md
+      - VLSI & Tcl Terminology Glossary: help/glossary.md
       - Tcl Mental Model Guide: help/tcl.md
       - Calibre Command Reference: help/calibre.md
       - Knowledge Graph Coverage: help/coverage.md
@@ -4446,19 +4922,32 @@ def write_redirect_fallbacks() -> None:
 </body>
 </html>
 """
-    for lang in ["", "zh", "ms", "fr"]:
-        base_dir = site / lang if lang else site
+    # Ensure standalone applications are deployed cleanly to site/
+    for app_name, src_dir in [("workshop", DOCS / "wasm-lab"), ("quest-lab", DOCS / "quest-lab"), ("wasm-lab", DOCS / "wasm-lab")]:
+        if src_dir.exists():
+            dst_site = site / app_name
+            if dst_site.exists():
+                shutil.rmtree(dst_site)
+            shutil.copytree(src_dir, dst_site)
+            for md_file in dst_site.rglob("*.md"):
+                md_file.unlink(missing_ok=True)
+            print(f"Deployed standalone {app_name} -> {dst_site}")
+
+    for lang in ["zh", "ms", "fr"]:
+        base_dir = site / lang
+        if not base_dir.exists():
+            continue
         quiz_dir = base_dir / "quiz"
         lb_dir = base_dir / "leaderboard"
 
         if quiz_dir.exists():
-            (quiz_dir / "leaderboard.md").write_text(redirect_tmpl.format(target="../leaderboard/"), encoding="utf-8")
+            (quiz_dir / "leaderboard.md").write_text(redirect_tmpl.format(target="../../leaderboard/"), encoding="utf-8")
         if lb_dir.exists():
-            (lb_dir / "quiz.md").write_text(redirect_tmpl.format(target="../quiz/"), encoding="utf-8")
-        for slug in ["workshop", "quest", "quest-lab"]:
+            (lb_dir / "quiz.md").write_text(redirect_tmpl.format(target="../../quiz/"), encoding="utf-8")
+        for slug in ["workshop"]:
             s_dir = base_dir / slug
             s_dir.mkdir(parents=True, exist_ok=True)
-            (s_dir / "index.html").write_text(redirect_tmpl.format(target="../playground/"), encoding="utf-8")
+            (s_dir / "index.html").write_text(redirect_tmpl.format(target=f"../../{slug}/"), encoding="utf-8")
 
 
 def main() -> None:
@@ -4472,7 +4961,11 @@ def main() -> None:
     if not meta:
         raise SystemExit("No lesson weeks found under lessons/")
     write_stylesheets()
+    copy_workshop()
+    copy_quest()
     copy_assets()
+    write_quest_pages()
+    write_glossary_pages(DOCS)
     write_playground_pages()
     write_layout_viewer_pages()
     write_timing_calculator_pages()

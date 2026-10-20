@@ -19,17 +19,16 @@ CALIBRE_WEEK_MIN := 21
 WEEK      ?= 1
 EX        ?= 01
 
-# Weeks with lesson folders present today (others: generate via content-generation)
-EXISTING_WEEKS := 1 2 3 4 5 6 15 21 22 23 24 25 26 27 28
+# All 40 weeks from M10 to M40
+EXISTING_WEEKS := 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40
 
 .DEFAULT_GOAL := help
 
 .PHONY: help check check-env check-calibre list run help-tcl help-calibre milestones \
 	drvlite-test timing-demo \
 	site site-serve site-install \
-	week1 week2 week3 week4 week5 week6 week15 \
-	week21 week22 week23 week24 week25 week26 week27 week28 \
-	$(foreach w,1 2 3 4 5 6 15 21 22 23 24 25 26 27 28,$(foreach n,01 02 03 04 05 06 07 08 09 10 11 12,week$(w)-$(n)))
+	$(foreach w,$(EXISTING_WEEKS),week$(w)) \
+	$(foreach w,$(EXISTING_WEEKS),$(foreach n,01 02 03 04 05 06 07 08 09 10 11 12,week$(w)-$(n)))
 
 help:
 	@echo "Tcl lesson runner (Tcl-first curriculum)"
@@ -164,65 +163,21 @@ week$(1)-11: ; @$$(MAKE) --no-print-directory run WEEK=$(1) EX=11
 week$(1)-12: ; @$$(MAKE) --no-print-directory run WEEK=$(1) EX=12
 endef
 
-week1: check
-	$(call RUN_WEEK,1)
-$(eval $(call WEEK_EX_RULES,1))
+# --- Emission rules for all 40 weeks ---
+define TCL_WEEK_RULE
+week$(1): check
+	$$(call RUN_WEEK,$(1))
+$$(eval $$(call WEEK_EX_RULES,$(1)))
+endef
+$(foreach w,1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20,$(eval $(call TCL_WEEK_RULE,$(w))))
 
-week2: check
-	$(call RUN_WEEK,2)
-$(eval $(call WEEK_EX_RULES,2))
+define CALIBRE_WEEK_RULE
+week$(1): check-calibre
+	$$(call RUN_WEEK_CALIBRE,$(1))
+$$(eval $$(call WEEK_EX_RULES,$(1)))
+endef
+$(foreach w,21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40,$(eval $(call CALIBRE_WEEK_RULE,$(w))))
 
-week3: check
-	$(call RUN_WEEK,3)
-$(eval $(call WEEK_EX_RULES,3))
-
-week4: check
-	$(call RUN_WEEK,4)
-$(eval $(call WEEK_EX_RULES,4))
-
-week5: check
-	$(call RUN_WEEK,5)
-$(eval $(call WEEK_EX_RULES,5))
-
-week6: check
-	$(call RUN_WEEK,6)
-$(eval $(call WEEK_EX_RULES,6))
-
-week15: check
-	$(call RUN_WEEK,15)
-$(eval $(call WEEK_EX_RULES,15))
-
-week21: check-calibre
-	$(call RUN_WEEK_CALIBRE,21)
-$(eval $(call WEEK_EX_RULES,21))
-
-week22: check-calibre
-	$(call RUN_WEEK_CALIBRE,22)
-$(eval $(call WEEK_EX_RULES,22))
-
-week23: check-calibre
-	$(call RUN_WEEK_CALIBRE,23)
-$(eval $(call WEEK_EX_RULES,23))
-
-week24: check-calibre
-	$(call RUN_WEEK_CALIBRE,24)
-$(eval $(call WEEK_EX_RULES,24))
-
-week25: check-calibre
-	$(call RUN_WEEK_CALIBRE,25)
-$(eval $(call WEEK_EX_RULES,25))
-
-week26: check-calibre
-	$(call RUN_WEEK_CALIBRE,26)
-$(eval $(call WEEK_EX_RULES,26))
-
-week27: check-calibre
-	$(call RUN_WEEK_CALIBRE,27)
-$(eval $(call WEEK_EX_RULES,27))
-
-week28: check-calibre
-	$(call RUN_WEEK_CALIBRE,28)
-$(eval $(call WEEK_EX_RULES,28))
 
 # --- Lesson website (MkDocs → GitHub Pages) ---
 site-install:

@@ -3,24 +3,494 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Review quiz — Tcl/Tk programme</title>
-  <link rel="stylesheet" href="../assets/course.css">
+  <title>Tcl/Tk Conceptual Review Quiz — 15 Masterclass Questions</title>
+  <style>
+    :root {
+      --bg: #0f172a;
+      --surface: #1e293b;
+      --card-bg: #1e293b;
+      --border: #334155;
+      --text: #f8fafc;
+      --text-muted: #94a3b8;
+      --accent: #38bdf8;
+      --accent-hover: #0284c7;
+      --success: #10b981;
+      --success-bg: rgba(16, 185, 129, 0.15);
+      --error: #ef4444;
+      --error-bg: rgba(239, 68, 68, 0.15);
+      --code-bg: #090d16;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      line-height: 1.6;
+      padding: 24px 16px;
+    }
+    .wrap {
+      max-width: 860px;
+      margin: 0 auto;
+    }
+    header {
+      margin-bottom: 24px;
+      padding-bottom: 20px;
+      border-bottom: 1px solid var(--border);
+    }
+    header h1 {
+      font-size: 1.85rem;
+      font-weight: 800;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    header p {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      margin-top: 8px;
+    }
+    .badge-bar {
+      display: flex;
+      gap: 8px;
+      margin-top: 12px;
+      flex-wrap: wrap;
+    }
+    .badge {
+      display: inline-block;
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      padding: 3px 8px;
+      border-radius: 4px;
+      background: rgba(56, 189, 248, 0.15);
+      color: var(--accent);
+      border: 1px solid rgba(56, 189, 248, 0.3);
+    }
+    .bar {
+      display: flex;
+      gap: 12px;
+      margin-bottom: 28px;
+      padding: 10px 14px;
+      background: var(--surface);
+      border-radius: 8px;
+      border: 1px solid var(--border);
+      flex-wrap: wrap;
+      align-items: center;
+    }
+    .bar a {
+      color: var(--text-muted);
+      text-decoration: none;
+      font-size: 13px;
+      font-weight: 600;
+      padding: 4px 10px;
+      border-radius: 4px;
+      transition: all 0.2s;
+    }
+    .bar a:hover {
+      color: #fff;
+      background: rgba(255, 255, 255, 0.08);
+    }
+    .bar a.active {
+      color: #fff;
+      background: var(--accent-hover);
+    }
+    .card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 20px;
+      margin-bottom: 20px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+    }
+    .quiz-q p.q-text {
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 14px;
+    }
+    .quiz-opt {
+      display: block;
+      width: 100%;
+      text-align: left;
+      background: #0f172a;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      color: var(--text);
+      font-size: 13.5px;
+      padding: 10px 14px;
+      margin-bottom: 8px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      font-family: inherit;
+    }
+    .quiz-opt:hover:not([disabled]) {
+      border-color: var(--accent);
+      background: #1e293b;
+    }
+    .quiz-opt.correct {
+      background: var(--success-bg) !important;
+      border-color: var(--success) !important;
+      color: #34d399 !important;
+      font-weight: 700;
+    }
+    .quiz-opt.wrong {
+      background: var(--error-bg) !important;
+      border-color: var(--error) !important;
+      color: #f87171 !important;
+    }
+    .why {
+      margin-top: 14px;
+      padding: 12px 16px;
+      border-radius: 6px;
+      background: rgba(56, 189, 248, 0.08);
+      border-left: 4px solid var(--accent);
+      color: #cbd5e1;
+      font-size: 13.5px;
+      line-height: 1.5;
+    }
+    .why strong {
+      color: var(--accent);
+    }
+    .btn-action {
+      background: linear-gradient(135deg, #0284c7, #2563eb);
+      color: #fff;
+      border: none;
+      padding: 12px 24px;
+      font-size: 14px;
+      font-weight: 700;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: opacity 0.2s;
+    }
+    .btn-action:hover {
+      opacity: 0.9;
+    }
+    #score {
+      display: none;
+      margin-top: 20px;
+      text-align: center;
+      padding: 24px;
+    }
+    .score-title {
+      font-size: 1.6rem;
+      font-weight: 800;
+      color: #34d399;
+      margin-bottom: 8px;
+    }
+    .score-msg {
+      color: #cbd5e1;
+      font-size: 14px;
+    }
+  </style>
 </head>
 <body>
   <div class="wrap">
     <header>
-      <h1>Review quiz</h1>
-      <p>15 understanding questions (substitution, scope, glue, pack, bind, event loop). After each choice a short Why appears. Score when every item is answered.</p>
+      <h1>🎯 Tcl/Tk Conceptual Review Quiz</h1>
+      <p>15 essential understanding questions exploring the Brent Welch mental model (Argument Grouping &rarr; Value Substitution &rarr; Command Invocation, scope, lappend vs strings, Tk pack geometry, and event loops).</p>
+      <div class="badge-bar">
+        <span class="badge">Author: @thy031</span>
+        <span class="badge">15 Conceptual Items</span>
+        <span class="badge">Immediate Why Feedback</span>
+        <span class="badge">Brent Welch Literature</span>
+      </div>
     </header>
+
     <nav class="bar">
-      <a href="../index.html">Hub</a>
-      <a href="../week10/index.html">Week 10</a>
-      <a class="active" href="index.html">Review quiz</a>
+      <a href="../website/site/index.html">Course Portal</a>
+      <a href="../website/site/quiz/index.html">Adaptive Certification</a>
+      <a href="../website/site/leaderboard/index.html">Leaderboard</a>
+      <a href="../website/site/playground/index.html">Playground</a>
+      <a class="active" href="index.html">Review Quiz (15 Items)</a>
     </nav>
+
     <div id="quiz"></div>
-    <p><button type="button" onclick="scoreQuiz()">Score quiz</button></p>
+
+    <div style="margin: 28px 0; display: flex; gap: 14px; align-items: center; flex-wrap: wrap;">
+      <button type="button" class="btn-action" onclick="scoreQuiz()">📊 Score Review Quiz</button>
+      <button type="button" class="btn-action" style="background: #334155;" onclick="resetQuiz()">⟲ Reset All Answers</button>
+    </div>
+
     <div id="score" class="card"></div>
   </div>
-  <script src="../assets/quiz.js"></script>
+
+  <script>
+  var QUESTIONS = [
+    {
+      q: "You type: set x 2; puts \"$x + 2\". What should you expect, and why?",
+      choices: [
+        "4, because Tcl evaluates math inside double quotes",
+        "2 + 2, because quotes substitute $x but do not run expr",
+        "An error, because + is illegal in quotes",
+        "2 + 2 becomes 4 after command substitution"
+      ],
+      a: 1,
+      why: "Double quotes do grouping and $ / [] / \\ substitution, not arithmetic. Math happens only when expr (or a command that calls it) runs."
+    },
+    {
+      q: "Why does while {$x < 10} { incr x } use braces on both the test and the body?",
+      choices: [
+        "Braces make the loop faster",
+        "So while sees the unevaluated script and can re-evaluate it each iteration",
+        "Braces turn the test into a boolean type",
+        "Without braces, incr would not exist"
+      ],
+      a: 1,
+      why: "If you quoted the test with \"\", $x would be substituted once before while started. Braces delay substitution so each pass sees a fresh test and body."
+    },
+    {
+      q: "set a {one two}; lappend a $b where b is {three four}. Why is list-aware lappend safer than set a \"$a $b\"?",
+      choices: [
+        "lappend is the only way to grow a string",
+        "String concatenation can break grouping if an element has spaces; lappend preserves list structure",
+        "\"$a $b\" cannot run in tclsh",
+        "lappend copies arrays, not lists"
+      ],
+      a: 1,
+      why: "A Tcl list is a string that obeys command grouping. Hand-joining with spaces does not quote elements that themselves contain whitespace."
+    },
+    {
+      q: "A proc uses a global array state. Inside the proc you write puts $state(count) with no global command. What happens conceptually?",
+      choices: [
+        "Tcl automatically finds the global array",
+        "You read a local variable named state unless you global/upvar it",
+        "Arrays are always global",
+        "Tk injects the array from the widget name"
+      ],
+      a: 1,
+      why: "proc locals hide globals. You must declare global state (or upvar) before using the array inside the procedure."
+    },
+    {
+      q: "You need a proc to update the caller's array. Why is upvar used instead of returning a huge string?",
+      choices: [
+        "upvar is required for all arrays",
+        "Call-by-name lets the proc modify the caller's array in place without copying it as a return value",
+        "upvar converts lists to arrays",
+        "Returning strings is illegal in Tcl"
+      ],
+      a: 1,
+      why: "upvar aliases a local name to a variable in another scope. That is how the books pass arrays by name."
+    },
+    {
+      q: "eval $cmd $args is blowing up because args contains several words. What is the understanding fix?",
+      choices: [
+        "Switch to double quotes around the whole eval",
+        "Build one well-formed command with list (or concat correctly) so grouping survives eval",
+        "Replace eval with subst always",
+        "Wrap args in extra braces by hand until it works"
+      ],
+      a: 1,
+      why: "eval concatenates and reparses. list produces a single argument whose grouping is preserved when eval parses it again."
+    },
+    {
+      q: "A pipeline opened with open |cmd r looks fine, but close $ch raises an error. What should you understand happened?",
+      choices: [
+        "close always errors in Tcl 8",
+        "The child wrote stderr or exited non-zero; Tcl reports that when the channel is closed",
+        "You forgot pwd",
+        "glob failed earlier"
+      ],
+      a: 1,
+      why: "Columbia Ch. 9: pipeline status and stderr are surfaced on close. catch around close is part of glue-layer error handling."
+    },
+    {
+      q: "Why does the programme keep Tk out of Checkpoint A (Week 6)?",
+      choices: [
+        "Tk cannot read files",
+        "So you prove Tcl glue, libraries, and I/O without mixing GUI event-loop issues",
+        "wish is deprecated",
+        "The guestbook example forbids widgets forever"
+      ],
+      a: 1,
+      why: "Weeks 1–6 are tclsh on purpose. Tk adds bind/scope and pack problems that hide whether you actually learned lists, files, and procs."
+    },
+    {
+      q: "You pack a text widget then a scrollbar, and the scrollbar vanishes when the window shrinks. What idea from the packer are you missing?",
+      choices: [
+        "Text widgets cannot share a window with scrollbars",
+        "Packing order and the cavity model: pack the scrollbar first (slave that must keep its size)",
+        "You must use place, not pack",
+        "-expand always hides the last slave"
+      ],
+      a: 1,
+      why: "The packer allocates remaining cavity in order. The book's ExecLog pattern packs the scrollbar first so it keeps space when the text expands."
+    },
+    {
+      q: "bind .lb <Double-1> { doIt $item } captures the wrong item later. What went wrong?",
+      choices: [
+        "Double-1 is not a valid event",
+        "The $item was substituted when the binding was created, not when the event fired",
+        "listbox cannot use bind",
+        "You needed a C callback"
+      ],
+      a: 1,
+      why: "Bindings are scripts. $ substitution at bind-time freezes the current value. Call a proc and read the current selection inside it."
+    },
+    {
+      q: "A modal file dialog must not return until the user picks a name. Which mechanism matches that understanding?",
+      choices: [
+        "busy-wait with while {1} { }",
+        "grab the dialog and tkwait until it is done, then release",
+        "after 1000 and hope",
+        "send to another wish"
+      ],
+      a: 1,
+      why: "Ch. 17: grab + tkwait let the event loop keep running while your script waits for that window. A tight loop would freeze the UI."
+    },
+    {
+      q: "Reading Tcl_AppInit is useful in advanced scripting even if you do not compile. What understanding should you walk away with?",
+      choices: [
+        "You must ship a .so to pass basic tests",
+        "A C command is just another Tcl command: register it on the interpreter, then scripts call it like puts",
+        "C replaces pack",
+        "Tcl_Main is a Tk widget"
+      ],
+      a: 1,
+      why: "The C API map is: create/init interpreter, register command procedures, manage the result, optionally eval scripts. Same evaluation model, different implementation language."
+    },
+    {
+      q: "string equal $a $b vs expr {$a == $b} for two numeric-looking strings. What is the conceptual difference?",
+      choices: [
+        "They are identical in all Tcl versions",
+        "expr == may coerce to numbers; string comparison stays string-wise — pick the command that matches the meaning you want",
+        "expr cannot compare strings",
+        "string equal always converts to int"
+      ],
+      a: 1,
+      why: "Tcl stores strings. expr's operators can treat operands as numbers. Using the wrong comparator is a meaning bug, not just a style issue."
+    },
+    {
+      q: "You glob a tree with FindFile-style recursion and forget to cd back after a failed subdirectory. What understanding did you skip?",
+      choices: [
+        "glob sorts results",
+        "The process current directory is process-wide state; catch and restore pwd or you search the wrong place next",
+        "cd cannot fail",
+        "recursion is illegal in Tcl"
+      ],
+      a: 1,
+      why: "The Columbia FindFile example saves pwd, uses catch around cd, and restores the directory. That is about process state, not just file names."
+    },
+    {
+      q: "after idle and fileevent exist so a Tk app can stay responsive. What is the idea?",
+      choices: [
+        "They spawn OS threads for every script",
+        "They register work with the event loop instead of blocking the whole UI on a long read or sleep",
+        "They replace pack",
+        "They are only for C extensions"
+      ],
+      a: 1,
+      why: "Tk is event-driven. Blocking open/read/sleep freezes widgets. after and fileevent continue the script when the event loop says the resource is ready."
+    }
+  ];
+
+  function escapeHtml(s) {
+    return String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
+  }
+
+  function shuffleArray(arr) {
+    const copy = arr.slice();
+    for (let i = copy.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      const temp = copy[i];
+      copy[i] = copy[j];
+      copy[j] = temp;
+    }
+    return copy;
+  }
+
+  function renderQuiz() {
+    const root = document.getElementById("quiz");
+    root.innerHTML = "";
+    QUESTIONS.forEach(function(item, i) {
+      const box = document.createElement("div");
+      box.className = "quiz-q card";
+      box.innerHTML = `<p class="q-text"><strong>Q${i + 1}.</strong> ${escapeHtml(item.q)}</p>`;
+      
+      // Shuffle choices so answer is randomized across positions
+      const choiceObjs = item.choices.map(function(text, idx) {
+        return {
+          text: text,
+          isCorrect: (idx === item.a)
+        };
+      });
+      const shuffled = shuffleArray(choiceObjs);
+
+      shuffled.forEach(function(opt, j) {
+        const btn = document.createElement("button");
+        btn.type = "button";
+        btn.className = "quiz-opt";
+        btn.textContent = opt.text;
+        btn.addEventListener("click", function() {
+          if (box.getAttribute("data-done")) return;
+          box.setAttribute("data-done", "1");
+          const ok = opt.isCorrect;
+          btn.classList.add(ok ? "correct" : "wrong");
+          
+          // Highlight the correct choice
+          const allBtns = box.querySelectorAll(".quiz-opt");
+          shuffled.forEach(function(c, k) {
+            if (c.isCorrect) {
+              allBtns[k].classList.add("correct");
+            }
+          });
+          box.setAttribute("data-ok", ok ? "1" : "0");
+          
+          const note = document.createElement("div");
+          note.className = "why";
+          note.innerHTML = `<strong>Why:</strong> ${escapeHtml(item.why)}`;
+          box.appendChild(note);
+        });
+        box.appendChild(btn);
+      });
+      root.appendChild(box);
+    });
+  }
+
+  function scoreQuiz() {
+    const root = document.getElementById("quiz");
+    const out = document.getElementById("score");
+    const nodes = root.querySelectorAll(".quiz-q");
+    let answered = 0;
+    let correct = 0;
+    nodes.forEach(function(n) {
+      if (n.getAttribute("data-done")) {
+        answered++;
+        if (n.getAttribute("data-ok") === "1") correct++;
+      }
+    });
+
+    out.style.display = "block";
+    if (answered < QUESTIONS.length) {
+      out.innerHTML = `<div style="color: #f59e0b; font-weight:700;">Please answer all ${QUESTIONS.length} questions before scoring (${answered} completed so far).</div>`;
+      out.scrollIntoView({ behavior: 'smooth' });
+      return;
+    }
+
+    const pct = Math.round((correct / QUESTIONS.length) * 100);
+    const pass = correct >= 12;
+    const msg = pass 
+      ? "Outstanding! You demonstrate solid mastery of the Brent Welch Tcl evaluation model and Tk architecture."
+      : "Good try! Review the 'Why' feedback notes above to strengthen your conceptual mental model.";
+
+    out.innerHTML = `
+      <div class="score-title">${correct} / ${QUESTIONS.length} Correct (${pct}%)</div>
+      <div class="score-msg">${msg}</div>
+      <div style="margin-top: 14px;">
+        <a href="../website/site/quiz/index.html" class="btn-action" style="display:inline-block; text-decoration:none;">Take Official Adaptive Certification &rarr;</a>
+      </div>
+    `;
+    out.scrollIntoView({ behavior: 'smooth' });
+  }
+
+  function resetQuiz() {
+    document.getElementById("score").style.display = "none";
+    renderQuiz();
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  document.addEventListener("DOMContentLoaded", renderQuiz);
+  </script>
 </body>
 </html>
