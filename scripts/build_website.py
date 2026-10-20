@@ -1457,10 +1457,10 @@ def write_layout_viewer_pages() -> None:
   <span class="tcl-badge blue">DRV-Lite Pure-Tcl Engine</span>
   <span class="tcl-badge green">Zero Commercial License</span>
   <span class="tcl-badge cyan">Interactive 2D Canvas</span>
-  <span class="tcl-badge purple">GDS II / OASIS Ready</span>
+  <span class="tcl-badge purple">CalibreDRV Command Compatible</span>
 </div>
 
-A real-time in-browser semiconductor layout visualizer inspired by Capeur's pure-Tcl **DRV-Lite** engine. Inspect multi-layer IC cell geometries, toggle metal routing tracks, observe bounding box snaps, and execute Tcl layout commands directly in the browser!
+A real-time in-browser semiconductor layout visualizer inspired by Capeur's pure-Tcl **DRV-Lite** engine. Inspect multi-layer IC cell geometries, toggle metal routing tracks, drag to pan, scroll to zoom, observe bounding box snaps, and execute full CalibreDRV Tcl commands (`create`, `delete`, `bbox`, `iterator count`, `shift`, `scale`, etc.) directly in your browser!
 
 ---
 
@@ -1474,11 +1474,12 @@ A real-time in-browser semiconductor layout visualizer inspired by Capeur's pure
         <option value="inv">CMOS Inverter (INV_X1)</option>
         <option value="nand2">2-Input NAND (NAND2_X1)</option>
         <option value="routing">M1/M2 Cross-Routing with VIA1</option>
+        <option value="complex">Complex Shapes (Polygons & Wires)</option>
         <option value="pad">I/O Bond Pad & Guard Ring</option>
       </select>
     </div>
 
-    <div style="display: flex; gap: 6px; align-items: center;">
+    <div style="display: flex; gap: 6px; align-items: center; flex-wrap: wrap;">
       <button onclick="zoomCanvas(1.2)" class="tcl-btn tcl-btn-secondary" style="padding: 4px 10px; font-size: 13px;">🔍+ Zoom In</button>
       <button onclick="zoomCanvas(0.8)" class="tcl-btn tcl-btn-secondary" style="padding: 4px 10px; font-size: 13px;">🔍- Zoom Out</button>
       <button onclick="resetCanvas()" class="tcl-btn tcl-btn-secondary" style="padding: 4px 10px; font-size: 13px;">⟲ Reset</button>
@@ -1490,13 +1491,13 @@ A real-time in-browser semiconductor layout visualizer inspired by Capeur's pure
   <!-- Layer Filter Palette -->
   <div style="display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 12px; padding: 8px 12px; background: var(--md-default-bg-color); border: 1px solid var(--tcl-border); border-radius: 6px; font-size: 12px;">
     <span style="font-weight: 700; align-self: center;">Layers:</span>
-    <label style="cursor: pointer; display: flex; align-items: center; gap: 4px;"><input type="checkbox" checked onchange="toggleLayer(1, this.checked)"> <span style="display:inline-block; width:10px; height:10px; background:#f59e0b; border-radius:2px;"></span> NWEL (1)</label>
-    <label style="cursor: pointer; display: flex; align-items: center; gap: 4px;"><input type="checkbox" checked onchange="toggleLayer(2, this.checked)"> <span style="display:inline-block; width:10px; height:10px; background:#10b981; border-radius:2px;"></span> DIFF (2)</label>
-    <label style="cursor: pointer; display: flex; align-items: center; gap: 4px;"><input type="checkbox" checked onchange="toggleLayer(3, this.checked)"> <span style="display:inline-block; width:10px; height:10px; background:#ef4444; border-radius:2px;"></span> POLY (3)</label>
-    <label style="cursor: pointer; display: flex; align-items: center; gap: 4px;"><input type="checkbox" checked onchange="toggleLayer(4, this.checked)"> <span style="display:inline-block; width:10px; height:10px; background:#94a3b8; border-radius:2px;"></span> CONT (4)</label>
-    <label style="cursor: pointer; display: flex; align-items: center; gap: 4px;"><input type="checkbox" checked onchange="toggleLayer(5, this.checked)"> <span style="display:inline-block; width:10px; height:10px; background:#3b82f6; border-radius:2px;"></span> M1 (5)</label>
-    <label style="cursor: pointer; display: flex; align-items: center; gap: 4px;"><input type="checkbox" checked onchange="toggleLayer(6, this.checked)"> <span style="display:inline-block; width:10px; height:10px; background:#ec4899; border-radius:2px;"></span> VIA1 (6)</label>
-    <label style="cursor: pointer; display: flex; align-items: center; gap: 4px;"><input type="checkbox" checked onchange="toggleLayer(7, this.checked)"> <span style="display:inline-block; width:10px; height:10px; background:#06b6d4; border-radius:2px;"></span> M2 (7)</label>
+    <label style="cursor: pointer; display: flex; align-items: center; gap: 4px;"><input type="checkbox" data-layer="1" checked onchange="toggleLayer(1, this.checked)"> <span style="display:inline-block; width:10px; height:10px; background:#f59e0b; border-radius:2px;"></span> NWEL (1)</label>
+    <label style="cursor: pointer; display: flex; align-items: center; gap: 4px;"><input type="checkbox" data-layer="2" checked onchange="toggleLayer(2, this.checked)"> <span style="display:inline-block; width:10px; height:10px; background:#10b981; border-radius:2px;"></span> DIFF (2)</label>
+    <label style="cursor: pointer; display: flex; align-items: center; gap: 4px;"><input type="checkbox" data-layer="3" checked onchange="toggleLayer(3, this.checked)"> <span style="display:inline-block; width:10px; height:10px; background:#ef4444; border-radius:2px;"></span> POLY (3)</label>
+    <label style="cursor: pointer; display: flex; align-items: center; gap: 4px;"><input type="checkbox" data-layer="4" checked onchange="toggleLayer(4, this.checked)"> <span style="display:inline-block; width:10px; height:10px; background:#94a3b8; border-radius:2px;"></span> CONT (4)</label>
+    <label style="cursor: pointer; display: flex; align-items: center; gap: 4px;"><input type="checkbox" data-layer="5" checked onchange="toggleLayer(5, this.checked)"> <span style="display:inline-block; width:10px; height:10px; background:#3b82f6; border-radius:2px;"></span> M1 (5)</label>
+    <label style="cursor: pointer; display: flex; align-items: center; gap: 4px;"><input type="checkbox" data-layer="6" checked onchange="toggleLayer(6, this.checked)"> <span style="display:inline-block; width:10px; height:10px; background:#ec4899; border-radius:2px;"></span> VIA1 (6)</label>
+    <label style="cursor: pointer; display: flex; align-items: center; gap: 4px;"><input type="checkbox" data-layer="7" checked onchange="toggleLayer(7, this.checked)"> <span style="display:inline-block; width:10px; height:10px; background:#06b6d4; border-radius:2px;"></span> M2 (7)</label>
   </div>
 
   <!-- HTML5 Canvas Visualizer -->
@@ -1505,17 +1506,63 @@ A real-time in-browser semiconductor layout visualizer inspired by Capeur's pure
     
     <!-- Floating Coordinate Overlay -->
     <div id="coordOverlay" style="position: absolute; bottom: 8px; left: 8px; background: rgba(15, 23, 42, 0.85); color: #94a3b8; font-family: monospace; font-size: 11px; padding: 4px 10px; border-radius: 4px; pointer-events: none; border: 1px solid rgba(255,255,255,0.1);">
-      Cursor: X: 0.00 um, Y: 0.00 um | BBox: [0.0 0.0 1200.0 650.0] | Scale: 1.0x
+      Cursor: X: 0.0 um, Y: 0.0 um | BBox: [0 0 0 0] | Shapes: 0 | Zoom: 100%
     </div>
   </div>
 
   <!-- Interactive Tcl Command Line -->
   <div style="margin-top: 16px; display: flex; gap: 8px; flex-wrap: wrap;">
-    <input type="text" id="tclLayoutCmdInput" value="$L create box TOP 5 150 200 550 450" style="flex: 1; min-width: 280px; background: var(--md-code-bg-color); color: #f8fafc; border: 1px solid var(--tcl-border); border-radius: 6px; padding: 10px 14px; font-family: monospace; font-size: 13px; outline: none;">
+    <input type="text" id="tclLayoutCmdInput" value="$L create box TOP 5 150 200 550 450" placeholder="Enter CalibreDRV Tcl command (e.g. $L delete layer 5, $L bbox TOP)" style="flex: 1; min-width: 280px; background: var(--md-code-bg-color); color: #f8fafc; border: 1px solid var(--tcl-border); border-radius: 6px; padding: 10px 14px; font-family: monospace; font-size: 13px; outline: none;">
     <button onclick="executeLayoutCmd()" class="tcl-btn tcl-btn-primary" style="padding: 10px 18px; font-size: 13px;">⚡ Execute Tcl Command</button>
   </div>
-  <div id="layoutCmdLog" style="margin-top: 8px; font-family: monospace; font-size: 12px; color: #10b981;">Ready. Select a preset cell or enter a layout command.</div>
+
+  <!-- Quick Command Chips -->
+  <div style="display: flex; gap: 6px; flex-wrap: wrap; margin-top: 10px; align-items: center;">
+    <span style="font-size: 12px; color: var(--md-default-fg-color); font-weight: 600;">Command Presets:</span>
+    <button onclick="setAndRunCmd('$L create box TOP 5 150 200 550 450')" class="tcl-btn tcl-btn-secondary" style="padding: 3px 8px; font-size: 11px;">+ Box M1</button>
+    <button onclick="setAndRunCmd('$L create polygon TOP 3 100 100 200 100 250 250 150 300 100 200')" class="tcl-btn tcl-btn-secondary" style="padding: 3px 8px; font-size: 11px;">+ Poly L3</button>
+    <button onclick="setAndRunCmd('$L create wire TOP 7 40 50 100 300 100 300 300 600 300')" class="tcl-btn tcl-btn-secondary" style="padding: 3px 8px; font-size: 11px;">+ Wire M2</button>
+    <button onclick="setAndRunCmd('$L create text TOP 5 200 250 CLK_TREE')" class="tcl-btn tcl-btn-secondary" style="padding: 3px 8px; font-size: 11px;">+ Text M1</button>
+    <button onclick="setAndRunCmd('$L delete layer 5')" class="tcl-btn tcl-btn-secondary" style="padding: 3px 8px; font-size: 11px; color: #f87171;">- Del Layer 5</button>
+    <button onclick="setAndRunCmd('$L delete polygon TOP 3')" class="tcl-btn tcl-btn-secondary" style="padding: 3px 8px; font-size: 11px; color: #f87171;">- Del Poly</button>
+    <button onclick="setAndRunCmd('$L delete all')" class="tcl-btn tcl-btn-secondary" style="padding: 3px 8px; font-size: 11px; color: #ef4444;">🗑️ Del All</button>
+    <button onclick="setAndRunCmd('$L bbox TOP')" class="tcl-btn tcl-btn-secondary" style="padding: 3px 8px; font-size: 11px; color: #f59e0b;">📐 BBox</button>
+    <button onclick="setAndRunCmd('$L iterator count all')" class="tcl-btn tcl-btn-secondary" style="padding: 3px 8px; font-size: 11px;">📊 Count All</button>
+    <button onclick="setAndRunCmd('$L shift 40 30')" class="tcl-btn tcl-btn-secondary" style="padding: 3px 8px; font-size: 11px;">➡️ Shift (40,30)</button>
+    <button onclick="setAndRunCmd('$L scale 1.1')" class="tcl-btn tcl-btn-secondary" style="padding: 3px 8px; font-size: 11px;">🔍 Scale 1.1x</button>
+  </div>
+
+  <!-- Terminal Output Console -->
+  <div style="margin-top: 12px; background: #050912; border: 1px solid var(--tcl-border); border-radius: 6px; padding: 10px 14px; font-family: monospace; font-size: 12px;">
+    <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid rgba(255,255,255,0.08); padding-bottom: 6px; margin-bottom: 8px; color: #64748b; font-size: 11px;">
+      <span>🖥️ CalibreDRV Tcl Interactive Terminal Log</span>
+      <button onclick="clearLayoutLog()" style="background: transparent; border: 1px solid rgba(255,255,255,0.15); color: #94a3b8; border-radius: 4px; padding: 2px 8px; font-size: 11px; cursor: pointer;">Clear Console</button>
+    </div>
+    <div id="layoutCmdLog" style="max-height: 140px; overflow-y: auto; display: flex; flex-direction: column; gap: 4px; color: #10b981;">
+      <div><span style="color: #64748b;">[System]</span> CalibreDRV & DRV-Lite interactive engine ready. Enter commands or click preset chips above.</div>
+    </div>
+  </div>
 </div>
+
+### 🛠️ CalibreDRV / DRV-Lite Command Reference
+
+| Command Syntax | Category | Description | Example |
+| :--- | :--- | :--- | :--- |
+| `$L create box <cell> <layer> <x1> <y1> <x2> <y2>` | **Creation** | Creates an axis-aligned rectangular box | `$L create box TOP 5 150 200 550 450` |
+| `$L create polygon <cell> <layer> <x1> <y1> ...` | **Creation** | Creates a multi-vertex polygon | `$L create polygon TOP 3 100 100 200 100 250 250 150 300 100 200` |
+| `$L create wire <cell> <layer> <width> <x1> <y1> ...` | **Creation** | Creates a centerline wire / path with given width | `$L create wire TOP 7 40 50 100 300 100 300 300 600 300` |
+| `$L create text <cell> <layer> <x> <y> <text>` | **Creation** | Annotates a text pin/label at coordinate `(x, y)` | `$L create text TOP 5 200 250 CLK_TREE` |
+| `$L delete layer <layer>` | **Deletion** | Deletes all geometries residing on layer (ID or name) | `$L delete layer 5` or `$L delete layer M1` |
+| `$L delete cell <cell>` | **Deletion** | Clears all geometries belonging to cell | `$L delete cell TOP` |
+| `$L delete <box|polygon|wire|text> <cell> ?<layer>?` | **Deletion** | Deletes specific geometry type (optionally on layer) | `$L delete polygon TOP 3` |
+| `$L delete all` | **Deletion** | Clears all layout shapes in active cell | `$L delete all` |
+| `$L bbox <cell> ?<layer>?` | **Query** | Computes bounding box `[minX minY maxX maxY]` | `$L bbox TOP` |
+| `$L iterator count <box|wire|polygon|text|all>` | **Query** | Returns the count of matching geometry entities | `$L iterator count all` |
+| `$L exists <cell|layer> <name>` | **Query** | Checks existence of cell or layer (returns `1` or `0`) | `$L exists layer 5` |
+| `$L shift <dx> <dy>` | **Transform** | Translates all shapes by `(dx, dy)` in microns | `$L shift 40 30` |
+| `$L scale <factor>` | **Transform** | Scales all layout geometries around origin | `$L scale 1.2` |
+| `$L show layer <layer>` / `$L hide layer <layer>` | **Display** | Toggles layer visibility on the canvas | `$L hide layer 5` |
+| `$L layers` / `$L cells` | **Inspection** | Summarizes layer shape counts or cell names | `$L layers` |
 
 <script>
 const canvas = document.getElementById('chipCanvas');
@@ -1524,6 +1571,7 @@ let zoom = 1.0;
 let panX = 120, panY = 70;
 let showGrid = true;
 let showBBox = true;
+let isPanning = false, startPanX = 0, startPanY = 0;
 
 const layerColors = {
   1: 'rgba(245, 158, 11, 0.45)',  // NWEL
@@ -1535,51 +1583,148 @@ const layerColors = {
   7: 'rgba(6, 182, 212, 0.65)'    // M2
 };
 
+const layerAliases = {
+  'nwel': 1, 'well': 1, '1': 1,
+  'diff': 2, 'od': 2, 'rx': 2, '2': 2,
+  'poly': 3, 'po': 3, 'gate': 3, '3': 3,
+  'cont': 4, 'ct': 4, 'contact': 4, '4': 4,
+  'm1': 5, 'metal1': 5, '5': 5,
+  'via1': 6, 'via': 6, 'v1': 6, '6': 6,
+  'm2': 7, 'metal2': 7, '7': 7
+};
+
+function resolveLayer(token) {
+  if (!token) return 5;
+  const t = String(token).toLowerCase().replace(/^layer\\s*/i, '');
+  return layerAliases[t] !== undefined ? layerAliases[t] : (parseInt(t, 10) || 5);
+}
+
 const layerVisible = { 1: true, 2: true, 3: true, 4: true, 5: true, 6: true, 7: true };
 
 let currentGeoms = [];
 
 const cellPresets = {
   inv: [
-    { layer: 1, x: 50, y: 150, w: 500, h: 250, label: 'NWEL' },
-    { layer: 2, x: 80, y: 50, w: 440, h: 80, label: 'DIFF (NMOS)' },
-    { layer: 2, x: 80, y: 200, w: 440, h: 160, label: 'DIFF (PMOS)' },
-    { layer: 3, x: 250, y: 30, w: 60, h: 360, label: 'POLY (GATE)' },
-    { layer: 4, x: 120, y: 70, w: 30, h: 30 },
-    { layer: 4, x: 420, y: 70, w: 30, h: 30 },
-    { layer: 4, x: 120, y: 260, w: 30, h: 30 },
-    { layer: 4, x: 420, y: 260, w: 30, h: 30 },
-    { layer: 5, x: 30, y: 370, w: 540, h: 50, label: 'M1 (VDD RAIL)' },
-    { layer: 5, x: 30, y: 10, w: 540, h: 50, label: 'M1 (GND RAIL)' },
-    { layer: 5, x: 390, y: 60, w: 90, h: 260, label: 'M1 (OUT)' }
+    { type: 'box', layer: 1, x: 50, y: 150, w: 500, h: 250, label: 'NWEL' },
+    { type: 'box', layer: 2, x: 80, y: 50, w: 440, h: 80, label: 'DIFF (NMOS)' },
+    { type: 'box', layer: 2, x: 80, y: 200, w: 440, h: 160, label: 'DIFF (PMOS)' },
+    { type: 'box', layer: 3, x: 250, y: 30, w: 60, h: 360, label: 'POLY (GATE)' },
+    { type: 'box', layer: 4, x: 120, y: 70, w: 30, h: 30 },
+    { type: 'box', layer: 4, x: 420, y: 70, w: 30, h: 30 },
+    { type: 'box', layer: 4, x: 120, y: 260, w: 30, h: 30 },
+    { type: 'box', layer: 4, x: 420, y: 260, w: 30, h: 30 },
+    { type: 'box', layer: 5, x: 30, y: 370, w: 540, h: 50, label: 'M1 (VDD RAIL)' },
+    { type: 'box', layer: 5, x: 30, y: 10, w: 540, h: 50, label: 'M1 (GND RAIL)' },
+    { type: 'box', layer: 5, x: 390, y: 60, w: 90, h: 260, label: 'M1 (OUT)' }
   ],
   nand2: [
-    { layer: 1, x: 50, y: 160, w: 650, h: 240, label: 'NWEL' },
-    { layer: 2, x: 80, y: 50, w: 580, h: 90, label: 'DIFF (NMOS)' },
-    { layer: 2, x: 80, y: 210, w: 580, h: 160, label: 'DIFF (PMOS)' },
-    { layer: 3, x: 220, y: 30, w: 50, h: 360, label: 'POLY (IN_A)' },
-    { layer: 3, x: 420, y: 30, w: 50, h: 360, label: 'POLY (IN_B)' },
-    { layer: 5, x: 30, y: 380, w: 700, h: 50, label: 'M1 (VDD)' },
-    { layer: 5, x: 30, y: 10, w: 700, h: 50, label: 'M1 (GND)' },
-    { layer: 5, x: 520, y: 60, w: 80, h: 280, label: 'M1 (OUT)' }
+    { type: 'box', layer: 1, x: 50, y: 160, w: 650, h: 240, label: 'NWEL' },
+    { type: 'box', layer: 2, x: 80, y: 50, w: 580, h: 90, label: 'DIFF (NMOS)' },
+    { type: 'box', layer: 2, x: 80, y: 210, w: 580, h: 160, label: 'DIFF (PMOS)' },
+    { type: 'box', layer: 3, x: 220, y: 30, w: 50, h: 360, label: 'POLY (IN_A)' },
+    { type: 'box', layer: 3, x: 420, y: 30, w: 50, h: 360, label: 'POLY (IN_B)' },
+    { type: 'box', layer: 5, x: 30, y: 380, w: 700, h: 50, label: 'M1 (VDD)' },
+    { type: 'box', layer: 5, x: 30, y: 10, w: 700, h: 50, label: 'M1 (GND)' },
+    { type: 'box', layer: 5, x: 520, y: 60, w: 80, h: 280, label: 'M1 (OUT)' }
   ],
   routing: [
-    { layer: 5, x: 50, y: 100, w: 600, h: 40, label: 'M1_TRACK_0' },
-    { layer: 5, x: 50, y: 220, w: 600, h: 40, label: 'M1_TRACK_1' },
-    { layer: 5, x: 50, y: 340, w: 600, h: 40, label: 'M1_TRACK_2' },
-    { layer: 6, x: 180, y: 105, w: 30, h: 30, label: 'VIA1' },
-    { layer: 6, x: 400, y: 225, w: 30, h: 30, label: 'VIA1' },
-    { layer: 7, x: 175, y: 40, w: 40, h: 340, label: 'M2_VERTICAL_0' },
-    { layer: 7, x: 395, y: 160, w: 40, h: 220, label: 'M2_VERTICAL_1' }
+    { type: 'box', layer: 5, x: 50, y: 100, w: 600, h: 40, label: 'M1_TRACK_0' },
+    { type: 'box', layer: 5, x: 50, y: 220, w: 600, h: 40, label: 'M1_TRACK_1' },
+    { type: 'box', layer: 5, x: 50, y: 340, w: 600, h: 40, label: 'M1_TRACK_2' },
+    { type: 'box', layer: 6, x: 180, y: 105, w: 30, h: 30, label: 'VIA1' },
+    { type: 'box', layer: 6, x: 400, y: 225, w: 30, h: 30, label: 'VIA1' },
+    { type: 'box', layer: 7, x: 175, y: 40, w: 40, h: 340, label: 'M2_VERTICAL_0' },
+    { type: 'box', layer: 7, x: 395, y: 160, w: 40, h: 220, label: 'M2_VERTICAL_1' }
+  ],
+  complex: [
+    { type: 'box', layer: 1, x: 50, y: 50, w: 700, h: 320, label: 'NWEL' },
+    { type: 'polygon', layer: 3, points: [[120, 100], [240, 100], [280, 180], [200, 260], [100, 220]], label: 'POLY_OCT' },
+    { type: 'wire', layer: 5, width: 35, points: [[80, 80], [350, 80], [350, 280], [600, 280]], label: 'M1_BUS' },
+    { type: 'wire', layer: 7, width: 45, points: [[200, 320], [200, 140], [520, 140]], label: 'M2_CLK' },
+    { type: 'box', layer: 4, x: 190, y: 130, w: 25, h: 25, label: 'VIA1' },
+    { type: 'box', layer: 6, x: 340, y: 130, w: 25, h: 25, label: 'VIA2' },
+    { type: 'text', layer: 5, x: 360, y: 310, text: 'DRV_DEMO_NET' }
   ],
   pad: [
-    { layer: 1, x: 60, y: 60, w: 580, h: 320, label: 'NWEL GUARD' },
-    { layer: 2, x: 80, y: 80, w: 540, h: 280, label: 'GUARD RING' },
-    { layer: 5, x: 120, y: 120, w: 460, h: 200, label: 'M1 METAL' },
-    { layer: 6, x: 160, y: 160, w: 380, h: 120, label: 'VIA1 ARRAY' },
-    { layer: 7, x: 140, y: 140, w: 420, h: 160, label: 'M2 BOND PAD' }
+    { type: 'box', layer: 1, x: 60, y: 60, w: 580, h: 320, label: 'NWEL GUARD' },
+    { type: 'box', layer: 2, x: 80, y: 80, w: 540, h: 280, label: 'GUARD RING' },
+    { type: 'box', layer: 5, x: 120, y: 120, w: 460, h: 200, label: 'M1 METAL' },
+    { type: 'box', layer: 6, x: 160, y: 160, w: 380, h: 120, label: 'VIA1 ARRAY' },
+    { type: 'box', layer: 7, x: 140, y: 140, w: 420, h: 160, label: 'M2 BOND PAD' }
   ]
 };
+
+function getGeomBBox(g) {
+  const type = g.type || 'box';
+  if (type === 'box') {
+    return [g.x, g.y, g.x + g.w, g.y + g.h];
+  } else if (type === 'polygon' && g.points && g.points.length > 0) {
+    let minX = Infinity, minY = Infinity, maxX = -Infinity, maxY = -Infinity;
+    g.points.forEach(p => {
+      minX = Math.min(minX, p[0]); minY = Math.min(minY, p[1]);
+      maxX = Math.max(maxX, p[0]); maxY = Math.max(maxY, p[1]);
+    });
+    return [minX, minY, maxX, maxY];
+  } else if (type === 'wire' && g.points && g.points.length > 0) {
+    let minX = Infinity, minY = Infinity, maxX = -Infinity, maxY = -Infinity;
+    const hw = (g.width || 20) / 2;
+    g.points.forEach(p => {
+      minX = Math.min(minX, p[0] - hw); minY = Math.min(minY, p[1] - hw);
+      maxX = Math.max(maxX, p[0] + hw); maxY = Math.max(maxY, p[1] + hw);
+    });
+    return [minX, minY, maxX, maxY];
+  } else if (type === 'text') {
+    return [g.x, g.y, g.x + 60, g.y + 20];
+  }
+  return [0, 0, 0, 0];
+}
+
+function computeOverallBBox(layerFilter = null) {
+  let minX = Infinity, minY = Infinity, maxX = -Infinity, maxY = -Infinity;
+  const targetGeoms = layerFilter !== null 
+    ? currentGeoms.filter(g => g.layer === layerFilter) 
+    : currentGeoms;
+  
+  targetGeoms.forEach(g => {
+    if (layerFilter === null && !layerVisible[g.layer]) return;
+    const [gx1, gy1, gx2, gy2] = getGeomBBox(g);
+    minX = Math.min(minX, gx1);
+    minY = Math.min(minY, gy1);
+    maxX = Math.max(maxX, gx2);
+    maxY = Math.max(maxY, gy2);
+  });
+  if (minX === Infinity) return null;
+  return [Math.round(minX), Math.round(minY), Math.round(maxX), Math.round(maxY)];
+}
+
+function shiftGeometries(dx, dy) {
+  currentGeoms.forEach(g => {
+    const type = g.type || 'box';
+    if (type === 'box' || type === 'text') {
+      g.x += dx; g.y += dy;
+    } else if (type === 'polygon' || type === 'wire') {
+      g.points = g.points.map(p => [p[0] + dx, p[1] + dy]);
+    }
+  });
+}
+
+function scaleGeometries(factor) {
+  currentGeoms.forEach(g => {
+    const type = g.type || 'box';
+    if (type === 'box') {
+      g.x = Math.round(g.x * factor);
+      g.y = Math.round(g.y * factor);
+      g.w = Math.round(g.w * factor);
+      g.h = Math.round(g.h * factor);
+    } else if (type === 'polygon' || type === 'wire') {
+      g.points = g.points.map(p => [Math.round(p[0] * factor), Math.round(p[1] * factor)]);
+      if (g.width) g.width = Math.round(g.width * factor);
+    } else if (type === 'text') {
+      g.x = Math.round(g.x * factor);
+      g.y = Math.round(g.y * factor);
+    }
+  });
+}
 
 function renderLayout() {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -1598,35 +1743,82 @@ function renderLayout() {
   }
 
   // Draw Geometries
-  let minX = Infinity, minY = Infinity, maxX = -Infinity, maxY = -Infinity;
-
   currentGeoms.forEach(g => {
     if (!layerVisible[g.layer]) return;
-    minX = Math.min(minX, g.x);
-    minY = Math.min(minY, g.y);
-    maxX = Math.max(maxX, g.x + g.w);
-    maxY = Math.max(maxY, g.y + g.h);
+    const type = g.type || 'box';
 
-    const rx = panX + g.x * zoom * 0.7;
-    const ry = panY + g.y * zoom * 0.7;
-    const rw = g.w * zoom * 0.7;
-    const rh = g.h * zoom * 0.7;
+    if (type === 'box') {
+      const rx = panX + g.x * zoom * 0.7;
+      const ry = panY + g.y * zoom * 0.7;
+      const rw = g.w * zoom * 0.7;
+      const rh = g.h * zoom * 0.7;
 
-    ctx.fillStyle = layerColors[g.layer] || '#38bdf8';
-    ctx.fillRect(rx, ry, rw, rh);
-    ctx.strokeStyle = '#ffffff';
-    ctx.lineWidth = 0.8;
-    ctx.strokeRect(rx, ry, rw, rh);
+      ctx.fillStyle = layerColors[g.layer] || '#38bdf8';
+      ctx.fillRect(rx, ry, rw, rh);
+      ctx.strokeStyle = '#ffffff';
+      ctx.lineWidth = 0.8;
+      ctx.strokeRect(rx, ry, rw, rh);
 
-    if (g.label && rw > 40) {
-      ctx.fillStyle = '#ffffff';
-      ctx.font = '10px monospace';
-      ctx.fillText(g.label, rx + 4, ry + 12);
+      if (g.label && rw > 40) {
+        ctx.fillStyle = '#ffffff';
+        ctx.font = '10px monospace';
+        ctx.fillText(g.label, rx + 4, ry + 12);
+      }
+    } else if (type === 'polygon' && g.points && g.points.length > 2) {
+      ctx.beginPath();
+      for (let i = 0; i < g.points.length; i++) {
+        const px = panX + g.points[i][0] * zoom * 0.7;
+        const py = panY + g.points[i][1] * zoom * 0.7;
+        if (i === 0) ctx.moveTo(px, py); else ctx.lineTo(px, py);
+      }
+      ctx.closePath();
+      ctx.fillStyle = layerColors[g.layer] || '#38bdf8';
+      ctx.fill();
+      ctx.strokeStyle = '#ffffff';
+      ctx.lineWidth = 0.8;
+      ctx.stroke();
+
+      if (g.label && g.points.length > 0) {
+        ctx.fillStyle = '#ffffff';
+        ctx.font = '10px monospace';
+        const lx = panX + g.points[0][0] * zoom * 0.7 + 4;
+        const ly = panY + g.points[0][1] * zoom * 0.7 + 12;
+        ctx.fillText(g.label, lx, ly);
+      }
+    } else if (type === 'wire' && g.points && g.points.length > 1) {
+      ctx.beginPath();
+      ctx.lineWidth = Math.max(2, (g.width || 20) * zoom * 0.7);
+      ctx.lineCap = 'round';
+      ctx.lineJoin = 'round';
+      ctx.strokeStyle = layerColors[g.layer] || '#38bdf8';
+      for (let i = 0; i < g.points.length; i++) {
+        const px = panX + g.points[i][0] * zoom * 0.7;
+        const py = panY + g.points[i][1] * zoom * 0.7;
+        if (i === 0) ctx.moveTo(px, py); else ctx.lineTo(px, py);
+      }
+      ctx.stroke();
+      ctx.lineCap = 'butt';
+
+      if (g.label && g.points.length > 0) {
+        ctx.fillStyle = '#ffffff';
+        ctx.font = '10px monospace';
+        const lx = panX + g.points[0][0] * zoom * 0.7 + 4;
+        const ly = panY + g.points[0][1] * zoom * 0.7 - 6;
+        ctx.fillText(g.label, lx, ly);
+      }
+    } else if (type === 'text') {
+      const rx = panX + g.x * zoom * 0.7;
+      const ry = panY + g.y * zoom * 0.7;
+      ctx.fillStyle = '#fde047';
+      ctx.font = 'bold 12px monospace';
+      ctx.fillText('🔤 ' + (g.text || g.label || ''), rx, ry);
     }
   });
 
   // Draw Bounding Box
-  if (showBBox && minX !== Infinity) {
+  const curBbox = computeOverallBBox();
+  if (showBBox && curBbox) {
+    const [minX, minY, maxX, maxY] = curBbox;
     const bx = panX + minX * zoom * 0.7;
     const by = panY + minY * zoom * 0.7;
     const bw = (maxX - minX) * zoom * 0.7;
@@ -1638,16 +1830,19 @@ function renderLayout() {
     ctx.setLineDash([]);
     ctx.fillStyle = '#f59e0b';
     ctx.font = '11px monospace';
-    ctx.fillText(`BBox: [${minX} ${minY} ${maxX} ${maxY}]`, bx + 4, by - 4);
-    document.getElementById('coordOverlay').innerText = 
-      `BBox: [${minX} ${minY} ${maxX} ${maxY}] | Entities: ${currentGeoms.length} | Zoom: ${(zoom*100).toFixed(0)}%`;
+    ctx.fillText(`BBox: [${minX} ${minY} ${maxX} ${maxY}]`, bx + 4, by - 6);
   }
 }
 
 function loadLayoutPreset(name) {
-  currentGeoms = cellPresets[name] ? [...cellPresets[name]] : [];
+  const p = cellPresets[name];
+  if (p) {
+    currentGeoms = JSON.parse(JSON.stringify(p));
+  } else {
+    currentGeoms = [];
+  }
   renderLayout();
-  document.getElementById('layoutCmdLog').innerText = `Loaded preset: ${name} with ${currentGeoms.length} shapes.`;
+  logOutput(`Loaded preset '${name}' (${currentGeoms.length} shapes).`, 'info');
 }
 
 function toggleLayer(layer, vis) {
@@ -1656,13 +1851,14 @@ function toggleLayer(layer, vis) {
 }
 
 function zoomCanvas(factor) {
-  zoom = Math.max(0.4, Math.min(3.0, zoom * factor));
+  zoom = Math.max(0.3, Math.min(3.5, zoom * factor));
   renderLayout();
 }
 
 function resetCanvas() {
   zoom = 1.0; panX = 120; panY = 70;
   renderLayout();
+  logOutput('Canvas view reset to default zoom and origin.', 'info');
 }
 
 function toggleGrid() {
@@ -1677,27 +1873,315 @@ function toggleBBox() {
   renderLayout();
 }
 
-function executeLayoutCmd() {
-  const cmd = document.getElementById('tclLayoutCmdInput').value.trim();
+const cmdHistory = [];
+let historyIndex = -1;
+
+function pushHistory(cmd) {
+  if (cmd && (cmdHistory.length === 0 || cmdHistory[cmdHistory.length - 1] !== cmd)) {
+    cmdHistory.push(cmd);
+  }
+  historyIndex = cmdHistory.length;
+}
+
+function setAndRunCmd(cmd) {
+  document.getElementById('tclLayoutCmdInput').value = cmd;
+  executeLayoutCmd();
+}
+
+function logOutput(msg, type = 'success') {
   const log = document.getElementById('layoutCmdLog');
-  const m = cmd.match(/create\\s+box\\s+(\\w+)\\s+(\\d+)\\s+(\\d+)\\s+(\\d+)\\s+(\\d+)\\s+(\\d+)/i);
-  if (m) {
-    const layer = parseInt(m[2]);
-    const x1 = parseInt(m[3]), y1 = parseInt(m[4]), x2 = parseInt(m[5]), y2 = parseInt(m[6]);
-    currentGeoms.push({ layer, x: x1, y: y1, w: Math.abs(x2 - x1), h: Math.abs(y2 - y1), label: `L${layer}_BOX` });
+  const div = document.createElement('div');
+  let prefix = '<span style="color: #38bdf8;">tcl&gt;</span> ';
+  let color = '#10b981';
+  if (type === 'error') {
+    color = '#f87171';
+    prefix = '<span style="color: #f87171;">[Error]</span> ';
+  } else if (type === 'info') {
+    color = '#38bdf8';
+    prefix = '<span style="color: #60a5fa;">[Output]</span> ';
+  } else if (type === 'warn') {
+    color = '#fbbf24';
+    prefix = '<span style="color: #fbbf24;">[Warn]</span> ';
+  }
+  div.innerHTML = `${prefix}<span style="color: ${color};">${msg}</span>`;
+  log.appendChild(div);
+  log.scrollTop = log.scrollHeight;
+}
+
+function clearLayoutLog() {
+  const log = document.getElementById('layoutCmdLog');
+  log.innerHTML = '<div><span style="color: #64748b;">[System]</span> Terminal log cleared.</div>';
+}
+
+function executeLayoutCmd() {
+  const raw = document.getElementById('tclLayoutCmdInput').value.trim();
+  if (!raw) return;
+  pushHistory(raw);
+
+  // Normalize: strip leading $L, layout, layout0, $layout
+  let c = raw.replace(/^\\s*\\$[a-zA-Z0-9_]+\\s+/, '').replace(/^\\s*layout\\d*\\s+/i, '');
+  const tokens = c.split(/\\s+/).filter(Boolean);
+  const verb = (tokens[0] || '').toLowerCase();
+  const sub = (tokens[1] || '').toLowerCase();
+
+  if (verb === 'delete') {
+    if (sub === 'all' || sub === 'objects') {
+      const n = currentGeoms.length;
+      currentGeoms = [];
+      renderLayout();
+      logOutput(`Deleted all ${n} layout objects from canvas.`);
+    } else if (sub === 'layer') {
+      const l = resolveLayer(tokens[2]);
+      const orig = currentGeoms.length;
+      currentGeoms = currentGeoms.filter(g => g.layer !== l);
+      const del = orig - currentGeoms.length;
+      renderLayout();
+      logOutput(`Deleted ${del} geometry shape(s) on Layer ${l}.`);
+    } else if (sub === 'cell') {
+      const cell = tokens[2] || 'TOP';
+      const n = currentGeoms.length;
+      currentGeoms = [];
+      renderLayout();
+      logOutput(`Purged cell '${cell}' (${n} shapes removed).`);
+    } else if (sub === 'box' || sub === 'polygon' || sub === 'wire' || sub === 'text') {
+      const targetType = sub;
+      let targetLayer = null;
+      if (tokens.length >= 4) {
+        targetLayer = resolveLayer(tokens[3]);
+      } else if (tokens.length === 3 && (layerAliases[tokens[2].toLowerCase()] !== undefined || !isNaN(tokens[2]))) {
+        targetLayer = resolveLayer(tokens[2]);
+      }
+      const orig = currentGeoms.length;
+      currentGeoms = currentGeoms.filter(g => {
+        const gType = g.type || 'box';
+        if (gType !== targetType) return true;
+        if (targetLayer !== null && g.layer !== targetLayer) return true;
+        return false;
+      });
+      const del = orig - currentGeoms.length;
+      renderLayout();
+      logOutput(`Deleted ${del} ${targetType}(s)${targetLayer !== null ? ' on layer ' + targetLayer : ''}.`);
+    } else {
+      logOutput(`Unknown delete target '${sub}'. Use: delete [layer <N> | cell <NAME> | all | box|polygon|wire|text [<cell>] [<layer>]]`, 'error');
+    }
+  } else if (verb === 'create') {
+    if (sub === 'box') {
+      let cell = 'TOP', layer = 5, x1, y1, x2, y2;
+      if (tokens.length >= 7) {
+        cell = tokens[2];
+        layer = resolveLayer(tokens[3]);
+        x1 = parseFloat(tokens[4]); y1 = parseFloat(tokens[5]);
+        x2 = parseFloat(tokens[6]); y2 = parseFloat(tokens[7]);
+      } else if (tokens.length === 6) {
+        layer = resolveLayer(tokens[2]);
+        x1 = parseFloat(tokens[3]); y1 = parseFloat(tokens[4]);
+        x2 = parseFloat(tokens[5]); y2 = parseFloat(tokens[6]);
+      }
+      if (isNaN(x1) || isNaN(y1) || isNaN(x2) || isNaN(y2)) {
+        logOutput('Syntax error. Format: $L create box <cell> <layer> <x1> <y1> <x2> <y2>', 'error');
+        return;
+      }
+      const x = Math.min(x1, x2), y = Math.min(y1, y2), w = Math.abs(x2 - x1), h = Math.abs(y2 - y1);
+      currentGeoms.push({ type: 'box', layer, x, y, w, h, label: `L${layer}_BOX` });
+      renderLayout();
+      logOutput(`Created box on Layer ${layer} at [${x1} ${y1} ${x2} ${y2}] (${w}x${h} um).`);
+    } else if (sub === 'polygon') {
+      let cell = 'TOP', layer = 3, coordStart = 4;
+      if (isNaN(Number(tokens[2])) && layerAliases[tokens[2].toLowerCase()] === undefined) {
+        cell = tokens[2]; layer = resolveLayer(tokens[3]); coordStart = 4;
+      } else {
+        layer = resolveLayer(tokens[2]); coordStart = 3;
+      }
+      const coordVals = tokens.slice(coordStart).map(Number);
+      if (coordVals.length < 6 || coordVals.some(isNaN)) {
+        logOutput('Polygon requires at least 3 coordinate pairs: $L create polygon TOP <layer> x1 y1 x2 y2 x3 y3 ...', 'error');
+        return;
+      }
+      const pts = [];
+      for (let i = 0; i < coordVals.length - 1; i += 2) {
+        pts.push([coordVals[i], coordVals[i + 1]]);
+      }
+      currentGeoms.push({ type: 'polygon', layer, points: pts, label: `L${layer}_POLY` });
+      renderLayout();
+      logOutput(`Created polygon on Layer ${layer} with ${pts.length} vertices.`);
+    } else if (sub === 'wire') {
+      let cell = 'TOP', layer = 5, width = 40, coordStart = 5;
+      if (isNaN(Number(tokens[2])) && layerAliases[tokens[2].toLowerCase()] === undefined) {
+        cell = tokens[2]; layer = resolveLayer(tokens[3]); width = parseFloat(tokens[4]) || 40; coordStart = 5;
+      } else {
+        layer = resolveLayer(tokens[2]); width = parseFloat(tokens[3]) || 40; coordStart = 4;
+      }
+      const coordVals = tokens.slice(coordStart).map(Number);
+      if (coordVals.length < 4 || coordVals.some(isNaN)) {
+        logOutput('Wire requires width and at least 2 coordinate pairs: $L create wire TOP <layer> <width> x1 y1 x2 y2 ...', 'error');
+        return;
+      }
+      const pts = [];
+      for (let i = 0; i < coordVals.length - 1; i += 2) {
+        pts.push([coordVals[i], coordVals[i + 1]]);
+      }
+      currentGeoms.push({ type: 'wire', layer, width, points: pts, label: `L${layer}_WIRE` });
+      renderLayout();
+      logOutput(`Created wire on Layer ${layer} (width ${width}um, ${pts.length} segments).`);
+    } else if (sub === 'text') {
+      let cell = 'TOP', layer = 5, x, y, textStr;
+      if (isNaN(Number(tokens[2])) && layerAliases[tokens[2].toLowerCase()] === undefined) {
+        cell = tokens[2]; layer = resolveLayer(tokens[3]); x = parseFloat(tokens[4]); y = parseFloat(tokens[5]); textStr = tokens.slice(6).join(' ');
+      } else {
+        layer = resolveLayer(tokens[2]); x = parseFloat(tokens[3]); y = parseFloat(tokens[4]); textStr = tokens.slice(5).join(' ');
+      }
+      if (isNaN(x) || isNaN(y) || !textStr) {
+        logOutput('Usage: $L create text <cell> <layer> <x> <y> <label>', 'error');
+        return;
+      }
+      currentGeoms.push({ type: 'text', layer, x, y, text: textStr, label: textStr });
+      renderLayout();
+      logOutput(`Created text '${textStr}' on Layer ${layer} at (${x}, ${y}).`);
+    } else {
+      logOutput(`Unsupported create target '${sub}'. Use: box, polygon, wire, or text.`, 'error');
+    }
+  } else if (verb === 'bbox') {
+    let layer = null;
+    if (tokens.length >= 3) {
+      layer = resolveLayer(tokens[2]);
+    } else if (tokens.length === 2 && (layerAliases[tokens[1].toLowerCase()] !== undefined || !isNaN(tokens[1]))) {
+      layer = resolveLayer(tokens[1]);
+    }
+    const box = computeOverallBBox(layer);
+    if (!box) {
+      logOutput('No active geometries found to calculate bbox.', 'warn');
+    } else {
+      showBBox = true;
+      document.getElementById('bboxToggleBtn').innerText = 'BBox: ON';
+      renderLayout();
+      const w = box[2] - box[0], h = box[3] - box[1];
+      logOutput(`Bounding Box: [${box[0]} ${box[1]} ${box[2]} ${box[3]}] | Dimensions: ${w} x ${h} um`, 'info');
+    }
+  } else if (verb === 'exists') {
+    if (sub === 'cell') {
+      const target = tokens[2] || 'TOP';
+      const exists = (target.toUpperCase() === 'TOP' || cellPresets[target.toLowerCase()] !== undefined) ? 1 : 0;
+      logOutput(`exists cell '${target}' => ${exists}`, 'info');
+    } else if (sub === 'layer') {
+      const l = resolveLayer(tokens[2]);
+      const exists = currentGeoms.some(g => g.layer === l) ? 1 : 0;
+      logOutput(`exists layer ${l} => ${exists}`, 'info');
+    } else {
+      logOutput("Usage: $L exists [cell <name> | layer <number>]", 'error');
+    }
+  } else if (verb === 'iterator' && sub === 'count') {
+    const targetType = (tokens[2] || 'all').toLowerCase();
+    let targetLayer = null;
+    if (tokens.length >= 5) targetLayer = resolveLayer(tokens[4]);
+    else if (tokens.length >= 4 && (layerAliases[tokens[3].toLowerCase()] !== undefined || !isNaN(tokens[3]))) targetLayer = resolveLayer(tokens[3]);
+    const cnt = currentGeoms.filter(g => {
+      if (targetType !== 'all' && (g.type || 'box') !== targetType) return false;
+      if (targetLayer !== null && g.layer !== targetLayer) return false;
+      return true;
+    }).length;
+    logOutput(`iterator count (${targetType}${targetLayer !== null ? ' layer ' + targetLayer : ''}) => ${cnt}`, 'info');
+  } else if (verb === 'shift') {
+    let dx = 0, dy = 0;
+    if (tokens.length >= 4) {
+      dx = parseFloat(tokens[2]) || 0; dy = parseFloat(tokens[3]) || 0;
+    } else {
+      dx = parseFloat(tokens[1]) || 0; dy = parseFloat(tokens[2]) || 0;
+    }
+    shiftGeometries(dx, dy);
     renderLayout();
-    log.innerText = `[DRV-Lite Engine]: Successfully created box on layer ${layer} [${x1} ${y1} ${x2} ${y2}].`;
+    logOutput(`Shifted all geometries by dx=${dx}, dy=${dy} um.`);
+  } else if (verb === 'scale') {
+    let factor = 1.0;
+    if (tokens.length >= 3) factor = parseFloat(tokens[2]) || 1.0;
+    else factor = parseFloat(tokens[1]) || 1.0;
+    scaleGeometries(factor);
+    renderLayout();
+    logOutput(`Scaled all geometries by factor ${factor}.`);
+  } else if (verb === 'hide' || verb === 'show') {
+    if (sub === 'layer') {
+      const l = resolveLayer(tokens[2]);
+      const vis = (verb === 'show');
+      toggleLayer(l, vis);
+      const chk = document.querySelector(`input[data-layer="${l}"]`);
+      if (chk) chk.checked = vis;
+      logOutput(`Layer ${l} is now ${vis ? 'VISIBLE' : 'HIDDEN'}.`);
+    } else {
+      logOutput("Usage: $L (show|hide) layer <N>", 'error');
+    }
+  } else if (verb === 'cells') {
+    logOutput('Available cells: TOP, INV_X1, NAND2_X1, ROUTING, COMPLEX, PAD', 'info');
+  } else if (verb === 'layers') {
+    const counts = {};
+    [1,2,3,4,5,6,7].forEach(l => counts[l] = 0);
+    currentGeoms.forEach(g => { counts[g.layer] = (counts[g.layer] || 0) + 1; });
+    const summary = Object.keys(counts).map(l => `L${l}: ${counts[l]}`).join(', ');
+    logOutput(`Active layers geometry count: ${summary}`, 'info');
+  } else if (verb === 'help') {
+    logOutput('Commands: create (box|polygon|wire|text), delete (layer|cell|all|box|...), bbox, iterator count, exists, shift, scale, show/hide layer, cells, layers', 'info');
   } else {
-    log.innerText = `[Syntax]: Use format -> $L create box TOP <layer> <x1> <y1> <x2> <y2>`;
+    logOutput(`Unknown command '${verb}'. Type 'help' or check the reference table below.`, 'error');
   }
 }
 
+// Interactive Canvas Controls: Drag to Pan, Scroll to Zoom
+canvas.addEventListener('mousedown', e => {
+  if (e.button === 0) {
+    isPanning = true;
+    startPanX = e.clientX - panX;
+    startPanY = e.clientY - panY;
+    canvas.style.cursor = 'grabbing';
+  }
+});
+
+window.addEventListener('mouseup', () => {
+  if (isPanning) {
+    isPanning = false;
+    canvas.style.cursor = 'crosshair';
+  }
+});
+
 canvas.addEventListener('mousemove', e => {
+  if (isPanning) {
+    panX = e.clientX - startPanX;
+    panY = e.clientY - startPanY;
+    renderLayout();
+  }
   const rect = canvas.getBoundingClientRect();
   const mx = (e.clientX - rect.left - panX) / (zoom * 0.7);
   const my = (e.clientY - rect.top - panY) / (zoom * 0.7);
+  const curBbox = computeOverallBBox();
+  const bboxStr = curBbox ? `BBox: [${curBbox.join(' ')}]` : 'BBox: Empty';
   document.getElementById('coordOverlay').innerText = 
-    `Cursor: X: ${mx.toFixed(1)} um, Y: ${my.toFixed(1)} um | Zoom: ${(zoom*100).toFixed(0)}%`;
+    `Cursor: X: ${mx.toFixed(1)} um, Y: ${my.toFixed(1)} um | ${bboxStr} | Shapes: ${currentGeoms.length} | Zoom: ${(zoom*100).toFixed(0)}%`;
+});
+
+canvas.addEventListener('wheel', e => {
+  e.preventDefault();
+  const factor = e.deltaY < 0 ? 1.15 : 0.85;
+  zoomCanvas(factor);
+});
+
+// Keyboard Enter & History Listener
+const inputEl = document.getElementById('tclLayoutCmdInput');
+inputEl.addEventListener('keydown', e => {
+  if (e.key === 'Enter') {
+    executeLayoutCmd();
+  } else if (e.key === 'ArrowUp') {
+    if (historyIndex > 0) {
+      historyIndex--;
+      inputEl.value = cmdHistory[historyIndex];
+    }
+    e.preventDefault();
+  } else if (e.key === 'ArrowDown') {
+    if (historyIndex < cmdHistory.length - 1) {
+      historyIndex++;
+      inputEl.value = cmdHistory[historyIndex];
+    } else {
+      historyIndex = cmdHistory.length;
+      inputEl.value = '';
+    }
+    e.preventDefault();
+  }
 });
 
 window.addEventListener('DOMContentLoaded', () => loadLayoutPreset('inv'));
@@ -1705,51 +2189,135 @@ window.addEventListener('DOMContentLoaded', () => loadLayoutPreset('inv'));
 """
     zh_content = (en_content
         .replace("# 📐 Interactive VLSI Layout Visualizer (DRV-Lite Simulator)", "# 📐 交互式 VLSI 版图可视化仿真器 (DRV-Lite Simulator)")
-        .replace("A real-time in-browser semiconductor layout visualizer inspired by Capeur's pure-Tcl **DRV-Lite** engine. Inspect multi-layer IC cell geometries, toggle metal routing tracks, observe bounding box snaps, and execute Tcl layout commands directly in the browser!",
-                 "基于 Capeur 纯 Tcl 实现的 **DRV-Lite** 核心版图对象模型，本工具提供浏览器内实时 2D 半导体版图渲染与交互。支持查看多层 IC 几何体、切换金属布线层、检查包围盒坐标（Bounding Box），并可在底部直接运行纯 Tcl 版图创建命令！")
+        .replace("A real-time in-browser semiconductor layout visualizer inspired by Capeur's pure-Tcl **DRV-Lite** engine. Inspect multi-layer IC cell geometries, toggle metal routing tracks, drag to pan, scroll to zoom, observe bounding box snaps, and execute full CalibreDRV Tcl commands (`create`, `delete`, `bbox`, `iterator count`, `shift`, `scale`, etc.) directly in your browser!",
+                 "基于 Capeur 纯 Tcl 实现的 **DRV-Lite** 核心版图对象模型，本工具提供浏览器内实时 2D 半导体版图渲染与交互。支持查看多层 IC 几何体、切换金属布线层、鼠标拖拽平移、滚轮缩放、检查包围盒坐标（Bounding Box），并可在控制台直接执行完整的 CalibreDRV Tcl 命令（包括 `create`、`delete`、`bbox`、`iterator count`、`shift`、`scale` 等）！")
         .replace("Cell Preset:", "单元预设:")
         .replace("CMOS Inverter (INV_X1)", "CMOS 反相器 (INV_X1)")
         .replace("2-Input NAND (NAND2_X1)", "2输入与非门 (NAND2_X1)")
         .replace("M1/M2 Cross-Routing with VIA1", "M1/M2 跨层布线与 VIA1 通孔")
+        .replace("Complex Shapes (Polygons & Wires)", "复合几何体 (多边形与走线)")
         .replace("I/O Bond Pad & Guard Ring", "I/O 压焊盘与保护环 (Guard Ring)")
         .replace("Layers:", "图层列表:")
         .replace("⚡ Execute Tcl Command", "⚡ 执行 Tcl 布局命令")
+        .replace("Command Presets:", "命令快捷预设:")
+        .replace("🖥️ CalibreDRV Tcl Interactive Terminal Log", "🖥️ CalibreDRV Tcl 交互式终端日志")
+        .replace("Clear Console", "清空控制台")
+        .replace("Enter CalibreDRV Tcl command (e.g. $L delete layer 5, $L bbox TOP)", "输入 CalibreDRV Tcl 命令 (例如 $L delete layer 5, $L bbox TOP)")
         .replace("DRV-Lite Pure-Tcl Engine", "DRV-Lite 纯 Tcl 引擎")
         .replace("Zero Commercial License", "零商业许可依赖")
         .replace("Interactive 2D Canvas", "HTML5 2D 交互画布")
-        .replace("GDS II / OASIS Ready", "支持 GDS II / OASIS")
+        .replace("CalibreDRV Command Compatible", "兼容 CalibreDRV 命令")
+        .replace("### 🛠️ CalibreDRV / DRV-Lite Command Reference", "### 🛠️ CalibreDRV / DRV-Lite 命令参考手册")
+        .replace("| Command Syntax | Category | Description | Example |", "| 命令语法 | 类别 | 功能描述 | 示例 |")
+        .replace("**Creation**", "**创建**")
+        .replace("**Deletion**", "**删除**")
+        .replace("**Query**", "**查询**")
+        .replace("**Transform**", "**几何变换**")
+        .replace("**Display**", "**图层显示**")
+        .replace("**Inspection**", "**信息检查**")
+        .replace("Creates an axis-aligned rectangular box", "创建轴对齐矩形框")
+        .replace("Creates a multi-vertex polygon", "创建多顶点任意多边形")
+        .replace("Creates a centerline wire / path with given width", "创建指定线宽的中心线连线/走线")
+        .replace("Annotates a text pin/label at coordinate `(x, y)`", "在坐标 `(x, y)` 处标注文本引脚/标签")
+        .replace("Deletes all geometries residing on layer (ID or name)", "删除指定图层（层号或层名）上的所有几何图形")
+        .replace("Clears all geometries belonging to cell", "清空指定单元下的所有几何图形")
+        .replace("Deletes specific geometry type (optionally on layer)", "删除特定类型的几何体（可指定图层）")
+        .replace("Clears all layout shapes in active cell", "清空当前活动单元的所有版图图形")
+        .replace("Computes bounding box `[minX minY maxX maxY]`", "计算版图包围盒坐标 `[minX minY maxX maxY]`")
+        .replace("Returns the count of matching geometry entities", "返回符合条件的几何实体总数")
+        .replace("Checks existence of cell or layer (returns `1` or `0`)", "检查单元或图层是否存在（返回 `1` 或 `0`）")
+        .replace("Translates all shapes by `(dx, dy)` in microns", "将所有图形平移 `(dx, dy)` 微米")
+        .replace("Scales all layout geometries around origin", "以原点为基准缩放所有几何坐标")
+        .replace("Toggles layer visibility on the canvas", "在画布中切换图层的可见性")
+        .replace("Summarizes layer shape counts or cell names", "汇总各图层几何图形计数或单元列表")
     )
     ms_content = (en_content
         .replace("# 📐 Interactive VLSI Layout Visualizer (DRV-Lite Simulator)", "# 📐 Visualiser Interaktif Susun Atur VLSI (Simulator DRV-Lite)")
-        .replace("A real-time in-browser semiconductor layout visualizer inspired by Capeur's pure-Tcl **DRV-Lite** engine. Inspect multi-layer IC cell geometries, toggle metal routing tracks, observe bounding box snaps, and execute Tcl layout commands directly in the browser!",
-                 "Visualiser susun atur semikonduktor masa nyata dalam pelayar yang diinspirasikan oleh enjin tulin Tcl **DRV-Lite** Capeur. Periksa geometri sel IC berbilang lapisan, togol laluan penghalaan logam, perhatikan kotak sempadan (Bounding Box), dan jalankan perintah susun atur Tcl terus dalam pelayar!")
+        .replace("A real-time in-browser semiconductor layout visualizer inspired by Capeur's pure-Tcl **DRV-Lite** engine. Inspect multi-layer IC cell geometries, toggle metal routing tracks, drag to pan, scroll to zoom, observe bounding box snaps, and execute full CalibreDRV Tcl commands (`create`, `delete`, `bbox`, `iterator count`, `shift`, `scale`, etc.) directly in your browser!",
+                 "Visualiser susun atur semikonduktor masa nyata dalam pelayar yang diinspirasikan oleh enjin tulin Tcl **DRV-Lite** Capeur. Periksa geometri sel IC berbilang lapisan, togol laluan penghalaan logam, seret untuk sorot, tatal untuk zum, perhatikan kotak sempadan (Bounding Box), dan jalankan perintah CalibreDRV Tcl yang lengkap (`create`, `delete`, `bbox`, `iterator count`, `shift`, `scale`, dll.) terus dalam pelayar!")
         .replace("Cell Preset:", "Pratetap Sel:")
         .replace("CMOS Inverter (INV_X1)", "Penyongsang CMOS (INV_X1)")
         .replace("2-Input NAND (NAND2_X1)", "NAND 2-Input (NAND2_X1)")
         .replace("M1/M2 Cross-Routing with VIA1", "Penghalaan Silang M1/M2 dengan VIA1")
+        .replace("Complex Shapes (Polygons & Wires)", "Bentuk Kompleks (Poligon & Wayar)")
         .replace("I/O Bond Pad & Guard Ring", "Pad Ikatan I/O & Cincin Pengawal")
         .replace("Layers:", "Lapisan:")
         .replace("⚡ Execute Tcl Command", "⚡ Jalankan Perintah Tcl")
+        .replace("Command Presets:", "Pratetap Perintah:")
+        .replace("🖥️ CalibreDRV Tcl Interactive Terminal Log", "🖥️ Log Terminal Interaktif CalibreDRV Tcl")
+        .replace("Clear Console", "Kosongkan Konsol")
+        .replace("Enter CalibreDRV Tcl command (e.g. $L delete layer 5, $L bbox TOP)", "Masukkan perintah CalibreDRV Tcl (cth: $L delete layer 5, $L bbox TOP)")
         .replace("DRV-Lite Pure-Tcl Engine", "Enjin Tulin Tcl DRV-Lite")
         .replace("Zero Commercial License", "Sifar Lesen Komersial")
         .replace("Interactive 2D Canvas", "Kanvas 2D Interaktif")
-        .replace("GDS II / OASIS Ready", "Sedia GDS II / OASIS")
+        .replace("CalibreDRV Command Compatible", "Serasi Perintah CalibreDRV")
+        .replace("### 🛠️ CalibreDRV / DRV-Lite Command Reference", "### 🛠️ Rujukan Perintah CalibreDRV / DRV-Lite")
+        .replace("| Command Syntax | Category | Description | Example |", "| Sintaks Perintah | Kategori | Penerangan | Contoh |")
+        .replace("**Creation**", "**Penciptaan**")
+        .replace("**Deletion**", "**Pemadaman**")
+        .replace("**Query**", "**Pertanyaan**")
+        .replace("**Transform**", "**Transformasi**")
+        .replace("**Display**", "**Paparan**")
+        .replace("**Inspection**", "**Pemeriksaan**")
+        .replace("Creates an axis-aligned rectangular box", "Mencipta kotak segi empat tepat sejajar paksi")
+        .replace("Creates a multi-vertex polygon", "Mencipta poligon pelbagai bucu")
+        .replace("Creates a centerline wire / path with given width", "Mencipta wayar / laluan garis tengah dengan lebar tertentu")
+        .replace("Annotates a text pin/label at coordinate `(x, y)`", "Mencatat label teks pada koordinat `(x, y)`")
+        .replace("Deletes all geometries residing on layer (ID or name)", "Memadamkan semua geometri pada lapisan tertentu")
+        .replace("Clears all geometries belonging to cell", "Mengosongkan semua geometri milik sel")
+        .replace("Deletes specific geometry type (optionally on layer)", "Memadamkan jenis geometri tertentu (pilihan pada lapisan)")
+        .replace("Clears all layout shapes in active cell", "Mengosongkan semua bentuk susun atur dalam sel aktif")
+        .replace("Computes bounding box `[minX minY maxX maxY]`", "Mengira kotak sempadan `[minX minY maxX maxY]`")
+        .replace("Returns the count of matching geometry entities", "Mengembalikan bilangan entiti geometri yang sepadan")
+        .replace("Checks existence of cell or layer (returns `1` or `0`)", "Menyemak kewujudan sel atau lapisan (mengembalikan `1` atau `0`)")
+        .replace("Translates all shapes by `(dx, dy)` in microns", "Mengalihkan semua bentuk sebanyak `(dx, dy)` mikron")
+        .replace("Scales all layout geometries around origin", "Penskalaan geometri di sekitar titik asalan")
+        .replace("Toggles layer visibility on the canvas", "Menogol keterlihatan lapisan pada kanvas")
+        .replace("Summarizes layer shape counts or cell names", "Meringkaskan kiraan bentuk lapisan atau nama sel")
     )
     fr_content = (en_content
         .replace("# 📐 Interactive VLSI Layout Visualizer (DRV-Lite Simulator)", "# 📐 Visualiseur Interactif de Layout VLSI (Simulateur DRV-Lite)")
-        .replace("A real-time in-browser semiconductor layout visualizer inspired by Capeur's pure-Tcl **DRV-Lite** engine. Inspect multi-layer IC cell geometries, toggle metal routing tracks, observe bounding box snaps, and execute Tcl layout commands directly in the browser!",
-                 "Visualiseur de layout de semi-conducteurs en temps réel dans le navigateur, inspiré par le moteur **DRV-Lite** en pur Tcl de Capeur. Inspectez les géométries multicouches de cellules CI, basculez les pistes de routage métallique, observez les boîtes englobantes et exécutez des commandes de layout Tcl directement dans le navigateur !")
+        .replace("A real-time in-browser semiconductor layout visualizer inspired by Capeur's pure-Tcl **DRV-Lite** engine. Inspect multi-layer IC cell geometries, toggle metal routing tracks, drag to pan, scroll to zoom, observe bounding box snaps, and execute full CalibreDRV Tcl commands (`create`, `delete`, `bbox`, `iterator count`, `shift`, `scale`, etc.) directly in your browser!",
+                 "Visualiseur de layout de semi-conducteurs en temps réel dans le navigateur, inspiré par le moteur **DRV-Lite** en pur Tcl de Capeur. Inspectez les géométries multicouches de cellules CI, basculez les pistes de routage métallique, glissez pour déplacer, faites défiler pour zoomer, observez les boîtes englobantes et exécutez des commandes complètes CalibreDRV Tcl (`create`, `delete`, `bbox`, `iterator count`, `shift`, `scale`, etc.) directement dans votre navigateur !")
         .replace("Cell Preset:", "Préréglage Cellule :")
         .replace("CMOS Inverter (INV_X1)", "Inverseur CMOS (INV_X1)")
         .replace("2-Input NAND (NAND2_X1)", "NAND à 2 Entrées (NAND2_X1)")
         .replace("M1/M2 Cross-Routing with VIA1", "Routage Croisé M1/M2 avec VIA1")
+        .replace("Complex Shapes (Polygons & Wires)", "Formes Complexes (Polygones & Fils)")
         .replace("I/O Bond Pad & Guard Ring", "Plot de Connexion I/O & Anneau de Garde")
         .replace("Layers:", "Couches :")
         .replace("⚡ Execute Tcl Command", "⚡ Exécuter Commande Tcl")
+        .replace("Command Presets:", "Préréglages de Commande :")
+        .replace("🖥️ CalibreDRV Tcl Interactive Terminal Log", "🖥️ Journal du Terminal Interactif CalibreDRV Tcl")
+        .replace("Clear Console", "Effacer la Console")
+        .replace("Enter CalibreDRV Tcl command (e.g. $L delete layer 5, $L bbox TOP)", "Entrez la commande CalibreDRV Tcl (ex: $L delete layer 5, $L bbox TOP)")
         .replace("DRV-Lite Pure-Tcl Engine", "Moteur Pur Tcl DRV-Lite")
         .replace("Zero Commercial License", "Zéro Licence Commerciale")
         .replace("Interactive 2D Canvas", "Canevas 2D Interactif")
-        .replace("GDS II / OASIS Ready", "Prêt GDS II / OASIS")
+        .replace("CalibreDRV Command Compatible", "Compatible Commandes CalibreDRV")
+        .replace("### 🛠️ CalibreDRV / DRV-Lite Command Reference", "### 🛠️ Référence des Commandes CalibreDRV / DRV-Lite")
+        .replace("| Command Syntax | Category | Description | Example |", "| Syntaxe de Commande | Catégorie | Description | Exemple |")
+        .replace("**Creation**", "**Création**")
+        .replace("**Deletion**", "**Suppression**")
+        .replace("**Query**", "**Requête**")
+        .replace("**Transform**", "**Transformation**")
+        .replace("**Display**", "**Affichage**")
+        .replace("**Inspection**", "**Inspection**")
+        .replace("Creates an axis-aligned rectangular box", "Crée une boîte rectangulaire alignée sur les axes")
+        .replace("Creates a multi-vertex polygon", "Crée un polygone multi-sommets")
+        .replace("Creates a centerline wire / path with given width", "Crée un fil / chemin d'axe central avec largeur définie")
+        .replace("Annotates a text pin/label at coordinate `(x, y)`", "Annote une broche / étiquette texte aux coordonnées `(x, y)`")
+        .replace("Deletes all geometries residing on layer (ID or name)", "Supprime toutes les géométries résidant sur la couche spécifiée")
+        .replace("Clears all geometries belonging to cell", "Efface toutes les géométries appartenant à la cellule")
+        .replace("Deletes specific geometry type (optionally on layer)", "Supprime un type de géométrie spécifique (optionnel par couche)")
+        .replace("Clears all layout shapes in active cell", "Efface toutes les formes de layout de la cellule active")
+        .replace("Computes bounding box `[minX minY maxX maxY]`", "Calcule la boîte englobante `[minX minY maxX maxY]`")
+        .replace("Returns the count of matching geometry entities", "Renvoie le nombre d'entités géométriques correspondantes")
+        .replace("Checks existence of cell or layer (returns `1` or `0`)", "Vérifie l'existence de la cellule ou couche (renvoie `1` ou `0`)")
+        .replace("Translates all shapes by `(dx, dy)` in microns", "Translate toutes les formes de `(dx, dy)` en microns")
+        .replace("Scales all layout geometries around origin", "Met à l'échelle toutes les géométries autour de l'origine")
+        .replace("Toggles layer visibility on the canvas", "Bascule la visibilité de la couche sur le canevas")
+        .replace("Summarizes layer shape counts or cell names", "Résume le nombre de formes par couche ou les cellules")
     )
     (DOCS / "help" / "layout_viewer.md").write_text(en_content, encoding="utf-8")
     (DOCS / "help" / "layout_viewer.zh.md").write_text(zh_content, encoding="utf-8")
