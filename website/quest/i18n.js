@@ -1,6 +1,13 @@
 import {translateText} from './locale-core.js?v=1f251ee98b8c';
 let lang='zh',messages=null;
-try{lang=localStorage.getItem('tcl-quest-language')==='en'?'en':'zh';}catch{}
+try{
+  const qp = new URLSearchParams(window.location.search).get('lang');
+  if (qp === 'en' || qp === 'zh') {
+    lang = qp;
+  } else {
+    lang = localStorage.getItem('tcl-quest-language') === 'en' ? 'en' : 'zh';
+  }
+}catch{}
 const textSources=new WeakMap(),attributeSources=new WeakMap();
 export const language=()=>lang;
 export const t=value=>lang==='en'?translateText(value,messages):String(value);

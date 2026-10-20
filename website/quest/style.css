@@ -30,3 +30,158 @@
 .quest-fest-still{background:transparent}.quest-fest-still .quest-confetti{display:none}.quest-fest-still .quest-fest-banner{animation:none}
 @media(prefers-reduced-motion:reduce){.quest-fest{background:transparent}.quest-confetti{display:none}.quest-fest-banner{animation:none}}
 @media(max-width:600px){.quest-fest-banner{top:12%;padding:18px 20px}.quest-fest-emblem{width:48px;height:48px;font-size:30px}.quest-confetti i{width:7px;height:12px}}
+
+/* Dark Theme Alignment with Main Portal */
+[data-theme="dark"] {
+  --paper: #0b1120;
+  --ink: #f1f5f9;
+  --muted: #94a3b8;
+  --line: #223049;
+  --green: #10b981;
+  --lime: #34d399;
+  --white: #131c31;
+  --orange: #f59e0b;
+  color-scheme: dark;
+}
+[data-theme="dark"] body {
+  background: var(--paper);
+  color: var(--ink);
+}
+[data-theme="dark"] .topbar {
+  background: #0b1120;
+  border-bottom: 1px solid #223049;
+}
+[data-theme="dark"] .stats {
+  background: #131c31;
+  border-color: #223049;
+}
+[data-theme="dark"] .world-card {
+  background: #131c31;
+  border-color: #223049;
+}
+[data-theme="dark"] .level-link {
+  border-top-color: #1e293b;
+  color: #cbd5e1;
+}
+[data-theme="dark"] .level-link:hover {
+  color: #34d399;
+}
+[data-theme="dark"] .callout {
+  border-color: #223049;
+  background: #131c31;
+}
+[data-theme="dark"] .callout .world-symbol {
+  background: #1e293b !important;
+  color: #cbd5e1;
+}
+[data-theme="dark"] .cast-member {
+  background: #131c31;
+  border-color: #223049;
+  color: #f1f5f9;
+}
+[data-theme="dark"] .cast-member:hover {
+  border-color: #10b981;
+}
+[data-theme="dark"] .cast-member[aria-expanded="true"],
+[data-theme="dark"] .cast-description {
+  background: #1a2744;
+  border-color: #10b981;
+}
+[data-theme="dark"] .adventure {
+  background: #131c31;
+  border-color: #223049;
+}
+[data-theme="dark"] .scene-reading {
+  background: #131c31;
+  border-left-color: #223049;
+}
+[data-theme="dark"] .scene-left {
+  background: #0f172a;
+}
+[data-theme="dark"] .scene-controls {
+  background: #162035;
+  border-top-color: #223049;
+}
+[data-theme="dark"] .npc-dialogue {
+  background: #1e293b;
+  border-color: #334155;
+  color: #f1f5f9;
+}
+[data-theme="dark"] .npc-dialogue:before {
+  background: #1e293b;
+  border-top-color: #334155;
+  border-left-color: #334155;
+}
+[data-theme="dark"] .runtime-stage {
+  background: #131c31;
+  color: #e2e8f0;
+}
+[data-theme="dark"] .runtime-stage>header {
+  background: #1a253c;
+  color: #f1f5f9;
+}
+[data-theme="dark"] .runtime-canvas {
+  background: #0f172a;
+}
+[data-theme="dark"] .runtime-beats {
+  background: #162035;
+}
+[data-theme="dark"] .runtime-command {
+  background: #0a0f1d;
+  border-color: #223049;
+  color: #34d399;
+}
+[data-theme="dark"] .runtime-vars>span {
+  background: #1e293b;
+  border-color: #334155;
+  color: #e2e8f0;
+}
+[data-theme="dark"] .runtime-vars b {
+  color: #34d399;
+}
+[data-theme="dark"] .runtime-details {
+  color: #94a3b8;
+}
+[data-theme="dark"] .storyboard-details {
+  background: #131c31;
+  border-color: #223049;
+}
+[data-theme="dark"] .search {
+  background: #131c31;
+  border-color: #223049;
+  color: #f1f5f9;
+}
+[data-theme="dark"] .quiz {
+  background: #131c31;
+  border-color: #223049;
+}
+[data-theme="dark"] .quiz button {
+  background: #1e293b;
+  border-color: #334155;
+  color: #f1f5f9;
+}
+[data-theme="dark"] .guide-card {
+  background: #131c31;
+  border-color: #223049;
+}
+[data-theme="dark"] .guide-card code {
+  background: #1e293b;
+  color: #34d399;
+}
+[data-theme="dark"] .story {
+  background: #132238;
+  border-left-color: #10b981;
+}
+[data-theme="dark"] .diagram-box {
+  background: #1e293b;
+  border-color: #334155;
+  color: #f1f5f9;
+}
+[data-theme="dark"] .code-block {
+  background: #0a0f1d;
+  color: #34d399;
+}
+[data-theme="dark"] footer {
+  border-top-color: #223049;
+}
+

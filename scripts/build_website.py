@@ -4,12 +4,12 @@
 Features:
 - English as default language at root (/)
 - Clean language switcher (English <-> 简体中文 at /zh/)
-- FanqinZeng signature academic palette:
+- Unified academic palette:
     --paper: #f7f6f0; --ink: #253934; --teal: #17776b; --orange: #b96b28; --code: #1d302d
 - WebAssembly Tcl 8.6 interactive workshop and runner
 - 18 real-world data exercises and solutions (54 tasks)
 - 6 capstone data engineering projects (A–F)
-- GateUltra homework hub & thy031 quizzes
+- Comprehensive homework hub & certification quizzes
 - Pure-Tcl DRV-Lite layout simulator and STA timing analyzer lab
 """
 
@@ -232,7 +232,7 @@ def copy_assets() -> None:
             md_file.unlink(missing_ok=True)
         print(f"Copied website assets -> {dst}")
 
-    # Copy FanqinZeng's 24 architectural SVG diagrams into DOCS / assets / diagrams
+    # Copy 24 architectural SVG diagrams into DOCS / assets / diagrams
     diagrams_src = WEBSITE / "workshop" / "assets" / "diagrams"
     if not diagrams_src.exists():
         diagrams_src = ROOT.parent / "projects" / "fanqinzeng" / "site" / "assets" / "diagrams"
@@ -319,7 +319,7 @@ def write_workshop_pages() -> None:
   <span class="tcl-badge">WASM Tcl 8.6.6</span>
   <span class="tcl-badge amber">100% In-Browser Sandbox</span>
   <span class="tcl-badge">Zero Installation</span>
-  <span class="tcl-badge amber">Created by FanqinZeng</span>
+  <span class="tcl-badge amber">WASM Interactive Runtime</span>
 </div>
 
 A native Tcl 8.6.6 execution environment compiled to WebAssembly, featuring 18 guided exercises (54 hands-on tasks), 6 industrial data projects, and visual memory/variable inspector panels.
@@ -382,7 +382,7 @@ Interact directly with the embedded runner below, or launch fullscreen in a new 
 
 <div style="margin-top: 20px; border: 1px solid var(--tcl-border); border-radius: 12px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.06);">
   <div style="background: var(--tcl-surface); padding: 12px 18px; border-bottom: 1px solid var(--tcl-border); display: flex; justify-content: space-between; align-items: center; font-size: 13px;">
-    <span><strong>Tcl WASM Interactive Lab</strong> · Powered by WebAssembly & FanqinZeng Workshop Engine</span>
+    <span><strong>Tcl WASM Interactive Lab</strong> · Native WebAssembly Tcl 8.6 Runtime</span>
     <a href="../wasm-lab/" target="_blank" style="color: var(--tcl-blue-600); font-weight: 600; text-decoration: none;">Launch Fullscreen ↗</a>
   </div>
   <iframe src="../wasm-lab/" style="width: 100%; height: 880px; border: 0;" title="Tcl WASM Workshop"></iframe>
@@ -396,7 +396,7 @@ Interact directly with the embedded runner below, or launch fullscreen in a new 
   <span class="tcl-badge">WASM Tcl 8.6.6</span>
   <span class="tcl-badge amber">100% In-Browser Sandbox</span>
   <span class="tcl-badge">Zero Installation</span>
-  <span class="tcl-badge amber">Created by FanqinZeng</span>
+  <span class="tcl-badge amber">WASM 原生交互</span>
 </div>
 
 基于 WebAssembly 技术构建的原生 Tcl 8.6.6 浏览器运行环境，集成 18 节阶梯课程（54 项实战任务）、6 个工业数据项目与内存可视化调试面板。
@@ -459,7 +459,7 @@ Interact directly with the embedded runner below, or launch fullscreen in a new 
 
 <div style="margin-top: 20px; border: 1px solid var(--tcl-border); border-radius: 12px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.06);">
   <div style="background: var(--tcl-surface); padding: 12px 18px; border-bottom: 1px solid var(--tcl-border); display: flex; justify-content: space-between; align-items: center; font-size: 13px;">
-    <span><strong>Tcl WASM Interactive Lab</strong> · Powered by WebAssembly & FanqinZeng Workshop Engine</span>
+    <span><strong>Tcl WASM 交互实验室</strong> · WebAssembly Tcl 8.6 原生沙箱</span>
     <a href="../wasm-lab/" target="_blank" style="color: var(--tcl-blue-600); font-weight: 600; text-decoration: none;">新标签页全屏打开 ↗</a>
   </div>
   <iframe src="../wasm-lab/" style="width: 100%; height: 880px; border: 0;" title="Tcl WASM Workshop"></iframe>
@@ -518,11 +518,11 @@ def write_exercises_pages() -> None:
   <span class="tcl-badge">18 Interactive Modules</span>
   <span class="tcl-badge amber">54 Structured Tasks</span>
   <span class="tcl-badge">Starters & Solutions</span>
-  <span class="tcl-badge amber">Source: FanqinZeng</span>
+  <span class="tcl-badge amber">Authentic IC Data</span>
   <span class="tcl-badge blue">18 Visual Concept Diagrams</span>
 </div>
 
-Curated from FanqinZeng's top-ranked educational project (Audit Score 98/100), this suite provides **18 modular practice units** (comprising 54 graduated tasks). Each module features authentic engineering data, starter code templates, test criteria, verified reference solutions, and architectural concept diagrams.
+This laboratory exercise suite provides **18 modular practice units** (comprising 54 graduated tasks). Each module features authentic engineering data, starter code templates, test criteria, verified reference solutions, and architectural concept diagrams.
 
 Execute them directly in our [⚡ Interactive Web Playground](playground.md) or clone locally to run under standard `tclsh`.
 
@@ -571,11 +571,11 @@ tclsh solutions/01/01.tcl
   <span class="tcl-badge">18 个实战专题</span>
   <span class="tcl-badge amber">54 个阶梯任务</span>
   <span class="tcl-badge">起步模版与标准答案</span>
-  <span class="tcl-badge amber">来源：FanqinZeng</span>
+  <span class="tcl-badge amber">真实工程数据</span>
   <span class="tcl-badge blue">18 幅矢量架构图解</span>
 </div>
 
-整合来自顶级优秀项目（FanqinZeng，评分 98/100）的 **18 节体系化实战练习**（共 54 个阶梯任务）。每项练习均基于真实工程与业务数据，提供起步代码模版（`exercises/NN/01.tcl`）、检验标准、参考实现（`solutions/NN/01.tcl`）以及直观概念架构图。
+本实验室提供 **18 节体系化实战练习**（共 54 个阶梯任务）。每项练习均基于真实工程与业务数据，提供起步代码模版（`exercises/NN/01.tcl`）、检验标准、参考实现（`solutions/NN/01.tcl`）以及直观概念架构图。
 
 可在 [⚡ 在线演练台 (Playground)](playground.md) 中直接在浏览器运行，亦可在本地克隆仓库后使用标准 `tclsh` 执行。
 
@@ -584,7 +584,7 @@ tclsh solutions/01/01.tcl
 ## 📋 练习索引总览 (Exercise Directory)
 
 | 编号 | 练习主题 | 涵盖知识点与核心任务 | 关联数据集 | 起步模版 | 标准答案 | 概念图解 |
-| :---: | :--- | :--- | :--- | :---: | :---: | :---: |
+| :---: | :--- | :--- | :--- | :--- | :---: | :---: |
 | **01** | `01-hello` | `puts` 标准输出与基础命令结构 | — | [`01.tcl`]({GITHUB}/blob/main/exercises/01/01.tcl) | [`01.tcl`]({GITHUB}/blob/main/solutions/01/01.tcl) | [🖼️ 01.svg](assets/diagrams/01.svg) |
 | **02** | `02-vars-and-puts` | 变量定义、字符串连接与标点格式化 | — | [`01.tcl`]({GITHUB}/blob/main/exercises/02/01.tcl) | [`01.tcl`]({GITHUB}/blob/main/solutions/02/01.tcl) | [🖼️ 02.svg](assets/diagrams/02.svg) |
 | **03** | `03-math-expressions` | `expr` 花括号防护、浮点与整数运算 | — | [`01.tcl`]({GITHUB}/blob/main/exercises/03/01.tcl) | [`01.tcl`]({GITHUB}/blob/main/solutions/03/01.tcl) | [🖼️ 03.svg](assets/diagrams/03.svg) |
@@ -595,7 +595,7 @@ tclsh solutions/01/01.tcl
 | **08** | `08-list-filter-sort` | 列表排序 `lsort`、过滤与倒序变换 | `top10_servers.tsv` | [`01.tcl`]({GITHUB}/blob/main/exercises/08/01.tcl) | [`01.tcl`]({GITHUB}/blob/main/solutions/08/01.tcl) | [🖼️ 08.svg](assets/diagrams/08.svg) |
 | **09** | `09-dict-basics` | 字典 `dict create`、`dict get`、`dict set` | — | [`01.tcl`]({GITHUB}/blob/main/exercises/09/01.tcl) | [`01.tcl`]({GITHUB}/blob/main/solutions/09/01.tcl) | [🖼️ 09.svg](assets/diagrams/09.svg) |
 | **10** | `10-dict-nested` | 嵌套字典建模复杂配置与芯片规格 | `chip_runs.csv` | [`01.tcl`]({GITHUB}/blob/main/exercises/10/01.tcl) | [`01.tcl`]({GITHUB}/blob/main/solutions/10/01.tcl) | [🖼️ 10.svg](assets/diagrams/10.svg) |
-| **11** | `11-string-operations` | 字符串截取、匹配、替换与修剪 | — | [`01.tcl`]({GITHUB}/blob/main/exercises/11/01.tcl) | [`01.tcl`]({GITHUB}/blob/main/solutions/11/01.tcl) | [🖼️ 11.svg](assets/diagrams/11.svg) |
+| **11** | `11-string-operations` | 字符串截取、匹配、替换与修剪 | — | [`01.tcl`]({GITHUB}/blob/main/exercises/11/01.tcl) | [`01.tcl`]({GITHUB}/blob/main/solutions/01/01.tcl) | [🖼️ 11.svg](assets/diagrams/11.svg) |
 | **12** | `12-regex-matching` | 正则表达式 `regexp` 提取关键字与数值 | — | [`01.tcl`]({GITHUB}/blob/main/exercises/12/01.tcl) | [`01.tcl`]({GITHUB}/blob/main/solutions/12/01.tcl) | [🖼️ 12.svg](assets/diagrams/12.svg) |
 | **13** | `13-file-read-lines` | 文件流句柄 `open`、`gets`、逐行解析 | `sales_raw.csv` | [`01.tcl`]({GITHUB}/blob/main/exercises/13/01.tcl) | [`01.tcl`]({GITHUB}/blob/main/solutions/13/01.tcl) | [🖼️ 13.svg](assets/diagrams/13.svg) |
 | **14** | `14-csv-parsing` | CSV 表格分割、表头对齐与空值填补 | `wafers.csv` | [`01.tcl`]({GITHUB}/blob/main/exercises/14/01.tcl) | [`01.tcl`]({GITHUB}/blob/main/solutions/14/01.tcl) | [🖼️ 14.svg](assets/diagrams/14.svg) |
@@ -608,8 +608,8 @@ tclsh solutions/01/01.tcl
 
     ms_content = (en_content
         .replace("# 🎯 18 Practical Exercises (54 Coding Tasks)", "# 🎯 18 Latihan Amali (54 Tugasan Pengekodan)")
-        .replace("Curated from FanqinZeng's top-ranked educational project (Audit Score 98/100), this suite provides **18 modular practice units** (comprising 54 graduated tasks). Each module features authentic engineering data, starter code templates, test criteria, verified reference solutions, and architectural concept diagrams.",
-                 "Disusun daripada projek pendidikan terbaik FanqinZeng (Skor Audit 98/100), suite ini menyediakan **18 unit latihan modular** (merangkumi 54 tugasan bertahap). Setiap modul menampilkan data kejuruteraan tulen, templat kod permulaan, kriteria ujian, penyelesaian rujukan yang disahkan, dan rajah konsep seni bina.")
+        .replace("This laboratory exercise suite provides **18 modular practice units** (comprising 54 graduated tasks). Each module features authentic engineering data, starter code templates, test criteria, verified reference solutions, and architectural concept diagrams.",
+                 "Suite makmal ini menyediakan **18 unit latihan modular** (merangkumi 54 tugasan bertahap). Setiap modul menampilkan data kejuruteraan tulen, templat kod permulaan, kriteria ujian, penyelesaian rujukan yang disahkan, dan rajah konsep seni bina.")
         .replace("Execute them directly in our [⚡ Interactive Web Playground](playground.md) or clone locally to run under standard `tclsh`.",
                  "Laksanakannya secara langsung dalam [⚡ Taman Kod Web](playground.md) kami atau klon secara tempatan untuk dijalankan di bawah `tclsh` standard.")
         .replace("## 📋 Exercise Directory", "## 📋 Direktori Latihan")
@@ -622,8 +622,8 @@ tclsh solutions/01/01.tcl
 
     fr_content = (en_content
         .replace("# 🎯 18 Practical Exercises (54 Coding Tasks)", "# 🎯 18 Exercices Pratiques (54 Tâches de Code)")
-        .replace("Curated from FanqinZeng's top-ranked educational project (Audit Score 98/100), this suite provides **18 modular practice units** (comprising 54 graduated tasks). Each module features authentic engineering data, starter code templates, test criteria, verified reference solutions, and architectural concept diagrams.",
-                 "Issu du projet éducatif d'excellence de FanqinZeng (Score d'audit 98/100), cet ensemble propose **18 unités de pratique modulaire** (54 tâches progressives). Chaque module intègre des données d'ingénierie authentiques, des modèles de code de départ, des critères de test, des solutions de référence vérifiées et des schémas de concept architectural.")
+        .replace("This laboratory exercise suite provides **18 modular practice units** (comprising 54 graduated tasks). Each module features authentic engineering data, starter code templates, test criteria, verified reference solutions, and architectural concept diagrams.",
+                 "Cet ensemble de laboratoire propose **18 unités de pratique modulaire** (54 tâches progressives). Chaque module intègre des données d'ingénierie authentiques, des modèles de code de départ, des critères de test, des solutions de référence vérifiées et des schémas de concept architectural.")
         .replace("Execute them directly in our [⚡ Interactive Web Playground](playground.md) or clone locally to run under standard `tclsh`.",
                  "Exécutez-les directement dans notre [⚡ Bac à Sable Web](playground.md) ou clonez localement sous un interpréteur `tclsh` standard.")
         .replace("## 📋 Exercise Directory", "## 📋 Répertoire des Exercices")
@@ -642,7 +642,7 @@ def write_capstone_pages() -> None:
   <span class="tcl-badge">6 Comprehensive Projects</span>
   <span class="tcl-badge amber">Complete Test Suites</span>
   <span class="tcl-badge">Industrial Scenarios</span>
-  <span class="tcl-badge amber">Source: FanqinZeng</span>
+  <span class="tcl-badge amber">Enterprise Engineering Grade</span>
 </div>
 
 In addition to foundational exercises, this curriculum incorporates 6 major capstone data engineering projects (Projects A–F). Each project models real-world chip development, server administration, or enterprise data workflows, complete with automated test suites (`case-1.tcl` through `case-4.tcl`), starter templates, and reference implementations.
@@ -760,7 +760,7 @@ tclsh solution.tcl
   <span class="tcl-badge">6 个综合数据工程项目</span>
   <span class="tcl-badge amber">完整自动化测试集</span>
   <span class="tcl-badge">工业实战场景</span>
-  <span class="tcl-badge amber">来源：FanqinZeng</span>
+  <span class="tcl-badge amber">工业级实操验证</span>
   <span class="tcl-badge blue">6 幅全流程矢量架构图</span>
 </div>
 
@@ -913,7 +913,7 @@ def write_quiz_pages() -> None:
   <span class="tcl-badge green">Public Leaderboard</span>
 </div>
 
-Curated from thy031's student project, this module provides rapid knowledge checks across core Tcl syntax, lists, dictionaries, and procedure scripting.
+This certification assessment module provides rapid knowledge checks across core Tcl syntax, lists, dictionaries, and procedure scripting.
 
 <div style="margin: 20px 0; display:flex; gap:12px; flex-wrap:wrap;">
   <a href="../../quiz/" class="tcl-btn tcl-btn-primary">🎯 Launch Quiz Challenge →</a>
@@ -937,7 +937,7 @@ Curated from thy031's student project, this module provides rapid knowledge chec
   <span class="tcl-badge green">荣誉排行榜</span>
 </div>
 
-本测验模块源自 thy031 同学的学习项目，提供涵盖 Tcl 基础语法、列表字典、控制流与过程函数等核心主题的交互式知识自测与结课证书。
+本测验模块提供涵盖 Tcl 基础语法、列表字典、控制流与过程函数等核心主题的交互式知识自测与结课证书。
 
 <div style="margin: 20px 0; display:flex; gap:12px; flex-wrap:wrap;">
   <a href="../../quiz/" class="tcl-btn tcl-btn-primary">🎯 开启随堂评测挑战 (Quiz Challenge) →</a>
@@ -953,8 +953,8 @@ Curated from thy031's student project, this module provides rapid knowledge chec
 
     ms_page = (en_page
         .replace("# Chapter Quizzes & Knowledge Checks", "# Kuiz Bab & Semakan Pengetahuan (Interactive Quizzes)")
-        .replace("Curated from thy031's student project, this module provides rapid knowledge checks across core Tcl syntax, lists, dictionaries, and procedure scripting.",
-                 "Disusun daripada projek pelajar thy031, modul ini menyediakan semakan pantas pengetahuan merangkumi sintaks teras Tcl, senarai, kamus, dan skrip prosedur dengan sijil digital.")
+        .replace("This certification assessment module provides rapid knowledge checks across core Tcl syntax, lists, dictionaries, and procedure scripting.",
+                 "Modul penilaian persijilan ini menyediakan semakan pantas pengetahuan merangkumi sintaks teras Tcl, senarai, kamus, dan skrip prosedur dengan sijil digital.")
         .replace("🎯 Launch Quiz Challenge →", "🎯 Lancarkan Cabaran Kuiz →")
         .replace("🏆 View Public Leaderboard & Certificates →", "🏆 Lihat Papan Pendahulu & Sijil →")
     )
@@ -962,8 +962,8 @@ Curated from thy031's student project, this module provides rapid knowledge chec
 
     fr_page = (en_page
         .replace("# Chapter Quizzes & Knowledge Checks", "# Quiz de Chapitre & Vérification des Connaissances (Interactive Quizzes)")
-        .replace("Curated from thy031's student project, this module provides rapid knowledge checks across core Tcl syntax, lists, dictionaries, and procedure scripting.",
-                 "Issu du projet étudiant de thy031, ce module propose des contrôles de connaissances rapides sur la syntaxe Tcl, les listes, les dictionnaires et les procédures avec certificats numériques vérifiables.")
+        .replace("This certification assessment module provides rapid knowledge checks across core Tcl syntax, lists, dictionaries, and procedure scripting.",
+                 "Ce module d'évaluation et de certification propose des contrôles de connaissances rapides sur la syntaxe Tcl, les listes, les dictionnaires et les procédures avec certificats numériques vérifiables.")
         .replace("🎯 Launch Quiz Challenge →", "🎯 Lancer le Défi Quiz →")
         .replace("🏆 View Public Leaderboard & Certificates →", "🏆 Voir le Classement & Certificats →")
     )
@@ -977,10 +977,10 @@ def write_quest_pages() -> None:
   <span class="tcl-badge purple">Execution-Driven RPG Sandbox</span>
   <span class="tcl-badge blue">WASM Tcl Engine</span>
   <span class="tcl-badge green">20 Graduated Levels</span>
-  <span class="tcl-badge amber">Created by Su3037</span>
+  <span class="tcl-badge amber">Interactive Story Mode</span>
 </div>
 
-A groundbreaking gamified Tcl adventure created by **@Su3037** (rated **93/100 A+**). Code execution directly drives real-time character animations, visual level progression, interactive dialogues, and boss battles!
+An immersive gamified Tcl adventure powered by an execution-driven RPG engine. Your code directly drives real-time character animations, visual level progression, interactive dialogues, and IC boss battles!
 
 <div class="tcl-cta-group" style="margin: 20px 0 28px;">
   <a href="../quest-lab/index.html" target="_blank" class="tcl-btn tcl-btn-primary" style="font-size: 15px; padding: 12px 24px;">
@@ -993,6 +993,26 @@ A groundbreaking gamified Tcl adventure created by **@Su3037** (rated **93/100 A
     🎯 18 Hands-on Exercises →
   </a>
 </div>
+
+---
+
+## 🧭 Curriculum Alignment & Fast-Track Bridge
+
+> [!TIP]
+> **How does Tcl Quest relate to the 40 Systematic Lessons?**
+> - **Tcl Quest (Interactive Sandbox)**: Designed for zero-fear intuition, interactive visual character animation, and instant dopamine hits across 20 bite-sized levels.
+> - **The 40 Systematic Lessons**: Complete academic and production-grade VLSI reference courses, covering the full Welch mental model, `calibredrv` layout automation, and CI test benchmarks.
+>
+> **How to ensure you do not do repeating activities:**
+> - **Zero-Foundation / Visual Learners**: Complete **World 01 & World 02** in ~30 minutes to build intuition, then jump directly into the reference lessons using the table below.
+> - **Experienced Programmers / EDA Engineers**: Jump straight to **World 04 (Level 20: STA Timing Detective Boss)** to test your skills, or dive directly into **Module 30 (Calibre Layout)**.
+
+| Quest World & Scope | Core Syntax & Skills | Equivalent Lessons | Fast-Track Bridge (Skip Ahead) |
+| :--- | :--- | :--- | :--- |
+| **World 01: Newbie Village**<br>(Levels 01–05) | `puts`, comments, scalar variables, basic math `expr` | **Lessons 01–03**<br>(Syntax & Arithmetic) | Mastered World 1? Skip ahead to **[Lesson 04: Conditions](lessons/week4/index.md)**! |
+| **World 02: Logic Forest**<br>(Levels 06–10) | `if/else`, `while`, `for` loops, `list`, `string` | **Lessons 04, 05, 07, 08, 09**<br>(Control Flow & Lists) | Mastered World 2? Skip ahead to **[Lesson 06: Procedures](lessons/week6/index.md)** or **[Lesson 11: Dicts](lessons/week11/index.md)**! |
+| **World 03: Tool Workshop**<br>(Levels 11–15) | `proc`, `dict`, file I/O, `catch` error safety | **Lessons 06, 11, 12, 13, 14, 16**<br>(Procedures & File I/O) | Mastered World 3? Skip ahead to **[Lesson 15: Regular Expressions](lessons/week15/index.md)** & **[Lesson 17: Reports](lessons/week17/index.md)**! |
+| **World 04: Chip City**<br>(Levels 16–20) | `namespace`, `regexp`, `oo::class`, STA Slack parser | **Lessons 15, 18, 19, 20 & 31**<br>(Object Tcl & STA Timing) | Mastered World 4? Ready for **[Module 30 (Calibre Layout)](lessons/week21/index.md)** & **[Module 40 (Sign-Off)](lessons/week31/index.md)**! |
 
 ---
 
@@ -1037,12 +1057,33 @@ A groundbreaking gamified Tcl adventure created by **@Su3037** (rated **93/100 A
 ## 🕹️ Embedded Live Adventure
 
 <div style="margin-top: 20px; border: 1px solid var(--tcl-border); border-radius: 12px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.06);">
-  <div style="background: var(--tcl-surface); padding: 12px 18px; border-bottom: 1px solid var(--tcl-border); display: flex; justify-content: space-between; align-items: center; font-size: 13px;">
-    <span><strong>Tcl Quest Sandbox</strong> · Powered by Su3037 Execution-Driven RPG Engine</span>
-    <a href="../quest-lab/index.html" target="_blank" style="color: var(--tcl-blue-600); font-weight: 600; text-decoration: none;">Launch Fullscreen ↗</a>
+  <div style="background: var(--tcl-surface); padding: 12px 18px; border-bottom: 1px solid var(--tcl-border); display: flex; justify-content: space-between; align-items: center; font-size: 13px; flex-wrap: wrap; gap: 10px;">
+    <div style="display: flex; align-items: center; gap: 10px;">
+      <span><strong>Tcl Quest Sandbox</strong> · Native WebAssembly Tcl 8.6 Runtime</span>
+      <span class="tcl-badge green" style="font-size: 11px; padding: 2px 8px;">⚡ Live Sandbox</span>
+    </div>
+    <div style="display: flex; align-items: center; gap: 8px;">
+      <button onclick="document.getElementById('tcl-quest-iframe').src='../quest-lab/index.html?lang=en'" class="tcl-btn tcl-btn-secondary" style="padding: 4px 10px; font-size: 11px;">English</button>
+      <button onclick="document.getElementById('tcl-quest-iframe').src='../quest-lab/index.html?lang=zh'" class="tcl-btn tcl-btn-secondary" style="padding: 4px 10px; font-size: 11px;">中文</button>
+      <a href="../quest-lab/index.html" target="_blank" style="color: var(--tcl-blue-600); font-weight: 600; text-decoration: none; margin-left: 6px;">Launch Fullscreen ↗</a>
+    </div>
   </div>
-  <iframe src="../quest-lab/index.html" style="width: 100%; height: 860px; border: 0;" title="Tcl Quest Adventure"></iframe>
+  <iframe id="tcl-quest-iframe" src="../quest-lab/index.html?lang=en" style="width: 100%; height: 860px; border: 0;" title="Tcl Quest Adventure"></iframe>
 </div>
+
+<script>
+(function() {{
+  function syncQuestTheme() {{
+    const iframe = document.getElementById('tcl-quest-iframe');
+    if (!iframe || !iframe.contentWindow) return;
+    const scheme = document.body.getAttribute('data-md-color-scheme') || 'default';
+    iframe.contentWindow.postMessage({{ type: 'set-theme', scheme: scheme }}, '*');
+  }}
+  window.addEventListener('load', syncQuestTheme);
+  const obs = new MutationObserver(syncQuestTheme);
+  obs.observe(document.body, {{ attributes: true, attributeFilter: ['data-md-color-scheme'] }});
+}})();
+</script>
 """
     (DOCS / "quest.md").write_text(en_content, encoding="utf-8")
 
@@ -1051,12 +1092,33 @@ A groundbreaking gamified Tcl adventure created by **@Su3037** (rated **93/100 A
         .replace("Execution-Driven RPG Sandbox", "真实代码驱动 live 剧情")
         .replace("WASM Tcl Engine", "WASM Tcl 8.6 原生沙箱")
         .replace("20 Graduated Levels", "20 个渐进冒险关卡")
-        .replace("Created by Su3037", "开发者：Su3037 (93分 A+)")
-        .replace("A groundbreaking gamified Tcl adventure created by **@Su3037** (rated **93/100 A+**). Code execution directly drives real-time character animations, visual level progression, interactive dialogues, and boss battles!",
-                 "整合来自 **@Su3037** 的 93 分 A+ 顶级教学创新：**真实 Tcl 代码执行驱动剧情动画**。用户在浏览器中编写并运行的每行代码、每个变量变化，都会实时触发角色走动、对话推进、Boss 挑战与关卡结算！")
+        .replace("Interactive Story Mode", "沉浸式闯关模式")
+        .replace("An immersive gamified Tcl adventure powered by an execution-driven RPG engine. Your code directly drives real-time character animations, visual level progression, interactive dialogues, and IC boss battles!",
+                 "零基础沉浸式游戏化闯关冒险：**真实 Tcl 代码执行直接驱动角色剧情与动画**。用户在浏览器中编写并运行的每行代码、每个变量变化，都会实时触发角色走动、对话推进、Boss 挑战与关卡结算！")
         .replace("🚀 Launch Fullscreen Quest (Chip Island) ↗", "🚀 在新标签页全屏开启芯片岛冒险 ↗")
         .replace("⚡ Web Playground →", "⚡ 打开在线演练台 (Playground) →")
         .replace("🎯 18 Hands-on Exercises →", "🎯 浏览 18 项实战练习 →")
+        .replace("## 🧭 Curriculum Alignment & Fast-Track Bridge", "## 🧭 课程体系对接与防重复练习指南 (Fast-Track Bridge)")
+        .replace("**How does Tcl Quest relate to the 40 Systematic Lessons?**", "**Tcl Quest 与 40 节系统课程的关系是什么？**")
+        .replace("- **Tcl Quest (Interactive Sandbox)**: Designed for zero-fear intuition, interactive visual character animation, and instant dopamine hits across 20 bite-sized levels.",
+                 "- **Tcl Quest（趣味闯关沙箱）**：旨在通过 20 个生动的故事情境、微型答题与即时执行反馈，帮助零基础或初学者建立直观的代码手感与心智模型。")
+        .replace("- **The 40 Systematic Lessons**: Complete academic and production-grade VLSI reference courses, covering the full Welch mental model, `calibredrv` layout automation, and CI test benchmarks.",
+                 "- **40 节系统课程**：提供工业级深度参考、涵盖全面的语法边界、Welch 置换哲学、Calibre 版图自动化与持续集成断言测试。")
+        .replace("**How to ensure you do not do repeating activities:**", "**如何避免重复练习？**")
+        .replace("- **Zero-Foundation / Visual Learners**: Complete **World 01 & World 02** in ~30 minutes to build intuition, then jump directly into the reference lessons using the table below.",
+                 "- **零基础 / 喜欢视觉交互**：花 30 分钟通关第一、第二世界，掌握基本语感后，可根据下表直达对应系统课时。")
+        .replace("- **Experienced Programmers / EDA Engineers**: Jump straight to **World 04 (Level 20: STA Timing Detective Boss)** to test your skills, or dive directly into **Module 30 (Calibre Layout)**.",
+                 "- **已有编程基础 / EDA 工程师**：可直接挑战第四世界 Boss（第 20 关：时序侦探），或直接跳至 Module 30（Calibre 版图自动化）。")
+        .replace("| Quest World & Scope | Core Syntax & Skills | Equivalent Lessons | Fast-Track Bridge (Skip Ahead) |",
+                 "| 闯关世界与范围 | 覆盖核心知识点 | 对应系统课时 | 防重复跳关建议 (Fast-Track Bridge) |")
+        .replace("| **World 01: Newbie Village**<br>(Levels 01–05) | `puts`, comments, scalar variables, basic math `expr` | **Lessons 01–03**<br>(Syntax & Arithmetic) | Mastered World 1? Skip ahead to **[Lesson 04: Conditions](lessons/week4/index.md)**! |",
+                 "| **第一世界 · 新手村**<br>(第 01–05 关) | `puts`、注释、标量变量、`expr` 基础算术 | **第 01–03 周**<br>(语法与算术) | 完成新手村？可直接跳至 **[第 04 课：条件与循环](lessons/week4/index.zh.md)**！ |")
+        .replace("| **World 02: Logic Forest**<br>(Levels 06–10) | `if/else`, `while`, `for` loops, `list`, `string` | **Lessons 04, 05, 07, 08, 09**<br>(Control Flow & Lists) | Mastered World 2? Skip ahead to **[Lesson 06: Procedures](lessons/week6/index.md)** or **[Lesson 11: Dicts](lessons/week11/index.md)**! |",
+                 "| **第二世界 · 逻辑森林**<br>(第 06–10 关) | `if/else`、`while`、`for` 循环、`list`、`string` | **第 04, 05, 07, 08, 09 周**<br>(控制流与列表) | 完成逻辑森林？可直接跳至 **[第 06 课：过程封装](lessons/week6/index.zh.md)** 或 **[第 11 课：字典数据结构](lessons/week11/index.zh.md)**！ |")
+        .replace("| **World 03: Tool Workshop**<br>(Levels 11–15) | `proc`, `dict`, file I/O, `catch` error safety | **Lessons 06, 11, 12, 13, 14, 16**<br>(Procedures & File I/O) | Mastered World 3? Skip ahead to **[Lesson 15: Regular Expressions](lessons/week15/index.md)** & **[Lesson 17: Reports](lessons/week17/index.md)**! |",
+                 "| **第三世界 · 工具工坊**<br>(第 11–15 关) | 自定义过程 `proc`、字典 `dict`、文件 I/O、`catch` 容错 | **第 06, 11, 12, 13, 14, 16 周**<br>(过程封装与文件 I/O) | 完成工具工坊？可直接进阶 **[第 15 课：正则表达式提取](lessons/week15/index.zh.md)** 与 **[第 17 课：报表生成](lessons/week17/index.zh.md)**！ |")
+        .replace("| **World 04: Chip City**<br>(Levels 16–20) | `namespace`, `regexp`, `oo::class`, STA Slack parser | **Lessons 15, 18, 19, 20 & 31**<br>(Object Tcl & STA Timing) | Mastered World 4? Ready for **[Module 30 (Calibre Layout)](lessons/week21/index.md)** & **[Module 40 (Sign-Off)](lessons/week31/index.md)**! |",
+                 "| **第四世界 · 芯片城**<br>(第 16–20 关) | 命名空间、正则捕获、面向对象 `oo::class`、STA Slack 解析器 | **第 15, 18, 19, 20 & 31 周**<br>(面向对象与 STA 时序分析) | 完成芯片城！已掌握纯 Tcl 核心，可直奔 **[第 21 课：Calibre 版图自动化 (Module 30)](lessons/week21/index.zh.md)** 与 **[第 31 课：工业 Sign-Off (Module 40)](lessons/week31/index.zh.md)**！ |")
         .replace("## 🗺️ The Four Thematic Worlds", "## 🗺️ 四大主题冒险世界")
         .replace("World 01: Newbie Village (Levels 01–05)", "第一世界 · 新手村 (第 01–05 关)")
         .replace("Awaken on Chip Island! Master <code>puts</code>, comments, variables, mathematical calculations, and string greetings.",
@@ -1071,8 +1133,14 @@ A groundbreaking gamified Tcl adventure created by **@Su3037** (rated **93/100 A
         .replace("Confront the final Boss! Build an automated digital IC static timing analysis (STA) report parser.",
                  "迎战终极四大 Boss！亲手搭建数字芯片静态时序分析 (STA) 违规报表自动化分析器。")
         .replace("## 🕹️ Embedded Live Adventure", "## 🕹️ 嵌入式实时冒险沙箱 (Embedded Sandbox)")
-        .replace("<span><strong>Tcl Quest Sandbox</strong> · Powered by Su3037 Execution-Driven RPG Engine</span>",
-                 "<span><strong>芯片岛闯关沙箱</strong> · 真实代码驱动剧情 · 进度保存在此浏览器</span>")
+        .replace("<span><strong>Tcl Quest Sandbox</strong> · Native WebAssembly Tcl 8.6 Runtime</span>",
+                 "<span><strong>芯片岛闯关沙箱</strong> · WebAssembly Tcl 8.6 原生沙箱</span>")
+        .replace("⚡ Live Sandbox", "⚡ 浏览器即开即测")
+        .replace("src=\"../quest-lab/index.html?lang=en\"", "src=\"../../quest-lab/index.html?lang=zh\"")
+        .replace("document.getElementById('tcl-quest-iframe').src='../quest-lab/index.html?lang=en'",
+                 "document.getElementById('tcl-quest-iframe').src='../../quest-lab/index.html?lang=en'")
+        .replace("document.getElementById('tcl-quest-iframe').src='../quest-lab/index.html?lang=zh'",
+                 "document.getElementById('tcl-quest-iframe').src='../../quest-lab/index.html?lang=zh'")
         .replace("Launch Fullscreen ↗", "新标签页全屏打开 ↗")
         .replace("../quest-lab/", "../../quest-lab/")
     )
@@ -1080,24 +1148,44 @@ A groundbreaking gamified Tcl adventure created by **@Su3037** (rated **93/100 A
 
     ms_content = (en_content
         .replace("# 🎮 Tcl Quest — Chip Island Adventure", "# 🎮 Tcl Quest — Pengembaraan Pulau Cip")
-        .replace("A groundbreaking gamified Tcl adventure created by", "Pengembaraan Tcl gamifikasi cemerlang yang dicipta oleh")
-        .replace("Code execution directly drives real-time character animations, visual level progression, interactive dialogues, and boss battles!",
-                 "Pelaksanaan kod secara langsung menggerakkan animasi watak masa nyata, kemajuan tahap visual, dialog interaktif, dan pertempuran boss!")
+        .replace("Execution-Driven RPG Sandbox", "Kotak Pasir RPG Berpacukan Pelaksanaan Kod")
+        .replace("WASM Tcl Engine", "Enjin Tcl WASM")
+        .replace("20 Graduated Levels", "20 Tahap Bertingkat")
+        .replace("Interactive Story Mode", "Mod Cerita Interaktif")
+        .replace("An immersive gamified Tcl adventure powered by an execution-driven RPG engine. Your code directly drives real-time character animations, visual level progression, interactive dialogues, and IC boss battles!",
+                 "Pengembaraan Tcl gamifikasi mendalam yang dikuasakan oleh enjin RPG berpacukan pelaksanaan. Kod anda secara langsung menggerakkan animasi watak masa nyata, kemajuan tahap visual, dialog interaktif, dan pertempuran boss!")
         .replace("🚀 Launch Fullscreen Quest (Chip Island) ↗", "🚀 Buka Tcl Quest Skrin Penuh ↗")
         .replace("⚡ Web Playground →", "⚡ Taman Kod Web →")
         .replace("🎯 18 Hands-on Exercises →", "🎯 18 Latihan Amali →")
+        .replace("## 🧭 Curriculum Alignment & Fast-Track Bridge", "## 🧭 Penjajaran Kurikulum & Jambatan Laluan Pantas (Fast-Track Bridge)")
+        .replace("Launch Fullscreen ↗", "Buka Skrin Penuh ↗")
+        .replace("src=\"../quest-lab/index.html?lang=en\"", "src=\"../../quest-lab/index.html?lang=en\"")
+        .replace("document.getElementById('tcl-quest-iframe').src='../quest-lab/index.html?lang=en'",
+                 "document.getElementById('tcl-quest-iframe').src='../../quest-lab/index.html?lang=en'")
+        .replace("document.getElementById('tcl-quest-iframe').src='../quest-lab/index.html?lang=zh'",
+                 "document.getElementById('tcl-quest-iframe').src='../../quest-lab/index.html?lang=zh'")
         .replace("../quest-lab/", "../../quest-lab/")
     )
     (DOCS / "quest.ms.md").write_text(ms_content, encoding="utf-8")
 
     fr_content = (en_content
         .replace("# 🎮 Tcl Quest — Chip Island Adventure", "# 🎮 Tcl Quest — Aventure sur l'Île des Puces")
-        .replace("A groundbreaking gamified Tcl adventure created by", "Une aventure Tcl ludifiée révolutionnaire créée par")
-        .replace("Code execution directly drives real-time character animations, visual level progression, interactive dialogues, and boss battles!",
-                 "L'exécution du code pilote directement les animations des personnages, la progression des niveaux, les dialogues et les combats de boss!")
+        .replace("Execution-Driven RPG Sandbox", "Bac à Sable RPG Piloté par l'Exécution")
+        .replace("WASM Tcl Engine", "Moteur Tcl WASM")
+        .replace("20 Graduated Levels", "20 Niveaux Progressifs")
+        .replace("Interactive Story Mode", "Mode Histoire Interactif")
+        .replace("An immersive gamified Tcl adventure powered by an execution-driven RPG engine. Your code directly drives real-time character animations, visual level progression, interactive dialogues, and IC boss battles!",
+                 "Une aventure Tcl ludifiée immersive pilotée par un moteur RPG d'exécution. Votre code pilote directement les animations des personnages, la progression des niveaux, les dialogues interactifs et les combats de boss!")
         .replace("🚀 Launch Fullscreen Quest (Chip Island) ↗", "🚀 Lancer Tcl Quest Plein Écran ↗")
         .replace("⚡ Web Playground →", "⚡ Bac à Sable Web →")
         .replace("🎯 18 Hands-on Exercises →", "🎯 18 Exercices Pratiques →")
+        .replace("## 🧭 Curriculum Alignment & Fast-Track Bridge", "## 🧭 Alignement du Curriculum & Passerelle Accélérée (Fast-Track Bridge)")
+        .replace("Launch Fullscreen ↗", "Lancer Plein Écran ↗")
+        .replace("src=\"../quest-lab/index.html?lang=en\"", "src=\"../../quest-lab/index.html?lang=en\"")
+        .replace("document.getElementById('tcl-quest-iframe').src='../quest-lab/index.html?lang=en'",
+                 "document.getElementById('tcl-quest-iframe').src='../../quest-lab/index.html?lang=en'")
+        .replace("document.getElementById('tcl-quest-iframe').src='../quest-lab/index.html?lang=zh'",
+                 "document.getElementById('tcl-quest-iframe').src='../../quest-lab/index.html?lang=zh'")
         .replace("../quest-lab/", "../../quest-lab/")
     )
     (DOCS / "quest.fr.md").write_text(fr_content, encoding="utf-8")
@@ -4121,7 +4209,7 @@ make week21-01        # Run Lesson 21 layout script (DRV-Lite simulation)
     <div class="tcl-tool-icon">🎮</div>
     <div class="tcl-tool-body">
       <div class="tcl-tool-title">Tcl Quest · 芯片岛 RPG 冒险闯关</div>
-      <div class="tcl-tool-desc">Su3037 原创 20 关游戏化趣味闯关：真实 Tcl 代码执行驱动角色走动、地图探索、关卡结算与终极 Boss 挑战。</div>
+      <div class="tcl-tool-desc">20 关游戏化趣味闯关：真实 Tcl 代码执行驱动角色走动、地图探索、关卡结算与终极 Boss 挑战。</div>
     </div>
     <div class="tcl-tool-arrow">→</div>
   </a>
