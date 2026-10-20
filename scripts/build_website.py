@@ -197,22 +197,6 @@ def copy_workshop() -> None:
         print(f"Copied standalone WASM workshop -> {dst}")
 
 
-def copy_quest() -> None:
-    src = WEBSITE / "quest"
-    if not src.exists():
-        src_alt = ROOT.parent / "projects" / "su3037" / "site"
-        if src_alt.exists():
-            src = src_alt
-    dst = DOCS / "quest-lab"
-    if src.exists():
-        if dst.exists():
-            shutil.rmtree(dst)
-        shutil.copytree(src, dst)
-        for md_file in dst.rglob("*.md"):
-            md_file.unlink(missing_ok=True)
-        print(f"Copied standalone Tcl Quest (RPG) -> {dst}")
-
-
 def copy_assets() -> None:
     src = WEBSITE / "assets"
     dst = DOCS / "assets"
@@ -497,195 +481,6 @@ Interact directly with the embedded runner below, or launch fullscreen in a new 
     )
     (DOCS / "workshop.fr.md").write_text(fr_content, encoding="utf-8")
 
-
-def write_quest_pages() -> None:
-    en_content = f"""# 🎮 Tcl Quest — Chip Island Adventure
-
-<div class="tcl-badge-cluster">
-  <span class="tcl-badge purple">Execution-Driven RPG Sandbox</span>
-  <span class="tcl-badge blue">WASM Tcl Engine</span>
-  <span class="tcl-badge green">20 Graduated Levels</span>
-  <span class="tcl-badge amber">Created by Su3037</span>
-</div>
-
-A groundbreaking gamified Tcl adventure created by **@Su3037** (rated **93/100 A+**). Code execution directly drives real-time character animations, visual level progression, interactive dialogues, and boss battles!
-
-<div class="tcl-cta-group" style="margin: 20px 0 28px;">
-  <a href="../quest-lab/index.html" target="_blank" class="tcl-btn tcl-btn-primary" style="font-size: 15px; padding: 12px 24px;">
-    🚀 Launch Fullscreen Quest (Chip Island) ↗
-  </a>
-  <a href="../playground/" class="tcl-btn tcl-btn-secondary" style="font-size: 15px; padding: 12px 24px;">
-    ⚡ Web Playground →
-  </a>
-  <a href="../exercises/" class="tcl-btn tcl-btn-secondary" style="font-size: 15px; padding: 12px 24px;">
-    🎯 18 Hands-on Exercises →
-  </a>
-</div>
-
----
-
-## 🗺️ The Four Thematic Worlds
-
-<div class="tcl-pillars">
-  <div class="tcl-pillar-card">
-    <div class="tcl-pillar-icon">🏡</div>
-    <div class="tcl-pillar-title">World 01: Newbie Village (Levels 01–05)</div>
-    <div class="tcl-pillar-desc">
-      Awaken on Chip Island! Master <code>puts</code>, comments, variables, mathematical calculations, and string greetings.
-    </div>
-  </div>
-
-  <div class="tcl-pillar-card">
-    <div class="tcl-pillar-icon">🌲</div>
-    <div class="tcl-pillar-title">World 02: Logic Forest (Levels 06–10)</div>
-    <div class="tcl-pillar-desc">
-      Navigate logic branches with <code>if/else</code>, <code>while</code>, <code>for</code> loops, lists, and procedures.
-    </div>
-  </div>
-
-  <div class="tcl-pillar-card">
-    <div class="tcl-pillar-icon">🔨</div>
-    <div class="tcl-pillar-title">World 03: Tool Workshop (Levels 11–15)</div>
-    <div class="tcl-pillar-desc">
-      Harness industrial tool glue: dictionaries, file streams, regular expressions, namespaces, and runtime introspection.
-    </div>
-  </div>
-
-  <div class="tcl-pillar-card">
-    <div class="tcl-pillar-icon">🏙️</div>
-    <div class="tcl-pillar-title">World 04: Chip City (Levels 16–20)</div>
-    <div class="tcl-pillar-desc">
-      Confront the final Boss! Build an automated digital IC static timing analysis (STA) report parser.
-    </div>
-  </div>
-</div>
-
----
-
-## 🕹️ Embedded Live Adventure
-
-<div style="margin-top: 20px; border: 1px solid var(--tcl-border); border-radius: 12px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.06);">
-  <div style="background: var(--tcl-surface); padding: 12px 18px; border-bottom: 1px solid var(--tcl-border); display: flex; justify-content: space-between; align-items: center; font-size: 13px;">
-    <span><strong>Tcl Quest Sandbox</strong> · Powered by Su3037 Execution-Driven RPG Engine</span>
-    <a href="../quest-lab/index.html" target="_blank" style="color: var(--tcl-blue-600); font-weight: 600; text-decoration: none;">Launch Fullscreen ↗</a>
-  </div>
-  <iframe src="../quest-lab/index.html" style="width: 100%; height: 860px; border: 0;" title="Tcl Quest Adventure"></iframe>
-</div>
-"""
-    (DOCS / "quest.md").write_text(en_content, encoding="utf-8")
-
-    zh_content = f"""# 🎮 Tcl Quest — 芯片岛实时闯关冒险
-
-<div class="tcl-badge-cluster">
-  <span class="tcl-badge purple">真实代码驱动 live 剧情</span>
-  <span class="tcl-badge blue">WASM Tcl 8.6 原生沙箱</span>
-  <span class="tcl-badge green">20 个渐进冒险关卡</span>
-  <span class="tcl-badge amber">开发者：Su3037 (93分 A+)</span>
-</div>
-
-整合来自 **@Su3037** 的 93 分 A+ 顶级教学创新：**真实 Tcl 代码执行驱动剧情动画**。用户在浏览器中编写并运行的每行代码、每个变量变化，都会实时触发角色走动、对话推进、Boss 挑战与关卡结算！
-
-<div class="tcl-cta-group" style="margin: 20px 0 28px;">
-  <a href="../quest-lab/index.html" target="_blank" class="tcl-btn tcl-btn-primary" style="font-size: 15px; padding: 12px 24px;">
-    🚀 在新标签页全屏开启芯片岛冒险 ↗
-  </a>
-  <a href="../playground/" class="tcl-btn tcl-btn-secondary" style="font-size: 15px; padding: 12px 24px;">
-    ⚡ 打开在线演练台 (Playground) →
-  </a>
-  <a href="../exercises/" class="tcl-btn tcl-btn-secondary" style="font-size: 15px; padding: 12px 24px;">
-    🎯 浏览 18 项实战练习 →
-  </a>
-</div>
-
----
-
-## 🗺️ 四大主题冒险世界
-
-<div class="tcl-pillars">
-  <div class="tcl-pillar-card">
-    <div class="tcl-pillar-icon">🏡</div>
-    <div class="tcl-pillar-title">第一世界 · 新手村 (第 01–05 关)</div>
-    <div class="tcl-pillar-desc">
-      在芯片岛醒来！从 <code>puts</code> 打印、注释、变量赋值、数学计算到格式化输出，迈出 Tcl 第一步。
-    </div>
-  </div>
-
-  <div class="tcl-pillar-card">
-    <div class="tcl-pillar-icon">🌲</div>
-    <div class="tcl-pillar-title">第二世界 · 逻辑森林 (第 06–10 关)</div>
-    <div class="tcl-pillar-desc">
-      穿越迷宫般的条件分支：<code>if/else</code>、<code>while</code>、<code>for</code> 循环、列表构建与自定义过程。
-    </div>
-  </div>
-
-  <div class="tcl-pillar-card">
-    <div class="tcl-pillar-icon">🔨</div>
-    <div class="tcl-pillar-title">第三世界 · 工具工坊 (第 11–15 关)</div>
-    <div class="tcl-pillar-desc">
-      掌握芯片胶水语言核心：字典映射、文件 I/O 流、正则表达式提取、命名空间与自省。
-    </div>
-  </div>
-
-  <div class="tcl-pillar-card">
-    <div class="tcl-pillar-icon">🏙️</div>
-    <div class="tcl-pillar-title">第四世界 · 芯片城 (第 16–20 关)</div>
-    <div class="tcl-pillar-desc">
-      迎战终极四大 Boss！亲手搭建数字芯片静态时序分析 (STA) 违规报表自动化分析器。
-    </div>
-  </div>
-</div>
-
----
-
-## 🕹️ 嵌入式实时冒险沙箱 (Embedded Sandbox)
-
-可以在下方直接闯关，也可以点击上方按钮在新窗口中全屏畅玩：
-
-<div style="margin-top: 20px; border: 1px solid var(--tcl-border); border-radius: 12px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.06);">
-  <div style="background: var(--tcl-surface); padding: 12px 18px; border-bottom: 1px solid var(--tcl-border); display: flex; justify-content: space-between; align-items: center; font-size: 13px;">
-    <span><strong>芯片岛闯关沙箱</strong> · 真实代码驱动剧情 · 进度保存在此浏览器</span>
-    <a href="../quest-lab/index.html" target="_blank" style="color: var(--tcl-blue-600); font-weight: 600; text-decoration: none;">新标签页全屏打开 ↗</a>
-  </div>
-  <iframe src="../quest-lab/index.html" style="width: 100%; height: 860px; border: 0;" title="Tcl Quest Adventure"></iframe>
-</div>
-"""
-    (DOCS / "quest.zh.md").write_text(zh_content, encoding="utf-8")
-
-    ms_content = (en_content
-        .replace("# 🎮 Tcl Quest — Chip Island Adventure", "# 🎮 Tcl Quest — Pengembaraan Pulau Cip")
-        .replace("A groundbreaking gamified Tcl adventure created by", "Pengembaraan Tcl gamifikasi cemerlang yang dicipta oleh")
-        .replace("Code execution directly drives real-time character animations, visual level progression, interactive dialogues, and boss battles!",
-                 "Pelaksanaan kod secara langsung menggerakkan animasi watak masa nyata, kemajuan tahap visual, dialog interaktif, dan pertempuran boss!")
-        .replace("🚀 Launch Fullscreen Quest (Chip Island) ↗", "🚀 Buka Tcl Quest Skrin Penuh ↗")
-        .replace("⚡ Web Playground →", "⚡ Taman Kod Web →")
-        .replace("🎯 18 Hands-on Exercises →", "🎯 18 Latihan Amali →")
-        .replace("## 🗺️ Four Themed Adventure Worlds", "## 🗺️ Empat Dunia Pengembaraan Bertema")
-        .replace("World 1 · Starter Village (Levels 01–05)", "Dunia 1 · Kampung Permulaan (Tahap 01–05)")
-        .replace("World 2 · Logic Forest (Levels 06–10)", "Dunia 2 · Hutan Logik (Tahap 06–10)")
-        .replace("World 3 · Tools Workshop (Levels 11–15)", "Dunia 3 · Bengkel Alat (Tahap 11–15)")
-        .replace("World 4 · Silicon City (Levels 16–20)", "Dunia 4 · Bandar Silikon (Tahap 16–20)")
-        .replace("## 🕹️ Embedded Live Sandbox", "## 🕹️ Kotak Pasir Langsung Terbenam")
-        .replace("Launch Fullscreen ↗", "Buka Skrin Penuh ↗")
-    )
-    (DOCS / "quest.ms.md").write_text(ms_content, encoding="utf-8")
-
-    fr_content = (en_content
-        .replace("# 🎮 Tcl Quest — Chip Island Adventure", "# 🎮 Tcl Quest — Aventure sur l'Île des Puces")
-        .replace("A groundbreaking gamified Tcl adventure created by", "Une aventure Tcl gamifiée innovante créée par")
-        .replace("Code execution directly drives real-time character animations, visual level progression, interactive dialogues, and boss battles!",
-                 "L'exécution du code pilote directement les animations des personnages en temps réel, la progression visuelle des niveaux, les dialogues interactifs et les combats de boss !")
-        .replace("🚀 Launch Fullscreen Quest (Chip Island) ↗", "🚀 Lancer Tcl Quest Plein Écran ↗")
-        .replace("⚡ Web Playground →", "⚡ Web Playground →")
-        .replace("🎯 18 Hands-on Exercises →", "🎯 18 Exercices Pratiques →")
-        .replace("## 🗺️ Four Themed Adventure Worlds", "## 🗺️ Quatre Mondes d'Aventure Thématiques")
-        .replace("World 1 · Starter Village (Levels 01–05)", "Monde 1 · Village de Départ (Niveaux 01–05)")
-        .replace("World 2 · Logic Forest (Levels 06–10)", "Monde 2 · Forêt Logique (Niveaux 06–10)")
-        .replace("World 3 · Tools Workshop (Levels 11–15)", "Monde 3 · Atelier d'Outils (Niveaux 11–15)")
-        .replace("World 4 · Silicon City (Levels 16–20)", "Monde 4 · Cité Silicium (Niveaux 16–20)")
-        .replace("## 🕹️ Embedded Live Sandbox", "## 🕹️ Bac à Sable Interactif Intégré")
-        .replace("Launch Fullscreen ↗", "Lancer Plein Écran ↗")
-    )
-    (DOCS / "quest.fr.md").write_text(fr_content, encoding="utf-8")
 
 
 def write_exercises_pages() -> None:
@@ -3033,7 +2828,7 @@ body, .md-typeset {
   box-shadow: 0 6px 20px rgba(56, 189, 248, 0.45);
 }
 
-/* Accent Button (Tcl Quest RPG) */
+/* Accent Button */
 .md-typeset a.tcl-btn-accent,
 .tcl-btn-accent {
   background: #f5f3ff !important;
@@ -3344,7 +3139,7 @@ def write_home_pages(meta: list[tuple[int, str, str]]) -> None:
     <a href="quiz/" class="tcl-btn tcl-btn-primary" style="background: linear-gradient(135deg, #4f46e5, #7c3aed); border: none;">🎯 Tcl Quiz & Cert</a>
     <a href="leaderboard/" class="tcl-btn tcl-btn-accent" style="background: linear-gradient(135deg, #059669, #0d9488); border: none;">🏆 Hall of Fame</a>
     <a href="playground/" class="tcl-btn tcl-btn-secondary">⚡ Web Playground</a>
-    <a href="quest/" class="tcl-btn tcl-btn-secondary">🎮 Tcl Quest (RPG)</a>
+    <a href="help/layout_viewer/" class="tcl-btn tcl-btn-secondary">📐 Layout Visualizer</a>
     <a href="lessons/week1/" class="tcl-btn tcl-btn-secondary">📖 Lesson 1 →</a>
   </div>
 </div>
@@ -3363,8 +3158,8 @@ def write_home_pages(meta: list[tuple[int, str, str]]) -> None:
     <span class="tcl-fact-lbl">Hands-on Exercises</span>
   </div>
   <div class="tcl-fact-item">
-    <span class="tcl-fact-val">20 Levels</span>
-    <span class="tcl-fact-lbl">Gamified RPG Quest</span>
+    <span class="tcl-fact-val">CalibreDRV</span>
+    <span class="tcl-fact-lbl">CLI Compatible</span>
   </div>
   <div class="tcl-fact-item">
     <span class="tcl-fact-val">100%</span>
@@ -3485,10 +3280,10 @@ Choose the path tailored to your background and engineering goals:
   </div>
 
   <div class="tcl-pillar-card">
-    <div class="tcl-pillar-icon">🎮</div>
-    <div class="tcl-pillar-title">Tcl Quest · Live Execution RPG</div>
+    <div class="tcl-pillar-icon">🛠️</div>
+    <div class="tcl-pillar-title">18 Practice Labs & Capstones</div>
     <div class="tcl-pillar-desc">
-      A 20-level Chip Island adventure where real code execution helps beginners practice Tcl commands in an engaging, step-by-step format.
+      Hands-on practical challenges from parsing cell libraries and DEF physical design files to automated ECO fixers and STA reports.
     </div>
   </div>
 
@@ -3554,7 +3349,7 @@ make week21-01        # Run Lesson 21 layout script (DRV-Lite simulation)
     <a href="quiz/" class="tcl-btn tcl-btn-primary" style="background: linear-gradient(135deg, #4f46e5, #7c3aed); border: none;">🎯 随堂测验与证书认证</a>
     <a href="leaderboard/" class="tcl-btn tcl-btn-accent" style="background: linear-gradient(135deg, #059669, #0d9488); border: none;">🏆 荣耀榜与防伪校验</a>
     <a href="playground/" class="tcl-btn tcl-btn-secondary">⚡ 免安装演练台</a>
-    <a href="quest/" class="tcl-btn tcl-btn-secondary">🎮 芯片岛 RPG 冒险</a>
+    <a href="help/layout_viewer/" class="tcl-btn tcl-btn-secondary">📐 版图仿真器</a>
     <a href="lessons/week1/" class="tcl-btn tcl-btn-secondary">📖 开始第 1 课 →</a>
   </div>
 </div>
@@ -3573,8 +3368,8 @@ make week21-01        # Run Lesson 21 layout script (DRV-Lite simulation)
     <span class="tcl-fact-lbl">交互实战演练</span>
   </div>
   <div class="tcl-fact-item">
-    <span class="tcl-fact-val">20 关</span>
-    <span class="tcl-fact-lbl">芯片岛代码闯关</span>
+    <span class="tcl-fact-val">CalibreDRV</span>
+    <span class="tcl-fact-lbl">兼容 Tcl 命令引擎</span>
   </div>
   <div class="tcl-fact-item">
     <span class="tcl-fact-val">100%</span>
@@ -3695,10 +3490,10 @@ make week21-01        # Run Lesson 21 layout script (DRV-Lite simulation)
   </div>
 
   <div class="tcl-pillar-card">
-    <div class="tcl-pillar-icon">🎮</div>
-    <div class="tcl-pillar-title">Tcl Quest · 真实代码驱动 RPG 冒险</div>
+    <div class="tcl-pillar-icon">🛠️</div>
+    <div class="tcl-pillar-title">18 项实战演练与综合项目</div>
     <div class="tcl-pillar-desc">
-      20 关芯片岛交互闯关，代码执行直接驱动角色走动与剧情演出，降低新手上手认知门槛。
+      解析标准单元库、引脚映射、DEF 物理版图通道与真实 EDA 文本报表，循序渐进掌握芯片工业脚本。
     </div>
   </div>
 
@@ -3764,7 +3559,7 @@ make week21-01        # 运行第 21 课版图脚本 (DRV-Lite 仿真)
     <a href="quiz/" class="tcl-btn tcl-btn-primary" style="background: linear-gradient(135deg, #4f46e5, #7c3aed); border: none;">🎯 Kuiz Tcl & Sijil</a>
     <a href="leaderboard/" class="tcl-btn tcl-btn-accent" style="background: linear-gradient(135deg, #059669, #0d9488); border: none;">🏆 Papan Juara & Pengesahan</a>
     <a href="playground/" class="tcl-btn tcl-btn-secondary">⚡ Taman Permainan Kod</a>
-    <a href="quest/" class="tcl-btn tcl-btn-secondary">🎮 Tcl Quest (Pulau Cip)</a>
+    <a href="help/layout_viewer/" class="tcl-btn tcl-btn-secondary">📐 Visualiser Susun Atur</a>
     <a href="lessons/week1/" class="tcl-btn tcl-btn-secondary">📖 Mula Pelajaran 1 →</a>
   </div>
 </div>
@@ -3783,8 +3578,8 @@ make week21-01        # 运行第 21 课版图脚本 (DRV-Lite 仿真)
     <span class="tcl-fact-lbl">Latihan Amali Praktikal</span>
   </div>
   <div class="tcl-fact-item">
-    <span class="tcl-fact-val">20 Tahap</span>
-    <span class="tcl-fact-lbl">Pengembaraan RPG</span>
+    <span class="tcl-fact-val">CalibreDRV</span>
+    <span class="tcl-fact-lbl">Serasi Enjin Perintah</span>
   </div>
   <div class="tcl-fact-item">
     <span class="tcl-fact-val">100%</span>
@@ -3905,10 +3700,10 @@ Pilih laluan pembelajaran yang disesuaikan dengan latar belakang dan matlamat ke
   </div>
 
   <div class="tcl-pillar-card">
-    <div class="tcl-pillar-icon">🎮</div>
-    <div class="tcl-pillar-title">Tcl Quest · RPG Pacuan Kod Sebenar</div>
+    <div class="tcl-pillar-icon">📝</div>
+    <div class="tcl-pillar-title">18 Latihan Amali & Projek Capstone</div>
     <div class="tcl-pillar-desc">
-      Pengembaraan 20 tahap di Pulau Cip di mana pelaksanaan kod sebenar memacu jalan cerita dan animasi secara interaktif.
+      Latihan pengaturcaraan VLSI praktikal merangkumi pengekstrakan perpustakaan sel, pengesahan peraturan reka bentuk, dan aliran automasi ECO sebenar.
     </div>
   </div>
 
@@ -3974,7 +3769,7 @@ make week21-01        # Jalankan skrip susun atur Pelajaran 21 (simulasi DRV-Lit
     <a href="quiz/" class="tcl-btn tcl-btn-primary" style="background: linear-gradient(135deg, #4f46e5, #7c3aed); border: none;">🎯 Quiz Tcl & Certificat</a>
     <a href="leaderboard/" class="tcl-btn tcl-btn-accent" style="background: linear-gradient(135deg, #059669, #0d9488); border: none;">🏆 Tableau des Scores & Vérification</a>
     <a href="playground/" class="tcl-btn tcl-btn-secondary">⚡ Web Playground</a>
-    <a href="quest/" class="tcl-btn tcl-btn-secondary">🎮 Tcl Quest (Île RPG)</a>
+    <a href="help/layout_viewer/" class="tcl-btn tcl-btn-secondary">📐 Visualiseur de Layout</a>
     <a href="lessons/week1/" class="tcl-btn tcl-btn-secondary">📖 Démarrer Leçon 1 →</a>
   </div>
 </div>
@@ -3993,8 +3788,8 @@ make week21-01        # Jalankan skrip susun atur Pelajaran 21 (simulasi DRV-Lit
     <span class="tcl-fact-lbl">Exercices Pratiques</span>
   </div>
   <div class="tcl-fact-item">
-    <span class="tcl-fact-val">20 Niveaux</span>
-    <span class="tcl-fact-lbl">Quête RPG Interactive</span>
+    <span class="tcl-fact-val">CalibreDRV</span>
+    <span class="tcl-fact-lbl">Compatible CLI Scripting</span>
   </div>
   <div class="tcl-fact-item">
     <span class="tcl-fact-val">100%</span>
@@ -4115,10 +3910,10 @@ Choisissez le parcours adapté à votre profil et à vos objectifs d'ingénierie
   </div>
 
   <div class="tcl-pillar-card">
-    <div class="tcl-pillar-icon">🎮</div>
-    <div class="tcl-pillar-title">Tcl Quest · RPG Piloté par le Code</div>
+    <div class="tcl-pillar-icon">📝</div>
+    <div class="tcl-pillar-title">18 Exercices Pratiques & Capstones</div>
     <div class="tcl-pillar-desc">
-      Aventure de 20 niveaux sur l'Île des Puces où l'exécution du code réel pilote les cinématiques de manière engageante pour les débutants.
+      Pratique approfondie du script VLSI : extraction de bibliothèques, règles de conception géométrique et flux réels d'automatisation ECO.
     </div>
   </div>
 
@@ -4327,7 +4122,6 @@ plugins:
             Quiz Challenge & Certification: 随堂测评挑战与认证
             Public Leaderboard & Certificate: 荣誉排行榜与认证证书
             Interactive Labs & Tools: 交互实验室与实战工具
-            Tcl Quest (Chip Island RPG): 芯片岛闯关冒险 (RPG)
             Web Playground: 演练台 (Playground)
             VLSI Layout Visualizer: VLSI 版图仿真可视化 (DRV-Lite)
             STA Timing Gatekeeper: STA 时序门禁计算器
@@ -4358,7 +4152,6 @@ plugins:
             Quiz Challenge & Certification: Cabaran Kuiz & Pensijilan
             Public Leaderboard & Certificate: Papan Pendahulu & Pensijilan
             Interactive Labs & Tools: Makmal & Alat Interaktif
-            Tcl Quest (Chip Island RPG): Tcl Quest (Pengembaraan Pulau Cip)
             Web Playground: Taman Permainan Kod (Playground)
             VLSI Layout Visualizer: Visualiser Susun Atur VLSI (DRV-Lite)
             STA Timing Gatekeeper: Penjaga Masa STA (Slack & WNS/TNS)
@@ -4389,7 +4182,6 @@ plugins:
             Quiz Challenge & Certification: Défi Quiz & Certification
             Public Leaderboard & Certificate: Tableau des Scores & Certification
             Interactive Labs & Tools: Labos & Outils Interactifs
-            Tcl Quest (Chip Island RPG): Tcl Quest (Aventure sur l'Île des Puces)
             Web Playground: Bac à Sable Web (Playground)
             VLSI Layout Visualizer: Visualiseur de Layout VLSI (DRV-Lite)
             STA Timing Gatekeeper: Contrôleur Temporel STA (Slack & WNS/TNS)
@@ -4415,16 +4207,12 @@ validation:
   absolute_links: info
   unrecognized_links: warn
 
-not_in_nav: |
-  quest-lab/**/*.md
-
 nav:
   - Home: index.md
   - Quiz Challenge & Leaderboard:
       - Quiz Challenge & Certification: quiz.md
       - Public Leaderboard & Certificate: leaderboard.md
   - Interactive Labs & Tools:
-      - Tcl Quest (Chip Island RPG): quest.md
       - Web Playground: playground.md
       - VLSI Layout Visualizer: help/layout_viewer.md
       - STA Timing Gatekeeper: help/timing_calculator.md
@@ -4486,9 +4274,10 @@ def write_redirect_fallbacks() -> None:
             (quiz_dir / "leaderboard.md").write_text(redirect_tmpl.format(target="../leaderboard/"), encoding="utf-8")
         if lb_dir.exists():
             (lb_dir / "quiz.md").write_text(redirect_tmpl.format(target="../quiz/"), encoding="utf-8")
-        ws_dir = base_dir / "workshop"
-        ws_dir.mkdir(parents=True, exist_ok=True)
-        (ws_dir / "index.html").write_text(redirect_tmpl.format(target="../playground/"), encoding="utf-8")
+        for slug in ["workshop", "quest", "quest-lab"]:
+            s_dir = base_dir / slug
+            s_dir.mkdir(parents=True, exist_ok=True)
+            (s_dir / "index.html").write_text(redirect_tmpl.format(target="../playground/"), encoding="utf-8")
 
 
 def main() -> None:
@@ -4502,9 +4291,7 @@ def main() -> None:
     if not meta:
         raise SystemExit("No lesson weeks found under lessons/")
     write_stylesheets()
-    copy_quest()
     copy_assets()
-    write_quest_pages()
     write_playground_pages()
     write_layout_viewer_pages()
     write_timing_calculator_pages()
