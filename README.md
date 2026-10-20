@@ -2,7 +2,7 @@
 
 [![License: CC BY 4.0](https://img.shields.io/badge/License-CC%20BY%204.0-green?logo=creativecommons&logoColor=white)](https://creativecommons.org/licenses/by/4.0/)
 [![GitHub](https://img.shields.io/badge/GitHub-SJTU--YONGFU--RESEARCH--GRP%2Ftcl--language-181717?logo=github)](https://github.com/SJTU-YONGFU-RESEARCH-GRP/tcl-language)
-[![WASM Tcl 8.6](https://img.shields.io/badge/WASM_Tcl-8.6.6_Ready-17776b?logo=webassembly&logoColor=white)](https://sjtu-yongfu-research-grp.github.io/tcl-language/wasm-lab/)
+[![Web Playground](https://img.shields.io/badge/Playground-Zero--Install-17776b?logo=javascript&logoColor=white)](https://sjtu-yongfu-research-grp.github.io/tcl-language/playground/)
 [![DRV-Lite](https://img.shields.io/badge/DRV--Lite-Zero--License_Layout_Sim-0f4f46)](docs/DRVLITE_HELP.md)
 [![STA Lab](https://img.shields.io/badge/STA_Lab-Slack_Margin-b96b28)](docs/TIMING_ANALYZER_LAB.md)
 [![Bilingual](https://img.shields.io/badge/Bilingual-EN%20%2F%20ZH-blue)](https://sjtu-yongfu-research-grp.github.io/tcl-language/)
@@ -15,10 +15,10 @@ Bilingual, beginner-friendly **Tcl educational platform** for learning modern Tc
 
 整合来自优秀开源教学实践的核心工具、演练内容与交互设计：
 
-1. **💻 纯客户端 WebAssembly 交互工作坊 (WASM Interactive Lab)**:
-   - 内置编译为 WebAssembly 的原生 Tcl 8.6.6 解释器（WACL），零本地环境依赖、零服务器交互，100% 在浏览器安全沙箱中秒级执行。
-   - 配备内存变量表格、数据结构单元图谱、执行耗时分析与事件日志输出。
-   - [👉 立即在线打开工作坊 (Launch Live WASM Lab)](https://sjtu-yongfu-research-grp.github.io/tcl-language/wasm-lab/)
+1. **⚡ 纯客户端交互演练台 (Interactive Web Playground)**:
+   - 零本地环境安装依赖、零服务器网络交互，100% 在浏览器纯前端即开即测。
+   - 预置 Welch 置换三部曲、安全 expr、列表字典、STA 时序门禁解析与 DRV-Lite 版图实操模版。
+   - [👉 立即在线打开演练台 (Launch Web Playground)](https://sjtu-yongfu-research-grp.github.io/tcl-language/playground/)
 
 2. **🎨 典雅学术视觉体系 (Academic Palette)**:
    - 摒弃千篇一律的通用默认样式，定制沉稳学术质感：

@@ -514,8 +514,8 @@ A groundbreaking gamified Tcl adventure created by **@Su3037** (rated **93/100 A
   <a href="../quest-lab/index.html" target="_blank" class="tcl-btn tcl-btn-primary" style="font-size: 15px; padding: 12px 24px;">
     🚀 Launch Fullscreen Quest (Chip Island) ↗
   </a>
-  <a href="../workshop/" class="tcl-btn tcl-btn-secondary" style="font-size: 15px; padding: 12px 24px;">
-    ⚡ Switch to WASM Workshop →
+  <a href="../playground/" class="tcl-btn tcl-btn-secondary" style="font-size: 15px; padding: 12px 24px;">
+    ⚡ Web Playground →
   </a>
   <a href="../exercises/" class="tcl-btn tcl-btn-secondary" style="font-size: 15px; padding: 12px 24px;">
     🎯 18 Hands-on Exercises →
@@ -589,8 +589,8 @@ A groundbreaking gamified Tcl adventure created by **@Su3037** (rated **93/100 A
   <a href="../quest-lab/index.html" target="_blank" class="tcl-btn tcl-btn-primary" style="font-size: 15px; padding: 12px 24px;">
     🚀 在新标签页全屏开启芯片岛冒险 ↗
   </a>
-  <a href="../workshop/" class="tcl-btn tcl-btn-secondary" style="font-size: 15px; padding: 12px 24px;">
-    ⚡ 切换至 WASM 自动化工作坊 →
+  <a href="../playground/" class="tcl-btn tcl-btn-secondary" style="font-size: 15px; padding: 12px 24px;">
+    ⚡ 打开在线演练台 (Playground) →
   </a>
   <a href="../exercises/" class="tcl-btn tcl-btn-secondary" style="font-size: 15px; padding: 12px 24px;">
     🎯 浏览 18 项实战练习 →
@@ -657,7 +657,7 @@ A groundbreaking gamified Tcl adventure created by **@Su3037** (rated **93/100 A
         .replace("Code execution directly drives real-time character animations, visual level progression, interactive dialogues, and boss battles!",
                  "Pelaksanaan kod secara langsung menggerakkan animasi watak masa nyata, kemajuan tahap visual, dialog interaktif, dan pertempuran boss!")
         .replace("🚀 Launch Fullscreen Quest (Chip Island) ↗", "🚀 Buka Tcl Quest Skrin Penuh ↗")
-        .replace("⚡ Switch to WASM Workshop →", "⚡ Beralih ke Bengkel WASM →")
+        .replace("⚡ Web Playground →", "⚡ Taman Kod Web →")
         .replace("🎯 18 Hands-on Exercises →", "🎯 18 Latihan Amali →")
         .replace("## 🗺️ Four Themed Adventure Worlds", "## 🗺️ Empat Dunia Pengembaraan Bertema")
         .replace("World 1 · Starter Village (Levels 01–05)", "Dunia 1 · Kampung Permulaan (Tahap 01–05)")
@@ -675,7 +675,7 @@ A groundbreaking gamified Tcl adventure created by **@Su3037** (rated **93/100 A
         .replace("Code execution directly drives real-time character animations, visual level progression, interactive dialogues, and boss battles!",
                  "L'exécution du code pilote directement les animations des personnages en temps réel, la progression visuelle des niveaux, les dialogues interactifs et les combats de boss !")
         .replace("🚀 Launch Fullscreen Quest (Chip Island) ↗", "🚀 Lancer Tcl Quest Plein Écran ↗")
-        .replace("⚡ Switch to WASM Workshop →", "⚡ Basculer vers l'Atelier WASM →")
+        .replace("⚡ Web Playground →", "⚡ Web Playground →")
         .replace("🎯 18 Hands-on Exercises →", "🎯 18 Exercices Pratiques →")
         .replace("## 🗺️ Four Themed Adventure Worlds", "## 🗺️ Quatre Mondes d'Aventure Thématiques")
         .replace("World 1 · Starter Village (Levels 01–05)", "Monde 1 · Village de Départ (Niveaux 01–05)")
@@ -700,7 +700,7 @@ def write_exercises_pages() -> None:
 
 Curated from FanqinZeng's top-ranked educational project (Audit Score 98/100), this suite provides **18 modular practice units** (comprising 54 graduated tasks). Each module features authentic engineering data, starter code templates, test criteria, and verified reference solutions.
 
-Execute them directly in our [🚀 Interactive WASM Lab](workshop.md) or clone locally to run under standard `tclsh`.
+Execute them directly in our [⚡ Interactive Web Playground](playground.md) or clone locally to run under standard `tclsh`.
 
 ---
 
@@ -752,7 +752,7 @@ tclsh solutions/01/01.tcl
 
 整合来自顶级优秀项目（FanqinZeng，评分 98/100）的 **18 节体系化实战练习**（共 54 个阶梯任务）。每项练习均基于真实工程与业务数据，提供起步代码模版（`exercises/NN/01.tcl`）、检验标准与参考实现（`solutions/NN/01.tcl`）。
 
-可在 [🚀 交互工作坊 (WASM)](workshop.md) 中直接在浏览器运行，亦可在本地克隆仓库后使用标准 `tclsh` 执行。
+可在 [⚡ 在线演练台 (Playground)](playground.md) 中直接在浏览器运行，亦可在本地克隆仓库后使用标准 `tclsh` 执行。
 
 ---
 
@@ -785,8 +785,8 @@ tclsh solutions/01/01.tcl
         .replace("# 🎯 18 Practical Exercises (54 Coding Tasks)", "# 🎯 18 Latihan Amali (54 Tugasan Pengekodan)")
         .replace("Curated from FanqinZeng's top-ranked educational project (Audit Score 98/100), this suite provides **18 modular practice units** (comprising 54 graduated tasks). Each module features authentic engineering data, starter code templates, test criteria, and verified reference solutions.",
                  "Disusun daripada projek pendidikan terbaik FanqinZeng (Skor Audit 98/100), suite ini menyediakan **18 unit latihan modular** (merangkumi 54 tugasan bertahap). Setiap modul menampilkan data kejuruteraan tulen, templat kod permulaan, kriteria ujian, dan penyelesaian rujukan yang disahkan.")
-        .replace("Execute them directly in our [🚀 Interactive WASM Lab](workshop.md) or clone locally to run under standard `tclsh`.",
-                 "Laksanakannya secara langsung dalam [🚀 Bengkel Interaktif WASM](workshop.md) kami atau klon secara tempatan untuk dijalankan di bawah `tclsh` standard.")
+        .replace("Execute them directly in our [⚡ Interactive Web Playground](playground.md) or clone locally to run under standard `tclsh`.",
+                 "Laksanakannya secara langsung dalam [⚡ Taman Kod Web](playground.md) kami atau klon secara tempatan untuk dijalankan di bawah `tclsh` standard.")
         .replace("## 📋 Exercise Directory", "## 📋 Direktori Latihan")
         .replace("Key Skills & Tasks", "Kemahiran Utama & Tugasan")
         .replace("Starter", "Permulaan")
@@ -798,8 +798,8 @@ tclsh solutions/01/01.tcl
         .replace("# 🎯 18 Practical Exercises (54 Coding Tasks)", "# 🎯 18 Exercices Pratiques (54 Tâches de Code)")
         .replace("Curated from FanqinZeng's top-ranked educational project (Audit Score 98/100), this suite provides **18 modular practice units** (comprising 54 graduated tasks). Each module features authentic engineering data, starter code templates, test criteria, and verified reference solutions.",
                  "Issu du projet éducatif d'excellence de FanqinZeng (Score d'audit 98/100), cet ensemble propose **18 unités de pratique modulaire** (54 tâches progressives). Chaque module intègre des données d'ingénierie authentiques, des modèles de code de départ, des critères de test et des solutions de référence vérifiées.")
-        .replace("Execute them directly in our [🚀 Interactive WASM Lab](workshop.md) or clone locally to run under standard `tclsh`.",
-                 "Exécutez-les directement dans notre [🚀 Atelier Interactif WASM](workshop.md) ou clonez localement sous un interpréteur `tclsh` standard.")
+        .replace("Execute them directly in our [⚡ Interactive Web Playground](playground.md) or clone locally to run under standard `tclsh`.",
+                 "Exécutez-les directement dans notre [⚡ Bac à Sable Web](playground.md) ou clonez localement sous un interpréteur `tclsh` standard.")
         .replace("## 📋 Exercise Directory", "## 📋 Répertoire des Exercices")
         .replace("Key Skills & Tasks", "Compétences Clés & Tâches")
         .replace("Starter", "Départ")
@@ -1363,20 +1363,8 @@ window.addEventListener('DOMContentLoaded', () => loadSnippet('hello'));
   </div>
 </div>
 """
-    en_footer = """
----
-
-## Standalone WebAssembly Tcl IDE
-
-Looking for full in-browser test grading, step-by-step interactive debugging, and memory table inspector? Launch the [🚀 Interactive Workshop (WASM)](workshop.md).
-"""
-    zh_footer = """
----
-
-## 独立 WebAssembly 完整 Tcl IDE
-
-如需包含 18 项实战评测、变量内存树监视器与单步断点调试的完整开发环境，请启动 [🚀 交互工作坊 (WASM)](workshop.md)。
-"""
+    en_footer = ""
+    zh_footer = ""
     ms_header = """# ⚡ Taman Permainan Pantas Tcl Atas Talian (Interactive Playground)
 
 <div class="tcl-badge-cluster">
@@ -1415,13 +1403,7 @@ Uji, bereksperimen, dan jalankan skrip Tcl terus dalam pelayar anda tanpa sebara
   </div>
 </div>
 """
-    ms_footer = """
----
-
-## IDE Tcl WebAssembly Lengkap & Mandiri
-
-Mencari persekitaran pembangunan lengkap dengan penggredan ujian 18 modul, pemantau pembolehubah memori, dan penyahpepijatan langkah demi langkah? Lancarkan [🚀 Bengkel Interaktif (WASM)](workshop.md).
-"""
+    ms_footer = ""
     fr_header = """# ⚡ Bac à Sable Tcl Interactif Rapide (Interactive Playground)
 
 <div class="tcl-badge-cluster">
@@ -1460,13 +1442,7 @@ Testez, expérimentez et exécutez des scripts Tcl directement dans votre naviga
   </div>
 </div>
 """
-    fr_footer = """
----
-
-## IDE WebAssembly Tcl Autonome & Complet
-
-Vous cherchez un environnement de développement complet avec notation de 18 exercices pratiques, inspecteur de variables mémoire et débogage pas à pas ? Lancez l'[🚀 Atelier Interactif (WASM)](workshop.md).
-"""
+    fr_footer = ""
     (DOCS / "playground.md").write_text(en_header + "\n" + script_part + "\n" + en_footer, encoding="utf-8")
     (DOCS / "playground.zh.md").write_text(zh_header + "\n" + script_part + "\n" + zh_footer, encoding="utf-8")
     (DOCS / "playground.ms.md").write_text(ms_header + "\n" + script_part + "\n" + ms_footer, encoding="utf-8")
@@ -2799,7 +2775,7 @@ def write_home_pages(meta: list[tuple[int, str, str]]) -> None:
   <div class="tcl-cta-group">
     <a href="quiz/" class="tcl-btn tcl-btn-primary" style="background: linear-gradient(135deg, #4f46e5, #7c3aed); border: none;">🎯 Tcl Quiz & Cert</a>
     <a href="leaderboard/" class="tcl-btn tcl-btn-accent" style="background: linear-gradient(135deg, #059669, #0d9488); border: none;">🏆 Hall of Fame</a>
-    <a href="wasm-lab/" target="_blank" class="tcl-btn tcl-btn-secondary">🚀 Launch WASM Workshop ↗</a>
+    <a href="playground/" class="tcl-btn tcl-btn-secondary">⚡ Web Playground</a>
     <a href="quest/" class="tcl-btn tcl-btn-secondary">🎮 Tcl Quest (RPG)</a>
     <a href="lessons/week1/" class="tcl-btn tcl-btn-secondary">📖 Lesson 1 →</a>
   </div>
@@ -2934,9 +2910,9 @@ Choose the path tailored to your background and engineering goals:
 <div class="tcl-pillars">
   <div class="tcl-pillar-card">
     <div class="tcl-pillar-icon">💻</div>
-    <div class="tcl-pillar-title">Client-Side WebAssembly Workshop</div>
+    <div class="tcl-pillar-title">Interactive Web Playground</div>
     <div class="tcl-pillar-desc">
-      Interactive browser workshop: native Tcl 8.6.6 WebAssembly engine, 18 graduated modules, memory variable inspector, and beginner projects.
+      In-browser execution sandbox with preset code templates: Welch substitution model, safe braced expr, lists, dictionaries, STA timing parsing, and DRV-Lite layout scripts.
     </div>
   </div>
 
@@ -3009,7 +2985,7 @@ make week21-01        # Run Lesson 21 layout script (DRV-Lite simulation)
   <div class="tcl-cta-group">
     <a href="quiz/" class="tcl-btn tcl-btn-primary" style="background: linear-gradient(135deg, #4f46e5, #7c3aed); border: none;">🎯 随堂测验与证书认证</a>
     <a href="leaderboard/" class="tcl-btn tcl-btn-accent" style="background: linear-gradient(135deg, #059669, #0d9488); border: none;">🏆 荣耀榜与防伪校验</a>
-    <a href="wasm-lab/" target="_blank" class="tcl-btn tcl-btn-secondary">🚀 进入 WASM 交互工作坊 ↗</a>
+    <a href="playground/" class="tcl-btn tcl-btn-secondary">⚡ 免安装演练台</a>
     <a href="quest/" class="tcl-btn tcl-btn-secondary">🎮 芯片岛 RPG 冒险</a>
     <a href="lessons/week1/" class="tcl-btn tcl-btn-secondary">📖 开始第 1 课 →</a>
   </div>
@@ -3144,9 +3120,9 @@ make week21-01        # Run Lesson 21 layout script (DRV-Lite simulation)
 <div class="tcl-pillars">
   <div class="tcl-pillar-card">
     <div class="tcl-pillar-icon">💻</div>
-    <div class="tcl-pillar-title">纯客户端 WebAssembly 交互工作坊</div>
+    <div class="tcl-pillar-title">免安装交互演练台 (Playground)</div>
     <div class="tcl-pillar-desc">
-      集成原生 Tcl 8.6.6 WebAssembly 运行时、18 项渐进实战、内存变量观察台与初学者实战练习。
+      纯浏览器即开即测：预置 Welch 置换三部曲、安全 expr、列表字典、STA 时序门禁解析与 DRV-Lite 版图实例，实时控制台输出。
     </div>
   </div>
 
@@ -3219,7 +3195,7 @@ make week21-01        # 运行第 21 课版图脚本 (DRV-Lite 仿真)
   <div class="tcl-cta-group">
     <a href="quiz/" class="tcl-btn tcl-btn-primary" style="background: linear-gradient(135deg, #4f46e5, #7c3aed); border: none;">🎯 Kuiz Tcl & Sijil</a>
     <a href="leaderboard/" class="tcl-btn tcl-btn-accent" style="background: linear-gradient(135deg, #059669, #0d9488); border: none;">🏆 Papan Juara & Pengesahan</a>
-    <a href="wasm-lab/" target="_blank" class="tcl-btn tcl-btn-secondary">🚀 Lancarkan Bengkel WASM ↗</a>
+    <a href="playground/" class="tcl-btn tcl-btn-secondary">⚡ Taman Permainan Kod</a>
     <a href="quest/" class="tcl-btn tcl-btn-secondary">🎮 Tcl Quest (Pulau Cip)</a>
     <a href="lessons/week1/" class="tcl-btn tcl-btn-secondary">📖 Mula Pelajaran 1 →</a>
   </div>
@@ -3354,9 +3330,9 @@ Pilih laluan pembelajaran yang disesuaikan dengan latar belakang dan matlamat ke
 <div class="tcl-pillars">
   <div class="tcl-pillar-card">
     <div class="tcl-pillar-icon">💻</div>
-    <div class="tcl-pillar-title">Bengkel WebAssembly Sisi Pelanggan</div>
+    <div class="tcl-pillar-title">Taman Permainan Kod Interaktif</div>
     <div class="tcl-pillar-desc">
-      Bengkel interaktif pelayar: enjin Tcl 8.6.6 WebAssembly asli, 18 modul berperingkat, pemantau pembolehubah memori, dan latihan permulaan.
+      Kotak pasir pelaksanaan dalam pelayar dengan templat pratetap: model penggantian Welch, expr berkurung selamat, senarai, kamus, penguraian masa STA, dan skrip susun atur DRV-Lite.
     </div>
   </div>
 
@@ -3429,7 +3405,7 @@ make week21-01        # Jalankan skrip susun atur Pelajaran 21 (simulasi DRV-Lit
   <div class="tcl-cta-group">
     <a href="quiz/" class="tcl-btn tcl-btn-primary" style="background: linear-gradient(135deg, #4f46e5, #7c3aed); border: none;">🎯 Quiz Tcl & Certificat</a>
     <a href="leaderboard/" class="tcl-btn tcl-btn-accent" style="background: linear-gradient(135deg, #059669, #0d9488); border: none;">🏆 Tableau des Scores & Vérification</a>
-    <a href="wasm-lab/" target="_blank" class="tcl-btn tcl-btn-secondary">🚀 Lancer l'Atelier WASM ↗</a>
+    <a href="playground/" class="tcl-btn tcl-btn-secondary">⚡ Web Playground</a>
     <a href="quest/" class="tcl-btn tcl-btn-secondary">🎮 Tcl Quest (Île RPG)</a>
     <a href="lessons/week1/" class="tcl-btn tcl-btn-secondary">📖 Démarrer Leçon 1 →</a>
   </div>
@@ -3564,9 +3540,9 @@ Choisissez le parcours adapté à votre profil et à vos objectifs d'ingénierie
 <div class="tcl-pillars">
   <div class="tcl-pillar-card">
     <div class="tcl-pillar-icon">💻</div>
-    <div class="tcl-pillar-title">Atelier Client Pur WebAssembly</div>
+    <div class="tcl-pillar-title">Bac à Sable Web Interactif (Playground)</div>
     <div class="tcl-pillar-desc">
-      Atelier interactif dans le navigateur : moteur WebAssembly Tcl 8.6.6 natif, 18 modules progressifs, inspecteur de variables mémoire et exercices pratiques.
+      Bac à sable d'exécution dans le navigateur avec modèles préréglés : modèle de substitution de Welch, expr sécurisé avec accolades, listes, dictionnaires, analyse de timing STA et scripts de layout DRV-Lite.
     </div>
   </div>
 
@@ -3710,7 +3686,7 @@ def write_mkdocs_yml(meta: list[tuple[int, str, str]]) -> None:
 
     yml = f"""# Generated by scripts/build_website.py — modern high-readability architecture
 site_name: Tcl for VLSI Automation Lab
-site_description: Beginner Tcl scripting lessons, DRV layout practice & interactive WASM workshop
+site_description: Beginner Tcl scripting lessons, DRV layout practice & interactive tools & playgrounds
 site_url: https://sjtu-yongfu-research-grp.github.io/tcl-language/
 repo_url: {GITHUB}
 repo_name: tcl-language
@@ -3783,7 +3759,6 @@ plugins:
             Quiz Challenge & Certification: 随堂测评挑战与认证
             Public Leaderboard & Certificate: 荣誉排行榜与认证证书
             Interactive Labs & Tools: 交互实验室与实战工具
-            Interactive Workshop (WASM): 交互工作坊 (WASM)
             Tcl Quest (Chip Island RPG): 芯片岛闯关冒险 (RPG)
             Web Playground: 演练台 (Playground)
             VLSI Layout Visualizer: VLSI 版图仿真可视化 (DRV-Lite)
@@ -3808,14 +3783,13 @@ plugins:
           name: Bahasa Melayu
           build: true
           site_name: Makmal Penskripan Tcl & DRV VLSI
-          site_description: Panduan Asas Penskripan Tcl, Analisis Susun Atur DRV & Bengkel Interaktif WASM
+          site_description: Panduan Asas Penskripan Tcl, Analisis Susun Atur DRV & Alat Interaktif
           nav_translations:
             Home: Laman Utama
             Quiz Challenge & Leaderboard: Cabaran Kuiz & Papan Juara
             Quiz Challenge & Certification: Cabaran Kuiz & Pensijilan
             Public Leaderboard & Certificate: Papan Pendahulu & Pensijilan
             Interactive Labs & Tools: Makmal & Alat Interaktif
-            Interactive Workshop (WASM): Bengkel Interaktif (WASM)
             Tcl Quest (Chip Island RPG): Tcl Quest (Pengembaraan Pulau Cip)
             Web Playground: Taman Permainan Kod (Playground)
             VLSI Layout Visualizer: Visualiser Susun Atur VLSI (DRV-Lite)
@@ -3840,14 +3814,13 @@ plugins:
           name: Français
           build: true
           site_name: Laboratoire Tcl & DRV pour VLSI
-          site_description: Initiation au Script Tcl, Analyse de Layout DRV & Atelier Interactif WASM
+          site_description: Initiation au Script Tcl, Analyse de Layout DRV & Outils Interactifs
           nav_translations:
             Home: Accueil
             Quiz Challenge & Leaderboard: Défi Quiz & Classement
             Quiz Challenge & Certification: Défi Quiz & Certification
             Public Leaderboard & Certificate: Tableau des Scores & Certification
             Interactive Labs & Tools: Labos & Outils Interactifs
-            Interactive Workshop (WASM): Atelier Interactif (WASM)
             Tcl Quest (Chip Island RPG): Tcl Quest (Aventure sur l'Île des Puces)
             Web Playground: Bac à Sable Web (Playground)
             VLSI Layout Visualizer: Visualiseur de Layout VLSI (DRV-Lite)
@@ -3876,7 +3849,6 @@ validation:
 
 not_in_nav: |
   quest-lab/**/*.md
-  wasm-lab/**/*.md
 
 nav:
   - Home: index.md
@@ -3884,7 +3856,6 @@ nav:
       - Quiz Challenge & Certification: quiz.md
       - Public Leaderboard & Certificate: leaderboard.md
   - Interactive Labs & Tools:
-      - Interactive Workshop (WASM): workshop.md
       - Tcl Quest (Chip Island RPG): quest.md
       - Web Playground: playground.md
       - VLSI Layout Visualizer: help/layout_viewer.md
@@ -3947,6 +3918,9 @@ def write_redirect_fallbacks() -> None:
             (quiz_dir / "leaderboard.md").write_text(redirect_tmpl.format(target="../leaderboard/"), encoding="utf-8")
         if lb_dir.exists():
             (lb_dir / "quiz.md").write_text(redirect_tmpl.format(target="../quiz/"), encoding="utf-8")
+        ws_dir = base_dir / "workshop"
+        ws_dir.mkdir(parents=True, exist_ok=True)
+        (ws_dir / "index.html").write_text(redirect_tmpl.format(target="../playground/"), encoding="utf-8")
 
 
 def main() -> None:
@@ -3960,10 +3934,8 @@ def main() -> None:
     if not meta:
         raise SystemExit("No lesson weeks found under lessons/")
     write_stylesheets()
-    copy_workshop()
     copy_quest()
     copy_assets()
-    write_workshop_pages()
     write_quest_pages()
     write_playground_pages()
     write_layout_viewer_pages()
