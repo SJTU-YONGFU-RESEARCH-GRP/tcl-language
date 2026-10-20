@@ -1,0 +1,5 @@
+term: block
+short: "A rectangle on the chip with one job, like a neighbourhood on a city map. Lumen-1 has CORE, SRAM, ADC, SENSOR and PADS."
+long: "Chip designers split a chip into blocks, each with a job: a processor, a memory, a sensor. Each block is a rectangle with a position (x, y) and a size (width, height). You will store, check and finally draw these rectangles during the course. On Lumen-1, SRAM stands for static random-access memory and ADC for analog-to-digital converter."
+see_also: [chip]
+first_taught: m10-w01-a

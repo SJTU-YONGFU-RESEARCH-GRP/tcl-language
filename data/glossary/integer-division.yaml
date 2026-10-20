@@ -1,0 +1,5 @@
+term: integer-division
+short: "Dividing two whole numbers in Tcl gives a whole number: 7 / 2 is 3, not 3.5. Write 7 / 2.0 to get 3.5."
+long: "When both numbers are integers, expr gives an integer and drops the rest. That is useful for counting whole things, like how many chips fit in a row. It is a trap when you need an exact share, like the cost of one chip. Make one number a decimal, such as 825.0, to get a decimal answer."
+see_also: [integer, decimal-number, remainder]
+first_taught: m10-w02-a

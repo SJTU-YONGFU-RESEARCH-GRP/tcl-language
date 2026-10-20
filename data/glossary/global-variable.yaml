@@ -1,0 +1,5 @@
+term: global-variable
+short: "A variable set in the main script, outside every proc. A proc can use it only after naming it with global."
+long: "global chipWidth chipHeight, at the top of a proc's body, connects those names to the script's variables, so the proc can read and change them. Use globals for facts that the whole script shares, like the chip's size; pass everything else as arguments."
+see_also: [variable, local-variable, procedure]
+first_taught: m10-w07-b

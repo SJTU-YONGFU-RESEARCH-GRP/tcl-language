@@ -1,0 +1,5 @@
+term: regular-expression
+short: "A powerful pattern language for text, used by regexp and regsub. Taught in Week 15; not the same as a glob pattern."
+long: "Regular expressions can describe patterns like 'one or more digits, a dot, then two digits'. They use some of the same signs as glob patterns, such as * and ?, but with different meanings. In M10 you only need glob patterns with string match. Weeks 15 and 16 teach regular expressions for reading tool logs."
+see_also: [glob-pattern]
+first_taught: m10-w08-b

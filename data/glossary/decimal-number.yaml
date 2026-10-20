@@ -1,0 +1,5 @@
+term: decimal-number
+short: "A number with a decimal point, like 2.5 or 400.0. If one number in a division is a decimal, the result is a decimal too."
+long: "Programmers also call decimal numbers floating-point numbers. In Tcl you make a decimal by writing a point: 400.0 instead of 400. Then 1000 / 400.0 gives 2.5. Decimals can have tiny rounding errors in their last digits, which you will learn to handle later."
+see_also: [integer, integer-division]
+first_taught: m10-w02-a

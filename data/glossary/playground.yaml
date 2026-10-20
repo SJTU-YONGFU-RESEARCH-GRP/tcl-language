@@ -1,0 +1,5 @@
+term: playground
+short: "A code box on a lesson page where you type Tcl and press Run. It runs in your browser, with nothing to install."
+long: "The playground runs a real Tcl interpreter inside your web browser. Type or change the code, press Run, and the output or error message appears below. Reset brings back the original code. Nothing you type is sent anywhere. From Week 11 you also run scripts on your own computer with tclsh."
+see_also: [tcl, output, tclsh]
+first_taught: m10-w01-a

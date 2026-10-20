@@ -1,0 +1,5 @@
+term: standard-cell
+short: "A small, ready-made building block of a chip, such as an inverter (INV) or a NAND gate, drawn once and placed many times."
+long: "A cell library has hundreds of standard cells. They all have the same height and different widths, so they can sit side by side in rows, like houses along a street. Each cell is drawn with its own corner at 0, 0; the layout then places copies of it. Real cells are about a micrometre wide; course labs use bigger teaching numbers."
+see_also: [block, layout]
+first_taught: m10-w06-lab

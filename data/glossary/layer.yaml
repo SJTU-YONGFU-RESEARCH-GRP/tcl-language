@@ -1,0 +1,5 @@
+term: layer
+short: "One drawing level of a chip layout. A layout is a city map drawn in layers."
+long: "A chip is built from many stacked shapes of different materials. Designers draw each material on its own layer, like the roads, buildings and pipes on separate sheets of a city map. Each layer has a number and a colour."
+see_also: [chip]
+first_taught: m10-w01-a

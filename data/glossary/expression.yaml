@@ -1,0 +1,5 @@
+term: expression
+short: "A piece of maths for expr to work out, such as $width * 2. Always put braces around it: expr {$width * 2}."
+long: "The expr command reads its words as maths: numbers, variables and operators like + - * /. It follows the usual order, so * and / come before + and -. Wrap the expression in braces so that expr, not the normal Tcl rules, does the substitution. This is safer and faster."
+see_also: [command-substitution, braces]
+first_taught: m10-w02-a

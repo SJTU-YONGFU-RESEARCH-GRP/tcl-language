@@ -1,0 +1,5 @@
+term: local-variable
+short: "A variable that belongs to one call of a proc. It disappears when the proc returns, and the rest of the script cannot see it."
+long: "Every call of a proc gets its own, empty set of variables: its arguments and anything it sets. A variable called width inside a proc is a different box from a variable called width in the script. This keeps procs from changing each other's values by accident."
+see_also: [variable, procedure, global-variable]
+first_taught: m10-w07-b

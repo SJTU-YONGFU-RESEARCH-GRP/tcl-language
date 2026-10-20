@@ -1,0 +1,5 @@
+term: channel
+short: "An empty strip between two blocks where wires can run side by side."
+long: "On Lumen-1 there is a 20 µm channel between CORE and SRAM. Wires in a channel must keep a minimum space from the blocks and from each other, so only a certain number fit. Counting them is a job for a loop."
+see_also: [wire, block, design-rule]
+first_taught: m10-w04-lab

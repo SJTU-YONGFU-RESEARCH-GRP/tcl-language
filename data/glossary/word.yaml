@@ -1,0 +1,5 @@
+term: word
+short: "A piece of a command separated by spaces. The first word is the command name."
+long: "Tcl cuts every command into words at the spaces. Quotes or braces can group several spaces-separated pieces into one word, so hello world with quotes is a single word."
+see_also: [command, substitution]
+first_taught: m10-w01-b

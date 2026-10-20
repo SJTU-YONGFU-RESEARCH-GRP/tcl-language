@@ -1,0 +1,5 @@
+term: list
+short: "Many values kept in one value, in order, separated by spaces, like {CORE SRAM ADC}. Each value in it is an element."
+long: "In Tcl a list is just a string of words, so you can write one in braces: set blocks {CORE SRAM ADC SENSOR PADS}. Commands like llength, lindex, lappend and foreach treat it as a row of elements. Use the list command to build one from variables, because braces would freeze the $ signs."
+see_also: [element, index, braces]
+first_taught: m10-w05-a

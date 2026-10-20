@@ -1,0 +1,5 @@
+term: argument
+short: "A word that comes after the command name and gives the command something to work on. In puts hello, hello is the argument."
+long: "Every command starts with its name. The words after the name are its arguments. Each command decides what its arguments mean: puts prints its last argument, set uses the first as a variable name and the second as the value. Grouping with quotes or braces decides how many arguments a command gets."
+see_also: [command, word]
+first_taught: m10-w01-b

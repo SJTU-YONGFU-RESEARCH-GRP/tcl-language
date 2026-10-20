@@ -1,0 +1,5 @@
+term: variable
+short: "A named box that holds a value. set width 400 puts 400 in the box called width; $width reads it back."
+long: "You create a variable and give it a value with set. Later, writing a dollar sign before the name, as in $width, tells Tcl to put the value there instead. A variable keeps its value until you set it again."
+see_also: [substitution, command]
+first_taught: m10-w01-b

@@ -1,0 +1,5 @@
+term: output
+short: "What a script prints when it runs. In the playground it appears under the code box."
+long: "A script's output is the text it shows you. In Tcl, puts prints one line of output. Comments and set commands print nothing. When you predict the output of a script, you write down exactly what will appear, line by line."
+see_also: [script, command]
+first_taught: m10-w01-a

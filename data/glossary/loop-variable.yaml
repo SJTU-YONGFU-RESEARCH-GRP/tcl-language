@@ -1,0 +1,5 @@
+term: loop-variable
+short: "The variable that foreach fills with the next element of the list on every pass, like layer in foreach layer $layers {…}."
+long: "foreach sets the loop variable, runs the body, and moves on to the next element. With several loop variables, as in foreach {name width height} $blockSizes {…}, each pass takes that many elements at once."
+see_also: [loop, list, element]
+first_taught: m10-w05-b

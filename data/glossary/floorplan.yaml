@@ -1,0 +1,5 @@
+term: floorplan
+short: "The plan of where each big block of a chip goes, drawn as rectangles, like the plan of a city's districts."
+long: "A floorplan places blocks such as CORE and SRAM on the chip before the small shapes inside them are drawn. Blocks must stay inside the chip and must not clash with each other. In this course, two floorplan blocks that touch count as a clash, because blocks need space between them."
+see_also: [block, chip, layout]
+first_taught: m10-w07-a

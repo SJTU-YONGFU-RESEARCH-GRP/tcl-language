@@ -1,0 +1,5 @@
+term: chip
+short: "A tiny piece of silicon with millions of switches (transistors) and wires on it, built in layers. This course treats it as a city map."
+long: "A chip, or integrated circuit, is made by drawing shapes on many stacked layers. Some layers make transistors, others make the metal wires that connect them. In this course a chip is a city map drawn in layers: neighbourhoods are blocks, streets and highways are metal layers."
+see_also: [layer, block, layout]
+first_taught: m10-w01-a

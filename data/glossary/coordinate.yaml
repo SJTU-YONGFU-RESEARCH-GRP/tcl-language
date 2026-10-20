@@ -1,0 +1,5 @@
+term: coordinate
+short: "A number that gives a position on the chip: x across, y up, measured in µm from the bottom-left corner (0, 0)."
+long: "A point on Lumen-1 is a pair of coordinates (x, y), like a place on a city map given by its street and its avenue. A rectangle can be stored as the coordinates of two corners, {x1 y1 x2 y2}: the bottom-left and the top-right. Its width is x2 - x1 and its height is y2 - y1."
+see_also: [block, micrometre]
+first_taught: m10-w05-a

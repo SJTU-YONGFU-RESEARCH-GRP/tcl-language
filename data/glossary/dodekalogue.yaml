@@ -1,0 +1,5 @@
+term: dodekalogue
+short: "The 12 rules that define the whole Tcl language. Dodeka is Greek for twelve."
+long: "Tcl has very little grammar: the Tcl manual page lists just twelve rules for how a script is cut into commands and words and how substitution works. Everything else, even if and while, is an ordinary command. Learn the rules once and you can read any Tcl line."
+see_also: [word, substitution, grouping]
+first_taught: m10-w03-b

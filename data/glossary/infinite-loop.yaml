@@ -1,0 +1,5 @@
+term: infinite-loop
+short: "A loop that never stops, because its condition never becomes false. The playground stops any run after a few seconds."
+long: "The usual causes: the body never changes the variable that the condition tests (a forgotten incr), or the condition is in double quotes, so Tcl substituted it once before the loop started. The lab checker also stops a script that runs too long, and tells you."
+see_also: [loop, condition]
+first_taught: m10-w04-b

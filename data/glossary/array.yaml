@@ -1,0 +1,5 @@
+term: array
+short: "A family of variables that share one name, each picked by a key in parentheses: count(METAL1), count(POLY)."
+long: "set count(POLY) 0 creates an element, $count(POLY) reads it, and incr count($layer) changes one in place. array names lists the keys, but in no promised order: use lsort [array names count] when order matters. An array is a set of variables, not a value, so $count alone is an error and a proc needs upvar to use one."
+see_also: [dictionary, key, variable]
+first_taught: m10-w09-b

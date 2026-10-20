@@ -1,0 +1,5 @@
+term: stack-trace
+short: "The path an error took, kept in the variable errorInfo: the message, then each command and proc it passed through on its way out."
+long: "Read it from the top: first the error message, then 'while executing' and the command that failed, then each 'invoked from within' line one level further out. It tells you which proc, and which line of it, went wrong. Inside a proc, write global errorInfo to read it."
+see_also: [error-message, procedure]
+first_taught: m10-w10-a

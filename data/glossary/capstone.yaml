@@ -1,0 +1,5 @@
+term: capstone
+short: "The bigger project at the end of a milestone, which uses everything the milestone taught. M10's capstone is the Mini Floorplan Checker."
+long: "Each capstone reuses the one before it: the Mini Floorplan Checker (M10) grows into TinyLayout (M20), the Cell Generator (M30) and the Layout Auditor (M40). Its checker gives points for correctness and error handling; you score readability yourself."
+see_also: [floorplan]
+first_taught: m10-w10-a

@@ -1,0 +1,5 @@
+term: gds
+short: "GDS (or GDSII) is the standard file format that stores a chip layout."
+long: "A GDS file lists cells, layers and shapes with their coordinates. You will write GDS files with DRV-Lite in milestone M30 and open them in KLayout."
+see_also: [layout, klayout]
+first_taught: start-here

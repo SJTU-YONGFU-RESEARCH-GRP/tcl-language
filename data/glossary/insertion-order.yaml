@@ -1,0 +1,5 @@
+term: insertion-order
+short: "The order in which keys were first added. dict for walks a dict in this order; array names makes no such promise."
+long: "When dict set changes the value of a key that is already there, the key keeps its place. A new key goes at the end. Arrays are different: array names gives the names in an order that is not promised and may differ between Tcl versions, so sort it with lsort when order matters."
+see_also: [dictionary, array]
+first_taught: m10-w09-a

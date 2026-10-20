@@ -1,0 +1,5 @@
+term: counter
+short: "A variable that counts, usually starting at 0 or 1 and going up by one with incr each time something happens."
+long: "Counters keep track of how many times a loop has run, or how many things it has found. Set the counter before the loop starts, then incr it inside the body."
+see_also: [loop, variable]
+first_taught: m10-w04-b

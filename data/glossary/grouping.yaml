@@ -1,0 +1,5 @@
+term: grouping
+short: "Joining several pieces separated by spaces into one word, with double quotes or braces."
+long: "Tcl cuts a command into words at the spaces. When one word needs to contain spaces, you group it. Double quotes group and still allow substitution. Braces group and stop all substitution. The grouping must start at the first character of the word."
+see_also: [double-quotes, braces, word]
+first_taught: m10-w03-a

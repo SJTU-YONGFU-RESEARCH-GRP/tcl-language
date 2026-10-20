@@ -1,0 +1,5 @@
+term: abut
+short: "To place two shapes so that they touch along an edge, with no gap and no overlap."
+long: "Real layouts abut shapes on purpose: standard cells sit side by side in their rows, sharing their edges. Two touching shapes on the same layer merge into one shape. For floorplan blocks, this course chooses the opposite rule: blocks must not touch, so rectOverlaps counts touching as a clash."
+see_also: [standard-cell, floorplan, layer]
+first_taught: m10-w07-a

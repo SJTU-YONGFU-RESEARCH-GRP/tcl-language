@@ -1,0 +1,5 @@
+term: script
+short: "A list of commands saved as text, which the computer runs one after another."
+long: "A Tcl script is plain text. Each line (or each part between semicolons) is one command. Tcl reads the script from top to bottom and runs each command in turn."
+see_also: [command]
+first_taught: m10-w01-a

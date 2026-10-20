@@ -1,0 +1,5 @@
+term: default-value
+short: "The value an argument gets when the caller leaves it out, written as a pair in the argument list: {dy 0}."
+long: "proc rectShift {rect dx {dy 0}} {…} can be called with two or three values. With two, dy is 0. Arguments with a default value go at the end of the argument list."
+see_also: [argument, procedure]
+first_taught: m10-w07-a

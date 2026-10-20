@@ -1,0 +1,5 @@
+term: index
+short: "The position number of an element in a list. Tcl counts from 0, so the first element has index 0. The word end means the last one."
+long: "In {CORE SRAM ADC SENSOR PADS}, CORE has index 0 and PADS has index 4, which you can also write as end. Asking lindex for an index past the end gives an empty value, not an error, so check your numbers."
+see_also: [list, element]
+first_taught: m10-w05-a

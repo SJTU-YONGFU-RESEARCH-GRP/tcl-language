@@ -1,0 +1,5 @@
+term: bounding-box
+short: "The smallest rectangle that holds a group of shapes, written like a rectangle: {x1 y1 x2 y2}."
+long: "To find it, take the smallest x1 and y1 and the largest x2 and y2 of all the shapes. Layout tools use bounding boxes all the time, for example to know how big a cell is. In M30 you will ask DRV-Lite for one."
+see_also: [coordinate]
+first_taught: m10-w05-lab

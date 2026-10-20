@@ -1,0 +1,5 @@
+term: return-value
+short: "The value a command gives back to the script that called it. In a proc, return sends it and ends the proc."
+long: "The return value takes the place of the call, so set width [rectWidth $core] stores it. If a proc has no return, its return value is the result of its last command. puts prints text but gives back an empty value, so printing is not the same as returning."
+see_also: [procedure, result, command-substitution]
+first_taught: m10-w07-a

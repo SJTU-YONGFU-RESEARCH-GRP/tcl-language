@@ -1,0 +1,5 @@
+term: nesting
+short: "Putting one thing inside another of the same kind, like brackets inside brackets. The innermost command finishes first."
+long: "In puts [set area [expr {400 * 300}]], the brackets are nested. Tcl reads left to right and starts a new command at each [. A command can only run when all its words are ready, so expr finishes first, then set, then puts. Deep nesting is hard to read: one step per line is often clearer."
+see_also: [command-substitution, result]
+first_taught: m10-w02-b

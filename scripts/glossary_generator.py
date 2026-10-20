@@ -80,8 +80,10 @@ CATEGORY_MAP = {
 
 
 def load_glossary_terms() -> list[dict]:
-    # Look in projects/capeur first
-    glossary_dir = ROOT.parent / "projects" / "capeur" / "src" / "content" / "glossary"
+    # Look in data/glossary within repository first
+    glossary_dir = ROOT / "data" / "glossary"
+    if not glossary_dir.exists():
+        glossary_dir = ROOT.parent / "projects" / "capeur" / "src" / "content" / "glossary"
     if not glossary_dir.exists():
         glossary_dir = ROOT / "docs" / "glossary"
     
@@ -105,12 +107,31 @@ def load_glossary_terms() -> list[dict]:
 
 def write_glossary_pages(docs_dir: Path) -> None:
     terms = load_glossary_terms()
-    if not terms:
-        print("Warning: No glossary terms found.")
-        return
-
     help_dir = docs_dir / "help"
     help_dir.mkdir(parents=True, exist_ok=True)
+
+    if not terms:
+        print("Warning: No glossary YAML files found, generating fallback glossary.")
+        terms = [
+            {
+                "term": "standard-cell",
+                "short": "A small, ready-made building block of a chip, such as an inverter (INV) or NAND gate.",
+                "long": "A cell library has hundreds of standard cells. They all have the same height and different widths, so they can sit side by side in rows.",
+                "see_also": ["block", "layout"],
+                "first_taught": "m10-w06-lab",
+                "cat_en": "VLSI & Layout",
+                "cat_zh": "版图与物理设计",
+            },
+            {
+                "term": "dodekalogue",
+                "short": "The 12 core rules defining Tcl syntax and evaluation semantics.",
+                "long": "Every Tcl command is evaluated according to the twelve rules of the Tcl syntax dodekalogue.",
+                "see_also": ["expr", "substitution"],
+                "first_taught": "m10-w01-lab",
+                "cat_en": "Tcl Syntax & Core",
+                "cat_zh": "Tcl 核心语法",
+            },
+        ]
 
     en_content = _build_glossary_page(terms, "en")
     zh_content = _build_glossary_page(terms, "zh")

@@ -1,0 +1,5 @@
+term: operator
+short: "A symbol that does maths inside expr: + add, - subtract, * multiply, / divide, % remainder."
+long: "Operators sit between numbers, like 400 * 300. Computers use * for multiply and / for divide, because × and ÷ are hard to type. expr knows many more operators, which you will meet when your scripts start to make decisions."
+see_also: [expression, order-of-operations]
+first_taught: m10-w02-a

@@ -1,0 +1,5 @@
+term: error-message
+short: "What Tcl shows when it cannot run a command. It usually names the exact problem, so read it first."
+long: "When a command goes wrong, Tcl stops the script and prints an error message, such as invalid command name \"Puts\". Errors are normal: every programmer sees them many times a day. The message tells you which word or value Tcl did not understand. Read it, find that word in your code, and fix it."
+see_also: [command]
+first_taught: m10-w01-a

@@ -1,0 +1,5 @@
+term: substitution
+short: "When Tcl replaces $name, [command] or \\n with a value before running a command."
+long: "Before Tcl runs a command, it looks for three special patterns in the words. A dollar sign followed by a name is replaced by that variable's value. Square brackets run a command and use its result. A backslash followed by a letter becomes a special character, such as a new line."
+see_also: [word, command, double-quotes, braces]
+first_taught: m10-w02-b

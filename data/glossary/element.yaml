@@ -1,0 +1,5 @@
+term: element
+short: "One value inside a list. In {CORE SRAM ADC}, the elements are CORE, SRAM and ADC."
+long: "llength counts the elements of a list, lindex picks one by its index, and foreach takes them one at a time. An element can be a number, a word, or even another list, which Week 6 shows."
+see_also: [list, index]
+first_taught: m10-w05-a

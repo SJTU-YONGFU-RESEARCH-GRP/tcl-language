@@ -1,0 +1,5 @@
+term: key
+short: "The name you look a value up by, in a dict or an array. In {POLY 2.0 METAL1 4.0}, POLY and METAL1 are keys."
+long: "Keys are exact: capitals count, so metal1 and METAL1 are two different keys. A dict or an array holds each key only once; setting a key that is already there changes its value."
+see_also: [dictionary, array]
+first_taught: m10-w09-a

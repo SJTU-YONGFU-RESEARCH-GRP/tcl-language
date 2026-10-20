@@ -1,0 +1,5 @@
+term: branch
+short: "One of the possible paths through an if command. Only one branch runs: the first one whose condition is true, or the else branch."
+long: "An if command can have several branches: the first body, any number of elseif bodies, and an else body. Tcl tests the conditions from the top and runs the first branch whose condition is true. If none is true, the else branch runs, if there is one."
+see_also: [condition]
+first_taught: m10-w04-a

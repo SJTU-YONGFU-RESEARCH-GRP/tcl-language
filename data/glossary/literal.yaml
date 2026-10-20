@@ -1,0 +1,5 @@
+term: literal
+short: "Text taken exactly as written, with no substitution. {x is $x} gives the literal text x is $x."
+long: "A literal is the opposite of a substituted value. Inside braces everything is literal. A backslash makes a single character literal, as in \\$ for a real dollar sign."
+see_also: [braces, backslash-escape]
+first_taught: m10-w03-a

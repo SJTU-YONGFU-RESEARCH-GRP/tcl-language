@@ -1,0 +1,5 @@
+term: nested-list
+short: "A list whose elements are lists themselves, like a list of rectangles: {{20 20 220 180} {240 20 380 180}}."
+long: "Each inner list is one element of the outer list, so llength counts the inner lists, not the numbers in them. lindex takes one index per level: lindex $rects 1 2 opens element 1, then takes its element 2. To add an inner list, wrap it with the list command: lappend rects [list 0 0 10 5]."
+see_also: [list, element, index]
+first_taught: m10-w06-a

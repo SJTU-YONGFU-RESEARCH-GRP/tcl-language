@@ -1,0 +1,5 @@
+term: square-micrometre
+short: "The unit of area on a chip, written µm² (or um2 in code): a square 1 µm on each side. Area = width × height."
+long: "Lumen-1 is 400 µm wide and 300 µm high, so its area is 400 × 300 = 120000 µm². One square millimetre (mm²) is 1000000 µm², so Lumen-1 is 0.12 mm²."
+see_also: [micrometre]
+first_taught: m10-w02-a

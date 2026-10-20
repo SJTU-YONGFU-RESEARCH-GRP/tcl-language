@@ -1,0 +1,5 @@
+term: klayout
+short: "A free, open-source program for viewing and editing chip layouts. You install it yourself in Week 21."
+long: "KLayout opens GDS files and shows every layer in colour. This course uses it as the real-world viewer for the layouts you create with DRV-Lite."
+see_also: [gds, drv-lite]
+first_taught: start-here

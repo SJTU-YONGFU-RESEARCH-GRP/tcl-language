@@ -1,0 +1,5 @@
+term: layer-purpose
+short: "The second part of a layer name like METAL2_drawing: what the shapes are for. drawing shapes become the mask; pin shapes show where a wire may connect."
+long: "Many design tools name a layer with two parts, the layer and the purpose, joined by _. This course uses only two teaching purposes, drawing and pin, and the cleaning rules of the Week 8 lab are our own rules. Real tools have many more purposes. A GDS file stores a pair of numbers instead, the layer and the datatype (Week 9)."
+see_also: [layer, datatype]
+first_taught: m10-w08-a

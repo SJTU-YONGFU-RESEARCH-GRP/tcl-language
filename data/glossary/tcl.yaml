@@ -1,0 +1,5 @@
+term: tcl
+short: "The programming language of this course, said \"tickle\". Chip-design tools use it to run scripts."
+long: "Tcl stands for Tool Command Language. It was made to control tools, which is why many chip-design programs, including Calibre DESIGNrev, let you control them with Tcl scripts. A Tcl script is a list of commands written as plain text. In Weeks 1 to 10 your Tcl runs in the browser playground."
+see_also: [script, command, playground]
+first_taught: m10-w01-a

@@ -1,0 +1,5 @@
+term: backslash-escape
+short: "A backslash before a character changes its meaning: \\$ is a real dollar sign, \\n is a new line, \\t is a tab."
+long: "A backslash before a special character ($ [ ] \" \\ { }) switches off its special meaning for that one character. A backslash before some letters makes an invisible character: \\n starts a new line and \\t jumps to the next tab stop. Inside braces, backslashes stay as typed."
+see_also: [literal, substitution]
+first_taught: m10-w03-b

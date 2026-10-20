@@ -1,0 +1,5 @@
+term: condition
+short: "A test that is either true or false, such as $wireWidth >= 4. In Tcl, true is 1 and false is 0."
+long: "Commands like if and while take a condition in braces and let expr work it out. A comparison gives 1 when it is true and 0 when it is false. You can join two conditions with && (both must be true) or || (at least one must be true)."
+see_also: [comparison-operator, branch, expression]
+first_taught: m10-w04-a

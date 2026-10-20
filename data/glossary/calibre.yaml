@@ -1,0 +1,5 @@
+term: calibre
+short: "Calibre DESIGNrev is a commercial layout tool from Siemens EDA, scripted in Tcl. This course does not use it directly."
+long: "Many chip companies script Calibre DESIGNrev in Tcl. This course teaches the same style through DRV-Lite. Every Calibre command shown carries a badge: ✅ verified from a public source, or ⚠️ to check in the official manual."
+see_also: [drv-lite]
+first_taught: start-here

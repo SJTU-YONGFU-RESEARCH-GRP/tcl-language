@@ -1,0 +1,5 @@
+term: format-specifier
+short: "A % code inside the first argument of format that says how to print one value: %s text, %d whole number, %.1f decimal with 1 place."
+long: "A number between % and the letter sets the width of the column: %6d pads a whole number to 6 characters on the left; %-7s pads text on the right. %.1f rounds a decimal to 1 place. Write %% for a real percent sign. Each specifier takes the next value after the format text, in order."
+see_also: [string, decimal-number]
+first_taught: m10-w08-b

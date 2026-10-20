@@ -1,0 +1,5 @@
+term: micrometre
+short: "One millionth of a metre, written µm (or um in code). A human hair is about 70 µm wide."
+long: "Chip sizes are measured in micrometres. Lumen-1 is 400 µm by 300 µm, about the size of a grain of salt. In Tcl code we write um, because µ is hard to type."
+see_also: [chip]
+first_taught: m10-w01-a

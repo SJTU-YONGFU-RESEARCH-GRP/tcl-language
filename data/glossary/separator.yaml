@@ -1,0 +1,5 @@
+term: separator
+short: "A character that marks where one part of a text ends and the next begins, like the commas in ACTIVE,POLY,CONTACT."
+long: "split cuts a text at every separator and gives a list of the parts; join puts a separator back between the elements of a list. Only the separator is cut away: spaces next to it stay in the parts."
+see_also: [list, element]
+first_taught: m10-w06-b

@@ -1,0 +1,5 @@
+term: vlsi
+short: "Very Large Scale Integration: designing chips with millions or billions of transistors."
+long: "VLSI is the field of chip design you are working towards. VLSI engineers use scripts every day to create, check and fix chip layouts that are far too large to draw by hand."
+see_also: [chip, layout]
+first_taught: start-here

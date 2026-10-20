@@ -1,0 +1,5 @@
+term: tclsh
+short: "The Tcl shell: the program that runs Tcl scripts on your own computer. You install it in Week 11."
+long: "Until Week 10 you run Tcl in the browser playground. From Week 11 you run scripts with tclsh, for example tclsh tests/test.tcl."
+see_also: [script]
+first_taught: start-here

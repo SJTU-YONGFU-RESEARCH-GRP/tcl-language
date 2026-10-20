@@ -1,0 +1,5 @@
+term: design-rule
+short: "A rule from the chip factory that every shape must follow, such as a minimum width for wires on one layer. Shapes that break a rule may not be made correctly."
+long: "The factory cannot print shapes that are too thin or too close together: they could break or touch. So it gives designers a rulebook, with rules like 'METAL2 wires are at least 4 µm wide'. The numbers in this course are teaching numbers; real chips use much thinner wires. Checking every shape against the rules is a big job for scripts."
+see_also: [wire, layer]
+first_taught: m10-w04-a

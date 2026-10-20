@@ -1,0 +1,5 @@
+term: datatype
+short: "The second number of a GDS layer pair. GDS 4.0 means layer 4, datatype 0."
+long: "A GDS file does not store layer names, only two numbers per shape: the layer and the datatype. A table links the names people use to these numbers. The numbers in this course are teaching numbers, not any factory's, and datatype 0 means drawing for every layer."
+see_also: [gds, layer, layer-purpose]
+first_taught: m10-w09-a

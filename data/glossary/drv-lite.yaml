@@ -1,0 +1,5 @@
+term: drv-lite
+short: "A free teaching simulator, written in Tcl for this course, that copies the style of layout scripting in Calibre DESIGNrev."
+long: "DRV-Lite lets you learn layout scripting without a commercial licence. It is not Calibre and is not made by Siemens. Commands marked ⚠️ are approximations for learning."
+see_also: [klayout, calibre]
+first_taught: start-here

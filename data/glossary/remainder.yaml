@@ -1,0 +1,5 @@
+term: remainder
+short: "What is left over after whole-number division. In expr the % operator gives it: 1000 % 400 is 200."
+long: "If 2 chips of 400 µm fit on a 1000 µm strip, 200 µm is left over. That leftover is the remainder. The % operator only makes sense with whole numbers."
+see_also: [integer-division, operator]
+first_taught: m10-w02-a

@@ -1,0 +1,5 @@
+term: result
+short: "What a command gives back when it finishes. The result of expr {2 + 3} is 5. Square brackets put a result into a command."
+long: "Every Tcl command gives back a result, even if it is empty. expr gives back the answer to its maths. set gives back the value it stored. puts gives back nothing useful: it prints instead. With [ ] you can use one command's result as a word of another command."
+see_also: [command, command-substitution]
+first_taught: m10-w02-b

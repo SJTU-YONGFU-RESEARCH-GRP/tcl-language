@@ -1,0 +1,5 @@
+term: loop-body
+short: "The commands inside the last pair of braces of a loop: the part that runs again on every pass."
+long: "The body is written in braces so that Tcl does not substitute it before the loop starts. The loop then runs it fresh on every pass, so $x gives the value x has at that moment."
+see_also: [loop, braces]
+first_taught: m10-w04-b

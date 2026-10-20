@@ -1,0 +1,5 @@
+term: character
+short: "One letter, digit, space or sign in a piece of text. METAL2_drawing has 14 characters."
+long: "A space is a character too, so string length counts it. The underscore _ is a character like any other; in a variable name it counts as part of the name, which is why $layer_ looks for a variable called layer_."
+see_also: [string]
+first_taught: m10-w08-a

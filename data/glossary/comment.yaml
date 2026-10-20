@@ -1,0 +1,5 @@
+term: comment
+short: "A note for humans that Tcl skips. It starts with # where a command could start."
+long: "Tcl treats # as a comment only where it expects the first word of a new command. After a command on the same line, first end the command with a semicolon: set x 5 ;# five."
+see_also: [command]
+first_taught: m10-w01-a

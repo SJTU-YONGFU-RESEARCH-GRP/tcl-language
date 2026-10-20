@@ -1,0 +1,5 @@
+term: guard-clause
+short: "A check at the top of a proc that refuses bad input with a clear error, so the rest of the proc can trust its arguments."
+long: "A defensive proc starts with its guard clauses: is the number of values right, is each value a number, is it positive? Each failed check raises an error that says what was wrong and shows the value. The caller decides what to do with it, for example skip the block with try … on error."
+see_also: [procedure, error-message]
+first_taught: m10-w10-b

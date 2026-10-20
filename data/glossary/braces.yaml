@@ -1,0 +1,5 @@
+term: braces
+short: "{…} makes one word and freezes it: nothing inside is substituted, so $, [ ] and backslashes stay as typed."
+long: "Use braces when you want text exactly as you wrote it, or code that a command will run later, like the maths for expr. Braces can be nested: Tcl finds the matching closing brace. The outer braces are not part of the word."
+see_also: [grouping, double-quotes, literal]
+first_taught: m10-w03-a

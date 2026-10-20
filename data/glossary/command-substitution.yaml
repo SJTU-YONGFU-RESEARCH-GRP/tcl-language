@@ -1,0 +1,5 @@
+term: command-substitution
+short: "Square brackets run the command inside them first, and the result takes their place: [expr {2 + 3}] becomes 5."
+long: "When Tcl meets [ in a word that is not in braces, it reads everything up to the matching ] as a new, separate command. It runs that command, then puts the result where the brackets were. Inside the brackets, the grouping rules start again from scratch, so braces there group as usual."
+see_also: [substitution, expression]
+first_taught: m10-w02-b

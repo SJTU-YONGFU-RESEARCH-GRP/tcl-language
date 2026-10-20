@@ -1,0 +1,5 @@
+term: wire
+short: "A long, thin strip of metal on a chip that carries a signal or power from one place to another, like a street on the city map."
+long: "Wires are drawn on the metal layers, such as METAL1 and METAL2. Each wire has a width. Power wires are wide, because they carry a lot of current; signal wires are as thin as the rules allow, so that many fit side by side."
+see_also: [layer, design-rule]
+first_taught: m10-w04-a

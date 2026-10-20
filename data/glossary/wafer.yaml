@@ -1,0 +1,5 @@
+term: wafer
+short: "A thin, round slice of silicon on which a factory builds many chips at once, side by side."
+long: "Factories make chips on wafers, often 300 millimetres across, then cut them apart. The more chips fit on one wafer, the cheaper each chip is. In this course's Week 2 lab, the wafer is square, to keep the maths simple."
+see_also: [chip]
+first_taught: m10-w02-a

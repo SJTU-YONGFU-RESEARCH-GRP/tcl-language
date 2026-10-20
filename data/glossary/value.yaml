@@ -1,0 +1,5 @@
+term: value
+short: "The piece of data a variable holds, such as 400 or Lumen-1. In Tcl every value can be written as text."
+long: "A value is what you store with set and read back with $. It can be a number like 400, a name like CORE or a whole sentence. A variable holds one value at a time: setting it again replaces the old value."
+see_also: [variable]
+first_taught: m10-w01-b

@@ -1,0 +1,5 @@
+term: double-quotes
+short: "\"…\" makes one word, and Tcl still replaces $name, [command] and backslash codes inside it."
+long: "Use double quotes when you want a sentence that includes values: \"Block $block is ready\". The quote marks themselves are not part of the word. Braces inside double quotes are ordinary characters and do not stop anything."
+see_also: [grouping, braces, substitution]
+first_taught: m10-w03-a

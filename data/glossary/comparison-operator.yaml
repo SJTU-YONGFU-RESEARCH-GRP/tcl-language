@@ -1,0 +1,5 @@
+term: comparison-operator
+short: "A symbol that compares two values and gives 1 (true) or 0 (false): < <= > >= == != for numbers, eq and ne for text."
+long: "Use == and != to compare numbers, and eq and ne to compare text. <= means 'at most' and >= means 'at least'. A single = is not a comparison in Tcl: expr stops with an error if you use it."
+see_also: [condition, operator]
+first_taught: m10-w04-a

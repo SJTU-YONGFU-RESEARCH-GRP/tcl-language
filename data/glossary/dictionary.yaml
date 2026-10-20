@@ -1,0 +1,5 @@
+term: dictionary
+short: "A dict: a value that pairs keys with values, like a two-column table. {POLY 2.0 METAL1 4.0} maps POLY to 2.0."
+long: "A dict is written like a list with an even number of elements: key, value, key, value. Each key appears once. dict get looks a value up, dict set adds or changes one, and dict exists tests for a key. dict for walks the pairs in insertion order. A dict is a value, so you can pass it to a proc, return it, and put one dict inside another."
+see_also: [key, insertion-order, array, list]
+first_taught: m10-w09-a

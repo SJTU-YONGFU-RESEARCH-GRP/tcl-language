@@ -1,0 +1,5 @@
+term: pitch
+short: "The distance from one repeated shape to the next, such as one power stripe every 50 µm."
+long: "Chips are full of shapes that repeat at a fixed pitch: wires side by side, memory cells in rows, pads along an edge. A loop that adds the pitch on every pass finds each position."
+see_also: [wire, loop]
+first_taught: m10-w04-b

@@ -1,0 +1,5 @@
+term: loop
+short: "A command that runs the same commands again and again, such as while, for or foreach."
+long: "A loop has a body: the commands it repeats. A while loop repeats its body as long as its condition is true. A for loop does the same, with a start step and a next step written in the same line. Each time the body runs is called a pass."
+see_also: [loop-body, condition, counter, infinite-loop]
+first_taught: m10-w04-b

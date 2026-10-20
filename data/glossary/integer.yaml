@@ -1,0 +1,5 @@
+term: integer
+short: "A whole number, with no decimal point: 400, 0, -3. Dividing two integers in Tcl gives an integer."
+long: "Integers are the numbers you count with. Chip sizes in this course are integers of micrometres, like 400 and 300. Be careful when you divide: if both numbers are integers, expr drops the part after the point, so 7 / 2 gives 3."
+see_also: [decimal-number, integer-division]
+first_taught: m10-w02-a

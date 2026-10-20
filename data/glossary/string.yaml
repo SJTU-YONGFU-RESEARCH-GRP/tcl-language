@@ -1,0 +1,5 @@
+term: string
+short: "A piece of text: a row of characters, such as METAL2_drawing. Every Tcl value is a string."
+long: "The string command works on text one character at a time. string length counts the characters, string index picks one, and string range cuts a piece out. Positions count from 0, like list indexes, but a string counts characters, while a list counts words."
+see_also: [character, list, index]
+first_taught: m10-w08-a

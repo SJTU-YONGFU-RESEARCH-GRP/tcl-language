@@ -1,0 +1,5 @@
+term: command
+short: "One instruction to Tcl: a command name followed by its arguments, like puts hello."
+long: "Every Tcl program is a list of commands. The first word is the command name. The other words are its arguments. Tcl has no special syntax for if, while or proc: they are all ordinary commands."
+see_also: [word]
+first_taught: m10-w01-a

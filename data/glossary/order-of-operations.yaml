@@ -1,0 +1,5 @@
+term: order-of-operations
+short: "The rule for which part of a sum is worked out first: * / % before + -, and anything in parentheses before everything else."
+long: "expr follows the same rule as school maths. 400 + 300 * 2 is 400 + 600 = 1000, because * comes first. To add first, use parentheses: (400 + 300) * 2 is 1400."
+see_also: [operator, expression]
+first_taught: m10-w02-a

@@ -1,0 +1,5 @@
+term: procedure
+short: "A command you define yourself with proc: a name, a list of arguments and a body. Often just called a proc."
+long: "proc rectWidth {rect} {…} creates the command rectWidth. Defining it runs nothing; each call runs the body, with the call's values in the arguments. A procedure lets you write a calculation once and use it everywhere, like rectArea or rectOverlaps in the M10 capstone."
+see_also: [command, argument, return-value]
+first_taught: m10-w07-a

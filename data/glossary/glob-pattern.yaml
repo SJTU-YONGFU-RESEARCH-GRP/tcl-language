@@ -1,0 +1,5 @@
+term: glob-pattern
+short: "A simple text pattern used by string match: * means any characters, ? means exactly one character, [A-Z] means one character from a set."
+long: "string match {METAL?_*} $name gives 1 if the name is METAL, one character, an underscore, then anything. Glob patterns are the same small language a terminal uses for file names. They are not regular expressions, a bigger pattern language taught in Week 15, where * means something else. Put a pattern with [ ] in braces, or Tcl runs the brackets as a command."
+see_also: [regular-expression, string]
+first_taught: m10-w08-b

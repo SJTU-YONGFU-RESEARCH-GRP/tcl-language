@@ -1,0 +1,5 @@
+term: layout
+short: "The drawing of a chip: every shape on every layer, with exact coordinates."
+long: "The layout is what the factory uses to build the chip. It is stored in a file (often GDS) and viewed in tools such as KLayout. In milestones M30 and M40 you will create and check layouts with scripts."
+see_also: [chip, layer, gds]
+first_taught: start-here
