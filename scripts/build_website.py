@@ -2236,9 +2236,169 @@ Interactive digital IC timing sign-off simulator. Adjust clock parameters, wire 
       <span>TNS (Total Negative Slack): <span id="summary_tns" style="color:#10b981;">0.000 ns</span></span>
     </div>
   </div>
+
+  <!-- Live Generated Tcl Commands & SDC Constraints -->
+  <div style="margin-top: 24px; background: var(--md-default-bg-color); border: 1px solid var(--tcl-border); border-radius: 10px; padding: 20px;">
+    <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; margin-bottom: 12px;">
+      <div>
+        <h3 style="margin: 0; font-size: 15px; display: flex; align-items: center; gap: 8px;">
+          <span>🖥️</span> <span>Generated Tcl SDC & Sign-Off Automation Script</span>
+        </h3>
+        <div style="font-size: 12px; color: var(--md-default-fg-color--light); margin-top: 4px;">
+          Real-time industrial Tcl commands generated from the parameters above.
+        </div>
+      </div>
+      <div style="display: flex; gap: 8px; align-items: center; flex-wrap: wrap;">
+        <div style="display: flex; background: var(--tcl-surface); border: 1px solid var(--tcl-border); border-radius: 6px; padding: 2px;">
+          <button type="button" id="tabBtnSdc" onclick="switchTclTab('sdc')" style="border: none; background: #6366f1; color: white; padding: 5px 12px; border-radius: 4px; font-size: 12px; font-weight: 600; cursor: pointer;">SDC Constraints</button>
+          <button type="button" id="tabBtnSignoff" onclick="switchTclTab('signoff')" style="border: none; background: transparent; color: inherit; padding: 5px 12px; border-radius: 4px; font-size: 12px; font-weight: 600; cursor: pointer;">Tcl Sign-off Script</button>
+        </div>
+        <button type="button" onclick="copyGeneratedTcl()" id="copyTclBtn" class="tcl-btn" style="font-size: 12px; padding: 6px 14px; background: #10b981; color: white; border: none; border-radius: 6px; cursor: pointer; display: flex; align-items: center; gap: 6px; font-weight: 600;">
+          <span>📋</span> <span id="copyTclText">Copy Tcl</span>
+        </button>
+        <a href="../../playground/" class="tcl-btn" style="font-size: 12px; padding: 6px 14px; background: #3b82f6; color: white; text-decoration: none; border-radius: 6px; display: flex; align-items: center; gap: 6px; font-weight: 600;">
+          <span>⚡</span> <span>Open in Playground</span>
+        </a>
+      </div>
+    </div>
+
+    <pre style="margin: 0; padding: 16px; background: #0b1120; color: #38bdf8; border-radius: 8px; font-family: 'JetBrains Mono', monospace; font-size: 12px; line-height: 1.6; overflow-x: auto; border: 1px solid #1e293b;"><code id="generatedTclCode"># Initializing Tcl script...</code></pre>
+  </div>
 </div>
 
 <script>
+let currentTclTab = 'sdc';
+
+function switchTclTab(tab) {
+  currentTclTab = tab;
+  const btnSdc = document.getElementById('tabBtnSdc');
+  const btnSignoff = document.getElementById('tabBtnSignoff');
+  if (tab === 'sdc') {
+    btnSdc.style.background = '#6366f1';
+    btnSdc.style.color = '#ffffff';
+    btnSignoff.style.background = 'transparent';
+    btnSignoff.style.color = 'inherit';
+  } else {
+    btnSignoff.style.background = '#6366f1';
+    btnSignoff.style.color = '#ffffff';
+    btnSdc.style.background = 'transparent';
+    btnSdc.style.color = 'inherit';
+  }
+  updateTclCodeBox();
+}
+
+function updateTclCodeBox() {
+  const t_clk_ns = (parseFloat(document.getElementById('input_clk').value)).toFixed(3);
+  const t_data_ps = parseFloat(document.getElementById('input_data').value);
+  const t_data_ns = (t_data_ps / 1000).toFixed(3);
+  const t_clk_q_ps = parseFloat(document.getElementById('input_clk_q').value);
+  const t_clk_q_ns = (t_clk_q_ps / 1000).toFixed(3);
+  const t_setup_ps = parseFloat(document.getElementById('input_setup').value);
+  const t_setup_ns = (t_setup_ps / 1000).toFixed(3);
+  const t_unc_ps = parseFloat(document.getElementById('input_unc').value);
+  const t_unc_ns = (t_unc_ps / 1000).toFixed(3);
+
+  const req_ns = (parseFloat(t_clk_ns) - parseFloat(t_unc_ns) - parseFloat(t_setup_ns)).toFixed(3);
+  const arr_ns = (parseFloat(t_clk_q_ns) + parseFloat(t_data_ns)).toFixed(3);
+  const slack_ns = (parseFloat(req_ns) - parseFloat(arr_ns)).toFixed(3);
+
+  let code = '';
+  if (currentTclTab === 'sdc') {
+    code = `# ======================================================================
+# Industrial SDC Timing Constraints (Synopsys PrimeTime / Cadence Tempus)
+# Generated dynamically from Interactive STA Timing Gatekeeper
+# ======================================================================
+
+# 1. Primary Clock Definition (Period = ${t_clk_ns} ns)
+create_clock -name clk -period ${t_clk_ns} [get_ports clk]
+
+# 2. Clock Uncertainty & Jitter (Uncertainty = ${t_unc_ns} ns)
+set_clock_uncertainty -setup ${t_unc_ns} [get_clocks clk]
+
+# 3. Source Flip-Flop Clock-to-Q Delay (T_clk_q = ${t_clk_q_ns} ns)
+set_annotated_delay -cell ${t_clk_q_ns} \\
+  -from [get_pins u_reg_src/CK] \\
+  -to   [get_pins u_reg_src/Q]
+
+# 4. Critical Combinational Data Path Delay (T_data = ${t_data_ns} ns)
+set_annotated_delay -net ${t_data_ns} \\
+  -from [get_pins u_reg_src/Q] \\
+  -to   [get_pins u_alu/adder_reg_31/D]
+
+# 5. Capture Flip-Flop Library Setup Time (T_setup = ${t_setup_ns} ns)
+set_data_check -setup ${t_setup_ns} \\
+  -from [get_pins u_alu/adder_reg_31/CK] \\
+  -to   [get_pins u_alu/adder_reg_31/D]
+
+# 6. Report Critical Path Timing Slack
+report_timing -to [get_pins u_alu/adder_reg_31/D] \\
+  -delay_type max \\
+  -significant_digits 3`;
+  } else {
+    code = `#!/usr/bin/env tclsh
+# ======================================================================
+# Standalone Tcl Timing Gatekeeper & Slack Verification Script
+# Executable directly in standard tclsh or in-browser WASM Playground
+# ======================================================================
+
+namespace eval ::sta_gatekeeper {
+    # Parameters from current slider settings (in nanoseconds)
+    variable t_clk   ${t_clk_ns}
+    variable t_data  ${t_data_ns}
+    variable t_clk_q ${t_clk_q_ns}
+    variable t_setup ${t_setup_ns}
+    variable t_unc   ${t_unc_ns}
+
+    proc evaluate_slack {} {
+        variable t_clk; variable t_data; variable t_clk_q
+        variable t_setup; variable t_unc
+
+        # Slack = Required - Arrival
+        set req   [expr {$t_clk - $t_unc - $t_setup}]
+        set arr   [expr {$t_clk_q + $t_data}]
+        set slack [expr {$req - $arr}]
+
+        puts "=================================================="
+        puts "       VLSI TIMING SIGN-OFF VERIFICATION          "
+        puts "=================================================="
+        puts [format "Clock Period   (T_clk)   : %8.3f ns" $t_clk]
+        puts [format "Uncertainty    (T_unc)   : %8.3f ns" $t_unc]
+        puts [format "Library Setup  (T_setup) : %8.3f ns" $t_setup]
+        puts [format "Required Time  (T_req)   : %8.3f ns" $req]
+        puts [format "Arrival Time   (T_arr)   : %8.3f ns" $arr]
+        puts [format "Timing Slack   (Slack)   : %+8.3f ns" $slack]
+        puts "--------------------------------------------------"
+
+        if {$slack >= 0.0} {
+            puts "VERDICT: [PASS] Timing Met · Approved for Tapeout!"
+            return 0
+        } else {
+            puts "VERDICT: [FAIL] Timing Violation! Gate Blocked."
+            return 1
+        }
+    }
+}
+
+exit [::sta_gatekeeper::evaluate_slack]`;
+  }
+
+  const codeElem = document.getElementById('generatedTclCode');
+  if (codeElem) {
+    codeElem.textContent = code;
+  }
+}
+
+function copyGeneratedTcl() {
+  const codeElem = document.getElementById('generatedTclCode');
+  if (!codeElem) return;
+  navigator.clipboard.writeText(codeElem.textContent).then(() => {
+    const textSpan = document.getElementById('copyTclText');
+    const oldText = textSpan.innerText;
+    textSpan.innerText = 'Copied!';
+    setTimeout(() => { textSpan.innerText = oldText; }, 2000);
+  });
+}
+
 function recalcTiming() {
   const t_clk = parseFloat(document.getElementById('input_clk').value) * 1000;
   const t_data = parseFloat(document.getElementById('input_data').value);
@@ -2290,6 +2450,9 @@ function recalcTiming() {
 
   // Update multi-path scenarios
   updateMultiPaths(req, t_clk_q);
+
+  // Update live Tcl script code block
+  updateTclCodeBox();
 }
 
 function updateMultiPaths(req, clk_q) {
@@ -2354,6 +2517,12 @@ window.addEventListener('DOMContentLoaded', recalcTiming);
         .replace("Data Delay", "数据延迟")
         .replace("Arrival", "到达时间")
         .replace("Status", "状态")
+        .replace("Generated Tcl SDC & Sign-Off Automation Script", "实时生成的 Tcl SDC 与签核自动化脚本")
+        .replace("Real-time industrial Tcl commands generated from the parameters above.", "根据上方滑块参数实时动态生成的工业级 Tcl 约束与签核脚本。")
+        .replace("SDC Constraints", "SDC 时序约束")
+        .replace("Tcl Sign-off Script", "Tcl 独立签核脚本")
+        .replace("Copy Tcl", "复制 Tcl 脚本")
+        .replace("Open in Playground", "在演练台中运行")
     )
     ms_content = (en_content
         .replace("# ⚡ Interactive STA Timing Slack & WNS/TNS Gatekeeper", "# ⚡ Penjaga Masa STA Interaktif: Slack & WNS/TNS Sign-Off")
@@ -2376,6 +2545,12 @@ window.addEventListener('DOMContentLoaded', recalcTiming);
         .replace("Data Delay", "Kelewatan Data")
         .replace("Arrival", "Ketibaan")
         .replace("Status", "Status")
+        .replace("Generated Tcl SDC & Sign-Off Automation Script", "Perintah Tcl SDC & Skrip Sign-Off Dijana Secara Langsung")
+        .replace("Real-time industrial Tcl commands generated from the parameters above.", "Perintah Tcl industri masa nyata yang dijana daripada parameter gelangsar di atas.")
+        .replace("SDC Constraints", "Kekangan SDC")
+        .replace("Tcl Sign-off Script", "Skrip Sign-off Tcl")
+        .replace("Copy Tcl", "Salin Tcl")
+        .replace("Open in Playground", "Buka dalam Playground")
     )
     fr_content = (en_content
         .replace("# ⚡ Interactive STA Timing Slack & WNS/TNS Gatekeeper", "# ⚡ Contrôleur Temporel STA Interactif : Marge Slack & WNS/TNS")
@@ -2398,6 +2573,12 @@ window.addEventListener('DOMContentLoaded', recalcTiming);
         .replace("Data Delay", "Délai Données")
         .replace("Arrival", "Arrivée")
         .replace("Status", "Statut")
+        .replace("Generated Tcl SDC & Sign-Off Automation Script", "Script d'Automatisation Tcl SDC & Validation Sign-Off Généré")
+        .replace("Real-time industrial Tcl commands generated from the parameters above.", "Commandes Tcl industrielles en temps réel générées à partir des paramètres ci-dessus.")
+        .replace("SDC Constraints", "Contraintes SDC")
+        .replace("Tcl Sign-off Script", "Script de Sign-off Tcl")
+        .replace("Copy Tcl", "Copier Tcl")
+        .replace("Open in Playground", "Ouvrir dans Playground")
     )
     (DOCS / "help" / "timing_calculator.md").write_text(en_content, encoding="utf-8")
     (DOCS / "help" / "timing_calculator.zh.md").write_text(zh_content, encoding="utf-8")
