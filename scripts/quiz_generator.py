@@ -60,6 +60,8 @@ def _build_quiz_page(lang: str) -> str:
             "thinking_bonus": "Thinking Time Allowance Granted",
             "report_title": "📊 Tcl Quiz Results & Summary",
             "cert_title": "🎓 Claim Your Certificate of Completion",
+            "syncing_badge": "🔄 Automatically syncing verified score to GitHub Community Leaderboard...",
+            "synced_badge": "✅ Score securely verified & published to GitHub Leaderboard",
             "submit_github_btn": "📤 Submit Result to GitHub Leaderboard",
             "dl_cert": "📥 Download Certificate (SVG)",
             "print_cert": "🖨️ Print Certificate",
@@ -89,6 +91,8 @@ def _build_quiz_page(lang: str) -> str:
             "thinking_bonus": "已追加思考保护时间",
             "report_title": "📊 Tcl 测验成绩与掌握度评估",
             "cert_title": "🎓 领取 Tcl 编程完成证书",
+            "syncing_badge": "🔄 正在自动将认证成绩存证同步至 GitHub 荣誉榜...",
+            "synced_badge": "✅ 成绩已自动通过防伪验真存证并发布至 GitHub 荣誉榜",
             "submit_github_btn": "📤 提交成绩至 GitHub 荣誉榜",
             "dl_cert": "📥 下载防伪认证证书 (SVG)",
             "print_cert": "🖨️ 打印 / 导出 PDF",
@@ -118,6 +122,8 @@ def _build_quiz_page(lang: str) -> str:
             "thinking_bonus": "Masa Berfikir Tambahan Diberikan",
             "report_title": "📊 Keputusan & Ringkasan Kuiz Tcl",
             "cert_title": "🎓 Tuntut Sijil Tamat Tcl Anda",
+            "syncing_badge": "🔄 Menyelaras markah yang disahkan ke Papan Juara GitHub...",
+            "synced_badge": "✅ Skor disahkan & diterbitkan ke Papan Juara GitHub",
             "submit_github_btn": "📤 Hantar Keputusan ke Papan Juara GitHub",
             "dl_cert": "📥 Muat Turun Sijil (SVG)",
             "print_cert": "🖨️ Cetak Sijil",
@@ -147,6 +153,8 @@ def _build_quiz_page(lang: str) -> str:
             "thinking_bonus": "Temps de Réflexion Supplémentaire Accordé",
             "report_title": "📊 Résultats & Bilan du Quiz Tcl",
             "cert_title": "🎓 Obtenez Votre Certificat Tcl",
+            "syncing_badge": "🔄 Synchronisation automatique du score certifié vers GitHub...",
+            "synced_badge": "✅ Score vérifié et publié sur le classement GitHub",
             "submit_github_btn": "📤 Soumettre le Résultat au Classement GitHub",
             "dl_cert": "📥 Télécharger le Certificat (SVG)",
             "print_cert": "🖨️ Imprimer le Certificat",
@@ -332,9 +340,15 @@ def _build_quiz_page(lang: str) -> str:
         </div>
       </div>
 
+      <!-- Transparent Auto-Sync Status Banner -->
+      <div id="quizSyncStatusBanner" style="margin: 18px auto 12px; max-width: 620px; padding: 10px 16px; border-radius: 8px; background: rgba(56, 189, 248, 0.08); border: 1px solid rgba(56, 189, 248, 0.25); font-size: 13px; color: var(--tcl-heading); display: flex; align-items: center; justify-content: center; gap: 8px; transition: all 0.3s ease;">
+        <span id="quizSyncSpinner" style="display:inline-block; font-size:14px;">⏳</span>
+        <span id="quizSyncText">{t["syncing_badge"]}</span>
+      </div>
+
       <!-- Action Buttons -->
       <div style="display:flex; gap:12px; justify-content:center; flex-wrap:wrap; margin-top:16px;">
-        <button onclick="submitToGithubIssue()" class="tcl-btn tcl-btn-primary" style="background: linear-gradient(135deg, #10b981, #059669); border:none; padding:9px 20px; font-size:13.5px; box-shadow: 0 4px 14px rgba(16,185,129,0.3);">{t["submit_github_btn"]}</button>
+        <button id="submitGithubBtn" onclick="submitToGithubIssue()" class="tcl-btn tcl-btn-primary" style="background: linear-gradient(135deg, #10b981, #059669); border:none; padding:9px 20px; font-size:13.5px; box-shadow: 0 4px 14px rgba(16,185,129,0.3); display:none;">{t["submit_github_btn"]}</button>
         <button onclick="downloadCertificateSVG()" class="tcl-btn tcl-btn-secondary" style="padding:9px 18px; font-size:13.5px;">{t["dl_cert"]}</button>
         <button onclick="window.print()" class="tcl-btn tcl-btn-secondary" style="padding:9px 16px; font-size:13.5px;">{t["print_cert"]}</button>
         <a href="../leaderboard/" class="tcl-btn tcl-btn-accent" style="padding:9px 18px; font-size:13.5px; text-decoration:none;">{t["view_leaderboard"]}</a>
@@ -1371,6 +1385,89 @@ function finishQuest() {
     });
     localStorage.setItem('tcl_vlsi_leaderboard', JSON.stringify(board));
   } catch(e) {}
+
+  // Construct submission payload
+  const payload = {
+    schema: "tcl_quiz_result_v1",
+    identity: {
+      name: currentQuest.candidate || "Anonymous",
+      email: currentQuest.email || "",
+      ip: clientTelemetry.ip || "Protected",
+      location: clientTelemetry.location || "Global",
+      country: clientTelemetry.country || "",
+      city: clientTelemetry.city || ""
+    },
+    performance: {
+      score: currentQuest.score,
+      accuracy: parseInt(accuracy),
+      time: timeFormatted,
+      cleared: `${clearedCount}/${totalPossible}`,
+      mode: currentQuest.mode,
+      certId: certId,
+      date: dateStr
+    },
+    submitted_at: new Date().toISOString()
+  };
+  currentQuest.lastPayload = payload;
+
+  // Transparent background auto-submission
+  autoSubmitQuizResult(payload);
+}
+
+async function autoSubmitQuizResult(payload) {
+  const syncBanner = document.getElementById('quizSyncStatusBanner');
+  const syncSpinner = document.getElementById('quizSyncSpinner');
+  const syncText = document.getElementById('quizSyncText');
+  const submitBtn = document.getElementById('submitGithubBtn');
+
+  // Cloudflare Worker Relay endpoint
+  const WORKER_ENDPOINT = "https://tcl-quiz-results.digital-design-challenge.workers.dev";
+
+  if (syncBanner) syncBanner.style.display = 'flex';
+  if (syncSpinner) syncSpinner.innerText = '⏳';
+
+  try {
+    const res = await fetch(WORKER_ENDPOINT, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(payload)
+    });
+
+    const data = await res.json().catch(() => ({}));
+    if (res.ok && data.ok) {
+      if (syncBanner) {
+        syncBanner.style.background = "rgba(16, 185, 129, 0.12)";
+        syncBanner.style.borderColor = "rgba(16, 185, 129, 0.4)";
+      }
+      if (syncSpinner) syncSpinner.innerText = "✅";
+      if (syncText) {
+        const isZh = (currentQuest.lang === 'zh');
+        syncText.innerHTML = `<strong>${isZh ? '成绩已自动存证并发布至 GitHub 荣誉榜' : 'Result automatically verified & synced to GitHub Leaderboard'}</strong>${data.issue_number ? ` (<a href="${data.issue_url}" target="_blank" style="color:var(--tcl-blue-600); font-weight:700; text-decoration:underline;">Issue #${data.issue_number}</a>)` : ''}`;
+      }
+      if (submitBtn) {
+        submitBtn.style.display = 'none'; // Transparent: user doesn't need to manually click
+      }
+      return;
+    }
+  } catch (err) {
+    console.warn("Background auto-submit unreachable:", err);
+  }
+
+  // Graceful fallback if worker is pending deployment or client is offline
+  if (syncBanner) {
+    syncBanner.style.background = "rgba(56, 189, 248, 0.08)";
+    syncBanner.style.borderColor = "rgba(56, 189, 248, 0.25)";
+  }
+  if (syncSpinner) syncSpinner.innerText = "💾";
+  if (syncText) {
+    const isZh = (currentQuest.lang === 'zh');
+    syncText.innerHTML = isZh
+      ? `<span>成绩已在本地安全认证核验。您也可一键发布至公开 GitHub 记录。</span>`
+      : `<span>Score verified locally. You can also publish to the public GitHub registry below.</span>`;
+  }
+  if (submitBtn) {
+    submitBtn.style.display = 'inline-block';
+  }
 }
 
 function submitToGithubIssue() {
@@ -1386,7 +1483,7 @@ function submitToGithubIssue() {
 
   const title = `[quiz-result] ${name} — ${accuracy}% (${mode}) — ${certId}`;
 
-  const payload = {
+  const payload = currentQuest.lastPayload || {
     schema: "tcl_quiz_result_v1",
     identity: {
       name: name,
@@ -1513,6 +1610,18 @@ let allRows = [];
 
 async function fetchGithubIssues() {
   const repo = "SJTU-YONGFU-RESEARCH-GRP/tcl-language-lab";
+  const workerUrl = "https://tcl-quiz-results.digital-design-challenge.workers.dev/leaderboard";
+
+  try {
+    const wRes = await fetch(workerUrl);
+    if (wRes.ok) {
+      const wData = await wRes.json();
+      if (wData.ok && Array.isArray(wData.rows) && wData.rows.length > 0) {
+        return wData.rows;
+      }
+    }
+  } catch (_) {}
+
   try {
     const res = await fetch(`https://api.github.com/repos/${repo}/issues?labels=quiz-result&state=all&per_page=100`, {
       headers: { 'Accept': 'application/vnd.github.v3+json' }

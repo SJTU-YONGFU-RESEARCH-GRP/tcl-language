@@ -1,0 +1,13 @@
+{
+  "name": "tcl-quiz-results-worker",
+  "version": "1.0.0",
+  "description": "Cloudflare Worker relay for transparent Tcl quiz challenge results",
+  "main": "cloudflare-worker.js",
+  "scripts": {
+    "deploy": "wrangler deploy --config wrangler.toml",
+    "dev": "wrangler dev --config wrangler.toml"
+  },
+  "devDependencies": {
+    "wrangler": "^3.114.0"
+  }
+}

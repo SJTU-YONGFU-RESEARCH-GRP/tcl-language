@@ -1,0 +1,8 @@
+name = "tcl-quiz-results"
+main = "cloudflare-worker.js"
+compatibility_date = "2026-10-20"
+
+# Target repository for quiz results & verification issues
+[vars]
+GITHUB_OWNER = "SJTU-YONGFU-RESEARCH-GRP"
+GITHUB_REPO = "tcl-language-lab"
