@@ -1,129 +1,139 @@
-# Tcl for VLSI · 从基础语法到 DRV 实战应用
+# Tcl for VLSI · From Core Syntax to DRV Automation
+
+<p align="center">
+  <b>English</b> · 
+  <a href="README.zh.md">简体中文</a> · 
+  <a href="README.ms.md">Bahasa Melayu</a> · 
+  <a href="README.fr.md">Français</a>
+</p>
 
 [![License: CC BY 4.0](https://img.shields.io/badge/License-CC%20BY%204.0-green?logo=creativecommons&logoColor=white)](https://creativecommons.org/licenses/by/4.0/)
 [![GitHub](https://img.shields.io/badge/GitHub-SJTU--YONGFU--RESEARCH--GRP%2Ftcl--language-181717?logo=github)](https://github.com/SJTU-YONGFU-RESEARCH-GRP/tcl-language)
 [![Web Playground](https://img.shields.io/badge/Playground-Zero--Install-17776b?logo=javascript&logoColor=white)](https://sjtu-yongfu-research-grp.github.io/tcl-language/playground/)
 [![DRV-Lite](https://img.shields.io/badge/DRV--Lite-Zero--License_Layout_Sim-0f4f46)](docs/DRVLITE_HELP.md)
 [![STA Lab](https://img.shields.io/badge/STA_Lab-Slack_Margin-b96b28)](docs/TIMING_ANALYZER_LAB.md)
-[![Bilingual](https://img.shields.io/badge/Bilingual-EN%20%2F%20ZH-blue)](https://sjtu-yongfu-research-grp.github.io/tcl-language/)
+[![Multilingual](https://img.shields.io/badge/i18n-EN%20%7C%20ZH%20%7C%20MS%20%7C%20FR-blue)](https://sjtu-yongfu-research-grp.github.io/tcl-language/)
 
-Bilingual, beginner-friendly **Tcl educational platform** for learning modern Tcl syntax, data structures, procedures, and understanding how scripting is applied in IC layout and Design Rule Violation (DRV) analysis.
-
----
-
-## 🌟 核心教学特色与实训工具 (Core Features)
-
-整合来自优秀开源教学实践的核心工具、演练内容与交互设计：
-
-1. **⚡ 纯客户端交互演练台 (Interactive Web Playground)**:
-   - 零本地环境安装依赖、零服务器网络交互，100% 在浏览器纯前端即开即测。
-   - 预置 Welch 置换三部曲、安全 expr、列表字典、STA 时序门禁解析与 DRV-Lite 版图实操模版。
-   - [👉 立即在线打开演练台 (Launch Web Playground)](https://sjtu-yongfu-research-grp.github.io/tcl-language/playground/)
-
-2. **🎨 典雅学术视觉体系 (Academic Palette)**:
-   - 摒弃千篇一律的通用默认样式，定制沉稳学术质感：
-     - **底色 (Paper)**: `#f7f6f0`（温暖象牙纸质底色）
-     - **主文本 (Ink)**: `#253934`（深邃松烟墨色）
-     - **学术主色 (Academic Teal)**: `#17776b`（典雅深青绿）与 `#0f4f46`（沉稳墨绿导航）
-     - **重点强调 (Amber)**: `#b96b28`（暖琥珀橙金）
-     - **代码底色 (Code Slate)**: `#1d302d`（墨绿极客暗调）
-     - **排版字体**: 标题采用经典衬线体 `Georgia, 'Songti SC', 'Noto Serif SC', serif`。
-
-3. **🎯 18 项工程数据练习（54 个阶梯任务）与参考答案**:
-   - 涵盖变量置换、列表排序、嵌套字典、正则匹配、文件解析、CSV/JSON 转换到多字段聚合。
-   - 预置真实工程练习数据集：`data/chip_runs.csv`、`data/top10_servers.tsv`、`data/wafers.csv`、`data/weather_beijing.json` 等。
-   - 配套标准起步模版（`exercises/`）与全套参考解答（`solutions/`）。
-
-4. **🏆 6 大综合数据实战项目 (Capstone Projects A–F)**:
-   - **Project A**: Nginx/Apache 访问日志统计与告警过滤
-   - **Project B**: 晶圆测试机台良率聚合与缺陷分类
-   - **Project C**: Git 代码仓库提交历史度量报告生成
-   - **Project D**: 销售与库存多表自动化流水对账
-   - **Project E**: 多源 JSON/CSV 跨格式清洗与转换管道
-   - **Project F**: EDA 文本报告解析与 DRV 版图违规分析
-   - 配备多组断言测试用例（`case-1.tcl` 到 `case-4.tcl`）。
-
-5. **📐 DRV-Lite: 纯 Tcl 版图轻量仿真器**:
-   - 无需商业 EDA 许可证！纯 Tcl 实现的 `layout` 对象结构，支持在普通电脑的标准 `tclsh` 环境下操纵多边形、引脚、图层及版图坐标，帮助初学者理解 DRV 版图分析的基本原理。
-
-6. **⚡ STA 静态时序分析入门实验**:
-   - 解析数字芯片时序报告（`data/sample_timing.rpt`），计算 Worst Negative Slack (WNS) 与 Total Negative Slack (TNS)，直观理解时序裕量分析与脚本解析方法。
-
-7. **🧠 Tcl 3 步置换心智模型**:
-   - 严格遵循 `切分 (Grouping)` $\to$ `置换 (Substitution)` $\to$ `调用 (Invocation)`，帮助初学者彻底理解大括号 `{}` 与双引号 `""` 的差异，掌握花括号 `expr {$a + $b}` 的安全准则。
+A modern, beginner-friendly **Tcl VLSI Educational Platform** designed to take students from core Tcl scripting syntax and procedural fluency to industrial physical design automation, Design Rule Violation (DRV) analysis, and Static Timing Analysis (STA) sign-off.
 
 ---
 
-## 🚀 本地快速上手 (Quick Start)
+## 🌟 Core Educational Features & Practical Tools
 
-### 1. 环境准备
-- **第 1–20 课**: 本地终端安装 [`tclsh`](https://www.tcl.tk/)（Tcl 8.5/8.6/9.0 均可）
-- **第 21–40 课**: 商业版 `calibredrv` **或** 纯 Tcl **DRV-Lite 仿真器**（系统自动回退，无需配置）
+Developed at Shanghai Jiao Tong University (SJTU) and open-sourced for the global semiconductor community, this platform integrates cutting-edge pedagogical tools:
 
-### 2. 克隆与常用指令
+1. **⚡ Zero-Install In-Browser Web Playground**:
+   - Pure client-side WebAssembly execution with zero server overhead and zero local configuration.
+   - Built-in templates for Welch's 3-step substitution model, safe `expr`, list/dict manipulation, STA timing report parsing, and DRV-Lite layout scripting.
+   - [👉 Launch the Web Playground](https://sjtu-yongfu-research-grp.github.io/tcl-language/playground/)
+
+2. **📐 DRV-Lite: Pure-Tcl IC Layout Simulator & In-Browser Visualizer**:
+   - Zero commercial EDA licensing required! A lightweight `layout` object hierarchy implemented entirely in standard Tcl for manipulating cells, layers, polygons, wires, and bounding boxes.
+   - Paired with an interactive [📐 2D VLSI Layout Visualizer](https://sjtu-yongfu-research-grp.github.io/tcl-language/help/layout_viewer/) supporting panning, zooming, and a live CalibreDRV CLI console supporting commands like `create`, `delete`, `bbox`, `iterator count`, `shift`, and `scale`.
+
+3. **⚡ STA Static Timing Analysis & Tapeout Gatekeeper**:
+   - Parses real-world digital IC timing reports (`data/sample_timing.rpt`) and calculates Worst Negative Slack (WNS) and Total Negative Slack (TNS).
+   - Paired with the interactive [⚡ STA Timing Slack Gatekeeper](https://sjtu-yongfu-research-grp.github.io/tcl-language/help/timing_calculator/) to dynamically experiment with clock period, data path delay, and jitter to visualize tapeout sign-off criteria.
+
+4. **🎯 18 Practical Engineering Data Exercises (54 Tiered Tasks)**:
+   - Covers variable substitution, list sorting, nested dictionaries, regular expression matching, file channels, CSV/JSON format conversion, and multi-field data aggregation.
+   - Includes real industrial datasets: `data/chip_runs.csv`, `data/top10_servers.tsv`, `data/wafers.csv`, `data/weather_beijing.json`, and more.
+   - Starter exercise templates (`exercises/`) and full verified reference solutions (`solutions/`).
+
+5. **🏆 6 Capstone Data Engineering Projects (Projects A–F)**:
+   - **Project A**: Nginx/Apache Web Server Access Log Analytics & Alerting
+   - **Project B**: Automated Wafer Sort Yield Aggregator & Defect Binning
+   - **Project C**: Git Repository Commit Velocity & Churn Reporting
+   - **Project D**: Multi-Table Sales & Inventory Reconciliation Pipeline
+   - **Project E**: Multi-Source JSON/CSV Cleansing & ETL Transformation
+   - **Project F**: EDA Timing Report Parsing & DRV Layout Violation Audit
+   - Fully validated with automated assertion testbenches (`case-1.tcl` to `case-4.tcl`).
+
+6. **🧠 Tcl 3-Step Mental Model**:
+   - Strict adherence to `Grouping` $\to$ `Substitution` $\to$ `Invocation`, demystifying curly braces `{}` vs double quotes `""`, and enforcing the secure braces rule for `expr {$a + $b}`.
+
+7. **🎯 Quiz Challenges & Public Leaderboard**:
+   - 4 modular diagnostic quizzes with verifiable cryptographic certificate generation and real-time community leaderboard benchmarking.
+
+---
+
+## 📚 40-Lesson Curriculum Roadmap
+
+- **M10: Tcl Core Syntax (Lessons 01–10)**: Fundamental commands, variables, control flow, procedures (`proc`), lists, and the 3-step evaluation model.
+- **M20: Fluency & Tool Glue (Lessons 11–20)**: Dictionaries (`dict`), robust file I/O, regular expressions, namespaces (`namespace`), and object-oriented programming with `TclOO`.
+- **M30: Calibre Layout Core (Lessons 21–30)**: Pure-Tcl DRV-Lite simulator, layer instantiation, geometry polygons, and CalibreDRV CLI commands.
+- **M40: Physical Design Automation & Sign-Off (Lessons 31–40)**: Static timing analysis, DEF/LEF parsing, DRV violation audits, and automated ECO routing fixes.
+
+---
+
+## 🚀 Quick Start Guide
+
+### 1. Prerequisites
+- **Lessons 01–20**: Local terminal with standard [`tclsh`](https://www.tcl.tk/) (Tcl 8.5, 8.6, or 9.0).
+- **Lessons 21–40**: Commercial `calibredrv` **or** the bundled pure-Tcl **DRV-Lite simulator** (automatic fallback, no setup needed).
+
+### 2. Clone & Verification Commands
 
 ```bash
-git clone git@github.com:SJTU-YONGFU-RESEARCH-GRP/tcl-language.git
+git clone https://github.com/SJTU-YONGFU-RESEARCH-GRP/tcl-language.git
 cd tcl-language
 
-# 检查本地环境与 DRV-Lite 状态
+# Check local environment and DRV-Lite status
 make check-env
 
-# 运行 DRV-Lite 版图仿真器 6 项单元自测
+# Run 6 unit tests on the DRV-Lite layout simulator
 make drvlite-test
 
-# 运行 STA 静态时序分析入门实验
+# Run the Static Timing Analysis (STA) report parser demo
 make timing-demo
 
-# 运行第 1 课范例脚本
+# Run the Lesson 1 starter example
 make week1-01
 
-# 运行第 21 课版图脚本 (自动调用 DRV-Lite 仿真)
+# Run the Lesson 21 layout script (uses DRV-Lite simulation)
 make week21-01
 
-# 运行学生练习答案与项目自测
+# Run student exercise solutions and capstone testbenches
 tclsh solutions/01/01.tcl
 (cd capstone/A && tclsh solution.tcl)
 ```
 
-### 3. 本地启动文档与工作坊站点
+### 3. Build & Preview Website Locally
 
 ```bash
-make site-install    # 安装 Python 与 MkDocs 依赖
-make site            # 生成全套静态文档与 WASM 工作坊
-make site-serve      # 本地预览 http://127.0.0.1:8000
+make site-install    # Install Python & MkDocs dependencies
+make site            # Build static docs and multilingual sites
+make site-serve      # Preview locally at http://127.0.0.1:8000
 ```
 
 ---
 
-## 📁 仓库结构全貌 (Repository Layout)
+## 📁 Repository Layout
 
 ```text
 tcl-language/
-├── PLAN.md                 # 40 课全体系教学大纲与演进路线
-├── Makefile                # 课程运行器、自测脚本与站点构建入口
-├── data/                   # 真实工业场景数据集 (晶圆、服务器日志、时序报告)
-├── exercises/              # 18 节实战练习起步模版 (54 项编码任务)
-├── solutions/              # 18 节实战练习标准参考答案
-├── capstone/               # 6 大综合数据工程项目 (A–F，附测试用例)
-├── homework/               # GateUltra 贡献的课后练习题集与验证器
-├── quiz/                   # thy031 贡献的随堂自测题库
-├── lessons/                # 40 课中英双语课文与 100+ 可执行示例脚本
-├── examples/               # 包含 timing_report_analyzer.tcl 等工业范例
-├── docs/                   # TCL_HELP.md, DRVLITE_HELP.md 等指导文档
+├── PLAN.md                 # 40-week curriculum syllabus and milestone roadmap
+├── Makefile                # Course test runner, demo entry points, and site builder
+├── data/                   # Realistic industrial datasets (wafers, logs, STA reports)
+├── exercises/              # 18 lab exercise starter templates (54 tasks)
+├── solutions/              # 18 official reference solutions
+├── capstone/               # 6 capstone data engineering projects (A–F with test cases)
+├── homework/               # Homework problem sets and automated validators
+├── quiz/                   # Chapter quizzes and certification challenges
+├── lessons/                # 40 bilingual lessons and 100+ executable Tcl scripts
+├── examples/               # Industrial examples (e.g. timing_report_analyzer.tcl)
+├── docs/                   # Guides (TCL_HELP.md, DRVLITE_HELP.md, etc.)
 ├── tools/
-│   ├── drvlite/            # DRV-Lite 纯 Tcl Calibre DESIGNrev 版图仿真器
-│   └── ...                 # 语法与命令探测工具
-└── website/                # MkDocs 站点源文件与 WebAssembly 交互工作坊
-    ├── docs/               # 编译后的文档 Markdown
-    └── workshop/           # WACL 原生 Tcl 8.6.6 WebAssembly 完整运行时
+│   ├── drvlite/            # Pure-Tcl Calibre DESIGNrev layout simulator
+│   └── ...                 # Syntax probes and introspection utilities
+└── website/                # MkDocs documentation source files & i18n configs
 ```
 
 ---
 
-## 👥 贡献者致谢 (Contributors)
+## 👥 Contributors & Attribution
 
-特别致谢参与建设与创新的师生团队成员（按 GitHub ID 字母排序）：
+Special thanks to the instructors, researchers, and student developers (in alphabetical order by GitHub handle):
 
 <table>
   <tr>
@@ -175,7 +185,7 @@ tcl-language/
       <a href="https://github.com/Su3037">
         <img src="https://avatars.githubusercontent.com/u/154591477?v=4" width="80" height="80" alt="Su3037"/><br/>
         <sub><b>Supan</b></sub><br/>
-        <sub>@Su3037 (RPG Media)</sub>
+        <sub>@Su3037</sub>
       </a>
     </td>
     <td align="center">
@@ -188,11 +198,11 @@ tcl-language/
   </tr>
 </table>
 
-详见 [`CONTRIBUTORS.md`](CONTRIBUTORS.md) 及线上主站 [贡献者名录](https://sjtu-yongfu-research-grp.github.io/tcl-language/contributors/)。
+See [`CONTRIBUTORS.md`](CONTRIBUTORS.md) and the online [Contributors Directory](https://sjtu-yongfu-research-grp.github.io/tcl-language/contributors/).
 
 ---
 
-## 📜 许可证 (License)
+## 📜 License
 
-- 教学文档与课件内容采用 [Creative Commons Attribution 4.0 International (CC BY 4.0)](https://creativecommons.org/licenses/by/4.0/) 许可协议。
-- 代码脚本与仿真工具采用 [MIT License](LICENSE) 开源协议。
+- Curriculum text, tutorials, and documentation are licensed under [Creative Commons Attribution 4.0 International (CC BY 4.0)](https://creativecommons.org/licenses/by/4.0/).
+- Source code scripts, simulators, and testbenches are licensed under the [MIT License](LICENSE).
