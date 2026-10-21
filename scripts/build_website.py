@@ -5171,6 +5171,18 @@ def write_redirect_fallbacks() -> None:
             shutil.copytree(src_dir, dst_site)
             for md_file in dst_site.rglob("*.md"):
                 md_file.unlink(missing_ok=True)
+            if (dst_site / "index.html").exists():
+                idx_path = dst_site / "index.html"
+                html_txt = idx_path.read_text(encoding="utf-8")
+                css_dir = site / "assets" / "stylesheets"
+                if css_dir.exists():
+                    main_css = list(css_dir.glob("main.*.min.css"))
+                    palette_css = list(css_dir.glob("palette.*.min.css"))
+                    if main_css:
+                        html_txt = re.sub(r'assets/stylesheets/main\.[^"]+\.min\.css', f'assets/stylesheets/{main_css[0].name}', html_txt)
+                    if palette_css:
+                        html_txt = re.sub(r'assets/stylesheets/palette\.[^"]+\.min\.css', f'assets/stylesheets/{palette_css[0].name}', html_txt)
+                    idx_path.write_text(html_txt, encoding="utf-8")
             print(f"Deployed standalone {app_name} -> {dst_site}")
 
     for lang in ["zh", "ms", "fr"]:

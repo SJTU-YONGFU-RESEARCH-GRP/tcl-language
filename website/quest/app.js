@@ -6,7 +6,7 @@ import {mountAdventure,clearAdventure,updateAdventure} from './adventure.js?v=1f
 import {CAST,portrait,partyHTML,bindParty,setArtTranslator} from './adventure-art.js?v=1f251ee98b8c';
 const $ = (q) => document.querySelector(q);
 const esc = (v) => String(v).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
-document.querySelector('.skip').addEventListener('click',e=>{e.preventDefault();$('#main').focus();$('#main').scrollIntoView();});
+document.querySelector('.skip, .md-skip')?.addEventListener('click',e=>{e.preventDefault();$('#main')?.focus();$('#main')?.scrollIntoView();});
 const KEY='tcl-quest-progress-v1';
 let data, storyboards, courses, stories, viewGeneration=0, lastExecution=null, active=null, busy=false, nextReward=1;
 let state={version:1,completed:[],drafts:{},quiz:[]};
@@ -22,21 +22,29 @@ const audioMessages={
  unsupported:'此浏览器暂不支持游戏音效。'
 };
 function refreshSound(){
- $('#sound').textContent=t('音效 '+(audio.enabled?'开':'关'));
- $('#sound').setAttribute('aria-pressed',String(audio.enabled));
- $('#sound').dataset.audioState=audioStatus;
- $('#sound').title=t(audioMessages[audioStatus]);
- $('#sound-status').textContent=t(audioMessages[audioStatus]);
+ const btn = $('#sound');
+ if (btn) {
+   const lbl = $('#sound-label');
+   const icon = $('#sound-icon');
+   if (lbl) lbl.textContent = t('音效 '+(audio.enabled?'开':'关'));
+   else btn.textContent = t('音效 '+(audio.enabled?'开':'关'));
+   if (icon) icon.textContent = audio.enabled ? '🔊' : '🔈';
+   btn.setAttribute('aria-pressed',String(audio.enabled));
+   btn.dataset.audioState=audioStatus;
+   btn.title=t(audioMessages[audioStatus]);
+ }
+ const status = $('#sound-status');
+ if (status) status.textContent=t(audioMessages[audioStatus]);
 }
 const audio=createSoundPlayer({onStatus:value=>{if(audioStatus!==value){audioStatus=value;refreshSound();}}});
 let savedSound=false;try{savedSound=localStorage.getItem(SOUND_KEY)==='on';}catch{}
 audio.setEnabled(savedSound,{preview:false});refreshSound();
-$('#sound').onclick=()=>{
+$('#sound')?.addEventListener('click',()=>{
  const enabled=!audio.enabled;
  const preview=audio.setEnabled(enabled);
  try{localStorage.setItem(SOUND_KEY,enabled?'on':'off');}catch{}
  preview.then(ok=>{if(audio.enabled)toast(ok?'音效已开启，正在播放试听音。':audioMessages[audioStatus]);});
-};
+});
 // Restore a suspended context when a visitor returns to the page and interacts.
 for(const event of ['pointerdown','keydown'])document.addEventListener(event,e=>{
  if(e.isTrusted&&e.target?.id!=='sound'&&audio.enabled)void audio.unlock();
@@ -143,40 +151,132 @@ $('#export').onclick=()=>download('tcl-quest-progress.json',JSON.stringify(state
  download(en?'Tcl-Quest-learning-record.txt':'Tcl-Quest-学习记录.txt',body);
 };}
 
-function route(preserve=false){celebrations.clear();audio.stop('scene');const snapshot=preserve===true?runtimeSnapshot():null;viewGeneration++;clearAdventure();clearRuntime();if(busy&&stopRun)stopRun();const hash=location.hash||'#map';document.querySelectorAll('[data-nav]').forEach(a=>{if(hash==='#'+a.dataset.nav)a.setAttribute('aria-current','page');else a.removeAttribute('aria-current');});if(hash.startsWith('#level/'))lesson(Number(hash.split('/')[1]),snapshot);else if(hash==='#videos')videos();else if(hash==='#guide')guide();else map();localize(document.body);window.scrollTo(0,0);}
-function refreshLanguage(){setLanguage(language());refreshSound();data=courses[language()];storyboards=stories[language()];setArtTranslator(t);$('#language').textContent=language()==='en'?'中文':'English';$('#language').setAttribute('aria-label',language()==='en'?'Switch to Chinese':'切换为英文');}
-$('#language').onclick=()=>{const y=scrollY,editor=$('#editor'),selection=editor?[editor.selectionStart,editor.selectionEnd]:null,open=$('.storyboard-details')?.open;setLanguage(language()==='en'?'zh':'en');refreshLanguage();route(true);if(open&&$('.storyboard-details'))$('.storyboard-details').open=true;if(selection&&$('#editor'))$('#editor').setSelectionRange(...selection);if(lastExecution?.lesson===active?.id){
- const r=lastExecution;
- $('#output').textContent=r.rawFailure?t(r.rawFailure):r.error?(r.output?r.output+'\n\n':'')+t('Tcl 提示：')+r.error+'\n\n'+t(explainError(r.error)):r.output||r.result||t('（执行完成，没有输出）');
- $('#output').classList.toggle('error',!!r.error||!!r.rawFailure);
- if(r.check&&!r.error){const tests=[{label:t('输出符合任务要求'),ok:r.output.replace(/\n+$/,'')===active.expected},...r.tests.map((test,i)=>({...test,label:active.checks[i]?.label||t(test.label)}))];$('#test-results').innerHTML=tests.map(test=>`<div>${test.ok?'✓':'○'} ${esc(test.label)}${test.error?`: ${esc(test.error)}`:''}</div>`).join('');}
- }
- window.scrollTo(0,y);};
-function applyTheme(theme){
- if(theme==='dark'||theme==='slate'){
-  document.documentElement.setAttribute('data-theme','dark');
-  const btn=$('#theme-toggle');if(btn){btn.textContent='☀️';btn.setAttribute('title',t('切换为浅色主题'));}
- }else{
-  document.documentElement.setAttribute('data-theme','light');
-  const btn=$('#theme-toggle');if(btn){btn.textContent='🌙';btn.setAttribute('title',t('切换为深色主题'));}
- }
+function route(preserve=false){
+ celebrations.clear();audio.stop('scene');const snapshot=preserve===true?runtimeSnapshot():null;viewGeneration++;clearAdventure();clearRuntime();if(busy&&stopRun)stopRun();const hash=location.hash||'#map';
+ document.querySelectorAll('[data-nav]').forEach(a=>{
+  const targetNav = '#' + a.dataset.nav;
+  if(hash===targetNav || (a.dataset.nav==='map' && hash.startsWith('#level/'))){
+   a.setAttribute('aria-current','page');
+   a.classList.add('active');
+  } else {
+   a.removeAttribute('aria-current');
+   a.classList.remove('active');
+  }
+ });
+ if(hash.startsWith('#level/'))lesson(Number(hash.split('/')[1]),snapshot);else if(hash==='#videos')videos();else if(hash==='#guide')guide();else map();localize(document.body);window.scrollTo(0,0);
 }
-window.addEventListener('message',e=>{if(e.data?.type==='set-theme')applyTheme(e.data.scheme);});
-$('#theme-toggle')?.addEventListener('click',()=>{
- const cur=document.documentElement.getAttribute('data-theme')||(window.matchMedia?.('(prefers-color-scheme: dark)').matches?'dark':'light');
- applyTheme(cur==='dark'?'light':'dark');
+
+function refreshLanguage(){
+ setLanguage(language());refreshSound();data=courses[language()];storyboards=stories[language()];setArtTranslator(t);
+ const langText = language()==='en'?'中文':'English';
+ const langLbl = $('#language-label');
+ if (langLbl) langLbl.textContent = langText;
+ else if ($('#language')) $('#language').textContent = langText;
+ $('#language')?.setAttribute('aria-label',language()==='en'?'Switch to Chinese':'切换为英文');
+}
+
+function switchLanguage(targetLang){
+ const y=scrollY,editor=$('#editor'),selection=editor?[editor.selectionStart,editor.selectionEnd]:null,open=$('.storyboard-details')?.open;
+ if(targetLang && targetLang !== language()){
+  setLanguage(targetLang);
+ } else {
+  setLanguage(language()==='en'?'zh':'en');
+ }
+ refreshLanguage();
+ route(true);
+ if(open&&$('.storyboard-details'))$('.storyboard-details').open=true;
+ if(selection&&$('#editor'))$('#editor').setSelectionRange(...selection);
+ if(lastExecution?.lesson===active?.id){
+  const r=lastExecution;
+  $('#output').textContent=r.rawFailure?t(r.rawFailure):r.error?(r.output?r.output+'\n\n':'')+t('Tcl 提示：')+r.error+'\n\n'+t(explainError(r.error)):r.output||r.result||t('（执行完成，没有输出）');
+  $('#output').classList.toggle('error',!!r.error||!!r.rawFailure);
+  if(r.check&&!r.error){const tests=[{label:t('输出符合任务要求'),ok:r.output.replace(/\n+$/,'')===active.expected},...r.tests.map((test,i)=>({...test,label:active.checks[i]?.label||t(test.label)}))];$('#test-results').innerHTML=tests.map(test=>`<div>${test.ok?'✓':'○'} ${esc(test.label)}${test.error?`: ${esc(test.error)}`:''}</div>`).join('');}
+ }
+ window.scrollTo(0,y);
+}
+
+$('#language')?.addEventListener('click', () => switchLanguage());
+$('#opt-lang-en')?.addEventListener('click', (e) => { e.preventDefault(); switchLanguage('en'); });
+$('#opt-lang-zh')?.addEventListener('click', (e) => { e.preventDefault(); switchLanguage('zh'); });
+
+function applyTheme(theme){
+ const isDark = theme === 'dark' || theme === 'slate';
+ const targetScheme = isDark ? 'slate' : 'default';
+ const targetAccent = isDark ? 'cyan' : 'blue';
+
+ document.body.setAttribute('data-md-color-scheme', targetScheme);
+ document.body.setAttribute('data-md-color-primary', 'indigo');
+ document.body.setAttribute('data-md-color-accent', targetAccent);
+ document.documentElement.setAttribute('data-theme', isDark ? 'dark' : 'light');
+
+ const radio0 = $('#__palette_0');
+ const radio1 = $('#__palette_1');
+ if (radio0 && radio1) {
+  radio0.checked = !isDark;
+  radio1.checked = isDark;
+ }
+
+ const lblToDark = $('#palette-label-to-dark');
+ const lblToLight = $('#palette-label-to-light');
+ if (lblToDark && lblToLight) {
+  lblToDark.hidden = isDark;
+  lblToLight.hidden = !isDark;
+ }
+
+ const paletteObj = {
+  index: isDark ? 1 : 0,
+  color: { scheme: targetScheme, primary: 'indigo', accent: targetAccent }
+ };
+ try {
+  localStorage.setItem('__palette', JSON.stringify(paletteObj));
+  for (let i = 0; i < localStorage.length; i++) {
+   let k = localStorage.key(i);
+   if (k && k.endsWith('.__palette')) {
+    localStorage.setItem(k, JSON.stringify(paletteObj));
+   }
+  }
+ } catch(e) {}
+}
+
+window.addEventListener('message', e => {
+ if (e.data?.type === 'set-theme' && e.data.scheme) {
+  applyTheme(e.data.scheme);
+ }
 });
-try{
- if(window.parent&&window.parent!==window){
-  const s=window.parent.document.body.getAttribute('data-md-color-scheme');
-  if(s)applyTheme(s);
+
+$('#palette-label-to-dark')?.addEventListener('click', e => {
+ e.preventDefault();
+ applyTheme('slate');
+});
+$('#palette-label-to-light')?.addEventListener('click', e => {
+ e.preventDefault();
+ applyTheme('default');
+});
+$('#__palette_0')?.addEventListener('change', () => applyTheme('default'));
+$('#__palette_1')?.addEventListener('change', () => applyTheme('slate'));
+
+try {
+ if (window.parent && window.parent !== window && window.parent.document?.body) {
+  const s = window.parent.document.body.getAttribute('data-md-color-scheme');
+  if (s) applyTheme(s);
+ } else {
+  let p = null;
+  for (let i = 0; i < localStorage.length; i++) {
+   let k = localStorage.key(i);
+   if (k && (k === '__palette' || k.endsWith('.__palette'))) {
+    p = localStorage.getItem(k);
+    break;
+   }
+  }
+  if (p) {
+   const data = JSON.parse(p);
+   const scheme = data?.color?.scheme || (data.index === 1 ? 'slate' : 'default');
+   applyTheme(scheme);
+  } else if (window.matchMedia?.('(prefers-color-scheme: dark)').matches) {
+   applyTheme('slate');
+  }
  }
-}catch{}
-try{
- if(!document.documentElement.hasAttribute('data-theme')&&window.matchMedia?.('(prefers-color-scheme: dark)').matches){
-  applyTheme('dark');
- }
-}catch{}
+} catch(e) {}
 try{
  await initLanguage();
  const files=['curriculum.json','curriculum.en.json','adventures.json','adventures.en.json'];
