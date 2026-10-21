@@ -80,11 +80,15 @@
 }
 
 /* --- 2. Base Typography & Resets --- */
+html {
+  font-size: 125%;
+  height: 100%;
+}
 * { box-sizing: border-box; }
 body {
   margin: 0;
   font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif !important;
-  font-size: 15.5px;
+  font-size: .78rem;
   line-height: 1.75;
   color: var(--md-default-fg-color--light);
   background-color: var(--md-default-bg-color);
@@ -105,21 +109,15 @@ h1, h2, h3, h4 {
 /* --- 3. Exact Material Header Row --- */
 .md-header {
   background-color: #0f172a !important;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.08) !important;
-  box-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.12) !important;
   color: #ffffff;
   position: sticky;
   top: 0;
   z-index: 100;
-  height: 48px;
-  min-height: 48px;
-  display: flex;
-  align-items: center;
 }
 [data-md-color-scheme="slate"] .md-header {
   background-color: #090d16 !important;
-  border-bottom-color: rgba(255, 255, 255, 0.05) !important;
 }
+
 /* If embedded inside an iframe (e.g. within quest.md), hide duplicate outer header & tabs */
 body.is-embedded .md-header,
 body.is-embedded .md-tabs,
@@ -135,112 +133,23 @@ body.is-embedded .tcl-subnav,
 }
 body.is-embedded .md-main__inner,
 .is-embedded .md-main__inner {
-  padding-top: 12px;
+  margin-top: 0 !important;
+  padding-top: 0 !important;
 }
-.md-header__inner {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  width: 100%;
-  height: 100%;
-}
-.md-grid {
-  max-width: 1220px;
-  margin-left: auto;
-  margin-right: auto;
-  padding-left: 16px;
-  padding-right: 16px;
-  width: 100%;
-}
-.md-header__button {
-  background: transparent;
-  border: 0;
-  color: #ffffff;
-  padding: 6px 8px;
-  cursor: pointer;
-  border-radius: 6px;
-  display: inline-flex;
-  align-items: center;
-  transition: background-color 0.2s;
-  height: 36px;
-}
-.md-header__button:hover {
-  background-color: rgba(255, 255, 255, 0.12);
-}
-.md-header__button svg {
-  width: 22px;
-  height: 22px;
-  fill: currentColor;
-}
-.md-logo svg {
-  width: 24px;
-  height: 24px;
-  fill: #ffffff;
-}
-.md-header__title {
-  display: flex;
-  align-items: center;
-  margin-right: auto;
-  margin-left: 8px;
-  overflow: hidden;
-}
-.md-header__ellipsis {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  white-space: nowrap;
-}
+
 .md-header__topic {
-  font-size: 14.5px;
-  font-weight: 700;
-  color: #ffffff;
-}
-.md-header__topic:nth-child(2) {
-  font-size: 13.5px;
-  font-weight: 500;
-  color: rgba(255, 255, 255, 0.7);
-  display: flex;
-  align-items: center;
-}
-.md-header__topic:nth-child(2)::before {
-  content: "·";
-  margin-right: 8px;
-  color: rgba(255, 255, 255, 0.4);
-}
-.md-header__source {
-  display: flex;
-  align-items: center;
-  margin-left: 8px;
-}
-.md-source {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  padding: 6px 12px;
-  background: rgba(255, 255, 255, 0.08);
-  border-radius: 8px;
-  color: #ffffff;
-  font-size: 13px;
-  font-weight: 600;
-  text-decoration: none;
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  transition: all 0.2s;
-}
-.md-source:hover {
-  background: rgba(255, 255, 255, 0.18);
-  text-decoration: none;
-}
-.md-source__icon svg {
-  width: 15px;
-  height: 15px;
-  fill: currentColor;
+  font-size: .9rem !important;
+  font-weight: 700 !important;
+  color: #ffffff !important;
+  height: 2.4rem !important;
+  line-height: 2.4rem !important;
 }
 
 /* Header Palette Switcher and Language Select */
 .md-header__option {
   display: flex;
   align-items: center;
-  margin-left: 4px;
+  margin-left: .2rem;
 }
 .md-option {
   display: none;
@@ -255,14 +164,18 @@ body.is-embedded .md-main__inner,
   position: absolute;
   right: 0;
   top: 100%;
-  margin-top: 6px;
+  margin-top: .3rem;
   background: #0f172a;
   border: 1px solid rgba(255, 255, 255, 0.15);
-  border-radius: 8px;
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
-  min-width: 140px;
-  padding: 6px 0;
+  border-radius: .4rem;
+  box-shadow: 0 .5rem 1.25rem rgba(0, 0, 0, 0.4);
+  min-width: 7rem;
+  padding: .3rem 0;
   z-index: 200;
+}
+[data-md-color-scheme="slate"] .md-select__inner {
+  background: #090d16;
+  border-color: #334155;
 }
 .md-select:hover .md-select__inner,
 .md-select:focus-within .md-select__inner {
@@ -278,8 +191,8 @@ body.is-embedded .md-main__inner,
 }
 .md-select__link {
   display: block;
-  padding: 8px 16px;
-  font-size: 13px;
+  padding: .4rem .8rem;
+  font-size: .65rem;
   font-weight: 500;
   color: #f8fafc !important;
   text-decoration: none !important;
@@ -290,51 +203,33 @@ body.is-embedded .md-main__inner,
   color: #38bdf8 !important;
 }
 
-/* --- 4. Exact Material Navigation Tabs Row --- */
+/* --- 4. Exact Material Navigation Tabs Row (Matching MkDocs Material 1:1) --- */
 .md-tabs {
-  background-color: #1e293b !important;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.05) !important;
-  width: 100%;
-  overflow-x: auto;
-  -webkit-overflow-scrolling: touch;
+  background-color: #0f172a !important;
+  border-bottom: none !important;
   position: sticky;
-  top: 48px;
+  top: 2.4rem;
   z-index: 90;
 }
 [data-md-color-scheme="slate"] .md-tabs {
-  background-color: #111827 !important;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.05) !important;
-}
-.md-tabs__list {
-  display: flex;
-  list-style: none;
-  margin: 0;
-  padding: 0;
-  gap: 4px;
-}
-.md-tabs__item {
-  display: inline-block;
+  background-color: #090d16 !important;
 }
 .md-tabs__link {
-  display: block;
-  padding: 12px 14px;
-  font-size: 13.5px;
-  font-weight: 500;
-  color: rgba(255, 255, 255, 0.7);
-  text-decoration: none;
-  white-space: nowrap;
-  border-bottom: 2px solid transparent;
-  transition: color 0.15s, border-bottom-color 0.15s;
+  font-size: .7rem !important;
+  font-weight: 500 !important;
+  opacity: 0.7 !important;
+  color: #ffffff !important;
+  margin-top: .8rem !important;
+  transition: opacity .25s ease !important;
 }
 .md-tabs__link:hover {
-  color: #ffffff;
-  text-decoration: none;
+  opacity: 1 !important;
 }
 .md-tabs__link--active, .md-tabs__item--active .md-tabs__link {
-  color: #38bdf8 !important;
-  font-weight: 600 !important;
-  border-bottom: 2px solid #38bdf8 !important;
+  color: #ffffff !important;
+  font-weight: 700 !important;
   opacity: 1 !important;
+  border-bottom: none !important;
 }
 
 /* --- 4b. Dedicated Quest Sub-Navigation Strip --- */
@@ -342,7 +237,7 @@ body.is-embedded .md-main__inner,
   background-color: var(--tcl-surface);
   border-bottom: 1px solid var(--tcl-border);
   position: sticky;
-  top: 96px;
+  top: 4.8rem;
   z-index: 80;
   box-shadow: 0 1px 4px rgba(0, 0, 0, 0.04);
 }
@@ -1881,7 +1776,6 @@ dialog p { font-size: 13.5px; color: var(--md-default-fg-color--lighter); line-h
   .scene-reading { border-left: 0; border-top: 1px solid var(--tcl-border); }
 }
 @media(max-width: 600px) {
-  .md-header__topic:nth-child(2) { display: none; }
   .md-source__repository { display: none; }
   .tcl-hero-title { font-size: 1.8rem; }
 }

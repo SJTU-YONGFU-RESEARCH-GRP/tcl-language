@@ -42,4 +42,4 @@ require(['tcl/wacl'],function(wacl){
       }catch(err){self.postMessage({type:'failure',message:String(err)});}
     };
   });
-},function(err){self.postMessage({type:'failure',message:'无法加载 Tcl 引擎：'+err});});
+},function(err){self.postMessage({type:'failure',message:'Could not load Tcl engine: '+err});});

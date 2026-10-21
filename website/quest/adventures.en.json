@@ -38,12 +38,12 @@
         }
       },
       {
-        "label": "A greeting in Chinese",
-        "code": "puts \"你好，芯片岛！\"\nputs \"Ready!\"",
-        "output": "你好，芯片岛！\nReady!",
+        "label": "A greeting to Chip Island",
+        "code": "puts \"Hello, Chip Island!\"\nputs \"Ready!\"",
+        "output": "Hello, Chip Island!\nReady!",
         "props": {
           "lines": [
-            "你好，芯片岛！",
+            "Hello, Chip Island!",
             "Ready!"
           ]
         }
@@ -805,13 +805,13 @@
         }
       },
       {
-        "label": "Save Chinese text",
-        "code": "set f [open quest.txt w]\nputs $f \"第十三关\"\nputs $f \"已保存\"\nclose $f\nset f [open quest.txt r]\nputs [gets $f]\nputs [gets $f]\nclose $f",
-        "output": "第十三关\n已保存",
+        "label": "Save mission text",
+        "code": "set f [open quest.txt w]\nputs $f \"Level 13\"\nputs $f \"Saved\"\nclose $f\nset f [open quest.txt r]\nputs [gets $f]\nputs [gets $f]\nclose $f",
+        "output": "Level 13\nSaved",
         "props": {
           "lines": [
-            "第十三关",
-            "已保存"
+            "Level 13",
+            "Saved"
           ]
         }
       }

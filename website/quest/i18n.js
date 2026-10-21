@@ -1,18 +1,38 @@
 import {translateText} from './locale-core.js?v=1f251ee98b8c';
-let lang='zh',messages=null;
+let lang='en',messages=null;
 try{
   const qp = new URLSearchParams(window.location.search).get('lang');
-  if (qp === 'en' || qp === 'zh') {
-    lang = qp;
+  if (qp === 'zh') {
+    lang = 'zh';
+  } else if (qp === 'en') {
+    lang = 'en';
   } else {
-    lang = localStorage.getItem('tcl-quest-language') === 'en' ? 'en' : 'zh';
+    const stored = localStorage.getItem('tcl-quest-language-v2');
+    if (stored === 'zh') {
+      lang = 'zh';
+    } else {
+      lang = 'en';
+    }
   }
 }catch{}
 const textSources=new WeakMap(),attributeSources=new WeakMap();
 export const language=()=>lang;
 export const t=value=>lang==='en'?translateText(value,messages):String(value);
-export async function initLanguage(){const r=await fetch(new URL('locales/en.json',import.meta.url),{cache:'no-cache'});if(!r.ok)throw Error('Could not load English text');messages=await r.json();}
-export function setLanguage(value){lang=value==='en'?'en':'zh';try{localStorage.setItem('tcl-quest-language',lang);}catch{}document.documentElement.lang=lang==='en'?'en':'zh-CN';document.title=lang==='en'?'Tcl Quest · Chip Island Adventure':'Tcl Quest · 芯片岛冒险';document.querySelector('meta[name=description]')?.setAttribute('content',lang==='en'?'Learn Tcl through 20 illustrated missions, execution-driven stories, English videos and a real browser Tcl lab.':'在芯片岛闯关学 Tcl：20 个图文任务、执行驱动剧情、演示视频和真正的浏览器 Tcl 实验室。');}
+export async function initLanguage(){
+  const r=await fetch(new URL('locales/en.json',import.meta.url),{cache:'no-cache'});
+  if(!r.ok)throw Error('Could not load English text');
+  messages=await r.json();
+}
+export function setLanguage(value){
+  lang=value==='zh'?'zh':'en';
+  try{
+    localStorage.setItem('tcl-quest-language-v2',lang);
+    localStorage.removeItem('tcl-quest-language');
+  }catch{}
+  document.documentElement.lang=lang==='zh'?'zh-CN':'en';
+  document.title=lang==='zh'?'Tcl Quest · 芯片岛冒险 | Tcl for VLSI Automation Lab':'Tcl Quest (Chip Island RPG) - Tcl for VLSI Automation Lab';
+  document.querySelector('meta[name=description]')?.setAttribute('content',lang==='zh'?'在芯片岛闯关学 Tcl：20 个图文任务、执行驱动剧情、演示视频和真正的浏览器 Tcl 实验室。':'Learn Tcl through 20 illustrated missions, execution-driven stories, English videos and a real browser Tcl lab.');
+}
 const protectedText='pre,code,textarea,script,style,[data-verbatim],.line-numbers';
 function textNode(node){
  if(node.parentElement?.closest(protectedText))return;

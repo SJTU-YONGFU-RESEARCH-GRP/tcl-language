@@ -325,10 +325,7 @@ def write_workshop_pages() -> None:
 A native Tcl 8.6.6 execution environment compiled to WebAssembly, featuring 18 guided exercises (54 hands-on tasks), 6 industrial data projects, and visual memory/variable inspector panels.
 
 <div class="tcl-cta-group" style="margin: 20px 0 28px;">
-  <a href="../wasm-lab/" target="_blank" class="tcl-btn tcl-btn-primary" style="font-size: 15px; padding: 12px 24px;">
-    🚀 Launch Fullscreen Workshop ↗
-  </a>
-  <a href="../exercises/" class="tcl-btn tcl-btn-secondary" style="font-size: 15px; padding: 12px 24px;">
+  <a href="../exercises/" class="tcl-btn tcl-btn-primary" style="font-size: 15px; padding: 12px 24px;">
     🎯 Explore 18 Exercises & Solutions →
   </a>
   <a href="../capstone/" class="tcl-btn tcl-btn-secondary" style="font-size: 15px; padding: 12px 24px;">
@@ -378,12 +375,12 @@ A native Tcl 8.6.6 execution environment compiled to WebAssembly, featuring 18 g
 
 ## 💻 Live In-Browser Laboratory
 
-Interact directly with the embedded runner below, or launch fullscreen in a new tab:
+Interact directly with the embedded runner below:
 
 <div style="margin-top: 20px; border: 1px solid var(--tcl-border); border-radius: 12px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.06);">
   <div style="background: var(--tcl-surface); padding: 12px 18px; border-bottom: 1px solid var(--tcl-border); display: flex; justify-content: space-between; align-items: center; font-size: 13px;">
     <span><strong>Tcl WASM Interactive Lab</strong> · Native WebAssembly Tcl 8.6 Runtime</span>
-    <a href="../wasm-lab/" target="_blank" style="color: var(--tcl-blue-600); font-weight: 600; text-decoration: none;">Launch Fullscreen ↗</a>
+    <span class="tcl-badge green" style="font-size: 11px; padding: 2px 8px;">⚡ Live Sandbox</span>
   </div>
   <iframe src="../wasm-lab/" style="width: 100%; height: 880px; border: 0;" title="Tcl WASM Workshop"></iframe>
 </div>
@@ -402,10 +399,7 @@ Interact directly with the embedded runner below, or launch fullscreen in a new 
 基于 WebAssembly 技术构建的原生 Tcl 8.6.6 浏览器运行环境，集成 18 节阶梯课程（54 项实战任务）、6 个工业数据项目与内存可视化调试面板。
 
 <div class="tcl-cta-group" style="margin: 20px 0 28px;">
-  <a href="../wasm-lab/" target="_blank" class="tcl-btn tcl-btn-primary" style="font-size: 15px; padding: 12px 24px;">
-    🚀 在新标签页全屏打开工作坊 (Launch Fullscreen Workshop) ↗
-  </a>
-  <a href="../exercises/" class="tcl-btn tcl-btn-secondary" style="font-size: 15px; padding: 12px 24px;">
+  <a href="../exercises/" class="tcl-btn tcl-btn-primary" style="font-size: 15px; padding: 12px 24px;">
     🎯 浏览 18 项练习与标准答案 →
   </a>
   <a href="../capstone/" class="tcl-btn tcl-btn-secondary" style="font-size: 15px; padding: 12px 24px;">
@@ -471,7 +465,6 @@ Interact directly with the embedded runner below, or launch fullscreen in a new 
         .replace("# 🚀 Interactive Tcl Workshop (WASM)", "# 🚀 Bengkel Interaktif Tcl (WASM Lab)")
         .replace("A native Tcl 8.6.6 execution environment compiled to WebAssembly, featuring 18 guided exercises (54 hands-on tasks), 6 industrial data projects, and visual memory/variable inspector panels.",
                  "Persekitaran pelaksanaan Tcl 8.6.6 asli yang dikompilasi ke WebAssembly, menampilkan 18 latihan berpandu (54 tugasan amali), 6 projek data industri, dan panel visual pemeriksa pembolehubah/memori.")
-        .replace("🚀 Launch Fullscreen Workshop ↗", "🚀 Buka Bengkel Skrin Penuh ↗")
         .replace("🎯 Explore 18 Exercises & Solutions →", "🎯 Terokai 18 Latihan & Penyelesaian →")
         .replace("🏆 Explore 6 Capstone Projects →", "🏆 Terokai 6 Projek Capstone →")
         .replace("## 🛠️ Key Architectural Highlights", "## 🛠️ Sorotan Seni Bina Utama")
@@ -482,9 +475,8 @@ Interact directly with the embedded runner below, or launch fullscreen in a new 
         .replace("Visual Variable & Data Inspector", "Pemeriksa Visual Pembolehubah & Data")
         .replace("Industrial Datasets", "Set Data Industri Tulen")
         .replace("## 💻 Live In-Browser Laboratory", "## 💻 Makmal Langsung Dalam Pelayar")
-        .replace("Interact directly with the embedded runner below, or launch fullscreen in a new tab:",
-                 "Berinteraksi secara langsung dengan pelari terbenam di bawah, atau lancarkan skrin penuh dalam tab baharu:")
-        .replace("Launch Fullscreen ↗", "Buka Skrin Penuh ↗")
+        .replace("Interact directly with the embedded runner below:",
+                 "Berinteraksi secara langsung dengan pelari terbenam di bawah:")
     )
     (DOCS / "workshop.ms.md").write_text(ms_content, encoding="utf-8")
 
@@ -492,7 +484,6 @@ Interact directly with the embedded runner below, or launch fullscreen in a new 
         .replace("# 🚀 Interactive Tcl Workshop (WASM)", "# 🚀 Atelier Interactif Tcl (WASM Lab)")
         .replace("A native Tcl 8.6.6 execution environment compiled to WebAssembly, featuring 18 guided exercises (54 hands-on tasks), 6 industrial data projects, and visual memory/variable inspector panels.",
                  "Un environnement d'exécution natif Tcl 8.6.6 compilé en WebAssembly, comprenant 18 exercices guidés (54 tâches pratiques), 6 projets de données industrielles et des panneaux d'inspection visuelle de la mémoire et des variables.")
-        .replace("🚀 Launch Fullscreen Workshop ↗", "🚀 Lancer l'Atelier Plein Écran ↗")
         .replace("🎯 Explore 18 Exercises & Solutions →", "🎯 Découvrir les 18 Exercices & Solutions →")
         .replace("🏆 Explore 6 Capstone Projects →", "🏆 Explorer les 6 Projets Capstone →")
         .replace("## 🛠️ Key Architectural Highlights", "## 🛠️ Points Forts de l'Architecture")
@@ -503,9 +494,8 @@ Interact directly with the embedded runner below, or launch fullscreen in a new 
         .replace("Visual Variable & Data Inspector", "Inspecteur Visuel de Variables & Données")
         .replace("Industrial Datasets", "Jeux de Données Industriels Authentiques")
         .replace("## 💻 Live In-Browser Laboratory", "## 💻 Laboratoire Direct dans le Navigateur")
-        .replace("Interact directly with the embedded runner below, or launch fullscreen in a new tab:",
-                 "Interagissez directement avec l'exécuteur intégré ci-dessous, ou lancez-le en plein écran dans un nouvel onglet :")
-        .replace("Launch Fullscreen ↗", "Lancer Plein Écran ↗")
+        .replace("Interact directly with the embedded runner below:",
+                 "Interagissez directement avec l'exécuteur intégré ci-dessous :")
     )
     (DOCS / "workshop.fr.md").write_text(fr_content, encoding="utf-8")
 
@@ -982,14 +972,25 @@ def write_quest_pages() -> None:
 
 An immersive gamified Tcl adventure powered by an execution-driven RPG engine. Your code directly drives real-time character animations, visual level progression, interactive dialogues, and IC boss battles!
 
-<div class="tcl-cta-group" style="margin: 20px 0 28px;">
-  <a href="../quest-lab/index.html" target="_blank" class="tcl-btn tcl-btn-primary" style="font-size: 15px; padding: 12px 24px;">
-    🚀 Launch Fullscreen Quest (Chip Island) ↗
-  </a>
-  <a href="../playground/" class="tcl-btn tcl-btn-secondary" style="font-size: 15px; padding: 12px 24px;">
+<div style="margin: 20px 0 28px; border: 1px solid var(--tcl-border); border-radius: 12px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.06);">
+  <div style="background: var(--tcl-surface); padding: 10px 18px; border-bottom: 1px solid var(--tcl-border); display: flex; justify-content: space-between; align-items: center; font-size: 13px; flex-wrap: wrap; gap: 10px;">
+    <div style="display: flex; align-items: center; gap: 10px;">
+      <span><strong>Tcl Quest Sandbox</strong> · Native WebAssembly Tcl 8.6 Runtime</span>
+      <span class="tcl-badge green" style="font-size: 11px; padding: 2px 8px;">⚡ Live Sandbox</span>
+    </div>
+    <div style="display: flex; align-items: center; gap: 8px;">
+      <button onclick="document.getElementById('tcl-quest-iframe').src='../quest-lab/index.html?lang=en&embed=1'" class="tcl-btn tcl-btn-secondary" style="padding: 4px 10px; font-size: 11px;">English</button>
+      <button onclick="document.getElementById('tcl-quest-iframe').src='../quest-lab/index.html?lang=zh&embed=1'" class="tcl-btn tcl-btn-secondary" style="padding: 4px 10px; font-size: 11px;">中文</button>
+    </div>
+  </div>
+  <iframe id="tcl-quest-iframe" src="../quest-lab/index.html?lang=en&embed=1" style="width: 100%; height: 940px; border: 0;" title="Tcl Quest Adventure"></iframe>
+</div>
+
+<div class="tcl-cta-group" style="margin: 0 0 28px;">
+  <a href="../playground/" class="tcl-btn tcl-btn-secondary" style="font-size: 15px; padding: 10px 22px;">
     ⚡ Web Playground →
   </a>
-  <a href="../exercises/" class="tcl-btn tcl-btn-secondary" style="font-size: 15px; padding: 12px 24px;">
+  <a href="../exercises/" class="tcl-btn tcl-btn-secondary" style="font-size: 15px; padding: 10px 22px;">
     🎯 18 Hands-on Exercises →
   </a>
 </div>
@@ -1052,25 +1053,6 @@ An immersive gamified Tcl adventure powered by an execution-driven RPG engine. Y
   </div>
 </div>
 
----
-
-## 🕹️ Embedded Live Adventure
-
-<div style="margin-top: 20px; border: 1px solid var(--tcl-border); border-radius: 12px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.06);">
-  <div style="background: var(--tcl-surface); padding: 12px 18px; border-bottom: 1px solid var(--tcl-border); display: flex; justify-content: space-between; align-items: center; font-size: 13px; flex-wrap: wrap; gap: 10px;">
-    <div style="display: flex; align-items: center; gap: 10px;">
-      <span><strong>Tcl Quest Sandbox</strong> · Native WebAssembly Tcl 8.6 Runtime</span>
-      <span class="tcl-badge green" style="font-size: 11px; padding: 2px 8px;">⚡ Live Sandbox</span>
-    </div>
-    <div style="display: flex; align-items: center; gap: 8px;">
-      <button onclick="document.getElementById('tcl-quest-iframe').src='../quest-lab/index.html?lang=en'" class="tcl-btn tcl-btn-secondary" style="padding: 4px 10px; font-size: 11px;">English</button>
-      <button onclick="document.getElementById('tcl-quest-iframe').src='../quest-lab/index.html?lang=zh'" class="tcl-btn tcl-btn-secondary" style="padding: 4px 10px; font-size: 11px;">中文</button>
-      <a href="../quest-lab/index.html" target="_blank" style="color: var(--tcl-blue-600); font-weight: 600; text-decoration: none; margin-left: 6px;">Launch Fullscreen ↗</a>
-    </div>
-  </div>
-  <iframe id="tcl-quest-iframe" src="../quest-lab/index.html?lang=en" style="width: 100%; height: 860px; border: 0;" title="Tcl Quest Adventure"></iframe>
-</div>
-
 <script>
 (function() {{
   function syncQuestTheme() {{
@@ -1095,7 +1077,14 @@ An immersive gamified Tcl adventure powered by an execution-driven RPG engine. Y
         .replace("Interactive Story Mode", "沉浸式闯关模式")
         .replace("An immersive gamified Tcl adventure powered by an execution-driven RPG engine. Your code directly drives real-time character animations, visual level progression, interactive dialogues, and IC boss battles!",
                  "零基础沉浸式游戏化闯关冒险：**真实 Tcl 代码执行直接驱动角色剧情与动画**。用户在浏览器中编写并运行的每行代码、每个变量变化，都会实时触发角色走动、对话推进、Boss 挑战与关卡结算！")
-        .replace("🚀 Launch Fullscreen Quest (Chip Island) ↗", "🚀 在新标签页全屏开启芯片岛冒险 ↗")
+        .replace("<span><strong>Tcl Quest Sandbox</strong> · Native WebAssembly Tcl 8.6 Runtime</span>",
+                 "<span><strong>芯片岛闯关沙箱</strong> · WebAssembly Tcl 8.6 原生沙箱</span>")
+        .replace("⚡ Live Sandbox", "⚡ 浏览器即开即测")
+        .replace("src=\"../quest-lab/index.html?lang=en\"", "src=\"../../quest-lab/index.html?lang=zh\"")
+        .replace("document.getElementById('tcl-quest-iframe').src='../quest-lab/index.html?lang=en'",
+                 "document.getElementById('tcl-quest-iframe').src='../../quest-lab/index.html?lang=en'")
+        .replace("document.getElementById('tcl-quest-iframe').src='../quest-lab/index.html?lang=zh'",
+                 "document.getElementById('tcl-quest-iframe').src='../../quest-lab/index.html?lang=zh'")
         .replace("⚡ Web Playground →", "⚡ 打开在线演练台 (Playground) →")
         .replace("🎯 18 Hands-on Exercises →", "🎯 浏览 18 项实战练习 →")
         .replace("## 🧭 Curriculum Alignment & Fast-Track Bridge", "## 🧭 课程体系对接与防重复练习指南 (Fast-Track Bridge)")
@@ -1132,17 +1121,6 @@ An immersive gamified Tcl adventure powered by an execution-driven RPG engine. Y
         .replace("World 04: Chip City (Levels 16–20)", "第四世界 · 芯片城 (第 16–20 关)")
         .replace("Confront the final Boss! Build an automated digital IC static timing analysis (STA) report parser.",
                  "迎战终极四大 Boss！亲手搭建数字芯片静态时序分析 (STA) 违规报表自动化分析器。")
-        .replace("## 🕹️ Embedded Live Adventure", "## 🕹️ 嵌入式实时冒险沙箱 (Embedded Sandbox)")
-        .replace("<span><strong>Tcl Quest Sandbox</strong> · Native WebAssembly Tcl 8.6 Runtime</span>",
-                 "<span><strong>芯片岛闯关沙箱</strong> · WebAssembly Tcl 8.6 原生沙箱</span>")
-        .replace("⚡ Live Sandbox", "⚡ 浏览器即开即测")
-        .replace("src=\"../quest-lab/index.html?lang=en\"", "src=\"../../quest-lab/index.html?lang=zh\"")
-        .replace("document.getElementById('tcl-quest-iframe').src='../quest-lab/index.html?lang=en'",
-                 "document.getElementById('tcl-quest-iframe').src='../../quest-lab/index.html?lang=en'")
-        .replace("document.getElementById('tcl-quest-iframe').src='../quest-lab/index.html?lang=zh'",
-                 "document.getElementById('tcl-quest-iframe').src='../../quest-lab/index.html?lang=zh'")
-        .replace("Launch Fullscreen ↗", "新标签页全屏打开 ↗")
-        .replace("../quest-lab/", "../../quest-lab/")
     )
     (DOCS / "quest.zh.md").write_text(zh_content, encoding="utf-8")
 
@@ -1154,17 +1132,14 @@ An immersive gamified Tcl adventure powered by an execution-driven RPG engine. Y
         .replace("Interactive Story Mode", "Mod Cerita Interaktif")
         .replace("An immersive gamified Tcl adventure powered by an execution-driven RPG engine. Your code directly drives real-time character animations, visual level progression, interactive dialogues, and IC boss battles!",
                  "Pengembaraan Tcl gamifikasi mendalam yang dikuasakan oleh enjin RPG berpacukan pelaksanaan. Kod anda secara langsung menggerakkan animasi watak masa nyata, kemajuan tahap visual, dialog interaktif, dan pertempuran boss!")
-        .replace("🚀 Launch Fullscreen Quest (Chip Island) ↗", "🚀 Buka Tcl Quest Skrin Penuh ↗")
         .replace("⚡ Web Playground →", "⚡ Taman Kod Web →")
         .replace("🎯 18 Hands-on Exercises →", "🎯 18 Latihan Amali →")
-        .replace("## 🧭 Curriculum Alignment & Fast-Track Bridge", "## 🧭 Penjajaran Kurikulum & Jambatan Laluan Pantas (Fast-Track Bridge)")
-        .replace("Launch Fullscreen ↗", "Buka Skrin Penuh ↗")
         .replace("src=\"../quest-lab/index.html?lang=en\"", "src=\"../../quest-lab/index.html?lang=en\"")
         .replace("document.getElementById('tcl-quest-iframe').src='../quest-lab/index.html?lang=en'",
                  "document.getElementById('tcl-quest-iframe').src='../../quest-lab/index.html?lang=en'")
         .replace("document.getElementById('tcl-quest-iframe').src='../quest-lab/index.html?lang=zh'",
                  "document.getElementById('tcl-quest-iframe').src='../../quest-lab/index.html?lang=zh'")
-        .replace("../quest-lab/", "../../quest-lab/")
+        .replace("## 🧭 Curriculum Alignment & Fast-Track Bridge", "## 🧭 Penjajaran Kurikulum & Jambatan Laluan Pantas (Fast-Track Bridge)")
     )
     (DOCS / "quest.ms.md").write_text(ms_content, encoding="utf-8")
 
@@ -1176,17 +1151,14 @@ An immersive gamified Tcl adventure powered by an execution-driven RPG engine. Y
         .replace("Interactive Story Mode", "Mode Histoire Interactif")
         .replace("An immersive gamified Tcl adventure powered by an execution-driven RPG engine. Your code directly drives real-time character animations, visual level progression, interactive dialogues, and IC boss battles!",
                  "Une aventure Tcl ludifiée immersive pilotée par un moteur RPG d'exécution. Votre code pilote directement les animations des personnages, la progression des niveaux, les dialogues interactifs et les combats de boss!")
-        .replace("🚀 Launch Fullscreen Quest (Chip Island) ↗", "🚀 Lancer Tcl Quest Plein Écran ↗")
         .replace("⚡ Web Playground →", "⚡ Bac à Sable Web →")
         .replace("🎯 18 Hands-on Exercises →", "🎯 18 Exercices Pratiques →")
-        .replace("## 🧭 Curriculum Alignment & Fast-Track Bridge", "## 🧭 Alignement du Curriculum & Passerelle Accélérée (Fast-Track Bridge)")
-        .replace("Launch Fullscreen ↗", "Lancer Plein Écran ↗")
         .replace("src=\"../quest-lab/index.html?lang=en\"", "src=\"../../quest-lab/index.html?lang=en\"")
         .replace("document.getElementById('tcl-quest-iframe').src='../quest-lab/index.html?lang=en'",
                  "document.getElementById('tcl-quest-iframe').src='../../quest-lab/index.html?lang=en'")
         .replace("document.getElementById('tcl-quest-iframe').src='../quest-lab/index.html?lang=zh'",
                  "document.getElementById('tcl-quest-iframe').src='../../quest-lab/index.html?lang=zh'")
-        .replace("../quest-lab/", "../../quest-lab/")
+        .replace("## 🧭 Curriculum Alignment & Fast-Track Bridge", "## 🧭 Alignement du Curriculum & Passerelle Accélérée (Fast-Track Bridge)")
     )
     (DOCS / "quest.fr.md").write_text(fr_content, encoding="utf-8")
 
@@ -1229,7 +1201,7 @@ Test, experiment, and run Tcl scripts directly in your browser without local ins
     <pre id="tcl-output" style="background: #020617; color: #34d399; border: 1px solid #1e293b; border-radius: 8px; padding: 14px; min-height: 90px; max-height: 250px; overflow-y: auto; font-family: 'JetBrains Mono', monospace; font-size: 13px; margin: 0; white-space: pre-wrap; line-height: 1.5;"></pre>
   </div>
   <div style="margin-top: 12px; font-size: 12.5px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px;">
-    <a href="../wasm-lab/index.html" target="_blank" style="color: var(--tcl-blue-600); font-weight: 600; text-decoration: none;">🚀 Launch Fullscreen Tcl WASM Workshop (18 Units & Virtual File Inspector) ↗</a>
+    <a href="../exercises/" style="color: var(--tcl-blue-600); font-weight: 600; text-decoration: none;">🎯 Explore 18 Graded Exercises & Solutions →</a>
     <span style="color: var(--md-default-fg-color--lighter);">Hotkeys: Ctrl+Enter to run</span>
   </div>
 </div>
