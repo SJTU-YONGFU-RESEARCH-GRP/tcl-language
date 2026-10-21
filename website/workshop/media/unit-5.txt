@@ -14,7 +14,7 @@ proc fee {quantity price} {
 }
 puts [fee 3 12]
 puts [fee 2 8]
-真实 Tcl 9.0.4 标准输出：
+真实 Tcl 8.6.15 标准输出：
 36
 16
 
@@ -26,7 +26,7 @@ proc fee {quantity price} {
 }
 puts [fee 3 12]
 puts [fee 2 8]
-真实 Tcl 9.0.4 标准输出：
+真实 Tcl 8.6.15 标准输出：
 36
 16
 
@@ -38,7 +38,7 @@ proc fee {quantity price} {
 }
 puts [fee 3 12]
 puts [fee 2 8]
-真实 Tcl 9.0.4 标准输出：
+真实 Tcl 8.6.15 标准输出：
 36
 16
 
@@ -50,7 +50,7 @@ proc fee {quantity price} {
 }
 puts [fee 0 12]
 puts [fee 2 8]
-真实 Tcl 9.0.4 标准输出：
+真实 Tcl 8.6.15 标准输出：
 0
 16
 
@@ -62,7 +62,7 @@ proc fee {quantity price} {
 }
 puts [fee 3 12]
 puts [fee 5 7]
-真实 Tcl 9.0.4 标准输出：
+真实 Tcl 8.6.15 标准输出：
 36
 35
 
@@ -74,7 +74,7 @@ proc deliveredFee {quantity price {delivery 0}} {
 }
 puts [format "自提：%.2f 元" [deliveredFee 2 9.5]]
 puts [format "配送：%.2f 元" [deliveredFee 2 9.5 4]]
-真实 Tcl 9.0.4 标准输出：
+真实 Tcl 8.6.15 标准输出：
 自提：19.00 元
 配送：23.00 元
 
@@ -86,7 +86,7 @@ proc deliveredFee {quantity price {delivery 0}} {
 }
 puts [format "自提：%.2f 元" [deliveredFee 2 9.5]]
 puts [format "配送：%.2f 元" [deliveredFee 2 9.5 4]]
-真实 Tcl 9.0.4 标准输出：
+真实 Tcl 8.6.15 标准输出：
 自提：19.00 元
 配送：23.00 元
 
@@ -101,7 +101,7 @@ proc discountFee {price} {
 set result [discountFee 20]
 puts [format "返回值：%.2f" $result]
 puts "外部 subtotal：$subtotal"
-真实 Tcl 9.0.4 标准输出：
+真实 Tcl 8.6.15 标准输出：
 返回值：18.00
 外部 subtotal：999
 
@@ -116,7 +116,7 @@ proc discountFee {price} {
 set result [discountFee 20]
 puts [format "返回值：%.2f" $result]
 puts "外部 subtotal：$subtotal"
-真实 Tcl 9.0.4 标准输出：
+真实 Tcl 8.6.15 标准输出：
 返回值：18.00
 外部 subtotal：999
 
@@ -131,7 +131,7 @@ namespace eval food {
 }
 puts "交通：[::travel::fee 3]"
 puts "餐食：[::food::fee 3]"
-真实 Tcl 9.0.4 标准输出：
+真实 Tcl 8.6.15 标准输出：
 交通：36
 餐食：54
 
@@ -146,7 +146,7 @@ namespace eval food {
 }
 puts "交通：[::travel::fee 4]"
 puts "餐食：[::food::fee 4]"
-真实 Tcl 9.0.4 标准输出：
+真实 Tcl 8.6.15 标准输出：
 交通：48
 餐食：72
 
@@ -162,6 +162,6 @@ namespace eval food {
 }
 puts "交通：[::travel::fee 3]"
 puts "餐食：[::food::fee 3]"
-真实 Tcl 9.0.4 标准输出：
+真实 Tcl 8.6.15 标准输出：
 交通：36
 餐食：54

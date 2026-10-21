@@ -15,7 +15,7 @@ foreach delay {8.2 10.8} {
     set slack [expr {$period - $delay}]
     puts [format "延迟 %.2f ns → slack %.2f ns" $delay $slack]
 }
-真实 Tcl 9.0.4 标准输出：
+真实 Tcl 8.6.15 标准输出：
 延迟 8.20 ns → slack 1.80 ns
 延迟 10.80 ns → slack -0.80 ns
 
@@ -27,7 +27,7 @@ foreach delay {8.2 10.8} {
     set slack [expr {$period - $delay}]
     puts [format "延迟 %.2f ns → slack %.2f ns" $delay $slack]
 }
-真实 Tcl 9.0.4 标准输出：
+真实 Tcl 8.6.15 标准输出：
 延迟 8.20 ns → slack 1.80 ns
 延迟 10.80 ns → slack -0.80 ns
 
@@ -39,7 +39,7 @@ foreach delay {10.0 10.8} {
     set slack [expr {$period - $delay}]
     puts [format "延迟 %.2f ns → slack %.2f ns" $delay $slack]
 }
-真实 Tcl 9.0.4 标准输出：
+真实 Tcl 8.6.15 标准输出：
 延迟 10.00 ns → slack 0.00 ns
 延迟 10.80 ns → slack -0.80 ns
 
@@ -51,7 +51,7 @@ foreach delay {8.2 10.8} {
     set slack [expr {$period - $delay}]
     puts [format "延迟 %.2f ns → slack %.2f ns" $delay $slack]
 }
-真实 Tcl 9.0.4 标准输出：
+真实 Tcl 8.6.15 标准输出：
 延迟 8.20 ns → slack 3.80 ns
 延迟 10.80 ns → slack 1.20 ns
 
@@ -65,7 +65,7 @@ if {![regexp {^PATH\s+(\S+)\s+DELAY\s+([0-9]+(?:\.[0-9]+)?)$} $line -> path dela
 set record [dict create path $path delay $delay slack [expr {10.0 - $delay}]]
 puts "路径：[dict get $record path]"
 puts [format "slack：%.2f ns" [dict get $record slack]]
-真实 Tcl 9.0.4 标准输出：
+真实 Tcl 8.6.15 标准输出：
 路径：data_a
 slack：-0.80 ns
 
@@ -79,7 +79,7 @@ if {![regexp {^PATH\s+(\S+)\s+DELAY\s+([0-9]+(?:\.[0-9]+)?)$} $line -> path dela
 set record [dict create path $path delay $delay slack [expr {10.0 - $delay}]]
 puts "路径：[dict get $record path]"
 puts [format "slack：%.2f ns" [dict get $record slack]]
-真实 Tcl 9.0.4 标准输出：
+真实 Tcl 8.6.15 标准输出：
 路径：data_a
 slack：-0.80 ns
 
@@ -96,7 +96,7 @@ foreach pair [lsort -real -index 0 $pairs] {
     lassign $pair slack path
     puts [format "%s | %.2f ns" $path $slack]
 }
-真实 Tcl 9.0.4 标准输出：
+真实 Tcl 8.6.15 标准输出：
 data_c | -1.50 ns
 data_b | -0.80 ns
 
@@ -113,7 +113,7 @@ foreach pair [lsort -real -index 0 $pairs] {
     lassign $pair slack path
     puts [format "%s | %.2f ns" $path $slack]
 }
-真实 Tcl 9.0.4 标准输出：
+真实 Tcl 8.6.15 标准输出：
 data_c | -1.50 ns
 data_b | -0.80 ns
 
@@ -130,7 +130,7 @@ foreach pair [lsort -real -index 0 $pairs] {
     lassign $pair slack path
     puts [format "%s | %.2f ns" $path $slack]
 }
-真实 Tcl 9.0.4 标准输出：
+真实 Tcl 8.6.15 标准输出：
 （无标准输出）
 
 [00:00:45.000–00:00:50.000] 组合多份文件
@@ -149,7 +149,7 @@ close $output
 set input [open analysis.txt r]
 puts [string trim [read $input]]
 close $input
-真实 Tcl 9.0.4 标准输出：
+真实 Tcl 8.6.15 标准输出：
 教学分析摘要（全部输入已处理）
 路径：4
 负 slack：2
@@ -224,7 +224,7 @@ set summary [summarizeRecords [dict get $result records]]
 puts "部分结果：成功 [dict get $result loaded] 份，失败 [llength [dict get $result issues]] 份"
 puts "有效路径：[dict get $summary count]"
 foreach issue [dict get $result issues] { puts [dict get $issue message] }
-真实 Tcl 9.0.4 标准输出：
+真实 Tcl 8.6.15 标准输出：
 部分结果：成功 1 份，失败 1 份
 有效路径：2
 bad.rpt:2：教学路径格式错误
@@ -305,7 +305,7 @@ close $output
 set input [open analysis.txt r]
 puts [string trim [read $input]]
 close $input
-真实 Tcl 9.0.4 标准输出：
+真实 Tcl 8.6.15 标准输出：
 教学分析摘要（全部输入已处理）
 路径：4
 负 slack：2

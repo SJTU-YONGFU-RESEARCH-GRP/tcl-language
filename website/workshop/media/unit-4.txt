@@ -14,7 +14,7 @@ set ch [open readings.txt r]
 set text [read $ch]
 close $ch
 puts [string trim $text]
-真实 Tcl 9.0.4 标准输出：
+真实 Tcl 8.6.15 标准输出：
 1.2
 1.4
 1.6
@@ -30,7 +30,7 @@ set ch [open readings.txt r]
 set text [read $ch]
 close $ch
 puts [string trim $text]
-真实 Tcl 9.0.4 标准输出：
+真实 Tcl 8.6.15 标准输出：
 1.2
 1.4
 1.6
@@ -47,7 +47,7 @@ set ch [open readings.txt r]
 set text [read $ch]
 close $ch
 puts [string trim $text]
-真实 Tcl 9.0.4 标准输出：
+真实 Tcl 8.6.15 标准输出：
 1.2
 1.4
 1.6
@@ -68,7 +68,7 @@ while {[gets $ch line] >= 0} {
     puts "$count：[string length $line] 个字符"
 }
 close $ch
-真实 Tcl 9.0.4 标准输出：
+真实 Tcl 8.6.15 标准输出：
 1：2 个字符
 2：0 个字符
 3：2 个字符
@@ -88,7 +88,7 @@ while {[gets $ch line] >= 0} {
     puts "$count：[string length $line] 个字符"
 }
 close $ch
-真实 Tcl 9.0.4 标准输出：
+真实 Tcl 8.6.15 标准输出：
 1：2 个字符
 2：0 个字符
 3：2 个字符
@@ -104,7 +104,7 @@ open missing.txt 失败，解释器返回原因；流程没有继续读取。
 set ch [open missing.txt r]
 puts [read $ch]
 close $ch
-真实 Tcl 9.0.4 标准输出：
+真实 Tcl 8.6.15 标准输出：
 （无标准输出）
 真实解释器错误：
 couldn't open "missing.txt": no such file or directory
@@ -116,7 +116,7 @@ if {[catch {open missing.txt r} message]} {
     puts "无法读取文件"
     puts $message
 }
-真实 Tcl 9.0.4 标准输出：
+真实 Tcl 8.6.15 标准输出：
 无法读取文件
 couldn't open "missing.txt": no such file or directory
 
@@ -128,7 +128,7 @@ if {[catch {open missing.txt r} message]} {
     puts "无法读取文件"
     puts $message
 }
-真实 Tcl 9.0.4 标准输出：
+真实 Tcl 8.6.15 标准输出：
 无法读取文件
 couldn't open "missing.txt": no such file or directory
 
@@ -149,7 +149,7 @@ close $out
 set check [open summary.txt r]
 puts [string trim [read $check]]
 close $check
-真实 Tcl 9.0.4 标准输出：
+真实 Tcl 8.6.15 标准输出：
 数量：3
 平均值：1.40
 输入教学文件 readings.txt：
@@ -174,7 +174,7 @@ close $out
 set check [open summary.txt r]
 puts [string trim [read $check]]
 close $check
-真实 Tcl 9.0.4 标准输出：
+真实 Tcl 8.6.15 标准输出：
 数量：3
 平均值：1.40
 输入教学文件 readings.txt：
@@ -199,7 +199,7 @@ close $out
 set check [open summary.txt r]
 puts [string trim [read $check]]
 close $check
-真实 Tcl 9.0.4 标准输出：
+真实 Tcl 8.6.15 标准输出：
 数量：3
 平均值：4.00
 输入教学文件 readings.txt：
@@ -225,7 +225,7 @@ close $out
 set check [open summary.txt r]
 puts [string trim [read $check]]
 close $check
-真实 Tcl 9.0.4 标准输出：
+真实 Tcl 8.6.15 标准输出：
 数量：3
 平均值：1.40
 输入教学文件 readings.txt：
