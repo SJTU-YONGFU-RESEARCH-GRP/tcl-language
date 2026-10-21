@@ -592,6 +592,8 @@ function applyTheme(theme){
  if (lblToDark && lblToLight) {
   lblToDark.hidden = isDark;
   lblToLight.hidden = !isDark;
+  lblToDark.style.display = isDark ? 'none' : 'inline-flex';
+  lblToLight.style.display = isDark ? 'inline-flex' : 'none';
  }
 
  const paletteObj = {

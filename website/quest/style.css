@@ -205,26 +205,17 @@ body.is-embedded .md-main__inner,
   align-items: center;
 }
 .md-header__topic {
-  display: flex;
-  align-items: center;
-  max-width: 100%;
-  white-space: nowrap;
-  font-size: .9rem;
-  font-weight: 700;
+  display: block !important;
+  position: static !important;
+  font-size: .9rem !important;
+  font-weight: 700 !important;
   color: #ffffff !important;
-  height: 2.4rem;
-  line-height: 2.4rem;
+  height: 2.4rem !important;
+  line-height: 2.4rem !important;
+  white-space: nowrap !important;
 }
 .md-header__topic + .md-header__topic {
-  display: none;
-  font-weight: 400;
-  opacity: .7;
-  margin-left: .5rem;
-}
-@media screen and (min-width: 60em) {
-  .md-header__topic + .md-header__topic {
-    display: inline-flex;
-  }
+  display: none !important;
 }
 
 /* Header Palette Switcher and Language Select */
@@ -235,6 +226,31 @@ body.is-embedded .md-main__inner,
 }
 .md-option {
   display: none;
+}
+[hidden] {
+  display: none !important;
+}
+#palette-label-to-light[hidden],
+#palette-label-to-dark[hidden] {
+  display: none !important;
+}
+[data-md-color-scheme="default"] #palette-label-to-dark,
+body:not([data-md-color-scheme="slate"]) #palette-label-to-dark,
+html:not([data-theme="dark"]) #palette-label-to-dark {
+  display: inline-flex !important;
+}
+[data-md-color-scheme="default"] #palette-label-to-light,
+body:not([data-md-color-scheme="slate"]) #palette-label-to-light,
+html:not([data-theme="dark"]) #palette-label-to-light {
+  display: none !important;
+}
+[data-md-color-scheme="slate"] #palette-label-to-dark,
+[data-theme="dark"] #palette-label-to-dark {
+  display: none !important;
+}
+[data-md-color-scheme="slate"] #palette-label-to-light,
+[data-theme="dark"] #palette-label-to-light {
+  display: inline-flex !important;
 }
 .md-select {
   position: relative;
@@ -285,11 +301,66 @@ body.is-embedded .md-main__inner,
   color: #38bdf8 !important;
 }
 
+/* Header Search Input Box (Matching Portal Main Page) */
+.md-search {
+  position: relative;
+  display: flex;
+  align-items: center;
+  margin-left: auto;
+  margin-right: .4rem;
+}
+.md-search__inner {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+.md-search__form {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+.md-search__input {
+  background-color: rgba(255, 255, 255, 0.12) !important;
+  border: 1px solid rgba(255, 255, 255, 0.18) !important;
+  border-radius: 9999px !important;
+  color: #ffffff !important;
+  font-size: .75rem !important;
+  height: 1.8rem !important;
+  line-height: 1.8rem !important;
+  padding: 0 1rem 0 2rem !important;
+  width: 9.5rem !important;
+  outline: none !important;
+  transition: width 0.2s ease, background-color 0.2s ease, border-color 0.2s ease;
+}
+.md-search__input::placeholder {
+  color: rgba(255, 255, 255, 0.65) !important;
+}
+.md-search__input:focus {
+  background-color: rgba(255, 255, 255, 0.22) !important;
+  border-color: #38bdf8 !important;
+  width: 13rem !important;
+}
+.md-search__icon {
+  position: absolute;
+  left: .55rem;
+  top: 50%;
+  transform: translateY(-50%);
+  color: rgba(255, 255, 255, 0.65);
+  pointer-events: none;
+  display: flex;
+  align-items: center;
+}
+.md-search__icon svg {
+  width: .95rem !important;
+  height: .95rem !important;
+  fill: currentcolor !important;
+}
+
 .md-header__source {
   display: block;
   max-width: 11.7rem;
   width: 11.7rem;
-  margin-left: 1rem;
+  margin-left: .6rem;
 }
 .md-source {
   backface-visibility: hidden;
@@ -324,6 +395,30 @@ body.is-embedded .md-main__inner,
   margin-left: .2rem;
   overflow: hidden;
   text-overflow: ellipsis;
+}
+.md-source__facts {
+  display: flex;
+  align-items: center;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  opacity: .75;
+  font-size: .62rem;
+  font-weight: 400;
+  gap: .4rem;
+}
+.md-source__fact {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+}
+.md-source__fact--stars::before {
+  content: "★";
+  font-size: .6rem;
+}
+.md-source__fact--forks::before {
+  content: "⑂";
+  font-size: .6rem;
 }
 
 /* --- 4. Exact Material Navigation Tabs Row (Matching MkDocs Material 1:1) --- */
