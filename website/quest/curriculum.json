@@ -3,28 +3,28 @@
     {
       "name": "新手村",
       "subtitle": "让代码开口说话",
-      "color": "#b1ed9d",
+      "color": "#10b981",
       "icon": "芽",
       "badge": "信标点亮者"
     },
     {
       "name": "逻辑森林",
       "subtitle": "学会选择与重复",
-      "color": "#9bd9ce",
+      "color": "#06b6d4",
       "icon": "林",
       "badge": "森林守护者"
     },
     {
       "name": "工具工坊",
       "subtitle": "把小技能变成工具",
-      "color": "#f5c77f",
+      "color": "#f59e0b",
       "icon": "匠",
       "badge": "工具锻造师"
     },
     {
       "name": "芯片城",
       "subtitle": "走进 VLSI 的世界",
-      "color": "#c2b8f5",
+      "color": "#8b5cf6",
       "icon": "芯",
       "badge": "时序侦探"
     }

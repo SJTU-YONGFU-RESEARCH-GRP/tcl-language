@@ -3,28 +3,28 @@
     {
       "name": "Starter Village",
       "subtitle": "Make your code speak",
-      "color": "#b1ed9d",
+      "color": "#10b981",
       "icon": "S",
       "badge": "Beacon Lighter"
     },
     {
       "name": "Logic Forest",
       "subtitle": "Choose and repeat",
-      "color": "#9bd9ce",
+      "color": "#06b6d4",
       "icon": "L",
       "badge": "Forest Guardian"
     },
     {
       "name": "Tool Workshop",
       "subtitle": "Turn small skills into tools",
-      "color": "#f5c77f",
+      "color": "#f59e0b",
       "icon": "T",
       "badge": "Tool Maker"
     },
     {
       "name": "Chip City",
       "subtitle": "Explore the VLSI setting",
-      "color": "#c2b8f5",
+      "color": "#8b5cf6",
       "icon": "C",
       "badge": "Timing Detective"
     }
